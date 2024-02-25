@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Travel]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Database [Travel]    Script Date: 2024/2/25 下午 03:15:23 ******/
 CREATE DATABASE [Travel]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,14 +84,14 @@ ALTER DATABASE [Travel] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_PO
 GO
 USE [Travel]
 GO
-/****** Object:  Table [dbo].[album]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[album]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[album](
 	[AlbumId] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [varchar](10) NOT NULL,
+	[UserId] [int] NOT NULL,
 	[AlbumName] [nvarchar](10) NOT NULL,
 	[CreateTime] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -100,14 +100,14 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[article]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[article]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[article](
 	[ArticleId] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [varchar](10) NOT NULL,
+	[UserId] [int] NOT NULL,
 	[Title] [nvarchar](20) NOT NULL,
 	[Subtitle] [nvarchar](20) NULL,
 	[PublishTime] [datetime] NULL,
@@ -124,7 +124,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LabelKeyword]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[LabelKeyword]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,7 +133,7 @@ CREATE TABLE [dbo].[LabelKeyword](
 	[Result] [varchar](400) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LabelManage]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[LabelManage]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -148,7 +148,7 @@ CREATE TABLE [dbo].[LabelManage](
 	[city] [char](10) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[messageBoard]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[messageBoard]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +156,7 @@ GO
 CREATE TABLE [dbo].[messageBoard](
 	[MessageId] [int] IDENTITY(1,1) NOT NULL,
 	[ArticleId] [int] NOT NULL,
-	[UserId] [varchar](10) NULL,
+	[UserId] [int] NULL,
 	[Contents] [nvarchar](2500) NULL,
 	[MessageTime] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -165,7 +165,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[photo]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[photo]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,12 +184,12 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[recommand]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[recommandBackup]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[recommand](
+CREATE TABLE [dbo].[recommandBackup](
 	[userId] [varchar](10) NOT NULL,
 	[gender] [varchar](4) NULL,
 	[age] [varchar](3) NULL,
@@ -197,14 +197,30 @@ CREATE TABLE [dbo].[recommand](
 	[interest1] [varchar](10) NULL,
 	[interest2] [varchar](10) NULL,
 	[interest3] [varchar](10) NULL,
-	[likeLocation] [varchar](10) NULL,
+	[likeLocation] [varchar](10) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[recommend]    Script Date: 2024/2/25 下午 03:15:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[recommend](
+	[LabelId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NULL,
+	[Gender] [varchar](6) NULL,
+	[Weather] [varchar](4) NULL,
+	[Interest] [varchar](6) NULL,
+	[Interest2] [varchar](6) NULL,
+	[Interest3] [varchar](6) NULL,
+	[Location] [varchar](6) NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[userId] ASC
+	[LabelId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Spots]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[Spots]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -247,7 +263,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tags]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[tags]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -263,13 +279,13 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[users]    Script Date: 2024/2/23 下午 10:38:33 ******/
+/****** Object:  Table [dbo].[users]    Script Date: 2024/2/25 下午 03:15:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[users](
-	[UserId] [varchar](10) NOT NULL,
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
 	[UserName] [nvarchar](25) NOT NULL,
 	[Phone] [char](10) NULL,
 	[Mail] [varchar](254) NULL,
