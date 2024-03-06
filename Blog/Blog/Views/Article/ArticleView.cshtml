@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "文章編輯";
+}
+@model Article
+@{
+    Article target = Model;
+    var travelTime = (DateTime)target!.TravelTime!;
+    var publishTime = (DateTime)target!.PublishTime!;
+    string content = target!.Contents!;
+}
+
+<script src="~/lib/_js/jquery-3.6.0.js"></script>
+<script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<h2>文章檢視</h2>
+<input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
+<input type="text" id="userId" value="@target.UserId" style="display:none;">
+<br />
+
+
+<div>
+    <h1 id="title">@target.Title</h1>
+    <div>
+        <span>按讚數:<span id="likeCount">@target.LikeCount</span></span>
+        <button id="likeButton">按讚</button>
+    </div>
+</div>
+<div>
+    <h4 id="subtitle">@target.Subtitle</h4>
+</div>
+<div>
+    <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
+    <span>旅遊時間:</span><span id="travelTime">@travelTime</span>
+    <span>發佈時間:</span><span id="publishTime">@publishTime</span>
+</div>
+<div>
+    <textarea id="tiny"></textarea>
+</div>
+<div>
+    <div>留言</div>
+    @foreach (var item in ViewBag.messageBoards)
+    {
+        <div>
+            <span>userId: @item.UserId</span>
+            <span>@item.Contents</span>
+            <span>發佈時間: @item.MessageTime</span>
+         </div>
+    }
+    <input type="text" id ="messageInput" />
+    <button id="messageButton">發佈</button>
+</div>
+
+<script>
+    let articleId = $('#articleId').val();
+    let backendData = @Html.Raw(Json.Serialize(content));
+    //console.log(backendData);
+    $(function () {
+        tinymce.init({
+            selector: '#tiny',
+            toolbar: false, // 隐藏工具栏
+            statusbar: false, // 隐藏状态栏
+            readonly: true, // 将编辑器设置为只读
+            init_instance_callback: function (editor) {
+                if (backendData == null) {
+                    editor.setContent("");
+                }
+                else {
+                    editor.setContent(backendData);
+                }
+                $(".tox-editor-header").css("display", "none");
+                
+            }
+        });
+        $('#likeButton').on('click', function () {  
+            $.ajax({
+                type: "post",
+                url: "/Article/LikeArticle",
+                data: {
+                    "articleId": articleId
+                },
+                success: function (likeCount) {
+                    $('#likeCount').text(likeCount)
+                }
+            });
+        });
+        $('#messageButton').on('click', function () {
+            $.ajax({
+                type: "post",
+                url: "/Article/InsertMessage",
+                data: {
+                    "articleId": articleId,
+                    "message": $('#messageInput').val()
+                },
+                success: function () {
+                    document.location = '/Article/ArticleView?editId=' + articleId;
+                }
+            });
+        });
+    });
+</script>

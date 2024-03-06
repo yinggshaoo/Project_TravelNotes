@@ -48,12 +48,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\8c6220fd-d60f-4666-b016-bd163743feba_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\af47eefb-824d-427f-8240-47d0c1049825_pancel.png))">
       <SourceType>Package</SourceType>
       <SourceId>Blog</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/8c6220fd-d60f-4666-b016-bd163743feba_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/af47eefb-824d-427f-8240-47d0c1049825_pancel.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -62,14 +62,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\8c6220fd-d60f-4666-b016-bd163743feba_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\af47eefb-824d-427f-8240-47d0c1049825_pancel.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\01fea9e5-b18f-4307-9add-9b07ecb99c88_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\21899545-6845-4a6b-b473-3c34b5bc5701_Book.png))">
       <SourceType>Package</SourceType>
       <SourceId>Blog</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/01fea9e5-b18f-4307-9add-9b07ecb99c88_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/articleImg/21899545-6845-4a6b-b473-3c34b5bc5701_Book.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -78,14 +78,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\01fea9e5-b18f-4307-9add-9b07ecb99c88_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\21899545-6845-4a6b-b473-3c34b5bc5701_Book.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\0dbd40df-08ec-43f5-9303-bc9c02b58989_blackBoard.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\402aae31-1e22-4d0e-81e1-818eb4375224_blackBoard.png))">
       <SourceType>Package</SourceType>
       <SourceId>Blog</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/0dbd40df-08ec-43f5-9303-bc9c02b58989_blackBoard.png</RelativePath>
+      <RelativePath>img/articleImg/402aae31-1e22-4d0e-81e1-818eb4375224_blackBoard.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -94,14 +94,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\0dbd40df-08ec-43f5-9303-bc9c02b58989_blackBoard.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\402aae31-1e22-4d0e-81e1-818eb4375224_blackBoard.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\24c23594-bb69-4b1e-b381-4211dd7e5995_guide01.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\cf8348d1-d604-46f1-b4d3-59f3dfbe7297_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
       <SourceType>Package</SourceType>
       <SourceId>Blog</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/24c23594-bb69-4b1e-b381-4211dd7e5995_guide01.png</RelativePath>
+      <RelativePath>img/cf8348d1-d604-46f1-b4d3-59f3dfbe7297_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -110,151 +110,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\24c23594-bb69-4b1e-b381-4211dd7e5995_guide01.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\4f5cbfa8-66d3-40e7-83a5-b30c5dbf35dc_Book.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/4f5cbfa8-66d3-40e7-83a5-b30c5dbf35dc_Book.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\4f5cbfa8-66d3-40e7-83a5-b30c5dbf35dc_Book.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\652dcb9e-1943-488e-93f1-b610b0fd3de2_blackBoard.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/652dcb9e-1943-488e-93f1-b610b0fd3de2_blackBoard.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\652dcb9e-1943-488e-93f1-b610b0fd3de2_blackBoard.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\776f5420-b4ba-4ddb-a1a1-030972a4f42c_Book.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/776f5420-b4ba-4ddb-a1a1-030972a4f42c_Book.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\776f5420-b4ba-4ddb-a1a1-030972a4f42c_Book.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\9526a976-e698-4315-a055-9e34b5436f10_blackBoard.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/9526a976-e698-4315-a055-9e34b5436f10_blackBoard.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\9526a976-e698-4315-a055-9e34b5436f10_blackBoard.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\bc7877a9-4d31-4c16-a4b2-3797d48cc00f_student.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/articleImg/bc7877a9-4d31-4c16-a4b2-3797d48cc00f_student.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\articleImg\bc7877a9-4d31-4c16-a4b2-3797d48cc00f_student.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\b4a352bc-48ed-49d6-ad23-91cbba024cfc_Book.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/b4a352bc-48ed-49d6-ad23-91cbba024cfc_Book.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\b4a352bc-48ed-49d6-ad23-91cbba024cfc_Book.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\d03c1aac-d638-439e-b04c-99b5c080a04d_guide03.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/d03c1aac-d638-439e-b04c-99b5c080a04d_guide03.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\d03c1aac-d638-439e-b04c-99b5c080a04d_guide03.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\e0303ca4-b830-4a02-ba86-e701695e3536_Book.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/e0303ca4-b830-4a02-ba86-e701695e3536_Book.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\e0303ca4-b830-4a02-ba86-e701695e3536_Book.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\f4d89464-78e7-446b-92c9-c0ce8699fde8_guide01.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Blog</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Blog</BasePath>
-      <RelativePath>img/f4d89464-78e7-446b-92c9-c0ce8699fde8_guide01.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\f4d89464-78e7-446b-92c9-c0ce8699fde8_guide01.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\cf8348d1-d604-46f1-b4d3-59f3dfbe7297_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))">
       <SourceType>Package</SourceType>

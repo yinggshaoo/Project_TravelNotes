@@ -1,4 +1,5 @@
 ﻿using Blog.Models;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -45,7 +46,7 @@ namespace Blog.Controllers
 
         [HttpPost]
         //文字編輯器上傳圖片
-        public IActionResult UploadArticleImage(IFormFile file, int articleId, string title)
+        public string UploadArticleImage(IFormFile file, int articleId, string title)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img\\articleImg");
             if (!Directory.Exists(uploadsFolder))
@@ -73,7 +74,7 @@ namespace Blog.Controllers
                 currentArticle!.Title = title;
             }
             _context.SaveChanges();
-            return Ok();
+            return srcString;
         }
         #endregion
         #region 草稿相關
@@ -135,9 +136,13 @@ namespace Blog.Controllers
 
             return Ok();
         }
-        
+
         #endregion
-        #region 文章相關
+        #region 文章編輯相關
+        public IActionResult TestArticle()
+        {
+            return View();
+        }
         public IActionResult ArticleEdit(int editId)
         {
 			Article data = _context.Articles.FirstOrDefault(a => a.ArticleId == editId)!;
@@ -161,6 +166,45 @@ namespace Blog.Controllers
             currentArticle.Contents = content;
             _context.SaveChanges();
             return Ok();
+        }
+        [HttpPost]
+        public IActionResult DeleteArticle(int articleId)
+        {
+            var articleToDelete = _context.Articles.FirstOrDefault(a => a.ArticleId == articleId);
+            _context.Articles.Remove(articleToDelete); // 从数据库中移除文章
+            _context.SaveChanges(); // 保存更改
+
+            return Ok();
+        }
+
+        #endregion
+        #region 文章頁面相關
+        public IActionResult ArticleView(int editId)
+        {
+            Article data = _context.Articles.FirstOrDefault(a => a.ArticleId == editId)!;
+            List<MessageBoard> messageBoards = _context.MessageBoards.Where(a=>a.ArticleId == editId).ToList();
+            ViewBag.messageBoards = messageBoards;
+            return View(data);
+        }
+        [HttpPost]
+        public int LikeArticle(int articleId)
+        {
+            Article data = _context.Articles.FirstOrDefault(a => a.ArticleId == articleId)!;
+            data.LikeCount += 1;
+            _context.SaveChanges();
+            return (int)data.LikeCount!;
+        }
+        [HttpPost]
+        public string InsertMessage(int articleId,string message)
+        {
+            MessageBoard messageBoard = new MessageBoard();
+            messageBoard.ArticleId = articleId;
+            messageBoard.UserId = userID;
+            messageBoard.Contents = message;
+            messageBoard.MessageTime = DateOnly.FromDateTime(DateTime.Now) ;
+            _context.MessageBoards.Add(messageBoard);
+            _context.SaveChanges();
+            return message;
         }
         #endregion
     }

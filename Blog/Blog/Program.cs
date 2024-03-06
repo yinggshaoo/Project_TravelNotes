@@ -25,8 +25,16 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=Draft}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=ArticleEdit}/{editId=8}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Article}/{action=Draft}/{id?}");
+    pattern: "{controller=Article}/{action=ArticleView}/{editId=8}");
+
+
 
 app.Run();
