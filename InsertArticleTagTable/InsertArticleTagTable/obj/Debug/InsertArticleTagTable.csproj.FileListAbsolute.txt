@@ -1,0 +1,16 @@
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\InsertArticleTagTable.exe.config
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\InsertArticleTagTable.exe
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\InsertArticleTagTable.pdb
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\EntityFramework.dll
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\EntityFramework.xml
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\bin\Debug\zh-Hant\EntityFramework.resources.dll
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.csproj.AssemblyReference.cache
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.Form1.resources
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.Properties.Resources.resources
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.csproj.GenerateResource.cache
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.csproj.CoreCompileInputs.cache
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.csproj.CopyComplete
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.exe
+C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\InsertArticleTagTable\InsertArticleTagTable\obj\Debug\InsertArticleTagTable.pdb

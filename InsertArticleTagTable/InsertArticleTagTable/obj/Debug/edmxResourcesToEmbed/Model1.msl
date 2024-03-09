@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TravelModelStoreContainer" CdmEntityContainer="TravelEntities">
+    <EntitySetMapping Name="ArticleTagList">
+      <EntityTypeMapping TypeName="TravelModel.ArticleTagList">
+        <MappingFragment StoreEntitySet="ArticleTagList">
+          <ScalarProperty Name="LabelId" ColumnName="LabelId" />
+          <ScalarProperty Name="TagClass" ColumnName="TagClass" />
+          <ScalarProperty Name="TagName" ColumnName="TagName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
