@@ -53,7 +53,24 @@ namespace InsertArticleTagTable
             dataGridView1.DataSource = _context.ArticleTagList.ToList();
         }
 
-        
+        //參考 : https://blog.csdn.net/qq_23833037/article/details/52167239
+        private void detel_Click(object sender, EventArgs e)
+        {
+
+            var id = dataGridView1.CurrentCell.Value;
+            try
+            {
+                ArticleTagList art = _context.ArticleTagList.Find(id);
+                _context.ArticleTagList.Remove(art);
+                textBox1.Text = $"刪除{art.TagClass + art.TagName}成功!";
+               
+            }
+            catch
+            {
+                MessageBox.Show("指定錯誤!");
+            }
+
+        }
     }
 }
 
