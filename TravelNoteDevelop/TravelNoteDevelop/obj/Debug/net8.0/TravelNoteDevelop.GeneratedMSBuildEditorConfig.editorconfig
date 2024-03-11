@@ -26,6 +26,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\TravelNoteDevelop\TravelNoteDevelop
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/klas9/Desktop/人生計畫Excel/大專題/code/TravelNoteDevelop/TravelNoteDevelop/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/klas9/Desktop/人生計畫Excel/大專題/code/TravelNoteDevelop/TravelNoteDevelop/Areas/Customer/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3VzdG9tZXJcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/klas9/Desktop/人生計畫Excel/大專題/code/TravelNoteDevelop/TravelNoteDevelop/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

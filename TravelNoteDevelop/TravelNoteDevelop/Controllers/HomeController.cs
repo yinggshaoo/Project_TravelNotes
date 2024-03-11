@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TravelNoteDevelop.Models;
 
-namespace 測試用.Controllers
+namespace TravelNoteDevelop.Controllers
 {
     public class HomeController : Controller
     {

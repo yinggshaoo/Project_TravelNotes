@@ -17,7 +17,9 @@ public partial class photo
 
     public int? AlbumId { get; set; }
 
-    public string? Haedshot { get; set; }
+    public int? UserId { get; set; }
 
     public virtual album? Album { get; set; }
+
+    public virtual users? User { get; set; }
 }

@@ -9,7 +9,7 @@ public partial class article
 
     public int UserId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
     public string? Subtitle { get; set; }
 
@@ -18,8 +18,6 @@ public partial class article
     public DateTime? TravelTime { get; set; }
 
     public string? Contents { get; set; }
-
-    public string? Location { get; set; }
 
     public string? Images { get; set; }
 
