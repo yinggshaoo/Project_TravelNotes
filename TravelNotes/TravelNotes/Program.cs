@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using TravelNotes.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<TravelContext>(
+	  options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelConnstring")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

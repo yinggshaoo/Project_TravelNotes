@@ -271,7 +271,7 @@ public partial class TravelContext : DbContext
         {
             entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE375EB9DF12");
 
-            entity.Property(e => e.AlbumName).HasMaxLength(10);
+            entity.Property(e => e.AlbumName).HasMaxLength(50);
 
             entity.HasOne(d => d.User).WithMany(p => p.album)
                 .HasForeignKey(d => d.UserId)
