@@ -1,0 +1,80 @@
+﻿@model List<users>
+@{
+
+	var a = Model.LastOrDefault();//使用者是誰就拿誰的資料
+	var b = ViewBag.article;
+}
+<br>
+<h1>瀏覽文章頁面</h1>
+<hr>
+<br>
+@foreach (var item in ViewBag.article)
+{
+
+	<div class="row">
+		<div class="myArticle">
+			<div>
+				<div class="col-md-8">
+					<div class="text">
+						<br><br>
+						<p class="articleDate">@item.PublishTime</p>
+						<div>
+							<h3>@item.Title</h3>
+
+							<p class="text-break">
+								@item.Contents
+							</p>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="articlePhoto col-md-4 mt-5 offset-lg-1">
+						<a href=""><img src="@item.Images" class="img-thumbnail mx-auto d-block" alt="..."></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

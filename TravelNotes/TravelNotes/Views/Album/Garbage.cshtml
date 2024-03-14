@@ -1,0 +1,262 @@
+﻿@model TravelNotes.Models.GarbageViewModel;
+
+<style>
+    .image-container {
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+    }
+
+        .image-container .hover-button {
+            position: absolute;
+            width: 50px;
+            transform: translate(-300%);
+            border: none;
+            background-color: black;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            cursor: pointer;
+            opacity: 0; /* 初始設定不可見 */
+            transition: opacity 0.5s ease;
+        }
+
+        .image-container .hover-button-2 {
+            position: absolute;
+            width: 50px;
+            transform: translate(-50px,124px);
+            border: none;
+            background-color: black;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            cursor: pointer;
+            opacity: 0; /* 初始設定不可見 */
+            transition: opacity 0.5s ease;
+        }
+
+        .image-container:hover .hover-button {
+            opacity: 1; /* 滑鼠停在上方才顯示出來 */
+        }
+
+        .image-container:hover .hover-button-2 {
+            opacity: 1; /* 滑鼠停在上方才顯示出來 */
+        }
+</style>
+<header>
+    <div>
+        <h1>垃圾桶</h1>
+        <div id="SuccessMessage" class="alert alert-success" style="display:none;"></div>
+        <div id="FalseMessage" class="alert alert-danger" style="display:none;"></div>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-warning" role="alert" id="messageAlert">
+                @TempData["Message"]
+            </div>
+        }
+        <button id="deleteButton">全部清空</button>
+    </div>
+    <hr />
+</header>
+<body>
+    <h2>相簿</h2>
+    
+    <button id="deleteAllAlbum">清空相簿</button>
+   
+    @foreach (var album in Model.Albums!)
+    {
+        <div style="display:inline-block">
+            <img style="width:80px" src="~/images/photo-album.png" alt="Folder Icon" />
+            <p style="margin-left:25px">@album.AlbumName</p>
+
+            <!-- 还原相册的表单 -->
+            <form method="post" action="/Album/RestoreAlbum" style="display: inline;">
+                <input type="hidden" name="albumId" value="@album.AlbumId" />
+                <input type="submit" value="還原" />
+            </form>
+
+            <!-- 删除相册的表单 -->
+            <form method="post" action="/Album/DeleteAlb" style="display: inline;">
+                <input type="hidden" name="albumId" value="@album.AlbumId" />
+                <input type="submit" value="删除" onclick="return confirm('确定要删除这个相册吗？');" />
+            </form>
+        </div>
+    }
+    <hr />
+    <h2>相片</h2>
+    <button id="deleteAllPhoto">清空相片</button>
+    @foreach (var photo in Model.Photos!)
+    {
+        <div id="Pho" class="image-container">
+            <img id="dynamicImage" src="@photo.PhotoPath" class="myImages" style="width: 150px;height:150px;" />
+            <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId ">刪除</button>
+            <button id="return-image-btn-@photo.PhotoId" class="hover-button-2" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId ">還原</button>
+        </div>
+    }
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+
+        $(document).ready(function () {
+            var successMessage = localStorage.getItem('deleteSuccessMessage');
+            var falseMessage = localStorage.getItem('deleteFalseMessage');
+
+            if (successMessage) {
+                $('#SuccessMessage').text(successMessage).show();
+                localStorage.removeItem('deleteSuccessMessage');
+            }
+            if (falseMessage) {
+                $('#FalseMessage').text(falseMessage).show();
+                localStorage.removeItem('deleteFalseMessage');
+            }
+        });
+        //清空垃圾桶
+        $("#deleteButton").click(function () {
+            var result = confirm("確定要清空垃圾桶嗎？");
+            if (result) {
+                $.ajax({
+                    url: '/Album/DeleteByAlbumAndUserId',
+                    type: 'POST',
+                    success: function () {
+
+                        localStorage.setItem('deleteSuccessMessage', '清空垃圾桶成功');
+                        location.reload();
+                    },
+                    error: function () {
+
+                        location.reload();
+                    }
+                });
+            } else {
+                // 如果用户点击“取消”，result 为 false
+                alert("删除已取消。");
+            }
+        });
+        //清空所有相簿
+        $("#deleteAllAlbum").click(function () {
+            var result = confirm("確定要清空相簿嗎？");
+            if (result) {
+                $.ajax({
+                    url: '/Album/DeleteAllAlbum',
+                    type: 'POST',
+                    success: function () {
+
+                        localStorage.setItem('deleteSuccessMessage', '清空相簿成功');
+                        location.reload();
+                    },
+                    error: function () {
+
+                        localStorage.setItem('deleteFalseMessage', '清空相簿失敗');
+                        location.reload();
+                    }
+                });
+            } else {
+                // 如果用户点击“取消”，result 为 false
+                alert("删除已取消。");
+            }
+        });
+        //清空所有相片
+        $("#deleteAllPhoto").click(function () {
+            var result = confirm("確定要清空相片嗎？");
+            if (result) {
+                $.ajax({
+                    url: '/Album/DeleteAllPhoto',
+                    type: 'POST',
+                    success: function () {
+
+                        localStorage.setItem('deleteSuccessMessage', '清空相片成功');
+                        location.reload();
+                    },
+                    error: function () {
+
+                        localStorage.setItem('deleteFalseMessage', '清空相片失敗');
+                        location.reload();
+                    }
+                });
+            } else {
+                // 如果用户点击“取消”，result 为 false
+                alert("删除已取消。");
+            }
+        });
+
+        //刪除所選相片
+
+        $(document).ready(function () {
+            // 监听所有删除按钮的点击事件
+            $('button[id^="change-image-btn"]').click(function () {
+                var result = confirm("確定要刪除嗎？");
+                var GarbagePhotoId = $(this).data('photo-id');
+                // 发送Ajax请求到服务器
+                if (result) {
+                    $.ajax({
+                        url: '/Album/GarbageDelete', // 控制器的Action路径
+                        type: 'POST',
+                        data: {
+                            photoId: GarbagePhotoId,
+                        },
+                        success: function (response) {
+                            // 处理成功的响应
+                            localStorage.setItem('deleteSuccessMessage', '刪除成功');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // 处理错误的响应
+                            localStorage.setItem('deleteFalseMessage', '刪除失敗');
+                            location.reload();
+                        }
+                    });
+                } else {
+                    // 如果用户点击“取消”，result 为 false
+                    alert("删除已取消。");
+                }
+            });
+        });
+        $(document).ready(function () {
+            // 還原按钮的点击事件
+            $('button[id^="return-image-btn"]').click(function () {
+                var result = confirm("確定要還原嗎？");
+                var albumId = $(this).data('album-id');
+                var ReturnPhotoId = $(this).data('photo-id');
+                // 发送Ajax请求到服务器
+                if (result) {
+                    $.ajax({
+                        url: '/Album/ReturnAlbumId', // 控制器的Action路径
+                        type: 'POST',
+                        data: {
+                            photoId: ReturnPhotoId,
+                            NowAlbum: albumId,
+                        },
+                        success: function (response) {
+                            // 处理成功的响应
+                            localStorage.setItem('deleteSuccessMessage', '還原相片成功');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // 处理错误的响应
+                            localStorage.setItem('deleteFalseMessage', '還原相片失敗');
+                            location.reload();
+                        }
+                    });
+                } else {
+                    // 如果用户点击“取消”，result 为 false
+                    alert("還原取消。");
+                }
+            });
+        });
+        setTimeout(function () {
+            $('#SuccessMessage').fadeOut('slow');
+        }, 3000);
+
+
+        setTimeout(function () {
+            $('#FalseMessage').fadeOut('slow');
+        }, 3000);
+        $(document).ready(function () {
+            // SET一個定時器
+            setTimeout(function () {
+                //使用 jQuery 的 fadeOut 方法淡出
+                $("#messageAlert").fadeOut("slow");
+            }, 3000); // 3 秒
+        });
+
+    </script>
+</body>

@@ -19,7 +19,7 @@ public partial class users
 
     public string? Nickname { get; set; }
 
-    public DateTime? Birthday { get; set; }
+    public DateOnly? Birthday { get; set; }
 
     public string? Address { get; set; }
 

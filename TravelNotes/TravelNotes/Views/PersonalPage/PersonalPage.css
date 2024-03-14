@@ -1,0 +1,90 @@
+﻿.myTitle {
+    display: flex;
+}
+
+#dots {
+    margin: 20px 0px 0px 500px;
+}
+
+#search {
+    width: 250px;
+    font-size: 20px
+}
+
+#albumBtn, #yearBtn {
+    font-size: 20px
+}
+
+#albumBtn {
+    width: 100px;
+}
+
+#yearBtn {
+    width: 150px;
+}
+
+/*#articleTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+}
+
+#articleContents {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}*/
+
+.text-break {
+    word-break: break-all;
+    min-width: 50px;
+    max-width: 650px;
+}
+
+.myArticle {
+    display: flex;
+}
+
+.img-thumbnail {
+    width: 180px;
+    height: 200px;
+    margin: 100px 0px;
+}
+
+.articlePhoto {
+    padding: 0px 80px;
+}
+
+#myProfileImg {
+    display: block;
+}
+
+#myProfileName {
+    margin: 20px;
+}
+
+.myProfile {
+    float: left;
+    margin: 20px;
+}
+
+#userImageId {
+    width: 10%;
+    height: 10%;
+}
+
+#myEdit {
+    width: 30px;
+    height: 10px;
+    font-size: 10px;
+}
+
+#myPersonalSettings {
+    padding: 20px;
+}
+
+body {
+    padding: 30px;
+}

@@ -1,0 +1,50 @@
+﻿
+
+<title>Album</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css">
+
+@model List<photo>
+
+<br>
+<h1>相簿</h1>
+<hr>
+<br>
+<input type="file" id="yearImage" value="" />
+<br />
+<br />
+<br />
+@*    <button >+</button> *@
+@*     <div style="display:none" id="test"> *@
+@foreach (var item in Model)
+{
+    <img onclick="photoClick(@item.PhotoId)" src="@item.PhotoPath" style="width:20%;height:20%"></img>
+}
+@*     </div> *@
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<script>
+    $('#yearImage').on('change', function () {
+        console.log("ok");
+        var file = this.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            type: "post",
+            url: "/Home/YearImage",
+            data: formData,
+            processData: false,  // 禁止 jQuery 處理數據
+            contentType: false,  // 禁止 jQuery 設置內容類型
+            success: function (data) {
+                console.log(data);
+                document.location = "/Home/Album/";
+            }
+        });
+        // function photoClick(int id) {
+        //     console.log(id);
+        // }
+    });
+</script>

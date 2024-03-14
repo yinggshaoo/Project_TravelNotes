@@ -386,7 +386,6 @@ public partial class TravelContext : DbContext
             entity.HasKey(e => e.UserId).HasName("PK__users__1788CC4C310AFE60");
 
             entity.Property(e => e.Address).HasMaxLength(100);
-            entity.Property(e => e.Birthday).HasColumnType("datetime");
             entity.Property(e => e.Gender)
                 .HasMaxLength(6)
                 .IsUnicode(false);

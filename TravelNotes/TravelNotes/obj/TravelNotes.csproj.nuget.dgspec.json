@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {}
+    "C:\\Users\\user\\Desktop\\大專\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {
+    "C:\\Users\\user\\Desktop\\大專\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\大專\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
         "projectName": "TravelNotes",
-        "projectPath": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\大專\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\大專\\TravelNotes\\TravelNotes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

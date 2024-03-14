@@ -5,9 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddDbContext<TravelContext>(
-	  options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelConnstring")));
+      options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelConnstring")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,9 +23,23 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Album}/{action=Album}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=Draft}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=ArticleEdit}/{articleId=8}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=ArticleView}/{articleId=4}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
 
 app.Run();

@@ -1,0 +1,304 @@
+﻿@model List<TravelNotes.Models.AlbumPhotosViewModel>
+
+<style>
+    .container {
+        /* 维持相对定位，作为相册的容器 */
+        position: relative;
+    }
+
+    .album-container {
+        margin-bottom: 20px; /* 每个相册之间的距离 */
+        border: 1px solid #ccc; /* 可选：为相册添加边框 */
+        padding: 10px; /* 相册内边距 */
+    }
+
+    .image-container {
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+    }
+
+        .image-container:hover {
+            transform: scale(1.05); /* 滑鼠停在.image-container上時放大圖片 */
+        }
+
+        .image-container .hover-button {
+            position: absolute;
+            top: 0; /* 定位到容器的左上角 */
+            left: 0;
+            width: 50px; /* 按钮宽度，根据需要调整 */
+            height: 30px; /* 按钮高度，根据需要调整 */
+            background-color: black; /* 按钮背景色为黑色 */
+            color: white; /* 按钮文字颜色为白色 */
+            text-align: center;
+            line-height: 30px; /* 使文字垂直居中 */
+            opacity: 0; /* 初始化不可见 */
+            transition: opacity 0.3s ease; /* 平滑过渡效果 */
+            cursor: pointer;
+        }
+
+        .image-container:hover .hover-button {
+            opacity: 1; /* 鼠标悬停时完全可见 */
+        }
+
+        .image-container img {
+            display: block;
+            width: 150px; /* 正常大小 */
+            height: auto;
+            transition: transform 0.5s ease; /* 平滑变换效果 */
+            cursor: pointer; /* 将鼠标光标改为指针形状，提示用户这是可点击的 */
+        }
+
+    .modal {
+        display: none; /* 不顯示 */
+        position: fixed; /* 固定定位 */
+        z-index: 1000; /* 設定在最表層 */
+        padding-top: 100px; /* 位置 */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* 如果需要，使用滾動 */
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.9); /* 背景黑色，透明度 */
+    }
+    /* 點擊出來的img */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+    /* 關閉按鈕 */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+<header>
+    <div>
+        <h1>相簿</h1>
+    </div>
+    <hr />
+    @* 提醒文字 *@
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-warning" role="alert" id="messageAlert">
+            @TempData["Message"]
+        </div>
+    }
+    <div id="FalseMessage" class="alert alert-danger" style="display:none;"></div>
+    @* from表單上傳&接收相簿名稱 *@
+    <form asp-action="CreateFolder" method="post">
+        <input id="userId" type="text" style="display:none" />
+        <div class="form-group">
+            <label for="folderName">相簿名稱</label>
+            <input type="text" class="form-control" id="folderName" name="folderName" placeholder="請輸入相簿名稱">
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">新增</button>
+    </form>
+
+    <div id="editAlbumModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="editAlbumForm">
+                <input type="hidden" id="editAlbumId" name="albumId">
+                <div class="form-group">
+                    <label for="newAlbumName">新相册名：</label>
+                    <input type="text" class="form-control" id="newAlbumName" name="newAlbumName" required>
+                </div>
+                <button type="submit" class="btn btn-primary">保存更改</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <hr />
+</header>
+<body>
+    @* 接收HomeControll裡的MyAlbum回傳的PhotoPath，然後放在<Img>的src裡面 *@
+    @* 想顯示該使用者所有相簿 *@
+    @foreach (var viewModel in Model)
+    {
+        <div class="album-container">
+            <h3>@viewModel.Album!.AlbumName</h3> <!-- 相册名字 -->
+            <button class="delete-album-button" data-album-id="@viewModel.Album.AlbumId">删除相册</button> <!-- 删除相册按钮 -->
+            <button class="edit-album-name-button" data-album-id="@viewModel.Album.AlbumId">修改名称</button>
+            <!-- 相册上传表单 -->
+            <form asp-action="UploadPhotosToAlbum" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="albumId" value="@viewModel.Album.AlbumId" />
+                <input type="hidden" name="albumName" value="@viewModel.Album.AlbumName" />
+                <input type="file" name="imageFiles" multiple />
+                <button type="submit">上傳</button>
+            </form>
+
+            <!-- 相册中的图片 -->
+            @foreach (var photo in viewModel.Photos!)
+            {
+                <div id="Pho-@photo.PhotoId" class="image-container">
+                    <img id="dynamicImage-@photo.PhotoId" src="@photo.PhotoPath" class="myImages" style="width: 150px;height:150px;" />
+                    <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId" data-upload-date="@photo.UploadDate">刪除</button>
+                </div>
+                <div id="myModal" class="modal">
+                    @* 一個X按鈕 *@
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="Img01">
+                </div>
+            }
+            @if (!viewModel.Photos.Any())
+            {
+                <p>这个相册目前还没有照片。</p>
+            }
+        </div>
+    }
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("Img01");
+        var images = document.getElementsByClassName('myImages');
+
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            img.onclick = function (evt) {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        }
+
+        // 获取关闭按钮
+        var span = document.getElementsByClassName("close")[0];
+
+        // 点击关闭按钮关闭模态框
+        if (span != null) {
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+        if (modal != null) {
+            modal.onclick = function () {
+                modal.onclick = function (event) {
+                    // 檢查點擊是否發生在modal之外
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            };
+        }
+
+
+        $(document).ready(function () {
+            // 监听所有删除按钮的点击事件
+            $('button[id^="change-image-btn"]').click(function () {
+                var result = confirm("確定要刪除嗎？");
+                var PhotoId = $(this).data('photo-id');
+                // 发送Ajax请求到服务器
+                if (result) {
+                    $.ajax({
+                        url: '/Album/AlbumPhotoToGarbage', // 控制器的Action路径
+                        type: 'POST',
+                        data: {
+                            photoId: PhotoId,
+                        },
+                        success: function (response) {
+                            // 处理成功的响应
+                            alert('刪除成功');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // 处理错误的响应
+                            alert('刪除失敗');
+                            location.reload();
+                        }
+                    });
+                } else {
+                    // 如果用户点击“取消”，result 为 false
+                    alert("删除已取消。");
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('.delete-album-button').click(function () {
+                var albumId = $(this).data('album-id'); // 获取AlbumId
+                var result = confirm("確定要刪除此相簿及其所有照片嗎？");
+                if (result) {
+                    $.ajax({
+                        url: '/Album/DeleteAlbum', // 假设的后端接口路径
+                        type: 'POST',
+                        data: { albumId: albumId },
+                        success: function (response) {
+                            // 删除成功后的操作，如提示用户并刷新页面
+                            alert('相簿删除成功');
+                            location.reload(); // 刷新页面显示最新的相册列表
+                        },
+                        error: function (xhr, status, error) {
+                            // 删除失败的操作，如提示用户
+                            alert('相簿删除失败，请重试');
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+        // 修改相册名称的模态窗口控制
+        var editModal = document.getElementById("editAlbumModal");
+        var editSpan = editModal.getElementsByClassName("close")[0];
+
+        // 当用户点击修改名称按钮时打开模态窗口
+        $('.edit-album-name-button').click(function () {
+            var albumId = $(this).data('album-id');
+            $("#editAlbumId").val(albumId); // 将相册ID设置到表单中
+            editModal.style.display = "block";
+        });
+
+        // 当用户点击模态窗口的 (x) 关闭按钮时
+        editSpan.onclick = function () {
+            editModal.style.display = "none";
+        }
+
+
+        $('#editAlbumForm').submit(function (e) {
+            e.preventDefault(); // 阻止表单默认提交行为
+
+            $.ajax({
+                url: '/Album/EditAlbumName', // 控制器的Action路径
+                type: 'POST',
+                data: $(this).serialize(), // 将表单数据序列化
+                success: function (response) {
+                    if (response.success) {
+                        alert('相簿名稱修改成功');
+                        location.reload(); // 刷新页面以显示更新后的名称
+                    } else {
+                        alert(response.message || '相簿名稱修改失败，不能重複'); // 使用服务器返回的错误消息或默认错误消息
+                    }
+                },
+                error: function () {
+                    alert('请求失败，请重试');
+                }
+            });
+        });
+        $(document).ready(function () {
+            // SET一個定時器
+            setTimeout(function () {
+                //使用 jQuery 的 fadeOut 方法淡出
+                $("#messageAlert").fadeOut("slow");
+            }, 3000); // 3 秒
+        });
+
+
+    </script>
+</body>
