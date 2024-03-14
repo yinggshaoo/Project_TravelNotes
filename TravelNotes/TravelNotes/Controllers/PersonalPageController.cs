@@ -20,16 +20,7 @@ namespace TravelNotes.Controllers
 			_hostingEnvironment = hostingEnvironment;
 		}
 
-		public IActionResult Index()
-		{
 
-			return View(_context.users.ToList());
-		}
-
-		public IActionResult Privacy()
-		{
-			return View();
-		}
 
 		public IActionResult Schedule()
 		{
@@ -44,14 +35,14 @@ namespace TravelNotes.Controllers
 
 		public IActionResult PersonalPage()
 		{
-			ViewBag.article = _context.article.Where((a => a.UserId == 2)).ToList();
+			ViewBag.article = _context.article.Where((a => a.UserId == UserId)).ToList();
 			return View(_context.users.ToList());
 		}
 
 		[HttpPost]
 		public IActionResult PersonalPage(string search)
 		{
-			var a = _context.article.Where((a => a.UserId == 2));
+			var a = _context.article.Where((a => a.UserId == UserId));
 			var b = a.Where((a => a.Contents.IndexOf(search) > -1));
 			ViewBag.article = b.ToList();
 			return View(_context.users.ToList());
@@ -169,7 +160,7 @@ namespace TravelNotes.Controllers
 			//_context.SaveChanges();
 
 			var UserImage = _context.users.FirstOrDefault(x => x.UserId == UserId);
-			UserImage!.Haedshot = srcString;
+			UserImage!.Headshot = srcString;
 			_context.SaveChanges();
 			return ("OK");
 		}

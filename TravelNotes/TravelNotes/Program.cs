@@ -23,9 +23,14 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Album}/{action=Album}/{id?}");

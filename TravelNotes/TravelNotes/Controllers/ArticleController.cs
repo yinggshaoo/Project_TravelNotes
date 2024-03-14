@@ -258,7 +258,7 @@ namespace TravelNotes.Controllers
                             Contents = m.Contents,
                             UserId = m.UserId,
                             MessageTime = m.MessageTime,
-                            Haedshot = u.Haedshot
+                            Haedshot = u.Headshot
                         };
             ViewBag.messageBoards = messageBoards;
             return View(data);
@@ -309,7 +309,7 @@ namespace TravelNotes.Controllers
             messageBoard.ArticleId = articleId;
             messageBoard.UserId = userID;
             messageBoard.Contents = message;
-            messageBoard.MessageTime = DateOnly.FromDateTime(DateTime.Now);
+            messageBoard.MessageTime = DateTime.Now;
             _context.messageBoard.Add(messageBoard);
             _context.SaveChanges();
             return message;

@@ -25,11 +25,17 @@ public partial class TravelContext : DbContext
 
     public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
 
+    public virtual DbSet<Itinerary> Itinerary { get; set; }
+
+    public virtual DbSet<LookBack> LookBack { get; set; }
+
     public virtual DbSet<Spots> Spots { get; set; }
 
     public virtual DbSet<StatisticsCity> StatisticsCity { get; set; }
 
     public virtual DbSet<TagList> TagList { get; set; }
+
+    public virtual DbSet<TripPlanning> TripPlanning { get; set; }
 
     public virtual DbSet<UniqueCity> UniqueCity { get; set; }
 
@@ -43,15 +49,13 @@ public partial class TravelContext : DbContext
 
     public virtual DbSet<photo> photo { get; set; }
 
-    public virtual DbSet<recommend> recommend { get; set; }
-
     public virtual DbSet<users> users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ArticleTagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC3E619053C");
+            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC35273FB36");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(10)
@@ -132,12 +136,134 @@ public partial class TravelContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<Itinerary>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Itinerary");
+
+            entity.Property(e => e.Class1)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Class2)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Class3)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.DescriptionDetail)
+                .HasMaxLength(5000)
+                .IsUnicode(false);
+            entity.Property(e => e.GeoHash)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+            entity.Property(e => e.Keyword)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.OpenTime)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingGeoHash)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingInfo)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingLat)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingLon)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription1)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription2)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription3)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl1)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl2)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl3)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PositionLat)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.PositionLon)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.Remarks)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.ScenicSpotID)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.ScenicSpotName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.TicketInfo)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.TravelInfo)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.WebsiteUrl)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ZipCode)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e._Address)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e._Description)
+                .HasMaxLength(5000)
+                .IsUnicode(false);
+            entity.Property(e => e._level)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.city)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength();
+        });
+
+        modelBuilder.Entity<LookBack>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.HasOne(d => d.Photo).WithMany()
+                .HasForeignKey(d => d.PhotoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LookBack_photo");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LookBack_users");
+        });
+
         modelBuilder.Entity<Spots>(entity =>
         {
-            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A6D2BD5BC8");
+            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A6AF7045FD");
 
             entity.Property(e => e.ScenicSpotID)
                 .HasMaxLength(20)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.City)
+                .HasMaxLength(10)
                 .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.Class1)
@@ -227,10 +353,6 @@ public partial class TravelContext : DbContext
             entity.Property(e => e._level)
                 .HasMaxLength(10)
                 .IsUnicode(false);
-            entity.Property(e => e.city)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength();
         });
 
         modelBuilder.Entity<StatisticsCity>(entity =>
@@ -247,7 +369,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<TagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3BF1C9BDE");
+            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3434FF953");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(6)
@@ -257,11 +379,31 @@ public partial class TravelContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<TripPlanning>(entity =>
+        {
+            entity.HasKey(e => e.TripId);
+
+            entity.Property(e => e.ScenicSpotID)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .IsFixedLength();
+
+            entity.HasOne(d => d.ScenicSpot).WithMany(p => p.TripPlanning)
+                .HasForeignKey(d => d.ScenicSpotID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TripPlanning_Spots");
+
+            entity.HasOne(d => d.User).WithMany(p => p.TripPlanning)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TripPlanning_users");
+        });
+
         modelBuilder.Entity<UniqueCity>(entity =>
         {
             entity.HasNoKey();
 
-            entity.Property(e => e.city)
+            entity.Property(e => e.City)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .IsFixedLength();
@@ -269,9 +411,9 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<album>(entity =>
         {
-            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE375EB9DF12");
+            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37571D3459");
 
-            entity.Property(e => e.AlbumName).HasMaxLength(50);
+            entity.Property(e => e.AlbumName).HasMaxLength(10);
 
             entity.HasOne(d => d.User).WithMany(p => p.album)
                 .HasForeignKey(d => d.UserId)
@@ -304,7 +446,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<articletags>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC30316AF05");
+            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC3F5DBC34D");
 
             entity.Property(e => e.LabelDescription)
                 .HasMaxLength(255)
@@ -320,9 +462,10 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<messageBoard>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__messageB__C87C0C9C2AFF064D");
+            entity.HasKey(e => e.MessageId).HasName("PK__messageB__C87C0C9C4A7A0112");
 
             entity.Property(e => e.Contents).HasMaxLength(2500);
+            entity.Property(e => e.MessageTime).HasColumnType("datetime");
 
             entity.HasOne(d => d.Article).WithMany(p => p.messageBoard)
                 .HasForeignKey(d => d.ArticleId)
@@ -331,12 +474,13 @@ public partial class TravelContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.messageBoard)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_messageBoard_UserId");
         });
 
         modelBuilder.Entity<photo>(entity =>
         {
-            entity.HasKey(e => e.PhotoId).HasName("PK__photo__21B7B5E21CB15099");
+            entity.HasKey(e => e.PhotoId).HasName("PK__photo__21B7B5E2D9618FE2");
 
             entity.Property(e => e.PhotoDescription)
                 .HasMaxLength(255)
@@ -350,46 +494,24 @@ public partial class TravelContext : DbContext
 
             entity.HasOne(d => d.Album).WithMany(p => p.photo)
                 .HasForeignKey(d => d.AlbumId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_photo_AlbumId");
 
             entity.HasOne(d => d.User).WithMany(p => p.photo)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_photo_users");
-        });
-
-        modelBuilder.Entity<recommend>(entity =>
-        {
-            entity.HasKey(e => e.LabelId).HasName("PK__recommen__397E2BC3DE9C8D22");
-
-            entity.Property(e => e.Gender)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-            entity.Property(e => e.Interest)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-            entity.Property(e => e.Interest2)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-            entity.Property(e => e.Interest3)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-            entity.Property(e => e.Location)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-            entity.Property(e => e.Weather)
-                .HasMaxLength(4)
-                .IsUnicode(false);
         });
 
         modelBuilder.Entity<users>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__users__1788CC4C310AFE60");
+            entity.HasKey(e => e.UserId).HasName("PK__users__1788CC4C21EE8A4B");
 
             entity.Property(e => e.Address).HasMaxLength(100);
             entity.Property(e => e.Gender)
                 .HasMaxLength(6)
                 .IsUnicode(false);
-            entity.Property(e => e.Haedshot)
+            entity.Property(e => e.Headshot)
                 .HasMaxLength(256)
                 .IsUnicode(false);
             entity.Property(e => e.Interest).HasMaxLength(10);

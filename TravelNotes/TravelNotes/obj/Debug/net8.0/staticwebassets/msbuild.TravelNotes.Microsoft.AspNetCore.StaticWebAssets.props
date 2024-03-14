@@ -32,12 +32,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1bc4dcd6-67c3-486b-8e9e-62a866642224_Book.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/1bc4dcd6-67c3-486b-8e9e-62a866642224_Book.png</RelativePath>
+      <RelativePath>img/03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -46,14 +46,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1bc4dcd6-67c3-486b-8e9e-62a866642224_Book.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1c766566-aea3-465c-b870-56d1e0266ce1_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/1c766566-aea3-465c-b870-56d1e0266ce1_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -62,14 +62,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\1c766566-aea3-465c-b870-56d1e0266ce1_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\442ac987-0c16-4a38-8e7a-0f102773ddf6_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\Book.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/442ac987-0c16-4a38-8e7a-0f102773ddf6_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/user1/album/Test1/Book.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -78,14 +78,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\442ac987-0c16-4a38-8e7a-0f102773ddf6_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\Book.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\83dbdf12-a79f-4cc9-b350-2ae13beefa7c_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/83dbdf12-a79f-4cc9-b350-2ae13beefa7c_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/user1/article/0/articleImage/83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -94,14 +94,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\83dbdf12-a79f-4cc9-b350-2ae13beefa7c_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\949a2e3c-eba9-4144-b952-78bc9c3a1551_guide01.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/949a2e3c-eba9-4144-b952-78bc9c3a1551_guide01.png</RelativePath>
+      <RelativePath>img/user1/article/0/articleImage/c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -110,14 +110,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\949a2e3c-eba9-4144-b952-78bc9c3a1551_guide01.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\headShot\cloud.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/headShot/cloud.png</RelativePath>
+      <RelativePath>img/user1/article/4/articleImage/5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -126,14 +126,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\headShot\cloud.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\blackBoard.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/album/Test1/blackBoard.png</RelativePath>
+      <RelativePath>img/user1/article/4/content/0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -142,199 +142,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\blackBoard.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/album/Test1/—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\cd54b8d8-55a7-4582-8016-90c2243ed1ad_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/4/articleImage/cd54b8d8-55a7-4582-8016-90c2243ed1ad_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\cd54b8d8-55a7-4582-8016-90c2243ed1ad_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\9a18b27f-b1a2-49ec-af3d-3ebd860b2731_guide01.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/4/content/9a18b27f-b1a2-49ec-af3d-3ebd860b2731_guide01.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\9a18b27f-b1a2-49ec-af3d-3ebd860b2731_guide01.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\articleImage\59875f01-5919-4624-a60a-9aee5cef7d4e_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/5/articleImage/59875f01-5919-4624-a60a-9aee5cef7d4e_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\articleImage\59875f01-5919-4624-a60a-9aee5cef7d4e_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\content\068226f5-49c7-422d-989f-e122d33b5776_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/5/content/068226f5-49c7-422d-989f-e122d33b5776_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\content\068226f5-49c7-422d-989f-e122d33b5776_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\45391d68-7809-444d-b650-7c6f8a39cc11_Book.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/6/articleImage/45391d68-7809-444d-b650-7c6f8a39cc11_Book.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\45391d68-7809-444d-b650-7c6f8a39cc11_Book.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\79de81ef-ac63-417f-b61f-4bd032654584_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/6/articleImage/79de81ef-ac63-417f-b61f-4bd032654584_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\79de81ef-ac63-417f-b61f-4bd032654584_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\content\03015a5f-a919-4e3b-b6c4-4aa58b7d063c_guide02.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/6/content/03015a5f-a919-4e3b-b6c4-4aa58b7d063c_guide02.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\content\03015a5f-a919-4e3b-b6c4-4aa58b7d063c_guide02.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\content\f7950821-8191-41c1-9fa8-caa8266521ef_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/7/content/f7950821-8191-41c1-9fa8-caa8266521ef_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\content\f7950821-8191-41c1-9fa8-caa8266521ef_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\score.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/photo/score.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\score.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\statistic.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/photo/statistic.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\statistic.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\student.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/photo/student.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\student.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))">
       <SourceType>Package</SourceType>
@@ -863,22 +671,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap_v5.2.3.css))">
-      <SourceType>Package</SourceType>
-      <SourceId>TravelNotes</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>lib/bootstrap/dist/css/bootstrap_v5.2.3.css</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap_v5.2.3.css))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js))">
       <SourceType>Package</SourceType>

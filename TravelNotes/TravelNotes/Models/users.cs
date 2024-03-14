@@ -27,9 +27,11 @@ public partial class users
 
     public string? Interest { get; set; }
 
-    public string? Haedshot { get; set; }
+    public string? Headshot { get; set; }
 
     public string? SuperUser { get; set; }
+
+    public virtual ICollection<TripPlanning> TripPlanning { get; set; } = new List<TripPlanning>();
 
     public virtual ICollection<album> album { get; set; } = new List<album>();
 

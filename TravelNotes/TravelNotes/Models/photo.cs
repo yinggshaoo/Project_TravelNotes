@@ -15,11 +15,11 @@ public partial class photo
 
     public DateOnly? UploadDate { get; set; }
 
-    public int? AlbumId { get; set; }
+    public int AlbumId { get; set; }
 
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
 
-    public virtual album? Album { get; set; }
+    public virtual album Album { get; set; } = null!;
 
-    public virtual users? User { get; set; }
+    public virtual users User { get; set; } = null!;
 }

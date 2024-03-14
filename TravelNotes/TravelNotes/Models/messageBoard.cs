@@ -9,13 +9,13 @@ public partial class messageBoard
 
     public int ArticleId { get; set; }
 
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
 
     public string? Contents { get; set; }
 
-    public DateOnly? MessageTime { get; set; }
+    public DateTime? MessageTime { get; set; }
 
     public virtual article Article { get; set; } = null!;
 
-    public virtual users? User { get; set; }
+    public virtual users User { get; set; } = null!;
 }

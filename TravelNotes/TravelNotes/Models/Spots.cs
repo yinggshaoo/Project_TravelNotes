@@ -61,9 +61,11 @@ public partial class Spots
 
     public string? Keyword { get; set; }
 
-    public string? city { get; set; }
+    public string? City { get; set; }
 
     public string? _Description { get; set; }
 
     public string? DescriptionDetail { get; set; }
+
+    public virtual ICollection<TripPlanning> TripPlanning { get; set; } = new List<TripPlanning>();
 }

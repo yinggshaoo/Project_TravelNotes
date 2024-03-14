@@ -5,5 +5,5 @@ namespace TravelNotes.Models;
 
 public partial class UniqueCity
 {
-    public string? city { get; set; }
+    public string? City { get; set; }
 }
