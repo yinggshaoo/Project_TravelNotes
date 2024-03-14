@@ -1,0 +1,10 @@
+﻿#tab > ul {
+    display: flex;
+    list-style-type: none;
+    font-size: 20px;
+    cursor: pointer
+}
+
+#tab > ul > li{
+    margin-left: 20px;
+}
