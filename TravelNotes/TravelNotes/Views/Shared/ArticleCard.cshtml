@@ -100,9 +100,9 @@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 <script>
-    var backendData = @Html.Raw(Json.Serialize(content));
+    var backendData_@article.ArticleId = @Html.Raw(Json.Serialize(content));
 
-    console.log(backendData);
+    console.log(backendData_@article.ArticleId);
     $(function () {
         tinymce.init({
             selector: `#tiny_${@article.ArticleId}`,
@@ -110,11 +110,11 @@
             statusbar: false, // 隐藏状态栏
             readonly: true, // 将编辑器设置为只读
             init_instance_callback: function (editor) {
-                if (backendData == null) {
+                if (backendData_@article.ArticleId == null) {
                     editor.setContent("");
                 }
                 else {
-                    editor.setContent(backendData);
+                    editor.setContent(backendData_@article.ArticleId);
                 }
                 $(".tox-editor-header").css("display", "none");
 
