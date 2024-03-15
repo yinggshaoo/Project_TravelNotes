@@ -26,7 +26,11 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
+<<<<<<< HEAD
     pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
+=======
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+>>>>>>> b01e4036f5f3d503614d8e1cb102c2ee47a92efe
 
 //app.MapControllerRoute(
 //    name: "default",
@@ -43,8 +47,8 @@ app.MapControllerRoute(
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Article}/{action=ArticleView}/{articleId=4}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
 
 app.Run();

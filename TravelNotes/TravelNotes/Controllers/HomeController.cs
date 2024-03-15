@@ -22,13 +22,12 @@ namespace TravelNotes.Controllers
 
         public IActionResult Index(string search)
         {
-            IEnumerable<article> articles;
-
+            List<article> articles;
             if (!string.IsNullOrWhiteSpace(search))
             {
                 // 当提供搜索条件时，根据Title和Contents搜索，并按LikeCount降序排序
                 articles = _context.article
-                            .Where(a => (a.Contents != null && a.Contents.Contains(search) && a.ArticleState=="發佈")
+                            .Where(a => (a.Contents != null && a.Contents.Contains(search) && a.ArticleState == "發佈")
                                      || (a.Title != null && a.Title.Contains(search) && a.ArticleState == "發佈"))
                             .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
                             .ToList();
@@ -41,8 +40,18 @@ namespace TravelNotes.Controllers
                             .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
                             .ToList();
             }
+            //List<article> articles1 = _context.article.ToList();
+            List<usersArticleModel> dataList = new List<usersArticleModel>();
+            foreach (article article in articles)
+            {
+                users user = _context.users.FirstOrDefault(a => a.UserId == article.UserId);
+                usersArticleModel data = new usersArticleModel();
+                data.article = article;
+                data.user = user;
+                dataList.Add(data);
+            }
 
-            return View(articles);
+            return View(dataList);
         }
 
 

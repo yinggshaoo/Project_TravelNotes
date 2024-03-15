@@ -47,7 +47,7 @@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 <h2>草稿編輯</h2>
-@* <h1> 當前ID:@currentId</h1> *@
+<h1> 當前ID:@target.ArticleId</h1>
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 
 <select id="dropdown">
@@ -169,7 +169,7 @@
                 var src = $(this).attr('src');
                 contentImages.push(src.substring(src.lastIndexOf('/') + 1));
             });
-
+            editorContent = editorContent.replace(/src="img/g, 'src="/img');
             let articleData = {
                 articleId: articleId,
                 title: $('#title').val(),
