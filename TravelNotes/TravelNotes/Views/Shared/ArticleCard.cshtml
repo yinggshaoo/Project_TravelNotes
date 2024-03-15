@@ -99,7 +99,7 @@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 <script>
-    let backendData = @Html.Raw(Json.Serialize(content));
+    var backendData = @Html.Raw(Json.Serialize(content));
     console.log(backendData);
     $(function () {
         tinymce.init({
