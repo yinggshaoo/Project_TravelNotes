@@ -1,0 +1,157 @@
+﻿@using TravelNotes.Models; 
+@model Array
+@{
+    int count = 0;
+}
+<h1>這是智慧化</h1>
+
+@foreach(var item in Model)
+{
+    if (item is List<TagList>)
+    {
+        var tagLists = item as List<TagList>;
+        @foreach (var tagList in tagLists)
+        {
+            @if (tagList.TagClass == "W")
+            {
+                <button type="button" class="btn btn-outline-info weather-btn">
+                    @Html.DisplayFor(modelItem => tagList.TagName)
+                </button>
+            }
+
+
+            @if (tagList.TagClass == "I")
+            {
+                <button type="button" class="btn btn-outline-success interest-btn">
+                    @Html.DisplayFor(modelItem => tagList.TagName)
+                </button>
+            }
+
+            @if (tagList.TagClass == "C")
+            {
+                <button type="button" class="btn btn-outline-warning country-btn">
+                    @Html.DisplayFor(modelItem => tagList.TagName)
+                </button>
+            }
+            
+        }
+    }
+}
+
+<button id="submit">送出</button>
+
+<div id="card-container">
+    <h4></h4>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        var maxSelections = 3;
+        var selectedInterests = [];
+        var weatherString = "";
+        var countryString = "";
+
+        $(".interest-btn").click(function () {
+            var interestValue = $(this).text().trim();
+
+            if ($(this).hasClass("active")) {
+               
+                selectedInterests = selectedInterests.filter(item => item !== interestValue);
+            } else {
+                if (selectedInterests.length >= maxSelections) {
+                 
+                    alert("最多選3個!")
+                    return;
+                }
+                
+                selectedInterests.push(interestValue);
+            }
+
+            $(this).toggleClass("active");
+            //updateAjaxData();
+        });
+
+        $(".weather-btn").click(function () {
+            $(".weather-btn").removeClass("active");
+            weatherString = $(this).text().trim();
+            toggleActiveClass($(this));
+            //updateAjaxData();
+        });
+
+        $(".country-btn").click(function () {
+            $(".country-btn").removeClass("active");
+            countryString = $(this).text().trim();
+            toggleActiveClass($(this));
+            //updateAjaxData();
+        });
+
+        $("#submit").click(function () {
+            updateAjaxData(selectedInterests, weatherString, countryString);
+        })
+
+        function toggleActiveClass(element) {
+            if (!element.hasClass("active")) {
+                element.addClass("active");
+            }
+        }
+
+        function updateAjaxData(selectedInterests, weatherString, countryString) {
+            $.ajax({
+                url: "/AiRecommend/MlHandel",
+                method: "POST",
+                data: {
+                    Interests1: selectedInterests[0],
+                    Interests2: selectedInterests[1],
+                    Interests3: selectedInterests[2],
+                    weather: weatherString,
+                    country: countryString
+                }
+            }).done(function (data) {
+                $.each(data, function (idx, elem) {
+                    if (idx <= 10) {
+                        $("h4").after(`
+                            <div class="card" style="width: 18rem;">
+                                <img src="${elem.pictureUrl1}" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">${elem.scenicSpotName}</h5>
+
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">景點/店家電話 : ${elem.phone}</li>
+                                    <li class="list-group-item">地址: ${elem._Address}</li>
+                                        <li class="list-group-item">營業時間: ${elem.openTime}</li>
+                                </ul>
+                                <div class="card-body">
+                                    <a>旅遊資訊 : ${elem.travelInfo}</a>
+                                </div>
+
+                            </div>`);
+                        console.log(idx + " " + elem.scenicSpotName);
+                    } else {
+                        return false;
+                    }
+                })
+            })
+        }
+
+    });
+</script>
+
+
+@* $.ajax({
+                url: "/AiRecommend/MlHandel",
+                method: "POST",
+                data: {
+                    Interests1: selectedInterests[0],
+                    Interests2: selectedInterests[1],
+                    Interests3: selectedInterests[2],
+                    weather: weatherString,
+                    country: countryString
+                }
+            }).done(function (data) {
+                $.each(data, function (idx, elem) {
+
+                })
+            }) *@

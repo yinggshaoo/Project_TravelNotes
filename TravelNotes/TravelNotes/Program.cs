@@ -26,7 +26,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Album}/{action=Album}/{id?}");
+    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default",
