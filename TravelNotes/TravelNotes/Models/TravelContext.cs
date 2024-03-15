@@ -55,7 +55,7 @@ public partial class TravelContext : DbContext
     {
         modelBuilder.Entity<ArticleTagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC35273FB36");
+            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC34A0E81CD");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(10)
@@ -256,7 +256,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<Spots>(entity =>
         {
-            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A6AF7045FD");
+            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A693E91627");
 
             entity.Property(e => e.ScenicSpotID)
                 .HasMaxLength(20)
@@ -369,7 +369,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<TagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3434FF953");
+            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC35AC36D01");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(6)
@@ -411,7 +411,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<album>(entity =>
         {
-            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37571D3459");
+            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37A95AF8EF");
 
             entity.Property(e => e.AlbumName).HasMaxLength(10);
 
@@ -446,7 +446,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<articletags>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC3F5DBC34D");
+            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC3E44D8B4F");
 
             entity.Property(e => e.LabelDescription)
                 .HasMaxLength(255)
@@ -494,7 +494,6 @@ public partial class TravelContext : DbContext
 
             entity.HasOne(d => d.Album).WithMany(p => p.photo)
                 .HasForeignKey(d => d.AlbumId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_photo_AlbumId");
 
             entity.HasOne(d => d.User).WithMany(p => p.photo)

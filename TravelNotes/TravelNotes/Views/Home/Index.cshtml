@@ -1,4 +1,29 @@
 ﻿@model IEnumerable<TravelNotes.Models.article>
+<style>
+    .text-break {
+        margin-left:10px;
+        word-break: break-all;
+        min-width: 50px;
+        max-width: 980px;
+    }
+    .text{
+        height: 200px;
+        width:1000px;
+    }
+
+    .myArticle {
+        display: flex;
+    }
+
+    .img-thumbnail {
+        width: 200px;
+        height: 200px;
+    }
+
+
+
+
+    </style>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -13,19 +38,42 @@
         <input type="text" name="search" placeholder="Search articles..." />
         <button type="submit">Search</button>
     </form>
+    <br><br>
 </header>
 <body>
     @if (Model != null && Model.Any())
     {
-        <ul>
-            @foreach (var article in Model)
-            {
-                <li>
-                    <strong>@article.Title</strong> - @article.Contents
-                    <!-- 根据需要添加其他详情 -->
-                </li>
-            }
-        </ul>
+        @foreach (var article in Model)
+        {
+            <div class="row">
+                <div class="myArticle">
+					<div style="display:flex;border:solid 1px">
+						<div class="col-md-10">
+							<div class="text">
+                                <p class="articleDate">@article.PublishTime</p>			
+								<div>
+									<a href="/Home/Article/@article.Title" style="color:black;font-weight:bold;">
+										<h5 style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;">
+											@article.Title
+										</h5>
+									</a>
+									<p class="text-break" style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
+										@article.Contents
+									</p>
+								</div>
+							</div>
+						</div>
+                        <div class="articlePhoto col-md-2" style="width:200px;height:200px;margin-right:20px">
+						    <a href="/Home/Article/@article.Title"><img src="@article.Images" class="img-thumbnail mx-auto d-block" alt="..."></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+            <br />
+        }
+		
+            
     }
     else
     {

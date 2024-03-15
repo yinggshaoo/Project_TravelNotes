@@ -119,34 +119,36 @@ namespace TravelNotes.Controllers
                         Directory.CreateDirectory(folderPath);
                     }
 
-                    var fileName = imageFile.FileName; // 包含副檔名的檔案名稱
-                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile.FileName); // 不包含副檔名的檔案名稱
+                    var originalFileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile.FileName); // 不包含副檔名的原始檔案名稱
+                    var extension = Path.GetExtension(imageFile.FileName); // 檔案的副檔名
+                    var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss"); // 时间戳记
+                    var newFileName = $"{originalFileNameWithoutExtension}_{timeStamp}{extension}"; // 新檔案名稱包含时间戳记
 
-                    //變數 WebPath 組合路徑 /img/User01/photo/+ 變數 FileName ****(UserId要更換)***
-                    var webPath = $"/img/user1/photo/{fileName}";
-                    var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/photo", fileName);
+                    //变量 WebPath 组合路径 /img/User01/photo/+ 变量 newFileName ****(UserId要更換)***
+                    var webPath = $"/img/user1/photo/{newFileName}";
+                    var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/photo", newFileName);
 
-                    //複製一份過去指定的路徑(根據 變數 absolutePath)
+                    //复制一份到指定的路径(根据 变量 absolutePath)
                     using (var stream = new FileStream(absolutePath, FileMode.Create))
                     {
                         await imageFile.CopyToAsync(stream);
                     }
 
-                    //新增 PhotoTitle、PhotoPath、UploadDate、UserId=1的資料去資料庫  ****(UserId要更換)***
+                    //新增 PhotoTitle（带时间戳记）、PhotoPath、UploadDate、UserId=1的数据到数据库  ****(UserId要更換)***
                     var photo = new photo
                     {
-                        //沒有副檔名的檔案名稱
-                        PhotoTitle = fileNameWithoutExtension,
-                        //圖片路徑
+                        //没有副檔名的檔案名稱加时间戳记
+                        PhotoTitle = $"{originalFileNameWithoutExtension}_{timeStamp}",
+                        //图片路径
                         PhotoPath = webPath,
-                        //當前日期 格式 yyyy-MM-dd
+                        //当前日期 格式 yyyy-MM-dd
                         UploadDate = DateOnly.FromDateTime(DateTime.Now),
-                        //要再抓使用者ID  ****(UserId要更換)***
-                        UserId = 1,
+                        //需要再获取用户ID  ****(UserId要更换)***
+                        UserId = 1, // 请根据实际情况替换UserId
                     };
                     _context.photo.Add(photo);
 
-                    //儲存
+                    //保存
                     await _context.SaveChangesAsync();
                 }
                 //存一段文字讓前端引用
@@ -183,6 +185,39 @@ namespace TravelNotes.Controllers
 
             return RedirectToAction("Photo");
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePhotoDescription([FromBody] UpdateDescriptionModel model)
+        {
+            var photo = await _context.photo.FindAsync(model.PhotoId);
+            if (photo == null)
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            photo.PhotoDescription = model.NewDescription;
+            await _context.SaveChangesAsync();
+
+            return Ok(); // 200 OK
+        }
+        [HttpPost]
+        public IActionResult UpdateALLPhotoDescription([FromBody] UpdateALLPhotoDescriptionRequest request)
+        {
+            var photos = _context.photo.Where(p => request.PhotoIds.Contains(p.PhotoId)).ToList();
+
+            if (photos.Count != request.PhotoIds.Count)
+            {
+                return NotFound("One or more photos not found.");
+            }
+
+            foreach (var photo in photos)
+            {
+                photo.PhotoDescription = request.NewDescription; // 确保这里使用请求中的新描述
+            }
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
         //相簿圖片刪除方法
         [HttpPost]
         public async Task<IActionResult> AlbumPhotoToGarbage(int photoId, DateOnly ReplaceTime)
@@ -202,7 +237,6 @@ namespace TravelNotes.Controllers
         }
 
         //創建Album方法
-        [HttpPost]
         [HttpPost]
         public async Task<IActionResult> CreateFolder(string folderName)
         {
@@ -258,28 +292,36 @@ namespace TravelNotes.Controllers
                         Directory.CreateDirectory(folderPath);
                     }
 
-                    var fileName = $"{imageFile.FileName}";
-                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile.FileName);
-                    var webPath = $"/img/user1/album/{albumName}/{fileName}";
-                    var absolutePath = Path.Combine(_hostingEnvironment.WebRootPath, $"img/user1/album/{albumName}", fileName);
+                    var originalFileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile.FileName); // 不包含副檔名的原始檔案名稱
+                    var extension = Path.GetExtension(imageFile.FileName); // 檔案的副檔名
+                    var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss"); // 时间戳记
+                    var newFileName = $"{originalFileNameWithoutExtension}_{timeStamp}{extension}"; // 新檔案名稱包含时间戳记
 
+                    //变量 webPath 和 absolutePath 使用新的文件名 newFileName
+                    var webPath = $"/img/user1/album/{albumName}/{newFileName}";
+                    var absolutePath = Path.Combine(_hostingEnvironment.WebRootPath, $"img/user1/album/{albumName}", newFileName);
+
+                    //复制一份到指定的路径(根据 变量 absolutePath)
                     using (var stream = new FileStream(absolutePath, FileMode.Create))
                     {
                         await imageFile.CopyToAsync(stream);
                     }
 
+                    //新增 PhotoTitle（原始文件名不包含扩展名，加时间戳记）、PhotoPath、UploadDate、UserId和AlbumId的数据到数据库
                     var photo = new photo
                     {
-                        PhotoTitle = fileNameWithoutExtension,
+                        //文件名不带扩展名，加时间戳记
+                        PhotoTitle = $"{originalFileNameWithoutExtension}_{timeStamp}",
                         PhotoPath = webPath,
                         UploadDate = DateOnly.FromDateTime(DateTime.Now),
                         UserId = 1, // 注意这里UserId应该根据实际登录用户动态获取
-                        AlbumId = albumId,
+                        AlbumId = albumId, // 假设 albumId 已经是一个有效的值
                     };
                     _context.photo.Add(photo);
-                }
 
-                await _context.SaveChangesAsync();
+                    //保存
+                    await _context.SaveChangesAsync();
+                }
                 TempData["Message"] = "上傳成功";
                 return RedirectToAction("Album");
             }
@@ -467,7 +509,11 @@ namespace TravelNotes.Controllers
                 return NotFound();
             }
             photo.UploadDate = date;
-            photo.PhotoDescription = null; // 更新AlbumId
+            if (photo.PhotoDescription == "1")
+            {
+                photo.PhotoDescription = null; // 更新AlbumId
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Garbage"); // 返回成功??
@@ -487,7 +533,7 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateNullAlbumPhotosToMinAlbumId(int userId = 1)
         {
-           
+
 
             // 查找所有UserId=1且AlbumId为NULL的图片
             var photosToUpdate = await _context.photo
@@ -510,19 +556,33 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAlb(int albumId)
         {
-            // 在这里编写逻辑以根据提供的albumId查找并删除相册
-            var album = await _context.album.FindAsync(albumId);
+            // 在这里编写逻辑以根据提供的albumId查找相册
+            var album = await _context.album.Include(a => a.photo).FirstOrDefaultAsync(a => a.AlbumId == albumId);
             if (album != null)
             {
+                var OtherPhoto = album.photo.Where(p => p.PhotoDescription == "1" && p.UserId == 1).ToList();
+                foreach (var photo in OtherPhoto)
+                {
+                    photo.AlbumId = null;
+                    await _context.SaveChangesAsync();
+                }
+                
+                // 先删除相册中的所有图片
+                foreach (var photo in album.photo.ToList())
+                {
+                    _context.photo.Remove(photo);
+                }
+
+                // 删除相册
                 _context.album.Remove(album);
                 await _context.SaveChangesAsync();
                 // 可以添加一个消息来通知用户删除操作已成功
-                TempData["Message"] = "相册删除成功";
+                TempData["Message"] = "相簿及其圖片刪除成功";
             }
             else
             {
                 // 如果找不到相册，可以添加一个错误消息
-                TempData["ErrorMessage"] = "找不到相册，删除失败";
+                TempData["ErrorMessage"] = "找不到相簿，刪除失敗";
             }
 
             // 重定向到相应的视图或动作方法

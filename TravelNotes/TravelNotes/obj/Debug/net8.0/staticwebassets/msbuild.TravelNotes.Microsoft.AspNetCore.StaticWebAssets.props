@@ -32,12 +32,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\photo-album.png))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png</RelativePath>
+      <RelativePath>images/photo-album.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -46,14 +46,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\03215ba5-d5a5-41d9-a16f-b07d9bce5e97_partially-cloudy.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\photo-album.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\6569.jpg_wh1200_20240315115555.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png</RelativePath>
+      <RelativePath>img/user1/album/111/6569.jpg_wh1200_20240315115555.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -62,14 +62,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\0667dd7d-43f1-4b8b-8cdd-04fab4a09dff_—Pngtree—cartoon fingers hand tap touch_5670496_Resize Image.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\6569.jpg_wh1200_20240315115555.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\Book.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315001646.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/album/Test1/Book.png</RelativePath>
+      <RelativePath>img/user1/album/111/cherry-blossoms-656965_640_20240315001646.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -78,14 +78,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\Test1\Book.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315001646.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315001653.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/0/articleImage/83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png</RelativePath>
+      <RelativePath>img/user1/album/111/cherry-blossoms-656965_640_20240315001653.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -94,14 +94,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\83aed6d1-238b-4d1a-a9a0-2d3de0b5c2cc_partially-cloudy.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315001653.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315002022.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/0/articleImage/c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png</RelativePath>
+      <RelativePath>img/user1/album/111/cherry-blossoms-656965_640_20240315002022.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -110,14 +110,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\c4e9bfc4-263a-4edb-9c99-9c49cd41add1_partially-cloudy.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315002022.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315002107.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/4/articleImage/5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png</RelativePath>
+      <RelativePath>img/user1/album/111/cherry-blossoms-656965_640_20240315002107.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -126,14 +126,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\articleImage\5949bac5-4f58-4004-a9ce-86badb4cb73c_partially-cloudy.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315002107.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315114954.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>TravelNotes</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TravelNotes</BasePath>
-      <RelativePath>img/user1/article/4/content/0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png</RelativePath>
+      <RelativePath>img/user1/album/111/cherry-blossoms-656965_640_20240315114954.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -142,7 +142,343 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\4\content\0f280834-d2c4-4d08-bca1-5897dca9cfa6_partially-cloudy.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\cherry-blossoms-656965_640_20240315114954.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\下載_20240315115145.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/album/111/下載_20240315115145.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\下載_20240315115145.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\下載_20240315115603.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/album/111/下載_20240315115603.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\album\111\下載_20240315115603.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\04de930a-1339-4769-a7c9-fa1ababba369_istockphoto-517188688-612x612.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/0/articleImage/04de930a-1339-4769-a7c9-fa1ababba369_istockphoto-517188688-612x612.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\04de930a-1339-4769-a7c9-fa1ababba369_istockphoto-517188688-612x612.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\3660d270-0440-4d5e-95f9-b3f8a169d9da_下載.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/0/articleImage/3660d270-0440-4d5e-95f9-b3f8a169d9da_下載.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\3660d270-0440-4d5e-95f9-b3f8a169d9da_下載.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\46b99a9b-d27a-47ed-a9c7-bf58ac536a7d_istockphoto-517188688-612x612.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/0/articleImage/46b99a9b-d27a-47ed-a9c7-bf58ac536a7d_istockphoto-517188688-612x612.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\46b99a9b-d27a-47ed-a9c7-bf58ac536a7d_istockphoto-517188688-612x612.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\8757e0dd-c170-4361-99b4-acd9a8557c90_下載.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/0/articleImage/8757e0dd-c170-4361-99b4-acd9a8557c90_下載.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\8757e0dd-c170-4361-99b4-acd9a8557c90_下載.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\b1b037d0-72b8-4f54-9f6b-e24e96eaa1a6_下載.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/0/articleImage/b1b037d0-72b8-4f54-9f6b-e24e96eaa1a6_下載.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\0\articleImage\b1b037d0-72b8-4f54-9f6b-e24e96eaa1a6_下載.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\articleImage\119462ff-ff7c-4d0a-9730-e306d4658dfe_cherry-blossoms-656965_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/5/articleImage/119462ff-ff7c-4d0a-9730-e306d4658dfe_cherry-blossoms-656965_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\5\articleImage\119462ff-ff7c-4d0a-9730-e306d4658dfe_cherry-blossoms-656965_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\fb145742-fc1e-4fdb-b41e-50827a7546f9_cherry-blossoms-656965_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/6/articleImage/fb145742-fc1e-4fdb-b41e-50827a7546f9_cherry-blossoms-656965_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\articleImage\fb145742-fc1e-4fdb-b41e-50827a7546f9_cherry-blossoms-656965_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\content\f2120b9b-a634-49ea-92fb-76e7a6f830c1_下載.jfif))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/6/content/f2120b9b-a634-49ea-92fb-76e7a6f830c1_下載.jfif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\6\content\f2120b9b-a634-49ea-92fb-76e7a6f830c1_下載.jfif))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\articleImage\1b3a9ce3-3e3a-4430-acde-19d5949fa01d_istockphoto-517188688-612x612.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/7/articleImage/1b3a9ce3-3e3a-4430-acde-19d5949fa01d_istockphoto-517188688-612x612.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\articleImage\1b3a9ce3-3e3a-4430-acde-19d5949fa01d_istockphoto-517188688-612x612.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\articleImage\5a5cb749-a2c9-4e3c-a530-38ca4bc0958b_6569.jpg_wh1200.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/7/articleImage/5a5cb749-a2c9-4e3c-a530-38ca4bc0958b_6569.jpg_wh1200.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\7\articleImage\5a5cb749-a2c9-4e3c-a530-38ca4bc0958b_6569.jpg_wh1200.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\8\articleImage\d1fb258d-e1dd-40e3-990a-5940cdc1b680_istockphoto-517188688-612x612.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/article/8/articleImage/d1fb258d-e1dd-40e3-990a-5940cdc1b680_istockphoto-517188688-612x612.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\article\8\articleImage\d1fb258d-e1dd-40e3-990a-5940cdc1b680_istockphoto-517188688-612x612.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\6569.jpg_wh1200_20240315104018.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/6569.jpg_wh1200_20240315104018.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\6569.jpg_wh1200_20240315104018.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/cherry-blossoms-656965_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315001355.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/cherry-blossoms-656965_640_20240315001355.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315001355.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315001407.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/cherry-blossoms-656965_640_20240315001407.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315001407.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315104019.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/cherry-blossoms-656965_640_20240315104019.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\cherry-blossoms-656965_640_20240315104019.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-506472311-612x612_20240315104019.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/istockphoto-506472311-612x612_20240315104019.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-506472311-612x612_20240315104019.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-517188688-612x612_20240315104019.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/istockphoto-517188688-612x612_20240315104019.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-517188688-612x612_20240315104019.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-517188688-612x612_20240315115720.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TravelNotes</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TravelNotes</BasePath>
+      <RelativePath>img/user1/photo/istockphoto-517188688-612x612_20240315115720.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\user1\photo\istockphoto-517188688-612x612_20240315115720.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))">
       <SourceType>Package</SourceType>

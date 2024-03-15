@@ -67,37 +67,58 @@
         border: 2px solid black; /* 定義邊框的樣式 */
     }
 
-    .context-menu {
+    #contextMenu {
+        display: none;
         position: absolute;
         z-index: 1000;
-        width: 120px;
-        background: #f0f0f0;
+        background-color: #f0f0f0;
         border: 1px solid #ddd;
         border-radius: 5px;
-        box-shadow: 2px 2px 4px #aaa;
+        padding: 10px;
     }
 
-        .context-menu ul {
+        #contextMenu ul {
             list-style: none;
             margin: 0;
-            padding: 5px 0;
+            padding: 0;
         }
 
-            .context-menu ul li {
-                padding: 5px 10px;
+            #contextMenu ul li {
+                padding: 8px;
                 cursor: pointer;
             }
 
-                .context-menu ul li:hover {
-                    background-color: #ddd;
+                #contextMenu ul li:hover {
+                    background-color: #e7e7e7;
                 }
 </style>
 <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo">我的相片</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album">我的相簿</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage">我的垃圾桶</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div>
         <h1>相片</h1>
     </div>
     <hr />
-
     @* 提醒文字 *@
     @if (TempData["Message"] != null)
     {
@@ -105,9 +126,14 @@
             @TempData["Message"]
         </div>
     }
+    <div id="SuccessMessage" class="alert alert-success" style="display:none;">
+        刪除成功！
+    </div>
+    <div id="FalseMessage" class="alert alert-danger" style="display:none;">
+        刪除失敗！
+    </div>
     <div id="successMessage" class="alert alert-success" style="display:none;"></div>
     <div id="falseMessage" class="alert alert-danger" style="display:none;"></div>
-
     @* form表單接收使用者上傳的檔案，該檔案預設接收.png .jpg .jpeg ，回傳給UploadImage*@
     <form asp-action="UploadImages" method="post" enctype="multipart/form-data">
         <div>
@@ -121,15 +147,13 @@
     <button id="updateNullAlbumPhotos">清空相片</button>
     <hr />
 </header>
-
-
 <body>
     <button id="toggle-select-mode">選擇</button>
     @foreach (photo p in Model)
     {
         //Action Privacy 後端回傳符合條件 p.UserId == 1 && p.AlbumId == null 的所有圖片
         <div id="Pho-@p.PhotoId" class="image-container">
-            <img id="dynamicImage-@p.PhotoId" src="@p.PhotoPath" class="image-item" style="width: 150px;height:150px;" />
+            <img id="dynamicImage-@p.PhotoId" src="@p.PhotoPath" class="image-item" data-photodescription="@p.PhotoDescription" style="width: 150px;height:150px;" />
         </div>
 
         //隱藏的視窗 點擊後才會顯示
@@ -139,11 +163,7 @@
             <img class="modal-content" id="Img01">
         </div>
     }
-    <div id="contextMenu" class="context-menu" style="display:none;">
-        <ul>
-            <li id="deleteOption">删除</li>
-        </ul>
-    </div>
+    <div id="contextMenu"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -184,91 +204,153 @@
             };
         };
         document.addEventListener('DOMContentLoaded', function () {
-            const toggleSelectModeBtn = document.getElementById('toggle-select-mode'); // 假设这是你的切换按钮
-            let isSelectModeActive = false; // 用于跟踪是否应该进行多选
+            const toggleSelectModeBtn = document.getElementById('toggle-select-mode');
+            let isSelectModeActive = false;
+            const contextMenu = document.getElementById("contextMenu");
 
-            // 监听切换按钮的点击事件
             toggleSelectModeBtn.addEventListener('click', function () {
-                isSelectModeActive = !isSelectModeActive; // 切换多选模式状态
-                if (isSelectModeActive) {
-                    this.textContent = "取消選擇"; // 更新按钮文本（可选）
-                } else {
-                    this.textContent = "選擇"; // 更新按钮文本（可选）
-                    // 新增：取消所有图片的selected状态
+                isSelectModeActive = !isSelectModeActive;
+                this.textContent = isSelectModeActive ? "取消選擇" : "選擇";
+                if (!isSelectModeActive) {
                     document.querySelectorAll('.image-item.selected').forEach(function (image) {
                         image.classList.remove('selected');
                     });
                 }
             });
 
-            const images = document.querySelectorAll('.image-item');
-
-            images.forEach(image => {
+            document.querySelectorAll('.image-item').forEach(image => {
                 image.addEventListener('click', function (event) {
-                    // 只有当多选模式激活时，才允许切换图片的选中状态
                     if (isSelectModeActive) {
-                        event.preventDefault(); // 防止默认操作（如有）
+                        event.preventDefault();
                         this.classList.toggle('selected');
                     }
                 });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            var images = document.getElementsByClassName('image-item');
 
-            for (var i = 0; i < images.length; i++) {
-                images[i].addEventListener('contextmenu', function (e) {
-                    e.preventDefault(); // 阻止默认的右键菜单
-
-                    var photoId = this.id.split('-')[1]; // 假设图片元素的id是"dynamicImage-XXX"格式
-                    var uploadDate = this.getAttribute('data-upload-date'); // 假设你已经将上传日期作为数据属性添加到了图片元素上
-
-                    var contextMenu = document.getElementById("contextMenu");
-                    // 设置菜单位置
+                image.addEventListener('contextmenu', function (e) {
+                    e.preventDefault();
+                    var menuHtml = isSelectModeActive && this.classList.contains('selected') ?
+                        '<ul><li id="otherOption">刪除所選</li></ul>' :
+                        '<ul><li id="deleteOption">删除</li></ul>';
+                    contextMenu.innerHTML = menuHtml;
                     contextMenu.style.left = e.pageX + 'px';
                     contextMenu.style.top = e.pageY + 'px';
-                    contextMenu.style.display = "block"; // 显示菜单
-
-                    // 将photoId和uploadDate绑定到右键菜单的元素上，以便在选项点击时使用
-                    contextMenu.setAttribute('data-photo-id', photoId);
-                    contextMenu.setAttribute('data-upload-date', uploadDate);
+                    contextMenu.style.display = "block";
+                    contextMenu.currentImage = this; // 新增这行代码
                 });
-            }
-
-            // 点击其他地方隐藏菜单
-            document.addEventListener('click', function (e) {
-                document.getElementById("contextMenu").style.display = 'none';
             });
 
-            // 绑定点击事件到菜单项
-            document.getElementById('deleteOption').addEventListener('click', function () {
-                var contextMenu = document.getElementById("contextMenu");
-                var photoId = contextMenu.getAttribute('data-photo-id');
-                var uploadDate = contextMenu.getAttribute('data-upload-date');
-
-                // 在这里执行 AJAX 请求来进行删除操作
-                var result = confirm("确定要删除吗？");
-                if (result) {
-                    $.ajax({
-                        url: '/Album/UpdateAlbumId', // 控制器的Action
-                        type: 'POST',
-                        data: { photoId: photoId, ReplaceTime: uploadDate },
-                        success: function () {
-                            localStorage.setItem('deleteSuccessMessage', '删除成功');
-                            location.reload(); // 重新加载页面以显示更新
-                        },
-                        error: function () {
-                            localStorage.setItem('deleteFalseMessage', '删除失败');
-                            alert("删除失败，请重试！");
-                        }
-                    });
-                } else {
-                    alert("删除已取消");
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('#contextMenu')) {
+                    contextMenu.style.display = 'none';
                 }
             });
+
+            contextMenu.addEventListener('click', function (e) {
+                if (e.target.id === 'deleteOption') {
+                    var selectedImages = document.querySelectorAll('.image-item.selected');
+                    selectedImages.forEach(function (image) {
+                        image.parentElement.remove(); // 删除选中的图片和容器
+                    });
+                    contextMenu.style.display = 'none';
+                    if (contextMenu.currentImage) {
+                        const photoId = contextMenu.currentImage.id.split('-')[1]; // 假设图片元素的id格式是"dynamicImage-123"
+                        updatePhotoDescription(photoId, '1'); // 将PhotoDescription更新为'1'
+                    }
+                }
+                // 这里可以根据需要添加更多菜单项的处理逻辑
+            });
+            contextMenu.addEventListener('click', function (e) {
+                if (e.target.id === 'otherOption') {
+                    var selectedImages = document.querySelectorAll('.image-item.selected');
+                    var photoIds = Array.from(selectedImages).map(image => image.id.split('-')[1]);
+
+                    // 调用更新所有选中图片PhotoDescription的函数
+                    updateALLPhotoDescription(photoIds, '1');
+                    contextMenu.style.display = 'none';
+                }
+            });
+
+        });
+        
+        function updatePhotoDescription(photoId, newDescription) {
+            fetch('/Album/UpdatePhotoDescription', { // 修改URL以匹配你的路由
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': 'your_csrf_token_here' // 如果使用CSRF保护，需要包含token
+                },
+                body: JSON.stringify({
+                    photoId: parseInt(photoId),
+                    newDescription: newDescription
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 存储一个标志位在localStorage表示成功
+                        localStorage.setItem("photoUpdateStatus", "success");
+                    } else {
+                        // 存储一个标志位在localStorage表示失败
+                        localStorage.setItem("photoUpdateStatus", "fail");
+                    }
+                    // 重新加载页面
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    localStorage.setItem("photoUpdateStatus", "fail");
+                    window.location.reload();
+                });
+        }
+        function updateALLPhotoDescription(photoIds, newDescription) {
+            // 假设服务器端接受一个请求体，其中photoIds是图片ID数组，newDescription是新的描述值
+            fetch('/Album/UpdateALLPhotoDescription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': 'your_csrf_token_here' 如果你的应用使用了CSRF保护，记得添加token
+                },
+                body: JSON.stringify({
+                    photoIds: photoIds,
+                    newDescription: newDescription
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 存储一个标志位在localStorage表示成功
+                        localStorage.setItem("photoUpdateStatus", "success");
+                    } else {
+                        // 存储一个标志位在localStorage表示失败
+                        localStorage.setItem("photoUpdateStatus", "fail");
+                    }
+                    // 重新加载页面
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    localStorage.setItem("photoUpdateStatus", "fail");
+                    window.location.reload();
+                });
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // 检查localStorage中的状态
+            const status = localStorage.getItem("photoUpdateStatus");
+
+            if (status === "success") {
+                document.getElementById("SuccessMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("SuccessMessage").style.display = "none";
+                }, 3000); // 3秒后隐藏
+            } else if (status === "fail") {
+                document.getElementById("FalseMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("FalseMessage").style.display = "none";
+                }, 3000); // 3秒后隐藏
+            }
+
+            // 清除状态以避免重新加载页面时再次显示消息
+            localStorage.removeItem("photoUpdateStatus");
         });
 
-        
         $("#updateNullAlbumPhotos").click(function () {
             var result = confirm("確定要刪除嗎？");
             if (result) {
@@ -304,12 +386,12 @@
                 $('#successMessage').text(deleteSuccessMessage).show();
 
                 // 設置3秒後消失
-                 setTimeout(function () {
-                     $('#successMessage').fadeOut('slow');
-                 }, 3000);
+                setTimeout(function () {
+                    $('#successMessage').fadeOut('slow');
+                }, 3000);
 
                 // 清除消息，避免下次加載頁面時再次顯示
-                 localStorage.removeItem('deleteSuccessMessage');
+                localStorage.removeItem('deleteSuccessMessage');
             }
         });
         document.addEventListener('DOMContentLoaded', function () {
@@ -331,7 +413,7 @@
                 document.getElementById("contextMenu").style.display = 'none';
             });
         });
-        
+
         $(document).ready(function () {
             // 檢查localStorage中是否有删除成功的消息
             var deleteFalseMessage = localStorage.getItem('deleteFalseMessage');

@@ -28,8 +28,8 @@ namespace TravelNotes.Controllers
             {
                 // 当提供搜索条件时，根据Title和Contents搜索，并按LikeCount降序排序
                 articles = _context.article
-                            .Where(a => (a.Contents != null && a.Contents.Contains(search))
-                                     || (a.Title != null && a.Title.Contains(search)))
+                            .Where(a => (a.Contents != null && a.Contents.Contains(search) && a.ArticleState=="發佈")
+                                     || (a.Title != null && a.Title.Contains(search) && a.ArticleState == "發佈"))
                             .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
                             .ToList();
             }
@@ -37,6 +37,7 @@ namespace TravelNotes.Controllers
             {
                 // 当没有提供搜索条件时，直接按LikeCount降序排序显示所有文章
                 articles = _context.article
+                    .Where(a => a.ArticleState == "發佈")
                             .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
                             .ToList();
             }
