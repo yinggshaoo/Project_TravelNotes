@@ -1,0 +1,275 @@
+﻿@{
+    ViewData["Title"] = "草稿編輯";
+}
+@model List<article>
+@{
+    var currentId = ViewBag.articleId;
+    article target;
+    string time;
+    if (currentId == null)
+    {
+        target = Model.LastOrDefault()!;
+    }
+    else
+    {
+        target = Model.FirstOrDefault(a => a.ArticleId == currentId)!;
+    }
+    if (target == null)
+    {
+        target = new article()
+                {
+                    ArticleId = 0,
+                    TravelTime = DateTime.Now,
+                };
+    }
+    var tempTime = (DateTime)target!.TravelTime!;
+    time = tempTime.ToString("yyyy-MM-ddTHH:mm");
+    string content = target!.Contents!;
+}
+<style>
+    #notification {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+@* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
+<script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<h2>草稿編輯</h2>
+@* <h1> 當前ID:@currentId</h1> *@
+<input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
+
+<select id="dropdown">
+    @foreach (var article in Model)
+    {
+        <option value="@article.ArticleId">@article.Title</option>
+    }
+</select>
+
+<br />
+<img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
+<input type="file" id="articleImageUpload" />
+
+<div>
+    <label for="title">標題:</label>
+    <input type="text" id="title" value="@target.Title">
+</div>
+<div>
+    <label for="subtitle">副標題:</label>
+    <input type="text" id="subtitle" value="@target.Subtitle">
+</div>
+<div>
+    <label for="travelTime">時間:</label>
+    <input type="datetime-local" id="travelTime" value="@time">
+</div>
+<div>
+    <textarea id="tiny"></textarea>
+</div>
+
+<button id="saveButton">Save</button>
+<button id="createButton">新增</button>
+<button id="publishButton">發佈</button>
+<button id="deleteButton" class="btn btn-danger">删除草稿</button>
+@* <button id="testButton" class="btn btn-danger">測試</button> *@
+<div id="notification">562323</div>
+
+
+<script>
+
+    let backendData = @Html.Raw(Json.Serialize(content));
+    console.log(backendData);
+    let dropdown = $("#dropdown");
+    $(function () {
+        let articleId = $('#articleId').val();
+        const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', '/Article/UploadImage');
+
+            xhr.upload.onprogress = (e) => {
+                progress(e.loaded / e.total * 100);
+            };
+
+            xhr.onload = () => {
+                if (xhr.status === 403) {
+                    reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                    return;
+                }
+
+                if (xhr.status < 200 || xhr.status >= 300) {
+                    reject('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                const json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.location != 'string') {
+                    reject('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                resolve(json.location);
+            };
+
+            xhr.onerror = () => {
+                reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+
+            const formData = new FormData();
+            formData.append('file', blobInfo.blob());
+            formData.append('articleId', articleId);
+
+            xhr.send(formData);
+        });
+        tinymce.init({
+            selector: '#tiny',
+            plugins: 'image',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | image | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight ',
+            automatic_uploads: true,
+            images_upload_handler: image_upload_handler,
+            file_picker_types: 'image',
+            init_instance_callback: function (editor) {
+                if (backendData == null) {
+                    editor.setContent("");
+                }
+                else {
+                    editor.setContent(backendData);
+                }
+            }
+        });
+        for (let i = 0; i < dropdown.children().length; i++) {
+            if (dropdown.children()[i].value == articleId) {
+                dropdown.val(dropdown.children()[i].value);
+                console.log(dropdown.val());
+                break;
+            }
+        }
+        $("#dropdown").on("change", function () {
+            let id = $(this).val();
+
+            window.location = '/Article/Draft?articleId=' + id;
+        });
+
+        function saveDraft() {
+            var contentImages = [];
+            var editorContent = tinymce.get('tiny').getContent();
+            var tempElement = $('<div>').html(editorContent);
+            tempElement.find('img').each(function () {
+                var src = $(this).attr('src');
+                contentImages.push(src.substring(src.lastIndexOf('/') + 1));
+            });
+
+            let articleData = {
+                articleId: articleId,
+                title: $('#title').val(),
+                subtitle: $('#subtitle').val(),
+                travelTime: $('#travelTime').val(),
+                content: editorContent,
+                contentImages : JSON.stringify(contentImages)
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Article/SaveDraft", // 控制器的 URL
+                data: articleData,
+                success: function (response) {
+                    showNotification("保存成功");
+                }
+            });
+        }
+        $('#saveButton').on('click', saveDraft);
+
+        $('#createButton').on('click', function () {
+
+            $.ajax({
+                type: "post",
+                url: "/Article/CreateDraft", // 控制器的 URL
+                success: function (response) {
+                    alert("新增成功");
+                    window.location = "/Article/Draft/"
+                }
+            });
+        });
+
+        $('#publishButton').on('click', function () {
+            var confirmation = confirm("確定要發佈嗎？");
+            if (confirmation) {
+                saveDraft();
+                $.post("/Article/PublishDraft", { articleId: articleId })
+                    .done(function () {
+                        window.location = '/Article/ArticleView?articleId=' + articleId;
+                    })
+            }
+        });
+
+        $('#deleteButton').on('click', function () {
+            var confirmation = confirm("確定要刪除這篇草稿嗎？");
+            if (confirmation) {
+                $.post("/Article/DeleteDraft", { articleId: articleId })
+                    .done(function () {
+                        alert("刪除成功");
+                        window.location = "/Article/Draft/"
+                    })
+            }
+        });
+
+        $('#articleImage').on('click', function () {
+            console.log('ok');
+        });
+
+        $('#articleImageUpload').on('change', function () {
+            var file = this.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            formData.append('articleId', articleId);
+            $.ajax({
+                type: "post",
+                url: "/Article/UploadArticleImage",
+                data: formData,
+                processData: false,  // 禁止 jQuery 处理数据
+                contentType: false,  // 禁止 jQuery 设置内容类型
+                success: function (src) {
+                    $('#articleImage').prop('src', src);
+                }
+            });
+        });
+
+        function showNotification(message) {
+            $("#notification").text(message).css("display","block")
+            setTimeout(function () {
+                $("#notification").css("display", "none");
+            },1000)
+        }
+        // $('#testButton').on('click', function () {
+        //     var contentImages = [];
+        //     var editorContent = tinymce.get('tiny').getContent();
+        //     var tempElement = $('<div>').html(editorContent);
+        //     tempElement.find('img').each(function () {
+        //         var src = $(this).attr('src');
+
+
+        //         contentImages.push(src.substring(src.lastIndexOf('/')+1));
+        //     });
+        //     console.log(contentImages);
+        // });
+        // $(window).on('beforeunload', function () {
+        //     return '您确定要离开当前页面吗？'; // 在离开页面时弹出提示
+        // });
+
+        // // 当用户点击页面上的其他链接或者刷新页面时，解除beforeunload事件绑定
+        // $('a').on('click', function () {
+        //     $(window).off('beforeunload');
+        // });
+    });
+
+</script>
