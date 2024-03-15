@@ -26,7 +26,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Album}/{action=Album}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default",
@@ -43,8 +43,8 @@ app.MapControllerRoute(
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Article}/{action=ArticleView}/{articleId=4}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
 
 app.Run();
