@@ -28,12 +28,16 @@ namespace TravelNotes.Controllers
             _context = context;
         }
         #region 圖片相關
-        public void CheckFolderPhotos(string contentImages, int articleId)
+        public void CheckFolderPhotos(string folderImages, int articleId,string type)
         {
             // 解析 contentImages 字符串为对象
-            List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
-            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userID}\\article\\{articleId}\\content");
+            List<string> imageList = JsonSerializer.Deserialize<List<string>>(folderImages)!;
+            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userID}\\article\\{articleId}\\{type}");
 
+            if(!Directory.Exists(directoryPath))
+            {
+                return;
+            }
             // 获取目录中的所有文件名
             string[] fileNames = Directory.GetFiles(directoryPath);
 
@@ -103,6 +107,10 @@ namespace TravelNotes.Controllers
         public string UploadArticleImage(IFormFile file, int articleId)
         {
             string srcString = CopyToArticleFolder(file, articleId, "articleImage");
+            string fileName = srcString.Substring(srcString.LastIndexOf('/') + 1);
+            string folderImage = JsonSerializer.Serialize(new List<string>() { fileName });
+            CheckFolderPhotos(folderImage, articleId, "articleImage");
+            
             var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
             currentArticle!.Images = srcString;
             
@@ -127,7 +135,7 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public IActionResult SaveDraft(int articleId, string title, string subtitle, DateTime travelTime, string content, string contentImages)
         {
-            CheckFolderPhotos(contentImages, articleId);
+            CheckFolderPhotos(contentImages, articleId,"content");
             var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
             if (title == null)
             {

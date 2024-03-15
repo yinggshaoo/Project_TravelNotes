@@ -9,91 +9,95 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TravelNotes
 build_property.RootNamespace = TravelNotes
-build_property.ProjectDir = C:\Users\洪聖哲\Desktop\TravelNotes-Project\Final\Final\TravelNotes-Project\TravelNotes\TravelNotes\
+build_property.ProjectDir = C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\洪聖哲\Desktop\TravelNotes-Project\Final\Final\TravelNotes-Project\TravelNotes\TravelNotes
+build_property.MSBuildProjectDirectory = C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Album/Album.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Album/Album.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQWxidW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Album/Garbage.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Album/Garbage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cR2FyYmFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Album/Photo.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Album/Photo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cUGhvdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Article/ArticleEdit.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Article/ArticleEdit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBcnRpY2xlRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Article/ArticleView.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Article/ArticleView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBcnRpY2xlVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Article/Draft.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Article/Draft.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxEcmFmdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Article/errorView.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Article/errorView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxlcnJvclZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Article/TestArticle.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Article/TestArticle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxUZXN0QXJ0aWNsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Home/Index.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/PersonalPage/Album.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Album.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXEFsYnVtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/PersonalPage/Article.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Article.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXEFydGljbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/PersonalPage/PersonalPage.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/PersonalPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFBlcnNvbmFsUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/PersonalPage/Schedule.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Schedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFNjaGVkdWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/PersonalPage/Year.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Year.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFllYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Shared/ArticleCard.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Shared/ArticleCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFydGljbGVDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Shared/Error.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/_ViewImports.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Test/Test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVzdFxUZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/_ViewStart.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/洪聖哲/Desktop/TravelNotes-Project/Final/Final/TravelNotes-Project/TravelNotes/TravelNotes/Views/Shared/_Layout.cshtml]
+[C:/Users/user/Documents/GitHub/TravelNotes/TravelNotes/TravelNotes/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ipr9r1jdlc
