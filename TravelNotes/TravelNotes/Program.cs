@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TravelNotes.Models;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TravelContext>(
       options => options.UseSqlServer(builder.Configuration.GetConnectionString("TravelConnstring")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TravelContext>();
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,11 +27,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 //app.MapControllerRoute(
 //    name: "default",
