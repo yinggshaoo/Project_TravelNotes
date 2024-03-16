@@ -1,1 +1,35 @@
-﻿
+﻿<h1>這是登入頁面</h1>
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="registerForm" action="/Member/Login" method="post">
+                <h2>登入會員</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input id="email" name="email" type="email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label>Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="password" name="password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label>Password</label>
+                </div>
+                
+                <button id="LoginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
+            </form>
+        </section>
+    </div>
+</div>
+

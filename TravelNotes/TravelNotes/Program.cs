@@ -26,25 +26,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Member}/{action=Register}/{id?}");
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Album}/{action=Album}/{id?}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=Draft}/{id?}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=ArticleEdit}/{articleId=8}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=ArticleView}/{articleId=4}");
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Article}/{action=TestArticle}/{id?}");
+    pattern: "{controller=Member}/{action=Login}/{id?}");
 
 app.Run();

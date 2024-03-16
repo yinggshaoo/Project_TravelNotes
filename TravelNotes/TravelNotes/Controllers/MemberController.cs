@@ -20,19 +20,54 @@ namespace TravelNotes.Controllers
 			return View();
 		}
 
-		public IActionResult Register(string email, string password, string confirmPassword)
+
+        public IActionResult Login(string email, string password)
+        {
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            {
+                var user = _context.AspNetUsers.FirstOrDefault(x => x.Email == email);
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "登入失敗 - 找不到使用者";
+                    return RedirectToAction("Login");
+                }
+
+                var hashedPassword = ComputeSHA256Hash(password);
+                if (hashedPassword == user.PasswordHash)
+                {
+                    return RedirectToAction("Index", "Home"); // 登入成功後導向首頁或其他目標頁面
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
+                    return RedirectToAction("Login");
+                }
+            }
+                
+            return View();
+        }
+
+        public IActionResult fail() 
+        {
+            ViewBag.Text = "失敗了!";
+            return View();
+        }
+
+
+        public IActionResult Register(string email, string password, string confirmPassword)
 		{
 			if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(confirmPassword))
 			{
 
                 string hashedPassword = ComputeSHA256Hash(password);
-                ViewBag.Email = email;
-				ViewBag.Password = hashedPassword;
-				ViewBag.ConfirmPassword = confirmPassword;
+                Random random = new Random();
+                char randomLetter = (char)('A' + random.Next(26));
+                string hashedId = ComputeSHA256Hash(password + randomLetter);
+
 
                 var user = new AspNetUsers
                 {
-                    Id = "default",
+                    Id = hashedId,
                     Email = email,
                     EmailConfirmed = false,
                     PasswordHash = hashedPassword, // 密碼應該是哈希後的值
@@ -46,18 +81,12 @@ namespace TravelNotes.Controllers
                 _context.SaveChanges();
 
 
-                return RedirectToAction("Success", new { email = email, password = hashedPassword, confirmPassword = confirmPassword });
+                return RedirectToAction("Login");
             }
 			return View();
 		}
 
-		public IActionResult Success(string email, string hashedPassword, string confirmPassword) 
-		{
-            ViewBag.Email = email;
-            ViewBag.Password = hashedPassword;
-            ViewBag.ConfirmPassword = confirmPassword;
-            return View();
-		}
+		
 
 
         private string ComputeSHA256Hash(string input)
@@ -77,9 +106,6 @@ namespace TravelNotes.Controllers
 
 
 
-        public IActionResult Login()
-		{
-			return View();
-		}
+        
 	}
 }
