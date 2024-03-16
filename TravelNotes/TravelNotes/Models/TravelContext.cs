@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace TravelNotes.Models;
 
-public partial class TravelContext : IdentityDbContext<IdentityUser>
+public partial class TravelContext : DbContext
 {
     public TravelContext(DbContextOptions<TravelContext> options)
         : base(options)
@@ -57,7 +55,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
     {
         modelBuilder.Entity<ArticleTagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC31D302524");
+            entity.HasKey(e => e.LabelId).HasName("PK__ArticleT__397E2BC34A0E81CD");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(10)
@@ -121,10 +119,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
                 .IsUnique()
                 .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-            entity.Property(e => e.Address).HasMaxLength(256);
-            entity.Property(e => e.Discriminator).HasMaxLength(256);
             entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.Name).HasMaxLength(256);
             entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
             entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
             entity.Property(e => e.UserName).HasMaxLength(256);
@@ -261,7 +256,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<Spots>(entity =>
         {
-            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A6C7566260");
+            entity.HasKey(e => e.ScenicSpotID).HasName("PK__Spots__C0F055A693E91627");
 
             entity.Property(e => e.ScenicSpotID)
                 .HasMaxLength(20)
@@ -374,7 +369,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<TagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC325A3E238");
+            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC35AC36D01");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(6)
@@ -416,7 +411,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<album>(entity =>
         {
-            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE379A4A0F1D");
+            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37A95AF8EF");
 
             entity.Property(e => e.AlbumName).HasMaxLength(10);
 
@@ -451,7 +446,7 @@ public partial class TravelContext : IdentityDbContext<IdentityUser>
 
         modelBuilder.Entity<articletags>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC38799DE31");
+            entity.HasKey(e => e.LabelId).HasName("PK__articlet__397E2BC3E44D8B4F");
 
             entity.Property(e => e.LabelDescription)
                 .HasMaxLength(255)

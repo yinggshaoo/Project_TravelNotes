@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" action="./Member/Register" method="post" onsubmit="return validateForm()">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input id="email" name="email" type="email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label>Email</label>
+                <span id="emailError" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="password" name="password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label>Password</label>
+                <span id="passwordError" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label>Confirm Password</label>
+                <span id="confirmPasswordError" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>Use another service to register.</h3>
+            <hr />
+            @{
+                
+            }
+        </section>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var email = document.getElementById("email").value.trim();
+        var password = document.getElementById("password").value.trim();
+        var confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+        // 檢查信箱格式
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailPattern.test(email)) {
+            document.getElementById("emailError").innerText = "Email format is incorrect";
+            return false; // 阻止表單提交
+        } else {
+            document.getElementById("emailError").innerText = ""; // 清除錯誤消息
+        }
+
+        // 檢查密碼格式（至少包含一個大寫字母、一個小寫字母和一個數字）
+        var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,20}$/;
+
+        if (!passwordPattern.test(password)) {
+            document.getElementById("passwordError").innerText = "Password must contain at least one lowercase letter, one uppercase letter, and one digit.";
+            return false; // 阻止表單提交
+        } else {
+            document.getElementById("passwordError").innerText = ""; // 清除錯誤消息
+        }
+
+        // 檢查密碼與確認密碼是否相同
+        if (password !== confirmPassword) {
+            document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+            return false; // 阻止表單提交
+        } else {
+            document.getElementById("confirmPasswordError").innerText = ""; // 清除錯誤消息
+        }
+
+        // 如果所有檢查都通過，返回 true 允許表單提交
+        return true;
+    }
+</script>

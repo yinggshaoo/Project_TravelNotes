@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {}
+    "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {
+    "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
+        "projectUniqueName": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
         "projectName": "TravelNotes",
-        "projectPath": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
+        "projectPath": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
         "packagesPath": "C:\\Users\\klas9\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\obj\\",
+        "outputPath": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,18 +44,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
-              "target": "Package",
-              "version": "[8.0.3, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.3, )"
-            },
-            "Microsoft.AspNetCore.Identity.UI": {
-              "target": "Package",
-              "version": "[8.0.3, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.3, )"
@@ -73,10 +61,6 @@
             "Microsoft.ML.FastTree": {
               "target": "Package",
               "version": "[2.0.0, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[8.0.2, )"
             }
           },
           "imports": [
