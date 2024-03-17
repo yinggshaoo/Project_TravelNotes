@@ -34,7 +34,16 @@
 		<a>Logo</a>
 		<br>
 		<a>會員</a>
+		@* 這裡有好笑的bug 登入登出同一個按鈕 *@
+		@if (!User.Identity.IsAuthenticated)
+		{
+			<a asp-controller="Member" asp-action="Login" class="btn btn-primary">登入</a>
+		}
 		<br>
+		@if (User.Identity.IsAuthenticated)
+		{
+			<a asp-controller="Member" asp-action="Logout" class="btn btn-primary">登出</a>
+		}
 		<a asp-controller="Article" asp-action="Draft">草稿</a>
 		<br>
 		<a>個人頁面</a>

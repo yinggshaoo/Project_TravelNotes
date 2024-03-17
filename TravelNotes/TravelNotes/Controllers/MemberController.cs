@@ -1,7 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using TravelNotes.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace TravelNotes.Controllers
 {
@@ -31,23 +38,61 @@ namespace TravelNotes.Controllers
                     TempData["ErrorMessage"] = "登入失敗 - 找不到使用者";
                     return RedirectToAction("Login");
                 }
-
-                var hashedPassword = ComputeSHA256Hash(password);
-                if (hashedPassword == user.PasswordHash)
-                {
-                    return RedirectToAction("Index", "Home"); // 登入成功後導向首頁或其他目標頁面
-                }
                 else
                 {
-                    TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
-                    return RedirectToAction("Login");
-                }
+					var hashedPassword = ComputeSHA256Hash(password);
+					if (hashedPassword == user.PasswordHash)
+					{
+
+
+						var claims = new List<Claim>
+		                {
+			                new Claim(ClaimTypes.Name, "username"),
+                            // 在這裡設置使用者的角色，可以是從資料庫中獲取的
+                            new Claim(ClaimTypes.Role, "Admin") // 假設該使用者是 Admin 角色
+						};
+
+                        var roles = from r in _context.AspNetUsers
+                                    where r.Id == user.Id
+						            select r.Role;
+
+						foreach (var role in roles)
+						{
+							claims.Add(new Claim(ClaimTypes.Role, role));
+						}
+
+
+						var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+						HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+
+						//這裡撈大頭貼資料 顯示在首頁
+						TempData["Welcome"] = user.Email;
+
+						return RedirectToAction("Index", "Home"); // 登入成功後導向首頁或其他目標頁面
+					}
+					else
+					{
+						TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
+						return RedirectToAction("Login");
+					}
+				}
             }
                 
             return View();
         }
 
-        public IActionResult fail() 
+        public async Task<IActionResult> Logout()
+        {
+            // 執行登出操作，清除用戶身份驗證信息
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // 返回到首頁或其他適當的頁面
+            return RedirectToAction("Login");
+        }
+
+		public IActionResult fail() 
         {
             ViewBag.Text = "失敗了!";
             return View();
@@ -74,7 +119,8 @@ namespace TravelNotes.Controllers
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
                     LockoutEnabled = true,
-                    AccessFailedCount = 0
+                    AccessFailedCount = 0,
+                    Role = "Normal"
                 };
 
                 _context.AspNetUsers.Add(user);

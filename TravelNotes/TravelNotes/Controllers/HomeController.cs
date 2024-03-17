@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelNotes.Controllers
 {
@@ -20,7 +21,8 @@ namespace TravelNotes.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string search)
+		[Authorize(Roles = "Admin")]
+		public IActionResult Index(string search)
         {
             IEnumerable<article> articles;
 
