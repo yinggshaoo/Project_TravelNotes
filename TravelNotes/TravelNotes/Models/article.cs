@@ -29,7 +29,5 @@ public partial class article
 
     public virtual users User { get; set; } = null!;
 
-    public virtual ICollection<articletags> articletags { get; set; } = new List<articletags>();
-
     public virtual ICollection<messageBoard> messageBoard { get; set; } = new List<messageBoard>();
 }

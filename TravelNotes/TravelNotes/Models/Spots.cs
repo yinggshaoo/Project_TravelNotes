@@ -5,7 +5,9 @@ namespace TravelNotes.Models;
 
 public partial class Spots
 {
-    public string ScenicSpotID { get; set; } = null!;
+    public int SpotId { get; set; }
+
+    public string? ScenicSpotID { get; set; }
 
     public string? ScenicSpotName { get; set; }
 
@@ -66,6 +68,4 @@ public partial class Spots
     public string? _Description { get; set; }
 
     public string? DescriptionDetail { get; set; }
-
-    public virtual ICollection<TripPlanning> TripPlanning { get; set; } = new List<TripPlanning>();
 }

@@ -8,6 +8,22 @@
     var time = tempTime.ToString("yyyy-MM-ddTHH:mm");
     string content = target!.Contents!;
 }
+<style>
+    #notification {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+
+</style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
@@ -36,6 +52,7 @@
 
 <button id="saveButton">Save</button>
 <button id="deleteButton" class="btn btn-danger">删除文章</button>
+<div id="notification">562323</div>
 <script>
     let backendData = @Html.Raw(Json.Serialize(content));
     console.log(backendData);
@@ -99,34 +116,43 @@
         });
 
 
-        $('#saveButton').on('click', function () {
-
+        function save() {
+            var contentImages = [];
+            var editorContent = tinymce.get('tiny').getContent();
+            editorContent = editorContent.replace(/src="img/g, 'src="/img');
+            var tempElement = $('<div>').html(editorContent);
+            tempElement.find('img').each(function () {
+                var src = $(this).attr('src');
+                contentImages.push(src.substring(src.lastIndexOf('/') + 1));
+            });
             let articleData = {
-                articleId: $('#articleId').val(),
+                articleId: articleId,
                 title: $('#title').val(),
                 subtitle: $('#subtitle').val(),
                 travelTime: $('#travelTime').val(),
-                content: tinymce.get('tiny').getContent()
+                content: editorContent,
+                contentImages: JSON.stringify(contentImages)
             };
             $.ajax({
                 type: "POST",
-                url: "/Article/SaveArticle", // 控制器的 URL
+                url: "/Article/Save", // 控制器的 URL
                 data: articleData,
                 success: function (response) {
-                    alert("儲存成功");
-                    window.location = '/Article/ArticleEdit?articleId=' + $('#articleId').val();
+                    showNotification("保存成功");
                 }
             });
-        });
+
+        }
+        $('#saveButton').on('click', save);
 
 
         $('#deleteButton').on('click', function () {
             var confirmation = confirm("確定要刪除這篇草稿嗎？");
             if (confirmation) {
-                $.post("/Article/DeleteArticle", { articleId: $('#articleId').val() })
+                $.post("/Article/Delete", { articleId: articleId })
                     .done(function () {
                         alert("刪除成功");
-                        window.location = "/Article/TestArticle/"
+                        window.location = "/Article/Draft/"
                     })
             }
         });
@@ -151,5 +177,13 @@
                 }
             });
         });
+
+
+        function showNotification(message) {
+            $("#notification").text(message).css("display", "block")
+            setTimeout(function () {
+                $("#notification").css("display", "none");
+            }, 1000)
+        }
     });
 </script>

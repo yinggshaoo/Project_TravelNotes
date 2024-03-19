@@ -31,8 +31,6 @@ public partial class users
 
     public string? SuperUser { get; set; }
 
-    public virtual ICollection<TripPlanning> TripPlanning { get; set; } = new List<TripPlanning>();
-
     public virtual ICollection<album> album { get; set; } = new List<album>();
 
     public virtual ICollection<article> article { get; set; } = new List<article>();

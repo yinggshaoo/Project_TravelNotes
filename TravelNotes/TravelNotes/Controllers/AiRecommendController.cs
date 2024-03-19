@@ -123,12 +123,7 @@ namespace Lab0225_InitProject.Controllers
             return totalPages;
         }
 
-        [HttpGet]
-        public string AddTripPlanning(string cardTitle)
-        {
-
-            return "OK";
-        }
+        
 
         
 

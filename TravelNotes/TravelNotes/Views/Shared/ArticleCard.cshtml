@@ -5,6 +5,7 @@
 @{
     var article = Model;
     var content = Model.Contents;
+    
 }
 <style>
     .outerDiv {
@@ -72,7 +73,7 @@
     </div>
 
 </div> *@ 
-<div >
+<div onclick="articleView(@article.ArticleId)">
     <div>
         <span>發佈時間:@article.PublishTime</span>
     </div>
@@ -83,7 +84,7 @@
     <div class="outerDiv">
         <div class="inner1">
             <div class="articleContent">
-                <textarea id="tiny"></textarea>
+                <textarea id="tiny_@article.ArticleId"></textarea>
             </div>
         </div>
         <div class="inner2">
@@ -99,24 +100,28 @@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 <script>
-    let backendData = @Html.Raw(Json.Serialize(content));
-    console.log(backendData);
+    var backendData_@article.ArticleId = @Html.Raw(Json.Serialize(content));
+
+    console.log(backendData_@article.ArticleId);
     $(function () {
         tinymce.init({
-            selector: '#tiny',
+            selector: `#tiny_${@article.ArticleId}`,
             toolbar: false, // 隐藏工具栏
             statusbar: false, // 隐藏状态栏
             readonly: true, // 将编辑器设置为只读
             init_instance_callback: function (editor) {
-                if (backendData == null) {
+                if (backendData_@article.ArticleId == null) {
                     editor.setContent("");
                 }
                 else {
-                    editor.setContent(backendData);
+                    editor.setContent(backendData_@article.ArticleId);
                 }
                 $(".tox-editor-header").css("display", "none");
 
             }
         });
     });
+    function articleView(articleId) {
+        window.location = '/Article/ArticleView?articleId=' + articleId;
+    }
 </script>

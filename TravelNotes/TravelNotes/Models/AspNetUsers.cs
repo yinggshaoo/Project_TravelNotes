@@ -35,12 +35,6 @@ public partial class AspNetUsers
 
     public int AccessFailedCount { get; set; }
 
-    public string? Name { get; set; }
-
-    public string? Address { get; set; }
-
-    public string? Discriminator { get; set; }
-
     public string? Role { get; set; }
 
     public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; } = new List<AspNetUserClaims>();

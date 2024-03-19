@@ -3,6 +3,8 @@
 }
 @model List<article>
 @{
+    //List<ArticleTagList> articleTagList = ViewBag.articleTagList;
+    //articleTagList = articleTagList.OrderBy(a => a.TagClass).ToList();
     var currentId = ViewBag.articleId;
     article target;
     string time;
@@ -27,61 +29,151 @@
     string content = target!.Contents!;
 }
 <style>
+    :root {
+        --primary-color: #1B1924;
+        --secondary-color: #B5C1B4;
+        --tertiary-color: #DCD9C6;
+        --accent-color: #74593D;
+        --text-color: #3F3232;
+    }
+
+    body {
+        background-color: var(--tertiary-color);
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
     #notification {
         display: none;
         position: fixed;
         top: 10px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
         padding: 10px 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 1000;
     }
 
+    .selectedTag {
+        background-color: var(--accent-color);
+        color: #fff;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .unselectedTag {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border: 1px solid var(--secondary-color);
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .buttons{
+        margin:2px;
+    }
+
+    .articleLabel{
+        color: var(--primary-color);
+    }
+
+    .articleInput{
+        border-color: var(--primary-color);
+    }
+
+    .articleSelect{
+/*         background-color: var(--secondary-color); */
+        color: var(--text-color); 
+        border-color: var(--primary-color);
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-<h2>草稿編輯</h2>
-@* <h1> 當前ID:@currentId</h1> *@
+@* <h2>草稿編輯</h2>
+<h1> 當前ID:@target.ArticleId</h1> *@
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
+<div class="container">
+    
+    <div class="row justify-content-center align-items-center">
+        <!-- 创建三个列（columns） -->
+        <div class="col-sm-2">
+            <img src="@target.Images" id="articleImage" style="width: 150px; height: 150px; cursor: pointer;" />
+            <input type="file" id="articleImageUpload" style="display:none;" />
+        </div>
+        <div class="col-sm-8 text-center">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="title" class="articleLabel">標題:</label>
+                </div>
+                <div class="col">
+                    <!-- 添加 .form-control 类 -->
+                    <input type="text" id="title" value="@target.Title" class="form-control articleInput">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="subtitle" class="articleLabel">副標題:</label>
+                </div>
+                <div class="col">
+                    <!-- 添加 .form-control 类 -->
+                    <input type="text" id="subtitle" value="@target.Subtitle" class="form-control articleInput">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="travelTime" class="articleLabel">時間:</label>
+                </div>
+                <div class="col">
+                    <!-- 添加 .form-control 类 -->
+                    <input type="datetime-local" id="travelTime" value="@time" class="form-control articleInput">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <select id="dropdown" class="form-select articleSelect">
+                @foreach (var article in Model)
+                {
+                    <option value="@article.ArticleId">@article.Title</option>
+                }
+            </select>
+            <div >
+                <button id="saveButton" class="btn btn-dark buttons">儲存</button>
+                <button id="createButton" class="btn btn-dark buttons">新增</button>
+                <button id="publishButton" class="btn btn-dark buttons">發佈</button>
+                <button id="deleteButton" class="btn btn-danger buttons">删除</button>
+@*                 <button id="testButton" class="btn btn-danger">測試</button> *@
+            </div>
 
-<select id="dropdown">
-    @foreach (var article in Model)
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@* <div>
+    @foreach(ArticleTagList item in articleTagList)
     {
-        <option value="@article.ArticleId">@article.Title</option>
+        <span onclick="selectTag(this)" id="tag_@item.LabelId" class="unselectedTag">@item.TagName</span>
     }
-</select>
-
-<br />
-<img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
-<input type="file" id="articleImageUpload" />
-
-<div>
-    <label for="title">標題:</label>
-    <input type="text" id="title" value="@target.Title">
-</div>
-<div>
-    <label for="subtitle">副標題:</label>
-    <input type="text" id="subtitle" value="@target.Subtitle">
-</div>
-<div>
-    <label for="travelTime">時間:</label>
-    <input type="datetime-local" id="travelTime" value="@time">
-</div>
+</div> *@
 <div>
     <textarea id="tiny"></textarea>
 </div>
 
-<button id="saveButton">Save</button>
-<button id="createButton">新增</button>
-<button id="publishButton">發佈</button>
-<button id="deleteButton" class="btn btn-danger">删除草稿</button>
-@* <button id="testButton" class="btn btn-danger">測試</button> *@
+
 <div id="notification">562323</div>
 
 
@@ -89,8 +181,8 @@
 
     let backendData = @Html.Raw(Json.Serialize(content));
     console.log(backendData);
-    let dropdown = $("#dropdown");
     $(function () {
+        let dropdown = $("#dropdown");
         let articleId = $('#articleId').val();
         const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -151,44 +243,57 @@
         for (let i = 0; i < dropdown.children().length; i++) {
             if (dropdown.children()[i].value == articleId) {
                 dropdown.val(dropdown.children()[i].value);
-                console.log(dropdown.val());
                 break;
             }
         }
+
         $("#dropdown").on("change", function () {
             let id = $(this).val();
 
             window.location = '/Article/Draft?articleId=' + id;
         });
+        
 
-        function saveDraft() {
+        function save() { 
             var contentImages = [];
             var editorContent = tinymce.get('tiny').getContent();
+            editorContent = editorContent.replace(/src="img/g, 'src="/img');
             var tempElement = $('<div>').html(editorContent);
             tempElement.find('img').each(function () {
                 var src = $(this).attr('src');
                 contentImages.push(src.substring(src.lastIndexOf('/') + 1));
             });
-
             let articleData = {
                 articleId: articleId,
                 title: $('#title').val(),
                 subtitle: $('#subtitle').val(),
                 travelTime: $('#travelTime').val(),
                 content: editorContent,
-                contentImages : JSON.stringify(contentImages)
+                contentImages: JSON.stringify(contentImages)
             };
             $.ajax({
                 type: "POST",
-                url: "/Article/SaveDraft", // 控制器的 URL
+                url: "/Article/Save", // 控制器的 URL
                 data: articleData,
                 success: function (response) {
                     showNotification("保存成功");
                 }
             });
+            
         }
-        $('#saveButton').on('click', saveDraft);
+        $('#saveButton').on('click', save);
 
+        
+        $('#deleteButton').on('click', function () {
+            var confirmation = confirm("確定要刪除這篇草稿嗎？");
+            if (confirmation) {
+                $.post("/Article/Delete", { articleId: articleId })
+                    .done(function () {
+                        alert("刪除成功");
+                        window.location = "/Article/Draft/"
+                    })
+            }
+        });
         $('#createButton').on('click', function () {
 
             $.ajax({
@@ -200,11 +305,10 @@
                 }
             });
         });
-
         $('#publishButton').on('click', function () {
             var confirmation = confirm("確定要發佈嗎？");
             if (confirmation) {
-                saveDraft();
+                save();
                 $.post("/Article/PublishDraft", { articleId: articleId })
                     .done(function () {
                         window.location = '/Article/ArticleView?articleId=' + articleId;
@@ -212,19 +316,10 @@
             }
         });
 
-        $('#deleteButton').on('click', function () {
-            var confirmation = confirm("確定要刪除這篇草稿嗎？");
-            if (confirmation) {
-                $.post("/Article/DeleteDraft", { articleId: articleId })
-                    .done(function () {
-                        alert("刪除成功");
-                        window.location = "/Article/Draft/"
-                    })
-            }
-        });
+
 
         $('#articleImage').on('click', function () {
-            console.log('ok');
+            $('#articleImageUpload').click();
         });
 
         $('#articleImageUpload').on('change', function () {
@@ -250,18 +345,19 @@
                 $("#notification").css("display", "none");
             },1000)
         }
-        // $('#testButton').on('click', function () {
-        //     var contentImages = [];
-        //     var editorContent = tinymce.get('tiny').getContent();
-        //     var tempElement = $('<div>').html(editorContent);
-        //     tempElement.find('img').each(function () {
-        //         var src = $(this).attr('src');
+        $('#testButton').on('click', function () {
+            let tags = $(".selectedTag")
+            let tagList = [];
+            tags.each(function (e) { 
+                let idString = $(this).prop("id");
+                let tagId = idString.substring(idString.lastIndexOf("_") + 1);
+                let tagObj = {
 
-
-        //         contentImages.push(src.substring(src.lastIndexOf('/')+1));
-        //     });
-        //     console.log(contentImages);
-        // });
+                }
+                console.log();
+            })
+            
+        });
         // $(window).on('beforeunload', function () {
         //     return '您确定要离开当前页面吗？'; // 在离开页面时弹出提示
         // });
@@ -272,4 +368,16 @@
         // });
     });
 
+    function selectTag(tag) {
+        console.log(tag.id);
+        if (tag.classList.contains("selectedTag")) {
+            tag.classList.remove("selectedTag"); // 移除未選中的樣式
+            tag.classList.add("unselectedTag"); // 添加選中的樣式
+        }
+        else {
+            tag.classList.remove("unselectedTag"); // 移除未選中的樣式
+            tag.classList.add("selectedTag"); // 添加選中的樣式
+        }
+
+    }
 </script>

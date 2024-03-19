@@ -23,6 +23,10 @@
     }
 }
 
+<form action="PersonalPage/AddTripPlanning" method="post">
+    <input type="text" name="name" id="FormCardTitle" />
+</form>
+
 <div id="card-container" class="container"></div>
 <div id="page"></div>
 
@@ -75,6 +79,9 @@ $(document).ready(function () {
                     var cardTitle = cardTitleElement.textContent;
                     // 在這裡你可以對 cardTitle 進行任何你需要的操作
                     console.log('Card Title:', cardTitle);
+                    // 把cardTitle送到form
+                    $("#FormCardTitle").append(`<p>${cardTitle}</p>`);
+                    //用form送出表單取得值
                     Addfavor(cardTitle);
                 } else {
                     console.error('Card title element not found');
@@ -86,16 +93,8 @@ $(document).ready(function () {
        
 
         //------------------------------以下是副方法---------------------------
-
-        function Addfavor(cardTitle) {
-            $.ajax({
-                url: "/AiRecommend/AddTripPlanning",
-                method: "GET",
-                data: { cardTitle }
-            }).done(function (data) {
-                console.log(data);
-            })
-        }
+        
+        
 
 
         //顯示預設前20筆結果

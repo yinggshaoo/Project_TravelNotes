@@ -28,11 +28,18 @@ namespace TravelNotes.Controllers
 		}
 
 
-        public IActionResult Login(string email, string password)
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
         {
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                var user = _context.AspNetUsers.FirstOrDefault(x => x.Email == email);
+                var user = await _context.AspNetUsers.FirstOrDefaultAsync(x => x.Email == email);
                 if (user == null)
                 {
                     TempData["ErrorMessage"] = "登入失敗 - 找不到使用者";
@@ -40,48 +47,38 @@ namespace TravelNotes.Controllers
                 }
                 else
                 {
-					var hashedPassword = ComputeSHA256Hash(password);
-					if (hashedPassword == user.PasswordHash)
-					{
+                    var hashedPassword = ComputeSHA256Hash(password);
+                    if (hashedPassword == user.PasswordHash)
+                    {
 
-
-						var claims = new List<Claim>
-		                {
-			                new Claim(ClaimTypes.Name, "username"),
-                            // 在這裡設置使用者的角色，可以是從資料庫中獲取的
-                            new Claim(ClaimTypes.Role, "Admin") // 假設該使用者是 Admin 角色
+                        var roles = user.Role.ToString().Trim();
+                        // 這裡討論完寫 權限不足要導向哪裡
+                        //if(roles == "Admin")
+                        //if (roles =="Normal")
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, "username"),
+                            new Claim(ClaimTypes.Role, roles)
 						};
 
-                        var roles = from r in _context.AspNetUsers
-                                    where r.Id == user.Id
-						            select r.Role;
-
-						foreach (var role in roles)
-						{
-							claims.Add(new Claim(ClaimTypes.Role, role));
-						}
-
-
-						var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-						HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-
-						//這裡撈大頭貼資料 顯示在首頁
-						TempData["Welcome"] = user.Email;
-
-						return RedirectToAction("Index", "Home"); // 登入成功後導向首頁或其他目標頁面
-					}
-					else
-					{
-						TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
-						return RedirectToAction("Login");
-					}
-				}
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        //這裡撈大頭貼資料 顯示在首頁
+                        TempData["Welcome"] = user.Email;
+                        return RedirectToAction("Bee", "CalimsTest");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
+                        return RedirectToAction("Login");
+                    }
+                }
             }
-                
+
             return View();
         }
+
+
 
         public async Task<IActionResult> Logout()
         {

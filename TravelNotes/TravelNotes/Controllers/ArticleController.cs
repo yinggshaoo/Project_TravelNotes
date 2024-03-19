@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
-using System.IO;
 using System.Text.Json;
 using TravelNotes.Models;
 using Microsoft.VisualBasic;
@@ -28,12 +27,22 @@ namespace TravelNotes.Controllers
             _context = context;
         }
         #region 圖片相關
-        public void CheckFolderPhotos(string contentImages, int articleId)
+        [HttpPost]
+        public void Test()
+        {
+
+        }
+        [HttpPost]
+        public void CheckFolderPhotos(string contentImages, int articleId,string type)
         {
             // 解析 contentImages 字符串为对象
             List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
-            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userID}\\article\\{articleId}\\content");
+            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userID}\\article\\{articleId}\\{type}");
 
+            if(!Directory.Exists(directoryPath))
+            {
+                return;
+            }
             // 获取目录中的所有文件名
             string[] fileNames = Directory.GetFiles(directoryPath);
 
@@ -80,12 +89,14 @@ namespace TravelNotes.Controllers
 
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            var stream = new FileStream(filePath, FileMode.Create);
-            file.CopyTo(stream);
+			using (var stream = new FileStream(filePath, FileMode.Create))
+			{
+				file.CopyTo(stream);
+			}
 
 
-            // Return URL of saved image
-            return "/img/" + Path.GetRelativePath(imgFolder, filePath).Replace('\\', '/');
+			// Return URL of saved image
+			return "/img/" + Path.GetRelativePath(imgFolder, filePath).Replace('\\', '/');
         }
         [HttpPost]
         //文字編輯器上傳圖片
@@ -103,6 +114,10 @@ namespace TravelNotes.Controllers
         public string UploadArticleImage(IFormFile file, int articleId)
         {
             string srcString = CopyToArticleFolder(file, articleId, "articleImage");
+            string fileName = srcString.Substring(srcString.LastIndexOf('/') + 1);
+            string folderImage = JsonSerializer.Serialize(new List<string>() { fileName });
+            CheckFolderPhotos(folderImage, articleId, "articleImage");
+            
             var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
             currentArticle!.Images = srcString;
             
@@ -110,24 +125,24 @@ namespace TravelNotes.Controllers
             return srcString;
         }
         #endregion
-        #region 草稿相關
+        #region 文章相關
 
         [HttpGet]
         public IActionResult Draft(int? articleId)
         {
             ViewBag.articleId = articleId;
             var data = _context.article.Where(a => a.UserId == userID && a.ArticleState == "草稿").ToList();
-            //var data = _context.Articles.Where(a => a.UserId == userID ).ToList();
-            if(data == null)
+            //ViewBag.articleTagList = _context.ArticleTagList.ToList();
+            if (data == null)
             {
                 return View("errorView");
             }
             return View(data);
         }
         [HttpPost]
-        public IActionResult SaveDraft(int articleId, string title, string subtitle, DateTime travelTime, string content, string contentImages)
+        public IActionResult Save(int articleId, string title, string subtitle, DateTime travelTime, string content,string contentImages)
         {
-            CheckFolderPhotos(contentImages, articleId);
+            CheckFolderPhotos(contentImages, articleId,"content");
             var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
             if (title == null)
             {
@@ -172,7 +187,7 @@ namespace TravelNotes.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteDraft(int articleId)
+        public IActionResult Delete(int articleId)
         {
             article articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
             _context.article.Remove(articleToDelete); // 从数据库中移除文章
@@ -181,8 +196,6 @@ namespace TravelNotes.Controllers
             return Ok();
         }
 
-        #endregion
-        #region 文章編輯相關
 
         public IActionResult ArticleEdit(int articleId)
         {
@@ -193,52 +206,52 @@ namespace TravelNotes.Controllers
             }
             return View(data);
         }
-        [HttpPost]
-        public IActionResult SaveArticle(int articleId, string title, string subtitle, DateTime travelTime, string content, string contentImages)
-        {
-            // 解析 contentImages 字符串为对象
-            List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
-            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\user1\\article\\3038\\content");
+        //[HttpPost]
+        //public IActionResult SaveArticle(int articleId, string title, string subtitle, DateTime travelTime, string content, string contentImages)
+        //{
+        //    // 解析 contentImages 字符串为对象
+        //    List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
+        //    string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\user1\\article\\3038\\content");
 
-            // 获取目录中的所有文件名
-            string[] fileNames = Directory.GetFiles(directoryPath);
+        //    // 获取目录中的所有文件名
+        //    string[] fileNames = Directory.GetFiles(directoryPath);
 
-            // 遍历文件名列表
-            foreach (string fileName in fileNames)
-            {
-                // 如果文件名不在 imageList 中，就删除该文件
-                if (!imageList.Contains(Path.GetFileName(fileName)))
-                {
-                    System.IO.File.Delete(fileName);
-                }
-            }
+        //    // 遍历文件名列表
+        //    foreach (string fileName in fileNames)
+        //    {
+        //        // 如果文件名不在 imageList 中，就删除该文件
+        //        if (!imageList.Contains(Path.GetFileName(fileName)))
+        //        {
+        //            System.IO.File.Delete(fileName);
+        //        }
+        //    }
 
 
-            var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
-            if (title == null)
-            {
-                currentArticle!.Title = "";
-            }
-            else
-            {
-                currentArticle!.Title = title;
-            }
-            currentArticle.Subtitle = subtitle;
-            currentArticle.TravelTime = travelTime;
-            currentArticle.PublishTime = DateTime.Now;
-            currentArticle.Contents = content;
-            _context.SaveChanges();
-            return Ok();
-        }
-        [HttpPost]
-        public IActionResult DeleteArticle(int articleId)
-        {
-            var articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId);
-            _context.article.Remove(articleToDelete); // 从数据库中移除文章
-            _context.SaveChanges(); // 保存更改
+        //    var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
+        //    if (title == null)
+        //    {
+        //        currentArticle!.Title = "";
+        //    }
+        //    else
+        //    {
+        //        currentArticle!.Title = title;
+        //    }
+        //    currentArticle.Subtitle = subtitle;
+        //    currentArticle.TravelTime = travelTime;
+        //    currentArticle.PublishTime = DateTime.Now;
+        //    currentArticle.Contents = content;
+        //    _context.SaveChanges();
+        //    return Ok();
+        //}
+        //[HttpPost]
+        //public IActionResult DeleteArticle(int articleId)
+        //{
+        //    var articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId);
+        //    _context.article.Remove(articleToDelete); // 从数据库中移除文章
+        //    _context.SaveChanges(); // 保存更改
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         #endregion
         #region 文章頁面相關

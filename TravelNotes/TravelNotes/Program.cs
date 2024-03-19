@@ -39,6 +39,12 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Member}/{action=Login}/{id?}");
+    pattern: "{controller=Article}/{action=draft}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
 
 app.Run();

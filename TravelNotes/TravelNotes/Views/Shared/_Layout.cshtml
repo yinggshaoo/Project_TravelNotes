@@ -31,7 +31,7 @@
 </head>
 <body>
 	<div id="sideBar">
-		<a>Logo</a>
+		<a asp-controller="Home" asp-action="Index">Logo</a>
 		<br>
 		<a>會員</a>
 		@* 這裡有好笑的bug 登入登出同一個按鈕 *@
@@ -44,9 +44,10 @@
 		{
 			<a asp-controller="Member" asp-action="Logout" class="btn btn-primary">登出</a>
 		}
+		<br>
 		<a asp-controller="Article" asp-action="Draft">草稿</a>
 		<br>
-		<a>個人頁面</a>
+		<a asp-controller="PersonalPage" asp-action="PersonalPage">個人頁面</a>
 		<br>
 		<a>規劃</a>
 	</div>
