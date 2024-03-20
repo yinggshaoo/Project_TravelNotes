@@ -106,6 +106,10 @@ namespace TravelNotes.Controllers
                 char randomLetter = (char)('A' + random.Next(26));
                 string hashedId = ComputeSHA256Hash(password + randomLetter);
 
+                //缺比對資料庫中有無重複的信箱
+
+                //缺對應關連到username(有空在說)
+
 
                 var user = new AspNetUsers
                 {
