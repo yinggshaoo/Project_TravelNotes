@@ -1,0 +1,45 @@
+﻿h1 {
+    font-size: 5em;
+    color: black;
+    text-transform: uppercase;
+}
+
+span {
+    border-right: .05em solid;
+    animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+/* 小型螢幕尺寸（15吋筆記型電腦） */
+@media (max-width: 1366px) {
+    body {
+        width: 90%; /* 調整為90%的寬度 */
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    body {
+        width: 1920px;
+    }
+
+    .box, .box2 {
+        width: 600px; /* 修改成符合 1920x1080 解析度的寬度 */
+        margin-bottom: 20px; /* 調整間距 */
+    }
+
+    input[type=range]::after {
+        font-size: 20px; /* 調整字體大小 */
+    }
+
+    .tab-name li {
+        font-size: 20px; /* 調整字體大小 */
+    }
+}
+
+#Hello {
+    margin-bottom: 30px;
+}

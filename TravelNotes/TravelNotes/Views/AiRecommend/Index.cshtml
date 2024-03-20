@@ -1,21 +1,19 @@
-﻿<h1>這是Ai那一頁</h1>
-@{
-    Layout = "_AiPartialLayout";
+﻿@{
+    Layout = "_AiLayout";
 }
-<div id="tab">
-    <ul>
-        <li><p class="#tab-1">自選</p></li>
-        <li><p class="#tab-2">Ai</p></li>
+
+<div class="box box1" id="switchbar">
+    <input type="range" value="1" min="1" max="2" id="range">
+    <ul class="tab-name">
+        <li value="1">智慧推薦</li>
+        <li value="2">區域旅行</li>
     </ul>
+</div>
 
-    <div id="tab01">
-        @Html.Partial("../shared/AiRecommendPartialView/CustomerPickPartial.cshtml")
-    </div>
+<div id="Hello">
+    <h2>您好!今天想去哪裡玩? 我可以幫您推薦喔</h2>
+</div>
 
-    <div id="tab02" class="tab-inner">
-        @Html.Partial("../shared/AiRecommendPartialView/AiPickPartial.cshtml")
-    </div>
-
-
-
+<div>
+    @Html.Partial("../shared/AiRecommendPartialView/AiPickPartial.cshtml")
 </div>

@@ -330,14 +330,11 @@ namespace TravelNotes.Controllers
         #endregion
         public IActionResult TestArticle()
         {
-            var article = _context.article.FirstOrDefault(a => a.ArticleId == 4);
-            var user = _context.users.FirstOrDefault();
-            var data = new usersArticleModel()
-            {
-                article = article,
-                user = user
-            };
-            return View(article);
+            string userId;
+            var test = Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            var t = userId;
+
+            return View();
 
 
         }

@@ -5,12 +5,40 @@
       "PackagePath": "staticwebassets\\TravelNotes.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\step.css",
+      "PackagePath": "staticwebassets\\css\\ai\\step.css"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\switchbar.css",
+      "PackagePath": "staticwebassets\\css\\ai\\switchbar.css"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\typewrite.css",
+      "PackagePath": "staticwebassets\\css\\ai\\typewrite.css"
+    },
+    {
       "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\nextpage.js",
+      "PackagePath": "staticwebassets\\js\\ai\\nextpage.js"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\step.js",
+      "PackagePath": "staticwebassets\\js\\ai\\step.js"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\switchbar.js",
+      "PackagePath": "staticwebassets\\js\\ai\\switchbar.js"
+    },
+    {
+      "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\typewrite.js",
+      "PackagePath": "staticwebassets\\js\\ai\\typewrite.js"
     },
     {
       "Id": "C:\\Users\\klas9\\Desktop\\人生計畫Excel\\大專題\\code\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\site.js",

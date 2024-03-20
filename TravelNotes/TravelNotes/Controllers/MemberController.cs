@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using Microsoft.Net.Http.Headers;
 
 namespace TravelNotes.Controllers
 {
@@ -39,7 +40,7 @@ namespace TravelNotes.Controllers
         {
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                var user = await _context.AspNetUsers.FirstOrDefaultAsync(x => x.Email == email);
+                var user = await _context.users.FirstOrDefaultAsync(x => x.Mail == email);
                 if (user == null)
                 {
                     TempData["ErrorMessage"] = "登入失敗 - 找不到使用者";
@@ -48,10 +49,11 @@ namespace TravelNotes.Controllers
                 else
                 {
                     var hashedPassword = ComputeSHA256Hash(password);
-                    if (hashedPassword == user.PasswordHash)
+                    if (hashedPassword == user.Pwd)
                     {
 
-                        var roles = user.Role.ToString().Trim();
+                        var roles = user.SuperUser.ToString().Trim();
+                        var userId = user.UserId.ToString();
                         // 這裡討論完寫 權限不足要導向哪裡
                         //if(roles == "Admin")
                         //if (roles =="Normal")
@@ -60,13 +62,17 @@ namespace TravelNotes.Controllers
                             new Claim(ClaimTypes.Name, "username"),
                             new Claim(ClaimTypes.Role, roles)
 						};
-
+                        
+                        //權限
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                        //這裡撈大頭貼資料 顯示在首頁
-                        TempData["Welcome"] = user.Email;
-                        return RedirectToAction("Bee", "CalimsTest");
+
+                        // cookies
+                        Response.Cookies.Append("UsernameCookie", userId);
+                        return RedirectToAction("TestArticle", "Article");
                     }
+
+
                     else
                     {
                         TempData["ErrorMessage"] = "登入失敗 - 密碼錯誤";
@@ -96,35 +102,26 @@ namespace TravelNotes.Controllers
         }
 
 
+        //已更改成使用user表 棄用aspnetuser
         public IActionResult Register(string email, string password, string confirmPassword)
 		{
 			if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(confirmPassword))
 			{
 
                 string hashedPassword = ComputeSHA256Hash(password);
-                Random random = new Random();
-                char randomLetter = (char)('A' + random.Next(26));
-                string hashedId = ComputeSHA256Hash(password + randomLetter);
 
                 //缺比對資料庫中有無重複的信箱
 
                 //缺對應關連到username(有空在說)
 
-
-                var user = new AspNetUsers
+                var user = new users
                 {
-                    Id = hashedId,
-                    Email = email,
-                    EmailConfirmed = false,
-                    PasswordHash = hashedPassword, // 密碼應該是哈希後的值
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = true,
-                    AccessFailedCount = 0,
-                    Role = "Normal"
+                    Mail = email,
+                    Pwd = hashedPassword, // 密碼應該是哈希後的值
+                    SuperUser = "N"
                 };
 
-                _context.AspNetUsers.Add(user);
+                _context.users.Add(user);
                 _context.SaveChanges();
 
 
@@ -132,9 +129,6 @@ namespace TravelNotes.Controllers
             }
 			return View();
 		}
-
-		
-
 
         private string ComputeSHA256Hash(string input)
         {
@@ -151,8 +145,5 @@ namespace TravelNotes.Controllers
             }
         }
 
-
-
-        
 	}
 }

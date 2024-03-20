@@ -1,0 +1,198 @@
+﻿@charset "UTF-8";
+:root {
+    --offset: 2px;
+    --range-min: 1;
+    --range-max: 2;
+    --range: var(--range-min);
+    --slider-thumb-size: 32px;
+    --track-height: 36px;
+    --progress-bg: linear-gradient( 45deg, rgba(59, 173, 227, 1) 0%, rgba(87, 111, 230, 1) 25%, rgba(152, 68, 183, 1) 51%, rgba(255, 53, 127, 1) 100% );
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    block-size: 100%;
+}
+
+
+.box, .box2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    resize: both;
+    width: 180px;
+    margin-bottom: 30px;
+    container-name: change-datalist;
+    animation: range-observer linear reverse;
+    animation-timeline: --range-thumb;
+    animation-range: contain;
+    timeline-scope: --range-thumb;
+}
+
+.box2 {
+    display: none; /* Hide initially */
+}
+
+@property --range {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: true;
+}
+
+@supports (timeline-scope: --foo) {
+    input[type=range]::-webkit-slider-thumb {
+        view-timeline: --range-thumb inline;
+    }
+
+    @keyframes range-observer {
+        0% {
+            --range: var(--range-min);
+        }
+
+        100% {
+            --range: var(--range-max);
+        }
+    }
+}
+
+input[type=range] {
+    --tab-track-width: calc((100% - var(--offset) * 1.5));
+    --tab-size: calc(var(--tab-track-width) / 2);
+    --progress: (var(--range) - var(--range-min)) / (var(--range-max) - var(--range-min));
+    --progress-length: calc( (var(--tab-track-width) - var(--tab-size)) * var(--progress) + var(--offset) );
+    position: relative;
+    appearance: none;
+    background: none;
+    width: 100%;
+}
+
+    input[type=range]::after {
+        pointer-events: none;
+        content: "";
+        border-radius: 6px;
+        background-color: #23e179b1;
+        background-color: #fff;
+        background: var(--progress-bg) no-repeat;
+        font-size: 16px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: var(--tab-size);
+        top: 2px;
+        bottom: 2px;
+        transition: left 0.4s, scale 0.3s, top 0.3s, bottom 0.3s;
+        left: var(--progress-length);
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        appearance: none;
+        background: none;
+        cursor: pointer;
+        width: calc(100% / 3);
+        height: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 7px;
+        opacity: 0;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        appearance: none;
+        background-color: #ddd;
+        height: var(--track-height);
+        border-radius: 6px;
+        padding: 2px var(--offset);
+    }
+
+.tab-name {
+    appearance: none;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    padding: 2px var(--offset);
+    pointer-events: none;
+    list-style: none;
+}
+
+    .tab-name li {
+        flex: 1;
+        text-align: center;
+        color: #222;
+        transition: color 0.3s;
+    }
+
+input[type=range]:active::after {
+    scale: 0.95;
+}
+
+@container change-datalist style(--range: 1) {
+    .box li[value="1"] {
+        color: #fff;
+    }
+}
+
+@container change-datalist style(--range: 2) {
+    .box li:nth-child(2) {
+        color: #fff;
+    }
+}
+
+@container change-datalist style(--range: 3) {
+    .box li[value="3"] {
+        color: #fff;
+    }
+}
+
+/* Additional styles for switching between boxes */
+.switched .box {
+    display: none;
+}
+
+.switched .box2 {
+    display: flex;
+}
+
+#switchbar {
+    min-block-size: 100%;
+    font-family: system-ui, sans-serif;
+    top:10px;
+    left:50%
+}
+
+
+/* 小型螢幕尺寸（15吋筆記型電腦） */
+@media (max-width: 1366px) {
+    body {
+        width: 90%; /* 調整為90%的寬度 */
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    body {
+        width: 1920px;
+    }
+
+    .box, .box2 {
+        width: 600px; /* 修改成符合 1920x1080 解析度的寬度 */
+        margin-bottom: 20px; /* 調整間距 */
+    }
+
+    input[type=range]::after {
+        font-size: 20px; /* 調整字體大小 */
+    }
+
+    .tab-name li {
+        font-size: 20px; /* 調整字體大小 */
+    }
+}

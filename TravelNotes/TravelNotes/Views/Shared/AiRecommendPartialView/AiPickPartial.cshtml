@@ -1,1 +1,85 @@
-﻿<h1>這是AIPartial</h1>
+﻿@using TravelNotes.Models;
+@model Array
+@{
+    int count = 0;
+}
+
+<h3>如果您可以改變天氣，你現在最想要甚麼天氣?</h3>
+<div id="page1" class="page">
+    @foreach (var item in Model)
+    {
+        if (item is List<TagList>)
+        {
+            var tagLists = item as List<TagList>;
+            <div id="weather" class="page">
+                @foreach (var tagList in tagLists)
+                {
+                    @if (tagList.TagClass == "W")
+                    {
+                        <input class="form-check-input" type="radio" name="tag-checkradio" id="flexRadioDefault1">
+                        <label> @Html.DisplayFor(modelItem => tagList.TagName)</label>
+                    }
+                }
+            </div>
+
+        }
+    }
+</div>
+
+<br />
+
+<h3>您現在最想從事的3個活動式甚麼?</h3>
+<div id="page2" class="page">
+    @foreach (var item in Model)
+    {
+        if (item is List<TagList>)
+        {
+            var tagLists = item as List<TagList>;
+            <div id="activities" class="page">
+                @foreach (var tagList in tagLists)
+                {
+                    @if (tagList.TagClass == "I")
+                    {
+                        <input type="checkbox" class="tag-checkbox" value="@tagList.TagName">
+                        <label> @Html.DisplayFor(modelItem => tagList.TagName)</label>
+                    }
+                }
+            </div>
+
+        }
+    }
+</div>
+
+<br />
+
+<h3>最後，您最想去的國家是哪一國?</h3>
+<div id="page3" class="page">
+    @foreach (var item in Model)
+    {
+        if (item is List<TagList>)
+        {
+            var tagLists = item as List<TagList>;
+            <div id="countries" class="page">
+                @foreach (var tagList in tagLists)
+                {
+                    @if (tagList.TagClass == "C")
+                    {
+                        <input type="checkbox" class="tag-checkbox" value="@tagList.TagName">
+                        <label> @Html.DisplayFor(modelItem => tagList.TagName)</label>
+                    }
+                }
+            </div>
+
+        }
+    }
+</div>
+
+<button id="submit">下一頁</button>
+
+<div id="card-container">
+    <h4></h4>
+</div>
+
+<script>
+    
+</script>
