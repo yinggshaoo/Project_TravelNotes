@@ -177,11 +177,112 @@ namespace TravelNotes.Controllers
 			return ("OK");
 		}
 
-		//Create a Schedule Page for testing
-		public IActionResult Schedule()
+		//檢視行程
+		public IActionResult ViewSchedule()
 		{
-			return View();
-		}
+			string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            int id = Convert.ToInt32(userId);
+
+			if(userId != null)
+			{
+                var query = (from s in _context.Spots
+                            where (from o in _context.myFavor
+                                   where o.UserId == id
+                                   select o.SpotId).Contains(s.SpotId)
+                            select s).ToList();
+
+                return View(query);
+            }
+
+			return RedirectToAction("fail", "Member");
+
+        }
+
+		//從ai那邊加入到行程
+		public IActionResult Schedule(string scenicSpotName)
+		{
+			if(scenicSpotName == null)
+			{
+				return RedirectToAction("ViewSchedule");
+            }
+
+			string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+			int id = Convert.ToInt32(userId);
+            var query = (from o in _context.Spots
+                         where o.ScenicSpotName == scenicSpotName
+                         select o.SpotId).ToList();
+
+            var viewQuery = _context.Spots.Where(x => x.ScenicSpotName == scenicSpotName).ToList();
+
+            int value = Convert.ToInt32(query[0]);
+
+			//這裡檢查是否與資料庫重複
+            var checkRepect = (from f in _context.myFavor
+                          where f.UserId == id && f.SpotId == value
+                          select f).ToList();
+
+			var flag = checkRepect.Count > 0;
+
+
+
+            if (userId != null && flag == false)
+			{
+                myFavor favor = new myFavor();
+                favor.UserId = id;
+				favor.SpotId = value;
+                _context.myFavor.Add(favor);
+                _context.SaveChanges();
+			}
+			else
+			{
+				return RedirectToAction("fail", "Member");
+			}
+			
+			
+            return RedirectToAction("ViewSchedule");
+        }
+
+		//移除行程
+		public IActionResult Remove(string scenicSpotName)
+		{
+
+            string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            int id = Convert.ToInt32(userId);
+
+
+			//檢查使用者不為空
+            if (scenicSpotName != null)
+			{
+                //抓目前的景點ID
+                var findSpotId = (from s in _context.Spots
+							 where s.ScenicSpotName == scenicSpotName
+							 select s.SpotId).ToList();
+				int spotId = Convert.ToInt32(findSpotId[0]);
+
+				//抓目前的流水號
+				var checkQuery = (from f in _context.myFavor
+								 where f.UserId == id && f.SpotId == spotId
+								 select f).ToList();
+
+
+
+                if (checkQuery.Any())
+                {
+                    // 如果存在相符的收藏記錄，刪除它們
+                    _context.myFavor.RemoveRange(checkQuery);
+
+                    // 儲存變更到資料庫
+                    _context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("ViewSchedule");
+        }
+
+
 
         //**Add a User Data for test
         //[HttpPosteeeeee]
@@ -220,11 +321,7 @@ namespace TravelNotes.Controllers
         //    ViewBag.Images = Images;
         //    return View(_context.Articles.ToList());
         //}
-        [HttpPost]
-        public IActionResult AddTripPlanning()
-        {
-            return View();
-        }
+        
 
     }
 }

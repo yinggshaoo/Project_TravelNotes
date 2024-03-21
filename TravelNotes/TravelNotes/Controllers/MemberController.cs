@@ -69,7 +69,7 @@ namespace TravelNotes.Controllers
 
                         // cookies
                         Response.Cookies.Append("UsernameCookie", userId);
-                        return RedirectToAction("TestArticle", "Article");
+                        return RedirectToAction("Index", "AiRecommend");
                     }
 
 

@@ -1,0 +1,18 @@
+﻿@model List<TravelNotes.Models.Spots>
+
+@foreach (var item in Model)
+{
+    <form action="/PersonalPage/Remove" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label for="scenicSpotName">景點名稱:</label>
+                    <input type="text" id="scenicSpotName" name="scenicSpotName" value="@item.ScenicSpotName" readonly>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-danger">移除</button>
+                </div>
+            </div>
+        </div>
+    </form>
+}

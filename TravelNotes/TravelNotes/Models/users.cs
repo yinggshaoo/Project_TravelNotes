@@ -37,5 +37,7 @@ public partial class users
 
     public virtual ICollection<messageBoard> messageBoard { get; set; } = new List<messageBoard>();
 
+    public virtual ICollection<myFavor> myFavor { get; set; } = new List<myFavor>();
+
     public virtual ICollection<photo> photo { get; set; } = new List<photo>();
 }

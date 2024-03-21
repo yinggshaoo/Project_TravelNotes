@@ -9,6 +9,8 @@ public partial class myFavor
 
     public int UserId { get; set; }
 
+    public int id { get; set; }
+
     public virtual Spots Spot { get; set; } = null!;
 
     public virtual users User { get; set; } = null!;

@@ -372,14 +372,14 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<myFavor>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.id).HasName("PK__myFavor__3213E83F0347E9C6");
 
-            entity.HasOne(d => d.Spot).WithMany()
+            entity.HasOne(d => d.Spot).WithMany(p => p.myFavor)
                 .HasForeignKey(d => d.SpotId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_myFavor_Spots");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.myFavor)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_myFavor_users");

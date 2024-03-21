@@ -68,4 +68,6 @@ public partial class Spots
     public string? _Description { get; set; }
 
     public string? DescriptionDetail { get; set; }
+
+    public virtual ICollection<myFavor> myFavor { get; set; } = new List<myFavor>();
 }

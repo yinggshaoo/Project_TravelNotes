@@ -2,18 +2,16 @@
     Layout = "_AiLayout";
 }
 
-<div class="box box1" id="switchbar">
-    <input type="range" value="1" min="1" max="2" id="range">
-    <ul class="tab-name">
-        <li value="1">智慧推薦</li>
-        <li value="2">區域旅行</li>
-    </ul>
-</div>
+
+
 
 <div id="Hello">
     <h2>您好!今天想去哪裡玩? 我可以幫您推薦喔</h2>
 </div>
 
-<div>
+<div id="content1" class="content active">
     @Html.Partial("../shared/AiRecommendPartialView/AiPickPartial.cshtml")
 </div>
+
+<div id="content2" class="content">這是區域旅行的內容。</div>
+

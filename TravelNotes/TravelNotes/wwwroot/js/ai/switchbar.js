@@ -4,3 +4,4 @@
         document.body.style.setProperty("--range", range.value);
     };
 }
+
