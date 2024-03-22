@@ -5,8 +5,10 @@ using TravelNotes.Models;
 
 namespace TravelNotes.Controllers
 {
+    
     public class AlbumController : Controller
     {
+        int userId = 1;
         private readonly ILogger<AlbumController> _logger;
         private readonly TravelContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -20,7 +22,7 @@ namespace TravelNotes.Controllers
         {
             var data = from p in _context.photo
                            //UserId要抓  ****(UserId要更換)***  (AlbumId is NULL 代表只是相片 )
-                       where p.UserId == 1 && p.PhotoDescription == null && p.AlbumId == null
+                       where p.UserId == userId && p.PhotoDescription == null && p.AlbumId == null
                        select new photo
                        {
                            PhotoPath = p.PhotoPath,
@@ -33,16 +35,16 @@ namespace TravelNotes.Controllers
         public async Task<IActionResult> Album()
         {
             //一上傳就先創一個垃圾桶
-            var GarbagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/garbage");
+            var GarbagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/garbage");
             Directory.CreateDirectory(GarbagePath);
-            bool albumExists = _context.album.Any(a => a.AlbumName == "Garbage01" && a.UserId == 1);
+            bool albumExists = _context.album.Any(a => a.AlbumName == $"Garbage{userId}" && a.UserId == userId);
             if (!albumExists)
             {
                 var album = new album
                 {
-                    AlbumName = "Garbage01",
+                    AlbumName = $"Garbage{userId}",
                     CreateTime = DateOnly.FromDateTime(DateTime.Now),
-                    UserId = 1,
+                    UserId = userId,
                     State = 1,//在垃圾桶
                 };
                 _context.album.Add(album);
@@ -52,12 +54,12 @@ namespace TravelNotes.Controllers
 
             // 首先找到UserId等於2的最小AlbumId
             var minAlbumId = await _context.album
-                                            .Where(a => a.UserId == 1)
+                                            .Where(a => a.UserId == userId)
                                             .MinAsync(a => (int?)a.AlbumId); // 使用(int?)以處理查詢結果可能為空的情況
 
             // 然後選擇除了最小AlbumId之外的所有Album
             var albumsExceptMin = await _context.album
-                                                 .Where(a => a.UserId == 1 && a.AlbumId != minAlbumId && a.State == 2)
+                                                 .Where(a => a.UserId == userId && a.AlbumId != minAlbumId && a.State == 2)
                                                  .ToListAsync();
             // AlbumId != 1  && UserId == 1的都顯示出來 ****(UserId要更換)***
             //var albums = await _context.Albums.Where(a => a.AlbumId != 1 && a.UserId == 1).ToListAsync();
@@ -72,15 +74,15 @@ namespace TravelNotes.Controllers
         public async Task<IActionResult> Garbage()
         {
             var minAlbumId = await _context.album
-                                     .Where(a => a.UserId == 1 && a.State == 1)
+                                     .Where(a => a.UserId == userId && a.State == 1)
                                      .MinAsync(a => (int?)a.AlbumId);
 
             var albums = await _context.album
-                                       .Where(a => a.UserId == 1 && a.State == 1 && (!minAlbumId.HasValue || a.AlbumId != minAlbumId.Value))
+                                       .Where(a => a.UserId == userId && a.State == 1 && (!minAlbumId.HasValue || a.AlbumId != minAlbumId.Value))
                                        .ToListAsync();
 
             var targetAlbum = await _context.album
-                                            .Where(a => a.UserId == 1)
+                                            .Where(a => a.UserId == userId)
                                             .OrderBy(a => a.AlbumId)
                                             .FirstOrDefaultAsync();
 
@@ -90,7 +92,7 @@ namespace TravelNotes.Controllers
                 return NotFound(); // 這裡僅作為示例，實際上您可能需要根據業務邏輯進行調整
             }
             var photos = await _context.photo
-                              .Where(p => p.UserId == 1 && p.PhotoDescription == "1")
+                              .Where(p => p.UserId == userId && p.PhotoDescription == "1")
                               .ToListAsync();
 
             var viewModel = new GarbageViewModel
@@ -111,7 +113,7 @@ namespace TravelNotes.Controllers
                 foreach (var imageFile in imageFiles)
                 {
                     //設定一個變數，裝路徑 wwwroot/img/User01/photo ****(UserId要更換)***
-                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/photo");
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/photo");
 
                     //判斷是否存在，如果不存在就生成對應路徑
                     if (!Directory.Exists(folderPath))
@@ -125,8 +127,8 @@ namespace TravelNotes.Controllers
                     var newFileName = $"{originalFileNameWithoutExtension}_{timeStamp}{extension}"; // 新檔案名稱包含时间戳记
 
                     //变量 WebPath 组合路径 /img/User01/photo/+ 变量 newFileName ****(UserId要更換)***
-                    var webPath = $"/img/user1/photo/{newFileName}";
-                    var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/photo", newFileName);
+                    var webPath = $"/img/user{userId}/photo/{newFileName}";
+                    var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/photo", newFileName);
 
                     //复制一份到指定的路径(根据 变量 absolutePath)
                     using (var stream = new FileStream(absolutePath, FileMode.Create))
@@ -144,7 +146,7 @@ namespace TravelNotes.Controllers
                         //当前日期 格式 yyyy-MM-dd
                         UploadDate = DateOnly.FromDateTime(DateTime.Now),
                         //需要再获取用户ID  ****(UserId要更换)***
-                        UserId = 1, // 请根据实际情况替换UserId
+                        UserId = userId, // 请根据实际情况替换UserId
                     };
                     _context.photo.Add(photo);
 
@@ -244,7 +246,7 @@ namespace TravelNotes.Controllers
             {
                 // 检查UserId=1的相册中是否已经存在同名相册（不区分大小写）
                 var albumNameExists = await _context.album
-                                                    .AnyAsync(a => a.UserId == 1 &&
+                                                    .AnyAsync(a => a.UserId == userId &&
                                                                    a.AlbumName.ToLower() == folderName.ToLower());
                 if (albumNameExists)
                 {
@@ -252,7 +254,7 @@ namespace TravelNotes.Controllers
                     return RedirectToAction("Album");
                 }
 
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/user1/album", folderName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/album", folderName);
 
                 // 檢查資料夾是否已存在并创建
                 if (!Directory.Exists(path))
@@ -262,7 +264,7 @@ namespace TravelNotes.Controllers
 
                 var album = new album
                 {
-                    UserId = 1,
+                    UserId = userId,
                     AlbumName = folderName,
                     CreateTime = DateOnly.FromDateTime(DateTime.Now),
                     State = 2 //不在垃圾桶
@@ -285,7 +287,7 @@ namespace TravelNotes.Controllers
             {
                 foreach (var imageFile in imageFiles)
                 {
-                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user1/album/{albumName}");
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/album/{albumName}");
 
                     if (!Directory.Exists(folderPath))
                     {
@@ -298,8 +300,8 @@ namespace TravelNotes.Controllers
                     var newFileName = $"{originalFileNameWithoutExtension}_{timeStamp}{extension}"; // 新檔案名稱包含时间戳记
 
                     //变量 webPath 和 absolutePath 使用新的文件名 newFileName
-                    var webPath = $"/img/user1/album/{albumName}/{newFileName}";
-                    var absolutePath = Path.Combine(_hostingEnvironment.WebRootPath, $"img/user1/album/{albumName}", newFileName);
+                    var webPath = $"/img/user{userId}/album/{albumName}/{newFileName}";
+                    var absolutePath = Path.Combine(_hostingEnvironment.WebRootPath, $"img/user{userId}/album/{albumName}", newFileName);
 
                     //复制一份到指定的路径(根据 变量 absolutePath)
                     using (var stream = new FileStream(absolutePath, FileMode.Create))
@@ -314,7 +316,7 @@ namespace TravelNotes.Controllers
                         PhotoTitle = $"{originalFileNameWithoutExtension}_{timeStamp}",
                         PhotoPath = webPath,
                         UploadDate = DateOnly.FromDateTime(DateTime.Now),
-                        UserId = 1, // 注意这里UserId应该根据实际登录用户动态获取
+                        UserId = userId, // 注意这里UserId应该根据实际登录用户动态获取
                         AlbumId = albumId, // 假设 albumId 已经是一个有效的值
                     };
                     _context.photo.Add(photo);
@@ -334,7 +336,7 @@ namespace TravelNotes.Controllers
 
         //Garbage刪除全部東西
         [HttpPost]
-        public async Task<IActionResult> DeleteByAlbumAndUserId(int userId = 1)
+        public async Task<IActionResult> DeleteByAlbumAndUserId()
         {
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
@@ -378,7 +380,7 @@ namespace TravelNotes.Controllers
 
         //Garbage刪除所有Album
         [HttpPost]
-        public async Task<IActionResult> DeleteAllAlbum(int userId = 1)
+        public async Task<IActionResult> DeleteAllAlbum()
         {
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
@@ -412,7 +414,7 @@ namespace TravelNotes.Controllers
         }
         //Garbage刪除所有Photo
         [HttpPost]
-        public async Task<IActionResult> DeleteAllPhoto(int userId = 1)
+        public async Task<IActionResult> DeleteAllPhoto()
         {
             var photosToDelete = await _context.photo
                                                .Where(p => p.UserId == userId && p.PhotoDescription == "1")
@@ -481,7 +483,7 @@ namespace TravelNotes.Controllers
 
             // 检查UserId=1的相册中是否有其他相册使用了新的名字（不区分大小写）
             var albumNameExists = await _context.album
-                                                .AnyAsync(a => a.UserId == 1 &&
+                                                .AnyAsync(a => a.UserId == userId &&
                                                                a.AlbumId != albumId &&
                                                                a.AlbumName.ToLower() == newAlbumName.ToLower());
             if (albumNameExists)
@@ -531,7 +533,7 @@ namespace TravelNotes.Controllers
             return NotFound(); // 如果找不到相?，返回NotFound?果
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateNullAlbumPhotosToMinAlbumId(int userId = 1)
+        public async Task<IActionResult> UpdateNullAlbumPhotosToMinAlbumId()
         {
 
 
@@ -560,7 +562,7 @@ namespace TravelNotes.Controllers
             var album = await _context.album.Include(a => a.photo).FirstOrDefaultAsync(a => a.AlbumId == albumId);
             if (album != null)
             {
-                var OtherPhoto = album.photo.Where(p => p.PhotoDescription == "1" && p.UserId == 1).ToList();
+                var OtherPhoto = album.photo.Where(p => p.PhotoDescription == "1" && p.UserId == userId).ToList();
                 foreach (var photo in OtherPhoto)
                 {
                     photo.AlbumId = null;
