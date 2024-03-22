@@ -1,25 +1,28 @@
 ﻿@model LookBackPhotoViewModel
-
+@{
+	// // @Model.photo.FirstOrDefault().PhotoPath;
+	// List<string> photoPath = new List<string>();
+	// var data = ViewBag.LookBackPhotoViewModel;
+	// //LookBackPhotoViewModel2? path1 = data.FirstOrDefault(a => a.Yid == 1);
+}
 <head>
 	<title>Year</title>
 	<link rel="stylesheet" href="~/PersonalPage/Year">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<style>
-.photoSet {
-	width: 300px;
-	height: 200px;
-	display: flex;
-}
+	<style>
+		.photoSet {
+			width: 300px;
+			height: 200px;
+			display: flex;
+		}
 
-.photoSet:hover {
-	cursor: pointer;
-}
-</style>
+		.photoSet:hover {
+			cursor: pointer;
+		}
+	</style>
 </head>
-
-<br>
 <h1>年度回顧</h1>
 <hr>
 <br>
@@ -36,7 +39,8 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set1" />
+				<img src="@ViewBag.pic1.PhotoPath" alt="" class="w-100" id="set1" />
+
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -50,7 +54,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set2" />
+				<img src="@ViewBag.pic2.PhotoPath" alt="" class="w-100" id="set2" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -64,7 +68,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set3" />
+				<img src="@ViewBag.pic3.PhotoPath" alt="" class="w-100" id="set3" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -78,7 +82,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set4" />
+				<img src="@ViewBag.pic4.PhotoPath" alt="" class="w-100" id="set4" />
 			</div>
 		</div><br /><br />
 	</div>
@@ -94,7 +98,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set5" />
+				<img src="@ViewBag.pic5.PhotoPath" alt="" class="w-100" id="set5" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -108,7 +112,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set6" />
+				<img src="@ViewBag.pic6.PhotoPath" alt="" class="w-100" id="set6" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -122,7 +126,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set7" />
+				<img src="@ViewBag.pic7.PhotoPath" alt="" class="w-100" id="set7" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -136,7 +140,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set8" />
+				<img src="@ViewBag.pic8.PhotoPath" alt="" class="w-100" id="set8" />
 			</div>
 		</div>
 	</div>
@@ -152,7 +156,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set9" />
+				<img src="@ViewBag.pic9.PhotoPath" alt="" class="w-100" id="set9" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -166,7 +170,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set10" />
+				<img src="@ViewBag.pic10.PhotoPath" alt="" class="w-100" id="set10" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -180,7 +184,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set11" />
+				<img src="@ViewBag.pic11.PhotoPath" alt="" class="w-100" id="set11" />
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -194,7 +198,7 @@
 						</svg>
 					</button>
 				</div>
-				<img src="..." alt="" class="w-100" id="set12" />
+				<img src="@ViewBag.pic12.PhotoPath" alt="" class="w-100" id="set12" />
 			</div>
 		</div>
 	</div>
@@ -220,7 +224,7 @@
 						{
 							<div class="col-md-4">
 								@item.PhotoId
-								<img class="photoSet" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath")' />
+								<img class="photoSet" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath","@item.PhotoId")' />
 							</div>
 						}
 					</div>
@@ -235,19 +239,6 @@
 		</div>
 	</div>
 </div>
-
-
-@*     <div id="album">
-	<div class="g-5 row">
-	@foreach (var item in Model)
-	{
-	<div class="col-12 col-md-3">
-	@item.PhotoId
-	<img class="photoSet" src="@item.PhotoPath" onclick="setPhoto(@item.PhotoPath)"></img>
-	</div>
-	}
-	</div>
-	</div> *@
 <br>
 <br>
 <br>
@@ -259,40 +250,38 @@
 	for (let i = 1; i < 13; i++) {
 		let a = document.getElementById(`set${i}`);
 		settings.push(a);
-
 	}
 
-	//console.log(settings);
 	let targetSetting = settings[0];
 	function apple(index) {
 		targetSetting = settings[index - 1];
 		console.log(targetSetting);
-		// $('#album').css('display', 'block');
 	}
 
-	function setPhoto(src) {
+	function setPhoto(src, PhotoId) {
 		targetSetting.setAttribute("src", src);
+		$.ajax({
+			type: "post",
+			url: "/PersonalPage/SaveLookBackImage",
+			data:
+			{
+				PhotoId: PhotoId,
+				Yid: parseInt(targetSetting.id.substring(3)),
+
+			},
+			success: function (data) {
+				console.log(data);
+			}
+
+		});
+
 	}
-	// function photoClick(int id) {
-	//     console.log(id);
-	// }
 
-	// $('.photoSet').on('click', function () {
-	// 	console.log("ok");
-	// 	var file = this.files[0];
-	// 	var formData = new FormData();
-	// 	formData.append('file', file);
-	// 	$.ajax({
-	// 		type: "post",
-	// 		url: "/PersonalPage/LookBackImage",
-	// 		data: formData,
-	// 		processData: false,  // 禁止 jQuery 處理數據
-	// 		contentType: false,  // 禁止 jQuery 設置內容類型
-	// 		success: function (data) {
-	// 			console.log(data);
-	// 			document.location = "/PersonalPage/Year/";
-	// 		}
-	// 	});
-
-	// });
 </script>
+
+<br>
+@* @foreach(var item in Model)
+{
+	<p>@item.PhotoPath</p>
+}
+*@

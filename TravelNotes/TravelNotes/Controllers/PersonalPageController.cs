@@ -22,7 +22,7 @@ namespace TravelNotes.Controllers
 		}
 
 		//Load Article DataList for PersonaPage
-		public IActionResult PersonalPage()
+		public IActionResult PersonalPage(/*int? UserId*/)
 		{
 			var users = _context.users.FirstOrDefault(a => a.UserId == UserId);
 			var article = _context.article.Where(p => p.UserId == UserId);
@@ -36,14 +36,6 @@ namespace TravelNotes.Controllers
 			//ViewBag.article = _context.article.Where((a => a.UserId == UserId)).ToList();
 			//return View(_context.users.ToList());
 		}
-
-		//**Set Article in PersonalPage -> Not working
-		//public ActionResult PersonalPage(int UserId)
-		//{
-		//	var a = _context.article.Where((a => a.UserId == UserId));
-		//	ViewData["article"] = a.ToList();
-		//	return View();
-		//}
 
 		//Search Article for PersonalPage
 		[HttpPost]
@@ -112,21 +104,77 @@ namespace TravelNotes.Controllers
 		//Load Photo DataList for LookBack
 		public IActionResult Year()
 		{
-			var LookBack = _context.LookBack.FirstOrDefault(a => a.UserId == UserId);
-			var photo = _context.photo.Where(p => p.UserId == UserId);
+			var LookBack = _context.LookBack.Where(a => a.UserId == UserId).ToList();
+			var photo = _context.photo.Where(p => p.UserId == UserId && p.PhotoDescription != "1").ToList();
+			//photo.FirstOrDefault().PhotoPath
+			var data = from p in photo
+					   join l in LookBack
+					   on p.PhotoId equals l.PhotoId
+					   select new LookBackPhotoViewModel2
+					   {
+						   PhotoPath = p.PhotoPath,
+						   Yid = l.Yid,
+					   };
+			var bag = data.ToList();
 			var LookBackPhotoViewModel = new LookBackPhotoViewModel
 			{
-				LookBack = (IEnumerable<LookBack>)LookBack,
-				photo = (IEnumerable<photo>)photo
+				LookBack = LookBack,
+				photo = photo,
+				photoPaths = bag,
+				
 			};
+			ViewBag.pic1 = bag.FirstOrDefault(a => a.Yid == 1);
+			ViewBag.pic2 = bag.FirstOrDefault(a => a.Yid == 2);
+			ViewBag.pic3 = bag.FirstOrDefault(a => a.Yid == 3);
+			ViewBag.pic4 = bag.FirstOrDefault(a => a.Yid == 4);
+			ViewBag.pic5 = bag.FirstOrDefault(a => a.Yid == 5);
+			ViewBag.pic6 = bag.FirstOrDefault(a => a.Yid == 6);
+			ViewBag.pic7 = bag.FirstOrDefault(a => a.Yid == 7);
+			ViewBag.pic8 = bag.FirstOrDefault(a => a.Yid == 8);
+			ViewBag.pic9 = bag.FirstOrDefault(a => a.Yid == 9);
+			ViewBag.pic10 = bag.FirstOrDefault(a => a.Yid == 10);
+			ViewBag.pic11 = bag.FirstOrDefault(a => a.Yid == 11);
+			ViewBag.pic12 = bag.FirstOrDefault(a => a.Yid == 12);
+
+
+			//ViewBag.LookBackPhotoViewModel = data;
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+			//var result = data.FirstOrDefault(a => a.Yid == 1);
+
+			//return View(bag);
 			return View(LookBackPhotoViewModel);
 		}
 
 		//Upload & Save for LookBack Page
 		[HttpPost]
-		public string SaveLookBackImage(int Yid,int UserId,int PhotoId)
+		public string SaveLookBackImage(int Yid, int PhotoId, int id)
 		{
-			return ("Ok");
+			var LookBackImage = _context.LookBack.FirstOrDefault(a => a.UserId == UserId);
+			var data = _context.LookBack.FirstOrDefault(a => a.Yid == Yid && a.UserId == UserId);
+
+			if (data != null)
+			{
+				data.PhotoId = PhotoId;
+
+			}
+			else
+			{
+				LookBack lookBack = new LookBack();
+				lookBack.PhotoId = PhotoId;
+				lookBack.Yid = Yid;
+				lookBack.UserId = UserId;
+				_context.LookBack.Add(lookBack);
+			}
+
+			_context.SaveChanges();
+			return "look:" + Yid + "·Ó¤ùid:" + PhotoId;
 		}
 
 		//Model
