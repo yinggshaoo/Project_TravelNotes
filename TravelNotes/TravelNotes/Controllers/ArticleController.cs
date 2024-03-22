@@ -25,7 +25,10 @@ namespace TravelNotes.Controllers
         {
             _hostingEnvironment = hostingEnvironment;
             _context = context;
-        }
+            
+			
+
+		}
         #region 圖片相關
         [HttpPost]
         public void Test()
@@ -132,7 +135,7 @@ namespace TravelNotes.Controllers
         {
             ViewBag.articleId = articleId;
             var data = _context.article.Where(a => a.UserId == userID && a.ArticleState == "草稿").ToList();
-            //ViewBag.articleTagList = _context.ArticleTagList.ToList();
+            ViewBag.spotTagList = _context.Spots.ToList();
             if (data == null)
             {
                 return View("errorView");
@@ -144,15 +147,8 @@ namespace TravelNotes.Controllers
         {
             CheckFolderPhotos(contentImages, articleId,"content");
             var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
-            if (title == null)
-            {
-                currentArticle!.Title = "";
-            }
-            else
-            {
-                currentArticle!.Title = title;
-            }
-            currentArticle.Subtitle = subtitle;
+			currentArticle!.Title = title;
+			currentArticle.Subtitle = subtitle;
             currentArticle.TravelTime = travelTime;
             currentArticle.Contents = content;
             _context.SaveChanges();
@@ -172,7 +168,7 @@ namespace TravelNotes.Controllers
             article.ArticleState = "草稿";
             _context.Add(article);
             _context.SaveChanges();
-            return Ok();
+            return RedirectToAction("Draft");
         }
 
         [HttpPost]
@@ -271,9 +267,11 @@ namespace TravelNotes.Controllers
                             Contents = m.Contents,
                             UserId = m.UserId,
                             MessageTime = m.MessageTime,
-                            Haedshot = u.Headshot
+                            Haedshot = u.Headshot,
                         };
             ViewBag.messageBoards = messageBoards;
+            users user = _context.users.FirstOrDefault(a => a.UserId == data.UserId)!;
+            ViewBag.user = user;
             return View(data);
         }
         [HttpPost]
@@ -330,13 +328,12 @@ namespace TravelNotes.Controllers
         #endregion
         public IActionResult TestArticle()
         {
-            string userId;
-            var test = Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            var t = userId;
+			Response.Cookies.Append("UsernameCookie", "1");
+			bool isEmpty = Request.Cookies["UsernameCookie"] == null;
+			string userId = Request.Cookies["UsernameCookie"].ToString();
+
 
             return View();
-
-
         }
         //public void DisplayUserInfo()
         //{

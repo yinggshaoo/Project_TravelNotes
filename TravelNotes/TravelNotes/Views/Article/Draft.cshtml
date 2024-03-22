@@ -3,8 +3,13 @@
 }
 @model List<article>
 @{
-    //List<ArticleTagList> articleTagList = ViewBag.articleTagList;
-    //articleTagList = articleTagList.OrderBy(a => a.TagClass).ToList();
+    #region 初始化
+    List<string> cityNames = new List<string>()
+    {
+        "臺北市","新北市","桃園市","基隆市","宜蘭縣","新竹市","新竹縣","苗栗縣","臺中市","彰化縣","南投縣","雲林縣",
+        "嘉義市","嘉義縣","臺南市","高雄市","屏東縣","臺東縣","花蓮縣","澎湖縣","金門縣","連江縣","其它"
+
+    };
     var currentId = ViewBag.articleId;
     article target;
     string time;
@@ -19,31 +24,18 @@
     if (target == null)
     {
         target = new article()
-                {
-                    ArticleId = 0,
-                    TravelTime = DateTime.Now,
-                };
+        {
+            ArticleId = 0,
+            TravelTime = DateTime.Now,
+        };
     }
     var tempTime = (DateTime)target!.TravelTime!;
     time = tempTime.ToString("yyyy-MM-ddTHH:mm");
     string content = target!.Contents!;
+    #endregion
 }
 <style>
-    :root {
-        --primary-color: #1B1924;
-        --secondary-color: #B5C1B4;
-        --tertiary-color: #DCD9C6;
-        --accent-color: #74593D;
-        --text-color: #3F3232;
-    }
-
-    body {
-        background-color: var(--tertiary-color);
-        color: var(--text-color);
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+    
 
     #notification {
         display: none;
@@ -59,48 +51,55 @@
         z-index: 1000;
     }
 
-    .selectedTag {
-        background-color: var(--accent-color);
-        color: #fff;
-        border: 1px solid var(--accent-color);
-        border-radius: 5px;
-        padding: 5px 10px;
-        cursor: pointer;
+    /*     .selectedTag {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .unselectedTag {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        } */
+
+    .buttons {
+        margin: 2px;
     }
 
-    .unselectedTag {
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        border: 1px solid var(--secondary-color);
-        border-radius: 5px;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-
-    .buttons{
-        margin:2px;
-    }
-
-    .articleLabel{
+    .articleLabel {
         color: var(--primary-color);
     }
 
-    .articleInput{
+    .articleInput {
         border-color: var(--primary-color);
     }
 
-    .articleSelect{
-/*         background-color: var(--secondary-color); */
-        color: var(--text-color); 
+    .articleSelect {
+        /*         background-color: var(--secondary-color); */
+        color: var(--text-color);
         border-color: var(--primary-color);
     }
+
+    .spotPanel {
+        position: absolute;
+        z-index:100;
+        display:none;
+    }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-@* <h2>草稿編輯</h2>
-<h1> 當前ID:@target.ArticleId</h1> *@
+@* <h1>@(currentId)</h1> *@
+@* <h1> 當前ID:@target.ArticleId</h1> *@
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 <div class="container">
     
@@ -147,28 +146,42 @@
                 }
             </select>
             <div >
-                <button id="saveButton" class="btn btn-dark buttons">儲存</button>
-                <button id="createButton" class="btn btn-dark buttons">新增</button>
-                <button id="publishButton" class="btn btn-dark buttons">發佈</button>
-                <button id="deleteButton" class="btn btn-danger buttons">删除</button>
-@*                 <button id="testButton" class="btn btn-danger">測試</button> *@
+                <button id="saveButton" class="btn btn-secondary buttons">儲存</button>
+                <button id="createButton" class="btn btn-secondary buttons">新增</button>
+                <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
+                <button id="deleteButton" class="btn btn-danger">删除</button>
+                @*                 <button id="testButton" class="btn btn-danger">測試</button> *@
             </div>
 
         </div>
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        @for (int i = 0; i < cityNames.Count; i++)
+        {
+            <div class="col-auto">
+                <button class="cityButton btn btn-secondary" onclick="refreshTag(@i)">@cityNames[i]</button>
+                <div class="spotPanel">
+                    <div>
+                        <input type="text" id="spotTagInput_@i" oninput="refreshTag(@i)"></input>
+                        <button onclick="addSpotTag(this)">新增</button>
+                    </div>
+                    <div id="spotTag_@i">
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div >
+        <span>旅遊景點:</span>
+        <span id="currentSpotTag" ></span>
+    </div>
+</div>
 
 
-
-
-
-@* <div>
-    @foreach(ArticleTagList item in articleTagList)
-    {
-        <span onclick="selectTag(this)" id="tag_@item.LabelId" class="unselectedTag">@item.TagName</span>
-    }
-</div> *@
 <div>
     <textarea id="tiny"></textarea>
 </div>
@@ -178,9 +191,180 @@
 
 
 <script>
+    let spotsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.spotTagList));
+    let TaipeiCity       = []
+    let NewTaipeiCity    = [];
+    let TaoyuanCity      = [];
+    let KeelungCity      = [];
+    let YilanCounty      = [];
+    let HsinchuCity      = [];
+    let HsinchuCounty    = [];
+    let MiaoliCounty     = [];
+    let TaichungCity     = [];
+    let ChanghuaCounty   = [];
+    let NantouCounty     = [];
+    let YunlinCounty     = [];
+    let ChiayiCity       = [];
+    let ChiayiCounty     = [];
+    let TainanCity       = [];
+    let KaohsiungCity    = [];
+    let PingtungCounty   = [];
+    let TaitungCounty    = [];
+    let HualienCounty    = [];
+    let PenghuCounty     = [];
+    let KinmenCounty     = [];
+    let LienchiangCounty = [];
+    let Other = [];
+    let AllCity = [TaipeiCity, NewTaipeiCity, TaoyuanCity, KeelungCity, YilanCounty, HsinchuCity, HsinchuCounty,
+        MiaoliCounty, TaichungCity, ChanghuaCounty, NantouCounty, YunlinCounty, ChiayiCity, ChiayiCounty,
+        TainanCity, KaohsiungCity, PingtungCounty, TaitungCounty, HualienCounty, PenghuCounty, KinmenCounty, 
+        LienchiangCounty, Other]
 
+    for (let i = 0; i < spotsData.length;i++) {
+        
+        if (spotsData[i].City.trim() == "臺北市") {
+            TaipeiCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "新北市") {
+            NewTaipeiCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "桃園市") {
+            TaoyuanCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "基隆市") {
+            KeelungCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "宜蘭縣") {
+            YilanCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "新竹市") {
+            HsinchuCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "新竹縣") {
+            HsinchuCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "苗栗縣") {
+            MiaoliCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "臺中市") {
+            TaichungCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "彰化縣") {
+            ChanghuaCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "南投縣") {
+            NantouCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "雲林縣") {
+            YunlinCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "嘉義市") {
+            ChiayiCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "嘉義縣") {
+            ChiayiCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "臺南市") {
+            TainanCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "高雄市") {
+            KaohsiungCity.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "屏東縣") {
+            PingtungCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "臺東縣") {
+            TaitungCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "花蓮縣") {
+            HualienCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "澎湖縣") {
+            PenghuCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "金門縣") {
+            KinmenCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "連江縣") {
+            LienchiangCounty.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+        else if (spotsData[i].City.trim() == "其它") {
+            Other.push({
+                SpotId: spotsData[i].SpotId,
+                ScenicSpotName: spotsData[i].ScenicSpotName
+            });
+        }
+    }   
+        // console.log(AllCity); 
+    let currentSpotTag = {};
     let backendData = @Html.Raw(Json.Serialize(content));
-    console.log(backendData);
+    //console.log(backendData);
     $(function () {
         let dropdown = $("#dropdown");
         let articleId = $('#articleId').val();
@@ -253,7 +437,13 @@
             window.location = '/Article/Draft?articleId=' + id;
         });
         
-
+        $('.cityButton').on('click', function () {
+            // 切换点击的 span 元素相邻的 .spotPanel 元素的显示状态
+            $(this).next('.spotPanel').toggle();
+            // 关闭其他已经打开的 .spotPanel 元素
+            $('.spotPanel').not($(this).next('.spotPanel')).hide();
+        });
+        
         function save() { 
             var contentImages = [];
             var editorContent = tinymce.get('tiny').getContent();
@@ -294,6 +484,7 @@
                     })
             }
         });
+
         $('#createButton').on('click', function () {
 
             $.ajax({
@@ -305,6 +496,7 @@
                 }
             });
         });
+
         $('#publishButton').on('click', function () {
             var confirmation = confirm("確定要發佈嗎？");
             if (confirmation) {
@@ -315,8 +507,6 @@
                     })
             }
         });
-
-
 
         $('#articleImage').on('click', function () {
             $('#articleImageUpload').click();
@@ -339,6 +529,7 @@
             });
         });
 
+        $()
         function showNotification(message) {
             $("#notification").text(message).css("display","block")
             setTimeout(function () {
@@ -370,14 +561,57 @@
 
     function selectTag(tag) {
         console.log(tag.id);
-        if (tag.classList.contains("selectedTag")) {
-            tag.classList.remove("selectedTag"); // 移除未選中的樣式
-            tag.classList.add("unselectedTag"); // 添加選中的樣式
+        // if (tag.classList.contains("selectedTag")) {
+        //     tag.classList.remove("selectedTag"); // 移除未選中的樣式
+        //     tag.classList.add("unselectedTag"); // 添加選中的樣式
+        // }
+        // else {
+        //     tag.classList.remove("unselectedTag"); // 移除未選中的樣式
+        //     tag.classList.add("selectedTag"); // 添加選中的樣式
+        // }
+
+    }
+    function refreshTag(id) {
+        $(`#spotTag_${id}`).html("");
+        //console.log($(`#spotTagInput_${id}`).val());
+        let spotTagInput = $(`#spotTagInput_${id}`).val();
+        if (spotTagInput == "") {
+            for (let i = 0; i < AllCity[id].length; i++) {
+                $(`#spotTag_${id}`).append(
+                    `<button class="btn btn-primary" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
+                        ${AllCity[id][i].ScenicSpotName}
+                        </button>`)
+                if (i == 4) {
+                    break;
+                }
+            }
         }
         else {
-            tag.classList.remove("unselectedTag"); // 移除未選中的樣式
-            tag.classList.add("selectedTag"); // 添加選中的樣式
+            let index = 0;
+            for (let i = 0; i < AllCity[id].length; i++) {
+                if (!AllCity[id][i].ScenicSpotName.includes(spotTagInput)) {
+                    continue;
+                }
+                $(`#spotTag_${id}`).append(
+                    `<button class="btn btn-primary" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
+                    ${AllCity[id][i].ScenicSpotName}
+                    </button>`)
+                index++;
+                if (index == 4) {
+                    break;
+                }
+            }
         }
-
+    }
+    function chooseSpotTag(SpotId, ScenicSpotName) {
+        $('.spotPanel').hide();
+        currentSpotTag.SpotId = SpotId;
+        currentSpotTag.ScenicSpotName = ScenicSpotName;
+        $('#currentSpotTag').text(ScenicSpotName);
+        console.log(currentSpotTag);
+    }
+    function addSpotTag(obj) {
+        let spotInput = $(obj).prev('input').val()
+        chooseSpotTag(0, spotInput)
     }
 </script>

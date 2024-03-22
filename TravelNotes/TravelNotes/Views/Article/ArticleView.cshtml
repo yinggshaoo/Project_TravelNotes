@@ -9,56 +9,94 @@
     var publishTime = (DateTime)target!.PublishTime!;
     string content = target!.Contents!;
 }
+<link rel="stylesheet" href="~/css/article.css">
 <style>
     .headShotImg {
         border-radius: 50%;
         width: 50px; /* 設置圖片的寬度 */
         height: 50px; /* 設置圖片的高度 */
+        border: white solid 1px;
+    }
+
+    #messageBoard{
+        background-color:white;
+        border-radius: 10px; /* 圆角半径 */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+        margin-top:10px;
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-<h2>文章檢視</h2>
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 <input type="text" id="userId" value="@target.UserId" style="display:none;">
-<br />
+<div class="container">
+
+    <div class="row justify-content-start">
+        <div class="col-sm-10 ">
+            <div class="row">
+                <h1 id="title">@target.Title</h1>
+                <h5 id="subtitle">@target.Subtitle</h5>            
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <img src="@ViewBag.user.Headshot" class="headShotImg" alt="调整大小图像" onclick="personalPageView(@ViewBag.user.UserId)">
+                </div>
+                <div class="col-auto">
+                    <span>@ViewBag.user.Nickname</span>
+                    <br />
+                    <span id="publishTime">@publishTime</span>
+                </div>
+                
+            </div>  
+        </div>
+        <div class="col-sm-2">
+            <div>
+                <span>按讚數:<span id="likeCount">@target.LikeCount</span></span>
+                <button id="likeButton">按讚</button>
+            </div>
+            <div>
+                <span>瀏覽人數:<span id="pageView">@target.PageView</span></span>
+            </div>
+            <div><span>旅遊時間:</span><span id="travelTime">@travelTime.ToString("yyyy/MM/dd")</span></div>
+            <div>
+                <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<div>
-    <h1 id="title">@target.Title</h1>
-    <div>
-        <span>按讚數:<span id="likeCount">@target.LikeCount</span></span>
-        <button id="likeButton">按讚</button>
-    </div>
-    <div>
-        <span>瀏覽人數:<span id="pageView">@target.PageView</span></span>
-    </div>
-</div>
-<div>
-    <h4 id="subtitle">@target.Subtitle</h4>
-</div>
-<div>
-    <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
-    <span>旅遊時間:</span><span id="travelTime">@travelTime</span>
-    <span>發佈時間:</span><span id="publishTime">@publishTime</span>
-</div>
 <div>
     <textarea id="tiny"></textarea>
 </div>
-<div>
-    <div>留言</div>
+<div id="messageBoard">
     @foreach (var item in ViewBag.messageBoards)
     {
-        <div>
-            <img class="headShotImg" src="@item.Haedshot" />
-            <span>@item.Contents</span>
-            <span>發佈時間: @item.MessageTime</span>
+        <div class="row">
+            <div class="col-1">
+                <img class="headShotImg" src="@item.Haedshot" onclick="personalPageView(@item.UserId)" />
+            </div>
+            <div class="col-9">
+                <span>@item.Contents</span>
+            </div>
+            <div class="col-2">
+                <span>@item.MessageTime</span>
+            </div>
+
+
+            
         </div>
     }
-    <input type="text" id="messageInput" />
-    <button id="messageButton">發佈</button>
+    <div class="row">
+        <div class="col">
+            <input type="text" id="messageInput" class="form-control articleInput" />
+        </div>
+        <div class="col-auto">
+            <button id="messageButton">發佈</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -109,6 +147,12 @@
                 }
             });
         });
+        setTimeout(viewArticle,5000)
+    });
+    function personalPageView(userId) {
+        console.log(userId);
+    }
+    function viewArticle(){
         $.ajax({
             type: "post",
             url: "/Article/ViewArticle",
@@ -119,5 +163,5 @@
                 $('#pageView').text(pageView)
             }
         });
-    });
+    }
 </script>

@@ -5,7 +5,7 @@ using System.Collections;
 using TravelNotes;
 
 
-namespace Lab0225_InitProject.Controllers
+namespace TravelNotes.Controllers
 {
     public class AiRecommendController : Controller
     {
