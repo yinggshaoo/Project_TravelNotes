@@ -21,5 +21,7 @@ public partial class photo
 
     public virtual album? Album { get; set; }
 
+    public virtual ICollection<LookBack> LookBack { get; set; } = new List<LookBack>();
+
     public virtual users User { get; set; } = null!;
 }

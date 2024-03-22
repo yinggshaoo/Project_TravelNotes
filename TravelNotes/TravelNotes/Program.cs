@@ -37,10 +37,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//	name: "default",
+//	pattern: "{controller=Member}/{action=Logout}/{id?}");
+//app.MapControllerRoute(
+//	name: "default",
+//	pattern: "{controller=Article}/{action=TestArticle}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

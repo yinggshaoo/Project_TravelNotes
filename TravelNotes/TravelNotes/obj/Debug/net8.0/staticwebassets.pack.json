@@ -1,323 +1,315 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\TravelNotes.bundle.scp.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\TravelNotes.bundle.scp.css",
       "PackagePath": "staticwebassets\\TravelNotes.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\step.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\step.css",
       "PackagePath": "staticwebassets\\css\\ai\\step.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\switchbar.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\switchbar.css",
       "PackagePath": "staticwebassets\\css\\ai\\switchbar.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\typewrite.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\css\\ai\\typewrite.css",
       "PackagePath": "staticwebassets\\css\\ai\\typewrite.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\20160825003352.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\20160825003352.png",
       "PackagePath": "staticwebassets\\images\\20160825003352.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\2b3f6ff00db7a1efae21d85cfb8995eaff2da8d8.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\2b3f6ff00db7a1efae21d85cfb8995eaff2da8d8.png",
       "PackagePath": "staticwebassets\\images\\2b3f6ff00db7a1efae21d85cfb8995eaff2da8d8.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\add.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\add.png",
       "PackagePath": "staticwebassets\\images\\add.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\images.jpg",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\images.jpg",
       "PackagePath": "staticwebassets\\images\\images.jpg"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\like.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\like.png",
       "PackagePath": "staticwebassets\\images\\like.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\list.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\list.png",
       "PackagePath": "staticwebassets\\images\\list.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\photo-album.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\photo-album.png",
       "PackagePath": "staticwebassets\\images\\photo-album.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\user.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\user.png",
       "PackagePath": "staticwebassets\\images\\user.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\images\\write.png",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\images\\write.png",
       "PackagePath": "staticwebassets\\images\\write.png"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\img\\user1\\photo\\20160825003352_20240322124309.png",
-      "PackagePath": "staticwebassets\\img\\user1\\photo\\20160825003352_20240322124309.png"
-    },
-    {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\img\\user1\\photo\\2b3f6ff00db7a1efae21d85cfb8995eaff2da8d8_20240322112533.png",
-      "PackagePath": "staticwebassets\\img\\user1\\photo\\2b3f6ff00db7a1efae21d85cfb8995eaff2da8d8_20240322112533.png"
-    },
-    {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\nextpage.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\nextpage.js",
       "PackagePath": "staticwebassets\\js\\ai\\nextpage.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\step.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\step.js",
       "PackagePath": "staticwebassets\\js\\ai\\step.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\switchbar.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\switchbar.js",
       "PackagePath": "staticwebassets\\js\\ai\\switchbar.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\typewrite.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\typewrite.js",
       "PackagePath": "staticwebassets\\js\\ai\\typewrite.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery-ui.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery-ui.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery-ui.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8r+XkIwMyRUBq8OCuVK4NT8db6EqcOZSheNe8o8YP7eDzoriawp/uN6M73FCrSE/1yofwI0SGIeZs2UBhc/xIg==",
+  "dgSpecHash": "hOlnVxuFj5tquWj0RMZkTF0pQFBPBWwFMwzLwyNkxU5ttp/xbBlqfGd/B0mHZ88gRSqMDWQXg3xFO+aZ3Nvf9A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

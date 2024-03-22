@@ -362,7 +362,11 @@
         }
     }   
         // console.log(AllCity); 
-    let currentSpotTag = {};
+    let currentSpotTag = {
+        SpotId:0,
+        ScenicSpotName:""
+    };
+    let currentCity = "";
     let backendData = @Html.Raw(Json.Serialize(content));
     //console.log(backendData);
     $(function () {
@@ -459,7 +463,10 @@
                 subtitle: $('#subtitle').val(),
                 travelTime: $('#travelTime').val(),
                 content: editorContent,
-                contentImages: JSON.stringify(contentImages)
+                contentImages: JSON.stringify(contentImages),
+                SpotId: currentSpotTag.SpotId,
+                ScenicSpotName: currentSpotTag.ScenicSpotName,
+                City: currentCity
             };
             $.ajax({
                 type: "POST",
@@ -612,6 +619,7 @@
     }
     function addSpotTag(obj) {
         let spotInput = $(obj).prev('input').val()
+        currentCity = $(obj).closest('.col-auto').find('.cityButton').text()
         chooseSpotTag(0, spotInput)
     }
 </script>

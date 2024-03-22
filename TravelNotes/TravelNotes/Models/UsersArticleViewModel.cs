@@ -64,7 +64,6 @@ namespace TravelNotes.Models
 
 		public virtual users User { get; set; } = null!;
 
-		public virtual ICollection<articletags> articletags { get; set; } = new List<articletags>();
 
 		public UsersArticleViewModel()
 		{

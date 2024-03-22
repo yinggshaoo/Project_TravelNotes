@@ -11,17 +11,7 @@ public partial class TravelContext : DbContext
     {
     }
 
-    public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
-
-    public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-
-    public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-
-    public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-
-    public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
-
-    public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+    public virtual DbSet<Itinerary> Itinerary { get; set; }
 
     public virtual DbSet<LookBack> LookBack { get; set; }
 
@@ -41,8 +31,6 @@ public partial class TravelContext : DbContext
 
     public virtual DbSet<articleOtherTags> articleOtherTags { get; set; }
 
-    public virtual DbSet<articletags> articletags { get; set; }
-
     public virtual DbSet<messageBoard> messageBoard { get; set; }
 
     public virtual DbSet<myFavor> myFavor { get; set; }
@@ -53,90 +41,117 @@ public partial class TravelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AspNetRoleClaims>(entity =>
+        modelBuilder.Entity<Itinerary>(entity =>
         {
-            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+            entity
+                .HasNoKey()
+                .ToView("Itinerary");
 
-            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
-        });
-
-        modelBuilder.Entity<AspNetRoles>(entity =>
-        {
-            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedName] IS NOT NULL)");
-
-            entity.Property(e => e.Name).HasMaxLength(256);
-            entity.Property(e => e.NormalizedName).HasMaxLength(256);
-        });
-
-        modelBuilder.Entity<AspNetUserClaims>(entity =>
-        {
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<AspNetUserLogins>(entity =>
-        {
-            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
-
-            entity.Property(e => e.LoginProvider).HasMaxLength(128);
-            entity.Property(e => e.ProviderKey).HasMaxLength(128);
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<AspNetUserTokens>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-            entity.Property(e => e.LoginProvider).HasMaxLength(128);
-            entity.Property(e => e.Name).HasMaxLength(128);
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<AspNetUsers>(entity =>
-        {
-            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
-            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-            entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-            entity.Property(e => e.Role)
+            entity.Property(e => e.Class1)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Class2)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Class3)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.DescriptionDetail)
+                .HasMaxLength(5000)
+                .IsUnicode(false);
+            entity.Property(e => e.GeoHash)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+            entity.Property(e => e.Keyword)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.OpenTime)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingGeoHash)
                 .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingInfo)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingLat)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.ParkingLon)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription1)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription2)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureDescription3)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl1)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl2)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PictureUrl3)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PositionLat)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.PositionLon)
+                .HasMaxLength(11)
+                .IsUnicode(false);
+            entity.Property(e => e.Remarks)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.ScenicSpotID)
+                .HasMaxLength(20)
+                .IsUnicode(false)
                 .IsFixedLength();
-            entity.Property(e => e.UserName).HasMaxLength(256);
-
-            entity.HasMany(d => d.RoleNavigation).WithMany(p => p.User)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AspNetUserRoles",
-                    r => r.HasOne<AspNetRoles>().WithMany().HasForeignKey("RoleId"),
-                    l => l.HasOne<AspNetUsers>().WithMany().HasForeignKey("UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId");
-                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
-                    });
+            entity.Property(e => e.ScenicSpotName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.TicketInfo)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.TravelInfo)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.WebsiteUrl)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ZipCode)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e._Address)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e._Description)
+                .HasMaxLength(5000)
+                .IsUnicode(false);
+            entity.Property(e => e._level)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.city)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<LookBack>(entity =>
         {
-            entity.HasNoKey();
-
-            entity.HasOne(d => d.Photo).WithMany()
+            entity.HasOne(d => d.Photo).WithMany(p => p.LookBack)
                 .HasForeignKey(d => d.PhotoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LookBack_photo");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.LookBack)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LookBack_users");
@@ -267,7 +282,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<TagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3D5BC8270");
+            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3434FF953");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(6)
@@ -289,7 +304,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<album>(entity =>
         {
-            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37A9814A23");
+            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37571D3459");
 
             entity.Property(e => e.AlbumName).HasMaxLength(10);
 
@@ -324,32 +339,15 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<articleOtherTags>(entity =>
         {
-            entity.HasNoKey();
-
-            entity.HasOne(d => d.Article).WithMany()
+            entity.HasOne(d => d.Article).WithMany(p => p.articleOtherTags)
                 .HasForeignKey(d => d.ArticleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_articleOtherTags_article");
 
-            entity.HasOne(d => d.OtherTag).WithMany()
+            entity.HasOne(d => d.OtherTag).WithMany(p => p.articleOtherTags)
                 .HasForeignKey(d => d.OtherTagId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_articleOtherTags_OtherTags");
-        });
-
-        modelBuilder.Entity<articletags>(entity =>
-        {
-            entity.HasNoKey();
-
-            entity.HasOne(d => d.Article).WithMany()
-                .HasForeignKey(d => d.ArticleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_tags_ArticleId");
-
-            entity.HasOne(d => d.Label).WithMany()
-                .HasForeignKey(d => d.LabelId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_articletags_Spots");
         });
 
         modelBuilder.Entity<messageBoard>(entity =>
@@ -372,8 +370,6 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<myFavor>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__myFavor__3213E83F0347E9C6");
-
             entity.HasOne(d => d.Spot).WithMany(p => p.myFavor)
                 .HasForeignKey(d => d.SpotId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

@@ -27,7 +27,11 @@ public partial class article
 
     public string? ArticleState { get; set; }
 
+    public int? SpotId { get; set; }
+
     public virtual users User { get; set; } = null!;
+
+    public virtual ICollection<articleOtherTags> articleOtherTags { get; set; } = new List<articleOtherTags>();
 
     public virtual ICollection<messageBoard> messageBoard { get; set; } = new List<messageBoard>();
 }
