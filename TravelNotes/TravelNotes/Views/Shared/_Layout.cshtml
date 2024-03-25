@@ -72,10 +72,21 @@
 				Logo
 				</a>
 		</div>
+
+
 		<div class="row my-4">
-			<a asp-controller="Member" asp-action="Login">
-				<i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
-			</a>
+			@if (!User.Identity.IsAuthenticated)
+			{
+				<a asp-controller="Member" asp-action="Login">
+					<i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
+				</a>
+			}else{
+
+				<a asp-controller="Member" asp-action="Logout">
+					<i class="fa-solid fa-right-from-bracket fa-lg" style="color: #ffffff;"></i>
+				</a>
+			}
+			
 		</div>
 
 		

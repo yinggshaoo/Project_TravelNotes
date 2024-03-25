@@ -84,8 +84,6 @@ namespace TravelNotes.Controllers
             return View();
         }
 
-
-
         public async Task<IActionResult> Logout()
         {
             // 執行登出操作，清除用戶身份驗證信息
@@ -98,6 +96,11 @@ namespace TravelNotes.Controllers
 		public IActionResult fail() 
         {
             ViewBag.Text = "失敗了!";
+            return View();
+        }
+
+        public IActionResult NoAccess()
+        {
             return View();
         }
 

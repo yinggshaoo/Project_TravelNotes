@@ -9,139 +9,143 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TravelNotes
 build_property.RootNamespace = TravelNotes
-build_property.ProjectDir = C:\Users\user\Desktop\TravelNotes\TravelNotes\
+build_property.ProjectDir = C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\user\Desktop\TravelNotes\TravelNotes
+build_property.MSBuildProjectDirectory = C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/AiRecommend/Index.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/AiRecommend/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWlSZWNvbW1lbmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/AiRecommend/_AiLayout.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/AiRecommend/_AiLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWlSZWNvbW1lbmRcX0FpTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Album/Album.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Album/Album.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQWxidW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Album/Garbage.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Album/Garbage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cR2FyYmFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Album/Photo.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Album/Photo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cUGhvdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Article/ArticleEdit.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Article/ArticleEdit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBcnRpY2xlRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Article/ArticleView.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Article/ArticleView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBcnRpY2xlVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Article/Draft.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Article/Draft.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxEcmFmdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Article/errorView.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Article/errorView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxlcnJvclZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Article/TestArticle.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Article/TestArticle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxUZXN0QXJ0aWNsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/CalimsTest/Apple.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/CalimsTest/Apple.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsaW1zVGVzdFxBcHBsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/CalimsTest/Bee.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/CalimsTest/Bee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsaW1zVGVzdFxCZWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Home/Index.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Member/fail.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Member/fail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXGZhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Member/Index.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Member/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Member/Login.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Member/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Member/Register.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Member/NoAccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXE5vQWNjZXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Member/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/Album.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Album.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXEFsYnVtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/Article.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Article.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXEFydGljbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/PersonalPage.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/PersonalPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFBlcnNvbmFsUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/Schedule.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Schedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFNjaGVkdWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/ViewSchedule.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/ViewSchedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFZpZXdTY2hlZHVsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/PersonalPage/Year.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/PersonalPage/Year.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxQYWdlXFllYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/AiRecommendPartialView/AiPickPartial.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/AiRecommendPartialView/AiPickPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFpUmVjb21tZW5kUGFydGlhbFZpZXdcQWlQaWNrUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/AiRecommendPartialView/CustomerPickPartial.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/AiRecommendPartialView/CustomerPickPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFpUmVjb21tZW5kUGFydGlhbFZpZXdcQ3VzdG9tZXJQaWNrUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/ArticleCard.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/ArticleCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFydGljbGVDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/Error.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/_AiPartialLayout.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/_AiPartialLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BaVBhcnRpYWxMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/_ViewImports.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/_ViewStart.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/TravelNotes/TravelNotes/Views/Shared/_Layout.cshtml]
+[C:/Users/klas9/Desktop/TravelNotes/TravelNotes/TravelNotes/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ipr9r1jdlc

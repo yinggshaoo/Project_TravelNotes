@@ -6,13 +6,13 @@ namespace TravelNotes.Controllers
     [Authorize]
     public class CalimsTest : Controller
     {
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Y")]
         public IActionResult Apple()
         {
             return View();
         }
 
-        [Authorize(Roles = "Normal")]
+        [Authorize(Roles = "N")]
         public IActionResult Bee()
         {
             return View();

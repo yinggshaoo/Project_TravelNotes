@@ -1,1 +1,31 @@
-﻿<h1>這是自選Partial</h1>
+﻿@using TravelNotes.Models;
+@model Array
+
+@{
+    int count = 0;
+}
+
+@foreach (var item in Model)
+{
+    if (item is List<UniqueCity>)
+    {
+        var cityLists = item as List<UniqueCity>;
+
+        @foreach (var cityList in cityLists)
+        {
+            <button type="button" class="btn btn-outline-primary city-btn" id="@count-C">
+                @Html.DisplayFor(modelItem => cityList.City)
+            </button>
+            count++;
+        }
+    }
+}
+
+<div id="form-container" class="container"></div>
+<nav aria-label="Page navigation">
+    <ul class="pagination" id="pagination">
+        <!-- Pagination items will be dynamically generated here -->
+        
+    </ul>
+
+</nav>

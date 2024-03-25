@@ -15,7 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 	//未登入時會自動導到這個網址
 	option.LoginPath = new PathString("/Member/fail");
 	//沒有權限時會自動導到這個網址
-	option.AccessDeniedPath = new PathString("/Member/Login");
+	option.AccessDeniedPath = new PathString("/Member/NoAccess");
 	//option.ExpireTimeSpan = TimeSpan.FromSeconds(2);
 });
 

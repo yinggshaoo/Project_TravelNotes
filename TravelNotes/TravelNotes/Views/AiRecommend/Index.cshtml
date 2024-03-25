@@ -3,15 +3,42 @@
 }
 
 
-
-
-<div id="Hello">
-    <h2>您好!今天想去哪裡玩? 我可以幫您推薦喔</h2>
+<div class="row row-cols-1">
+    <div class="col top bg-primary full">Column</div>
+    <div class="col">
+        <img src="~/img/logo.png" />
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div id="Hello">
+        <h2>您好!今天想去哪裡玩? 我可以幫您推薦喔</h2>
+    </div>
+    <div class="col" id="Aip">
+        @Html.Partial("../shared/AiRecommendPartialView/AiPickPartial.cshtml")
+    </div>
+    <div class="col" id="Cip">
+        @Html.Partial("../shared/AiRecommendPartialView/CustomerPickPartial.cshtml")
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
+            </div>
+            <div class="col">
+                <a class="btn btn-outline-secondary btn-lg"  asp-controller="Home" asp-action="Index">
+                    回首頁 ➜
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="content1" class="content active">
-    @Html.Partial("../shared/AiRecommendPartialView/AiPickPartial.cshtml")
-</div>
 
-<div id="content2" class="content">這是區域旅行的內容。</div>
+
+
 
