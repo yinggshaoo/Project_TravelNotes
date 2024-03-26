@@ -161,7 +161,6 @@ public partial class TravelContext : DbContext
         {
             entity.HasKey(e => e.OtherTagId);
 
-            entity.Property(e => e.OtherTagId).ValueGeneratedNever();
             entity.Property(e => e.OtherTagName)
                 .HasMaxLength(50)
                 .IsUnicode(false);

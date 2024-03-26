@@ -10,28 +10,23 @@
         "嘉義市","嘉義縣","臺南市","高雄市","屏東縣","臺東縣","花蓮縣","澎湖縣","金門縣","連江縣","其它"
 
     };
-    var currentId = ViewBag.articleId;
-    article target;
+    List<Spots> spotTagList = ViewBag.spotTagList;
+    article target = ViewBag.target;
+    bool isPublish = target.ArticleState!.Trim() == "草稿" ? false : true;
+    Spots targetSpot;
     string time;
-    if (currentId == null)
-    {
-        target = Model.LastOrDefault()!;
-    }
-    else
-    {
-        target = Model.FirstOrDefault(a => a.ArticleId == currentId)!;
-    }
-    if (target == null)
-    {
-        target = new article()
-        {
-            ArticleId = 0,
-            TravelTime = DateTime.Now,
-        };
-    }
     var tempTime = (DateTime)target!.TravelTime!;
     time = tempTime.ToString("yyyy-MM-ddTHH:mm");
     string content = target!.Contents!;
+    if(target.SpotId == null)
+    {
+        targetSpot = null;
+    }
+    else
+    {
+        targetSpot = spotTagList.FirstOrDefault(a => a.SpotId == target.SpotId)!;
+    }
+    
     #endregion
 }
 <style>
@@ -93,12 +88,18 @@
         display:none;
     }
 
+    .custom-badge {
+        background-color: #ffc107; /* 设置背景颜色为黄色 */
+        color: #212529; /* 设置文本颜色 */
+        padding: 5px 10px; /* 设置内边距 */
+        border-radius: 0.25rem; /* 设置圆角 */
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
 <script src="https://cdn.tiny.cloud/1/cx5w3vy6l6bg0senjow539pjj585n4wqopo9s4r3viuyx88c/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-@* <h1>@(currentId)</h1> *@
+
 @* <h1> 當前ID:@target.ArticleId</h1> *@
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 <div class="container">
@@ -139,16 +140,23 @@
             </div>
         </div>
         <div class="col-sm-2">
+            @if(!isPublish){
             <select id="dropdown" class="form-select articleSelect">
                 @foreach (var article in Model)
                 {
                     <option value="@article.ArticleId">@article.Title</option>
                 }
             </select>
+            }
+            
             <div >
                 <button id="saveButton" class="btn btn-secondary buttons">儲存</button>
-                <button id="createButton" class="btn btn-secondary buttons">新增</button>
-                <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
+                @if (!isPublish)
+                {
+                    <button id="createButton" class="btn btn-secondary buttons">新增</button>
+                    <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
+                }
+
                 <button id="deleteButton" class="btn btn-danger">删除</button>
                 @*                 <button id="testButton" class="btn btn-danger">測試</button> *@
             </div>
@@ -177,8 +185,25 @@
     </div>
     <div >
         <span>旅遊景點:</span>
-        <span id="currentSpotTag" ></span>
+        <span id="currentSpotTag" >@(targetSpot==null?"":targetSpot.ScenicSpotName)</span>
     </div>
+    <div>
+        <div class="row">
+            <div class="col-auto">文章標籤:</div>
+            <div class="col-auto" id="currentOtherTag">
+            </div>
+        </div>
+
+    </div>
+    <div class="otherTagPanel">
+        <div>
+            <input type="text" id="otherTagInput" oninput="refreshOtherTag(this)"></input>
+            <button onclick="addOtherTag(this)">新增</button>
+        </div>
+        <div id="otherTags">
+        </div>
+    </div>
+
 </div>
 
 
@@ -191,6 +216,7 @@
 
 
 <script>
+    let isPublish = @Html.Raw(Json.Serialize(isPublish));
     let spotsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.spotTagList));
     let TaipeiCity       = []
     let NewTaipeiCity    = [];
@@ -366,10 +392,29 @@
         SpotId:0,
         ScenicSpotName:""
     };
-    let currentCity = "";
+    let currentCity = ""
+    let tempSpot = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(targetSpot));
+    if(tempSpot != null){
+        currentSpotTag.SpotId = tempSpot.SpotId;
+        currentSpotTag.ScenicSpotName = tempSpot.ScenicSpotName;
+        currentCity = tempSpot.City;
+    }
+    let otherTagsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.otherTagList));
+    
+    let tempOtherTags = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.currentOtherTags));
+    let currentOtherTags = [];
+    for (let i = 0; i < tempOtherTags.length; i++) {
+        let ot = {
+            OtherTagId: tempOtherTags[i].OtherTagId,
+            OtherTagName: tempOtherTags[i].OtherTagName
+        }
+        currentOtherTags.push(ot);
+    }
+    
     let backendData = @Html.Raw(Json.Serialize(content));
-    //console.log(backendData);
     $(function () {
+        refreshOtherTag(document.getElementById("otherTagInput"));
+        updateCurrentOtherTags();
         let dropdown = $("#dropdown");
         let articleId = $('#articleId').val();
         const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
@@ -449,6 +494,11 @@
         });
         
         function save() { 
+            if (isPublish) {
+                if (!publishCheck()) {
+                    return;
+                }
+            }
             var contentImages = [];
             var editorContent = tinymce.get('tiny').getContent();
             editorContent = editorContent.replace(/src="img/g, 'src="/img');
@@ -466,7 +516,9 @@
                 contentImages: JSON.stringify(contentImages),
                 SpotId: currentSpotTag.SpotId,
                 ScenicSpotName: currentSpotTag.ScenicSpotName,
-                City: currentCity
+                City: currentCity,
+                currentOtherTags: JSON.stringify(currentOtherTags)
+
             };
             $.ajax({
                 type: "POST",
@@ -505,14 +557,17 @@
         });
 
         $('#publishButton').on('click', function () {
-            var confirmation = confirm("確定要發佈嗎？");
-            if (confirmation) {
-                save();
-                $.post("/Article/PublishDraft", { articleId: articleId })
-                    .done(function () {
-                        window.location = '/Article/ArticleView?articleId=' + articleId;
-                    })
+            if (publishCheck()) {
+                var confirmation = confirm("確定要發佈嗎？");
+                if (confirmation) {
+                    save();
+                    $.post("/Article/PublishDraft", { articleId: articleId })
+                        .done(function () {
+                            window.location = '/Article/ArticleView?articleId=' + articleId;
+                        })
+                }
             }
+            
         });
 
         $('#articleImage').on('click', function () {
@@ -536,7 +591,6 @@
             });
         });
 
-        $()
         function showNotification(message) {
             $("#notification").text(message).css("display","block")
             setTimeout(function () {
@@ -552,7 +606,7 @@
                 let tagObj = {
 
                 }
-                console.log();
+                //console.log();
             })
             
         });
@@ -566,18 +620,18 @@
         // });
     });
 
-    function selectTag(tag) {
-        console.log(tag.id);
-        // if (tag.classList.contains("selectedTag")) {
-        //     tag.classList.remove("selectedTag"); // 移除未選中的樣式
-        //     tag.classList.add("unselectedTag"); // 添加選中的樣式
-        // }
-        // else {
-        //     tag.classList.remove("unselectedTag"); // 移除未選中的樣式
-        //     tag.classList.add("selectedTag"); // 添加選中的樣式
-        // }
+    // function selectTag(tag) {
+    //     console.log(tag.id);
+    //     if (tag.classList.contains("selectedTag")) {
+    //         tag.classList.remove("selectedTag"); // 移除未選中的樣式
+    //         tag.classList.add("unselectedTag"); // 添加選中的樣式
+    //     }
+    //     else {
+    //         tag.classList.remove("unselectedTag"); // 移除未選中的樣式
+    //         tag.classList.add("selectedTag"); // 添加選中的樣式
+    //     }
 
-    }
+    // }
     function refreshTag(id) {
         $(`#spotTag_${id}`).html("");
         //console.log($(`#spotTagInput_${id}`).val());
@@ -615,11 +669,104 @@
         currentSpotTag.SpotId = SpotId;
         currentSpotTag.ScenicSpotName = ScenicSpotName;
         $('#currentSpotTag').text(ScenicSpotName);
-        console.log(currentSpotTag);
+        //console.log(currentSpotTag);
     }
     function addSpotTag(obj) {
         let spotInput = $(obj).prev('input').val()
         currentCity = $(obj).closest('.col-auto').find('.cityButton').text()
         chooseSpotTag(0, spotInput)
+    }
+    function refreshOtherTag(obj) {
+        $("#otherTags").html("");
+
+        let otherTagInput = $(obj).val();
+        if (otherTagInput == "") {
+            for (let i = 0; i < otherTagsData.length; i++) {
+                $("#otherTags").append(
+                    `<button class="btn btn-primary" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
+                                ${otherTagsData[i].OtherTagName}
+                            </button>`)
+                if (i == 4) {
+                    break;
+                }
+            }
+        }
+
+        else {
+            let index = 0;
+            for (let i = 0; i < otherTagsData.length; i++) {
+                if (!otherTagsData[i].OtherTagName.includes(otherTagInput)) {
+                    continue;
+                }
+                $("#otherTags").append(
+                    `<button class="btn btn-primary" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
+                                    ${otherTagsData[i].OtherTagName}
+                                </button>`)
+                index++;
+                if (index == 4) {
+                    break;
+                }
+            }
+        }
+    }
+    function chooseOtherTag(OtherTagId, OtherTagName) {
+        
+        for (let i = 0; i < currentOtherTags.length; i++) {
+            if (currentOtherTags[i].OtherTagName == OtherTagName) {
+                return;
+            }
+        }
+        let ot = {
+            OtherTagId: OtherTagId,
+            OtherTagName: OtherTagName
+        }
+        currentOtherTags.push(ot);
+        updateCurrentOtherTags();
+        //console.log(currentOtherTags);
+
+    }
+    function addOtherTag(obj) {
+        
+        let otherTagInput = $(obj).prev('input')
+        if (otherTagInput == "") {
+            return;
+        }
+        for (let i = 0; i < otherTagsData.length; i++) {
+            if (otherTagsData[i].OtherTagName == otherTagInput) {
+                return;
+            }
+        }
+        chooseOtherTag(0, otherTagInput.val());
+        otherTagInput.val("");
+    }
+    function updateCurrentOtherTags() {
+        $('#currentOtherTag').html("");
+
+        for (let i = 0; i < currentOtherTags.length; i++) {
+            $('#currentOtherTag').append(
+                `<span class="badge custom-badge">${currentOtherTags[i].OtherTagName}
+                        <i class="fa-solid fa-circle-xmark fa-lg" onclick="removeOtherTag(this)" style="cursor: pointer;"></i>
+                </span>`)
+        }
+        
+    }
+    function removeOtherTag(obj) {
+        for (let i = 0; i < currentOtherTags.length; i++) {
+            if (currentOtherTags[i].OtherTagName == $(obj).parent().contents().filter(function () {
+                return this.nodeType === 3;
+                }).text().trim()) {
+                currentOtherTags.splice(i, 1);
+                break;
+            }
+        }
+        $(obj).parent().remove();
+
+    }
+    function publishCheck() {
+        if ($('#title').val() == "") {
+            alert("文章標題不能為空")
+            return false;
+        }
+        return true;  
     }
 </script>

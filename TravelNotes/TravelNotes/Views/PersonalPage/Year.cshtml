@@ -21,6 +21,12 @@
 		.photoSet:hover {
 			cursor: pointer;
 		}
+
+		.imgSet{
+			max-width: 250px;
+			max-height: 150px;
+		}
+		
 	</style>
 </head>
 <h1>年度回顧</h1>
@@ -39,7 +45,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic1.PhotoPath" alt="" class="w-100" id="set1" />
+				@if (ViewBag.pic1 != null && ViewBag.pic1.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic1.PhotoPath" alt="" class="w-100 imgSet" id="set1" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set1" />
+				}
 
 			</div>
 		</div>
@@ -54,7 +67,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic2.PhotoPath" alt="" class="w-100" id="set2" />
+				@if (ViewBag.pic2 != null && ViewBag.pic2.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic2.PhotoPath" alt="" class="w-100 imgSet" id="set2" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set2" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -68,7 +88,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic3.PhotoPath" alt="" class="w-100" id="set3" />
+				@if (ViewBag.pic3 != null && ViewBag.pic3.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic3.PhotoPath" alt="" class="w-100 imgSet" id="set3" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set3" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -82,7 +109,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic4.PhotoPath" alt="" class="w-100" id="set4" />
+				@if (ViewBag.pic4 != null && ViewBag.pic4.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic4.PhotoPath" alt="" class="w-100 imgSet" id="set4" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set4" />
+				}
 			</div>
 		</div><br /><br />
 	</div>
@@ -98,7 +132,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic5.PhotoPath" alt="" class="w-100" id="set5" />
+				@if (ViewBag.pic5 != null && ViewBag.pic5.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic5.PhotoPath" alt="" class="w-100 imgSet" id="set5" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set5" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -112,7 +153,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic6.PhotoPath" alt="" class="w-100" id="set6" />
+				@if (ViewBag.pic6 != null && ViewBag.pic6.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic6.PhotoPath" alt="" class="w-100 imgSet" id="set6" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set6" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -126,7 +174,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic7.PhotoPath" alt="" class="w-100" id="set7" />
+				@if (ViewBag.pic7 != null && ViewBag.pic7.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic7.PhotoPath" alt="" class="w-100 imgSet" id="set7" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set7" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -140,7 +195,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic8.PhotoPath" alt="" class="w-100" id="set8" />
+				@if (ViewBag.pic8 != null && ViewBag.pic8.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic8.PhotoPath" alt="" class="w-100 imgSet" id="set8" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set8" />
+				}
 			</div>
 		</div>
 	</div>
@@ -156,7 +218,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic9.PhotoPath" alt="" class="w-100" id="set9" />
+				@if (ViewBag.pic9 != null && ViewBag.pic9.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic9.PhotoPath" alt="" class="w-100 imgSet" id="set9" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set9" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -170,7 +239,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic10.PhotoPath" alt="" class="w-100" id="set10" />
+				@if (ViewBag.pic10 != null && ViewBag.pic10.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic10.PhotoPath" alt="" class="w-100 imgSet" id="set10" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set10" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -184,7 +260,14 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic11.PhotoPath" alt="" class="w-100" id="set11" />
+				@if (ViewBag.pic11 != null && ViewBag.pic11.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic11.PhotoPath" alt="" class="w-100 imgSet" id="set11" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set11" />
+				}
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
@@ -198,15 +281,18 @@
 						</svg>
 					</button>
 				</div>
-				<img src="@ViewBag.pic12.PhotoPath" alt="" class="w-100" id="set12" />
+				@if (ViewBag.pic12 != null && ViewBag.pic12.PhotoPath != null)
+				{
+					<img src="@ViewBag.pic12.PhotoPath" alt="" class="w-100 imgSet" id="set12" />
+				}
+				else
+				{
+					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set12" />
+				}
 			</div>
 		</div>
 	</div>
 </div>
-<br />
-<br />
-<br />
-<br />
 
 <!-- Modal -->
 <div id="album" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -239,13 +325,9 @@
 		</div>
 	</div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <script>
+	
 	let settings = []
 	for (let i = 1; i < 13; i++) {
 		let a = document.getElementById(`set${i}`);

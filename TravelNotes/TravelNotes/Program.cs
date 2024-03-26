@@ -39,6 +39,9 @@ app.UseAuthorization();
 
 //app.MapControllerRoute(
 //	name: "default",
+//	pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//	name: "default",
 //	pattern: "{controller=Member}/{action=Logout}/{id?}");
 //app.MapControllerRoute(
 //	name: "default",
@@ -47,9 +50,9 @@ app.UseAuthorization();
 //    name: "default",
 //    pattern: "{controller=AiRecommend}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Article}/{action=draft}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Article}/{action=draft}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");

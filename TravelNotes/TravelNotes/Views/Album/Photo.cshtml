@@ -1,5 +1,6 @@
 ﻿@model List<TravelNotes.Models.photo>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 <style>
     #TopS {
         position: sticky;
@@ -7,9 +8,9 @@
         width: 100%;
         height: 58px;
         margin-top: -7px;
-        background-color: #B5C1B4;
         z-index: 999;
         font-size:22px;
+        background-color:#F3E4C6
     }
 
     #A {
@@ -34,20 +35,34 @@
 
         .image-container .hover-button {
             position: absolute;
-            width: 50px;
-            transform: translate(-300%);
             border: none;
-            background-color: black;
-            color: #fff;
+            top: 0; /* 定位到容器的左上角 */
+            left: 0;
+            width: 40px; /* 按钮宽度，根据需要调整 */
+            height: 40px; /* 按钮高度，根据需要调整 */
+            color: white; /* 按钮文字颜色为白色 */
+            text-align: center;
+            line-height: 30px; /* 使文字垂直居中 */
+            opacity: 0; /* 初始化不可见 */
+            transition: opacity 0.3s ease; /* 平滑过渡效果 */
             cursor: pointer;
-            opacity: 0; /* 初始設定不可見 */
-            transition: opacity 0.5s ease;
+            background-color: black;
+            background-color: rgba(0,0,0,0.3);
         }
 
         .image-container:hover .hover-button {
-            opacity: 1; /* 滑鼠停在上方才顯示出來 */
+            opacity: 1; /* 鼠标悬停时完全可见 */
         }
 
+
+    .check-icon {
+        font-size: 24px; /* 或任何合适的大小 */
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: black; /* 或任何你希望的颜色 */
+        cursor: pointer;
+    }
     .modal {
         display: none; /* 不顯示 */
         position: fixed; /* 固定定位 */
@@ -84,30 +99,7 @@
     }
 
 
-    #contextMenu {
-        display: none;
-        position: absolute;
-        z-index: 1000;
-        background-color: #f0f0f0;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-    }
-
-        #contextMenu ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-            #contextMenu ul li {
-                padding: 8px;
-                cursor: pointer;
-            }
-
-                #contextMenu ul li:hover {
-                    background-color: #e7e7e7;
-                }
+    
     #uploadBtn{
         position:absolute; 
         border: none !important;
@@ -150,6 +142,24 @@
         transform: scale(1.05);
         background-color:ghostwhite;
     }
+
+    .modal-navigation {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2em;
+        color: white;
+        z-index: 1000;
+        user-select: none;
+    }
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
     
 
 
@@ -157,7 +167,7 @@
 <header id="TopS">
     <nav class="navbar navbar-expand-sm  navbar-light  ">
 
-        <div class="container-fluid" style="background-color: white">
+        <div class="container-fluid" style="background-color:">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -166,7 +176,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" style="background-color:#B5C1B4;font-weight: bold;border-radius: 10px 10px 0 0;">我的相片</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" style="background-color:#B5C1B4;font-weight: bold;border-radius: 10px;">我的相片</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" style="font-weight: bold;">我的相簿</a>
@@ -184,7 +194,7 @@
                         <button id="toggle-select-mode">選取</button>
                     </li>
                     <li>
-                        <button id="updateNullAlbumPhotos">清空相片</button>
+                        <button id="updateNullAlbumPhotos"style="z-index:1000">清空相片</button>
                     </li>
                     
                 </ul>
@@ -210,26 +220,32 @@
     </div>
 </header>
 <body>
-    <div id="A" style="background-color:#B5C1B4; ">
+    <div id="A">
         <div style="background-color:white;border: 1px solid black; width: 96%;height:96%">
 
             @foreach (photo p in Model)
             {
-                //Action Privacy 後端回傳符合條件 p.UserId == 1 && p.AlbumId == null 的所有圖片
                 <div id="Pho-@p.PhotoId" class="image-container">
                     <img id="dynamicImage-@p.PhotoId" src="@p.PhotoPath" class="image-item" data-photodescription="@p.PhotoDescription" style="width:150px;height:150px;" />
+                    <button id="change-image-btn-@p.PhotoId" class="hover-button" data-album-id="@p.AlbumId" data-photo-id="@p.PhotoId" data-upload-date="@p.UploadDate"><i class="bi bi-trash"></i></button>
+                    <i class="bi bi-check-circle check-icon" style="display:none;" id="CheckCircle-@p.PhotoId"></i>
                 </div>
-
-                //隱藏的視窗 點擊後才會顯示
                 <div id="myModal" class="modal">
-                    @* 一個X按鈕 *@
                     <span class="close">&times;</span>
                     <img class="modal-content" id="Img01">
+                    <a class="prev modal-navigation" onclick="changeImage(-1)">&#10094;</a>
+                    <a class="next modal-navigation" onclick="changeImage(1)">&#10095;</a>
                 </div>
             }
         </div>
+        
+
     </div>
-    <div id="contextMenu"></div>
+    
+    <div id="popup-div" style="display:none; position: fixed; top: 90%; left: 50%; transform: translate(-50%, -50%); background-color: black; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
+        <i class="bi bi-trash" id="delete-selected-images" style="color: white; display:none;cursor: pointer;"></i>
+        <div id="selected-count" style="color: white; display: inline-block; margin-left: 10px;"></div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -243,25 +259,41 @@
                 this.form.submit();
             }
         });
-        
+
         var modal = document.getElementById("myModal");
         var modalImg = document.getElementById("Img01");
         var images = document.getElementsByClassName('image-item');
-        let isSelectModeActive = false; // 初始時不在選擇模式
+        var currentImageIndex = 0; // 当前显示图片的索引
+        let isSelectModeActive = false; // 初始时不在选择模式
+
         document.getElementById('toggle-select-mode').addEventListener('click', function () {
-            isSelectModeActive = !isSelectModeActive; // 切換選擇模式的狀態
-            this.textContent = isSelectModeActive ? "取消" : "選取";
+            isSelectModeActive = !isSelectModeActive; // 切换选择模式的状态
+            this.textContent = isSelectModeActive ? "取消" : "选取";
         });
-        // 所有圖片添加點擊事件
-        for (var i = 0; i < images.length; i++) {
-            var img = images[i];
-            img.onclick = function (evt) {
-                if (!isSelectModeActive) { // 只有在非選擇模式時才顯示 modal
-                    modal.style.display = "block";
-                    modalImg.src = this.src;
+
+        // 给所有图片添加点击事件
+        for (let i = 0; i < images.length; i++) {
+            images[i].onclick = function () {
+                if (!isSelectModeActive) { // 只有在非选择模式时才显示 modal
+                    showModalImage(i);
                 }
             }
         }
+
+        function showModalImage(index) {
+            modal.style.display = "block";
+            modalImg.src = images[index].src;
+            currentImageIndex = index; // 更新当前图片索引
+        }
+
+        // 处理上一张和下一张的逻辑
+        function changeImage(direction) {
+            let newIndex = currentImageIndex + direction;
+            if (newIndex >= 0 && newIndex < images.length) {
+                showModalImage(newIndex);
+            }
+        }
+
 
         // 挑選關閉按鈕
         var span = document.getElementsByClassName("close")[0];
@@ -280,105 +312,115 @@
                 }
             };
         };
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () { 
             const toggleSelectModeBtn = document.getElementById('toggle-select-mode');
+            const popupDiv = document.getElementById('popup-div');
             let isSelectModeActive = false;
-            const contextMenu = document.getElementById("contextMenu");
 
             toggleSelectModeBtn.addEventListener('click', function () {
                 isSelectModeActive = !isSelectModeActive;
                 this.textContent = isSelectModeActive ? "取消" : "選取";
+                document.querySelectorAll('.hover-button').forEach(function (btn) {
+                    btn.style.display = isSelectModeActive ? 'none' : 'block';
+                });
+
                 if (!isSelectModeActive) {
-                    const selectedImages = document.querySelectorAll('.image-item.selected');
+                    document.querySelectorAll('.check-icon').forEach(function (icon) {
+                        icon.style.display = 'none';
+                    });
+                    // 移除所有选中图片的'selected'类
                     document.querySelectorAll('.image-item.selected').forEach(function (image) {
                         image.classList.remove('selected');
                     });
+                    // 重置选中图片计数文本
+                    updateSelectedCount(true);
+                    // 正确设置popupDiv的display属性
+                    popupDiv.style.display = 'none';
+                    
+                } else {
+                    // 进入选择模式时更新选中数量
+                    updateSelectedCount();
+                    // 显示popupDiv
+                   popupDiv.style.display = 'block';
                 }
+                
             });
+        
 
             document.querySelectorAll('.image-item').forEach(image => {
                 image.addEventListener('click', function (event) {
                     if (isSelectModeActive) {
                         event.preventDefault();
                         this.classList.toggle('selected');
-                    }
-                });
-
-                image.addEventListener('contextmenu', function (e) {
-                    e.preventDefault();
-                    var menuHtml = isSelectModeActive && this.classList.contains('selected') ?
-                        '<ul><li id="otherOption">刪除所選</li></ul>' :
-                        '<ul><li id="deleteOption">删除</li></ul>';
-                    contextMenu.innerHTML = menuHtml;
-                    contextMenu.style.left = e.pageX + 'px';
-                    contextMenu.style.top = e.pageY + 'px';
-                    contextMenu.style.display = "block";
-                    contextMenu.currentImage = this; // 新增这行代码
-                });
-            });
-
-            document.addEventListener('click', function (e) {
-                if (!e.target.closest('#contextMenu')) {
-                    contextMenu.style.display = 'none';
-                }
-            });
-
-            contextMenu.addEventListener('click', function (e) {
-                if (e.target.id === 'deleteOption') {
-                    var selectedImages = document.querySelectorAll('.image-item.selected');
-                        selectedImages.forEach(function (image) {
-                            image.parentElement.remove(); // 删除选中的图片和容器
-                        });
-                        contextMenu.style.display = 'none';
-                        if (contextMenu.currentImage) {
-                            const photoId = contextMenu.currentImage.id.split('-')[1]; // 假设图片元素的id格式是"dynamicImage-123"
-                            updatePhotoDescription(photoId, '1'); // 将PhotoDescription更新为'1'
+                        const photoId = this.getAttribute('id').replace('dynamicImage-', '');
+                        const checkCircle = document.getElementById(`CheckCircle-${photoId}`);
+                        // 判断图片是否被选中，并据此显示或隐藏CheckCircle图标
+                        if (this.classList.contains('selected')) {
+                            checkCircle.style.display = 'inline-block'; // 显示图标
+                        } else {
+                            checkCircle.style.display = 'none'; // 隐藏图标
                         }
-                }
-                // 这里可以根据需要添加更多菜单项的处理逻辑
-            });
-            contextMenu.addEventListener('click', function (e) {
-                if (e.target.id === 'otherOption') {
-                    var selectedImages = document.querySelectorAll('.image-item.selected');
-                    var photoIds = Array.from(selectedImages).map(image => image.id.split('-')[1]);
-
-                    // 调用更新所有选中图片PhotoDescription的函数
-                    updateALLPhotoDescription(photoIds, '1');
-                    contextMenu.style.display = 'none';
+                        updateSelectedCount(); // 更新选中数量
                 }
             });
+            });
+            function updateSelectedCount() {
+                const selectedCount = document.querySelectorAll('.image-item.selected').length;
+                if (selectedCount > 0) {
+                    $('#delete-selected-images').css('display', 'inline-block');
+                }
+                else {
+                    $('#delete-selected-images').css('display', 'none');
+                }
+                document.getElementById('selected-count').textContent = `已選取${selectedCount}張相片`;
+            }
+            
 
         });
-        
-        function updatePhotoDescription(photoId, newDescription) {
-            fetch('/Album/UpdatePhotoDescription', { // 修改URL以匹配你的路由
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 'your_csrf_token_here' // 如果使用CSRF保护，需要包含token
-                },
-                body: JSON.stringify({
-                    photoId: parseInt(photoId),
-                    newDescription: newDescription
-                })
+        $(document).ready(function () { 
+            $('#delete-selected-images').click(function () { 
+                var selectedImages = document.querySelectorAll('.image-item.selected');
+                var photoIds = Array.from(selectedImages).map(image => image.id.split('-')[1]);
+                var result = confirm("確定要刪除嗎？");
+                if (result) {
+                    // 调用更新所有选中图片PhotoDescription的函数
+                    updateALLPhotoDescription(photoIds, '1');
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        // 存储一个标志位在localStorage表示成功
-                        localStorage.setItem("photoUpdateStatus", "success");
-                    } else {
-                        // 存储一个标志位在localStorage表示失败
-                        localStorage.setItem("photoUpdateStatus", "fail");
-                    }
-                    // 重新加载页面
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    localStorage.setItem("photoUpdateStatus", "fail");
-                    window.location.reload();
-                });
-        }
+        })
+        
+        $(document).ready(function () {
+            // 监听所有删除按钮的点击事件
+            $('button[id^="change-image-btn"]').click(function () {
+                var result = confirm("確定要刪除嗎？");
+                var PhotoId = $(this).data('photo-id');
+                // 发送Ajax请求到服务器
+                if (result) {
+                    $.ajax({
+                        url: '/Album/AlbumPhotoToGarbage', // 控制器的Action路径
+                        type: 'POST',
+                        data: {
+                            photoId: PhotoId,
+                        },
+                        success: function (response) {
+                            // 处理成功的响应
+                            alert('刪除成功');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // 处理错误的响应
+                            alert('刪除失敗');
+                            location.reload();
+                        }
+                    });
+                } else {
+                    // 如果用户点击“取消”，result 为 false
+                    alert("刪除已取消。");
+                }
+            });
+        });
+        
+        
         function updateALLPhotoDescription(photoIds, newDescription) {
             // 假设服务器端接受一个请求体，其中photoIds是图片ID数组，newDescription是新的描述值
             fetch('/Album/UpdateALLPhotoDescription', {

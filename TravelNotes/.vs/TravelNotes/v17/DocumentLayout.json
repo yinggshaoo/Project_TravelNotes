@@ -1,9 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\TravelNotes\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\desktop\\travelnotes\\travelnotes\\models\\usersarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\controllers\\personalpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\controllers\\personalpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\views\\article\\draft.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\views\\article\\draft.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\views\\personalpage\\personalpage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\views\\personalpage\\personalpage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\views\\personalpage\\viewschedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\views\\personalpage\\viewschedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|c:\\users\\user\\documents\\github\\travelnotes\\travelnotes\\travelnotes\\models\\usersarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE7B7383-C001-4F52-ADD9-500880A86BE0}|TravelNotes\\TravelNotes.csproj|solutionrelative:travelnotes\\models\\usersarticleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,20 +42,107 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersArticleViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\Models\\UsersArticleViewModel.cs",
-              "RelativeDocumentMoniker": "TravelNotes\\Models\\UsersArticleViewModel.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\TravelNotes\\TravelNotes\\Models\\UsersArticleViewModel.cs",
-              "RelativeToolTip": "TravelNotes\\Models\\UsersArticleViewModel.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAABAwEEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T08:26:26.656Z",
+              "DocumentIndex": 2,
+              "Title": "Draft.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\Article\\Draft.cshtml",
+              "RelativeDocumentMoniker": "TravelNotes\\Views\\Article\\Draft.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\Article\\Draft.cshtml",
+              "RelativeToolTip": "TravelNotes\\Views\\Article\\Draft.cshtml",
+              "ViewState": "AQIAAH8BAAAAAAAAAAAjwBoCAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-26T03:40:44.106Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PersonalPage.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\PersonalPage\\PersonalPage.cshtml",
+              "RelativeDocumentMoniker": "TravelNotes\\Views\\PersonalPage\\PersonalPage.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\PersonalPage\\PersonalPage.cshtml",
+              "RelativeToolTip": "TravelNotes\\Views\\PersonalPage\\PersonalPage.cshtml",
+              "ViewState": "AQIAAKwAAAAAAAAAAAAwwD0BAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-26T03:39:31.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PersonalPageController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Controllers\\PersonalPageController.cs",
+              "RelativeDocumentMoniker": "TravelNotes\\Controllers\\PersonalPageController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Controllers\\PersonalPageController.cs",
+              "RelativeToolTip": "TravelNotes\\Controllers\\PersonalPageController.cs",
+              "ViewState": "AQIAAOEAAAAAAAAAAAAuwOgAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T02:51:51.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Program.cs",
+              "RelativeDocumentMoniker": "TravelNotes\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Program.cs",
+              "RelativeToolTip": "TravelNotes\\Program.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAADkAAABGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T01:36:24.963Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArticleController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Controllers\\ArticleController.cs",
+              "RelativeDocumentMoniker": "TravelNotes\\Controllers\\ArticleController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Controllers\\ArticleController.cs",
+              "RelativeToolTip": "TravelNotes\\Controllers\\ArticleController.cs",
+              "ViewState": "AQIAAAsBAAAAAAAAAAAAABIBAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T01:33:17.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ViewSchedule.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\PersonalPage\\ViewSchedule.cshtml",
+              "RelativeDocumentMoniker": "TravelNotes\\Views\\PersonalPage\\ViewSchedule.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\PersonalPage\\ViewSchedule.cshtml",
+              "RelativeToolTip": "TravelNotes\\Views\\PersonalPage\\ViewSchedule.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-26T01:58:58.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "TravelNotes\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "TravelNotes\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-26T02:12:39.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UsersArticleViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Models\\UsersArticleViewModel.cs",
+              "RelativeDocumentMoniker": "TravelNotes\\Models\\UsersArticleViewModel.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\TravelNotes\\TravelNotes\\TravelNotes\\Models\\UsersArticleViewModel.cs",
+              "RelativeToolTip": "TravelNotes\\Models\\UsersArticleViewModel.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAgwEQAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T08:26:26.656Z"
             }
           ]
         }

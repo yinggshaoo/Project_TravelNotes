@@ -24,6 +24,13 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
         margin-top:10px;
     }
+
+    .custom-badge {
+        background-color: #ffc107; /* 设置背景颜色为黄色 */
+        color: #212529; /* 设置文本颜色 */
+        padding: 5px 10px; /* 设置内边距 */
+        border-radius: 0.25rem; /* 设置圆角 */
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
@@ -34,7 +41,7 @@
 <div class="container">
 
     <div class="row justify-content-start">
-        <div class="col-sm-10 ">
+        <div class="col-sm-9 ">
             <div class="row">
                 <h1 id="title">@target.Title</h1>
                 <h5 id="subtitle">@target.Subtitle</h5>            
@@ -50,16 +57,36 @@
                 </div>
                 
             </div>  
+            <div class="row">
+                <div class="col-auto">
+                    <span>旅行地點:</span>
+                    <span>@(ViewBag.spot == null ? "" : ViewBag.spot.ScenicSpotName)</span>
+                </div>   
+            </div >
+            <div class="row"> 
+                <span>旅遊時間:@travelTime.ToString("yyyy/MM/dd")</span>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    @foreach (OtherTags item in ViewBag.otherTags)
+                    {
+                    <span class="badge custom-badge">@item.OtherTagName</span>
+                    }
+                </div>
+                
+            </div>
         </div>
-        <div class="col-sm-2">
-            <div>
-                <span>按讚數:<span id="likeCount">@target.LikeCount</span></span>
-                <button id="likeButton">按讚</button>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-auto">
+                    <i class="fa-regular fa-thumbs-up fa-2xl btn" style="color: #da3f0b;" id="likeButton"></i>
+                    <span id="likeCount">@target.LikeCount</span>
+                </div>
+                <div class="col-auto">
+                    <span>瀏覽人數:</span><span id="pageView">@target.PageView</span>
+                </div>
             </div>
-            <div>
-                <span>瀏覽人數:<span id="pageView">@target.PageView</span></span>
-            </div>
-            <div><span>旅遊時間:</span><span id="travelTime">@travelTime.ToString("yyyy/MM/dd")</span></div>
+
             <div>
                 <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
             </div>
@@ -142,8 +169,13 @@
                     "articleId": articleId,
                     "message": $('#messageInput').val()
                 },
-                success: function () {
-                    document.location = '/Article/ArticleView?articleId=' + articleId;
+                success: function (msg) {
+                    if (msg == "Ok") {
+                        document.location = '/Article/ArticleView?articleId=' + articleId;
+                    }
+                    else {
+                        document.location = '/Member/Login';
+                    }
                 }
             });
         });

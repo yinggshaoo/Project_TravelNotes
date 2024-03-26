@@ -100,6 +100,19 @@
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
+        z-index:1100;
+
+    }
+
+    .close1 {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1100;
     }
 
     #toggleMenuButton {
@@ -176,7 +189,7 @@
         <div style=" width: 96%;height:96%">
             <div id="editAlbumModal" class="modal">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="close1">&times;</span>
                     <form id="editAlbumForm">
                         <input type="hidden" id="editAlbumId" name="albumId">
                         <div class="form-group">
@@ -208,7 +221,7 @@
                             <input type="hidden" name="albumName" value="@viewModel.Album.AlbumName" />
                             <div style="flex-grow: 1; margin-right: 10px;">
                                 <!-- 为了让input和按钮有间隔 -->
-                                <input type="file" name="imageFiles" multiple style="width: 100%;">
+                                <input type="file" name="imageFiles" multiple style="width: 100%;"accept=".png, .jpg, .jpeg;">
                             </div>
                             <button type="submit" style="white-space: nowrap;">上傳</button>
                         </form>
@@ -220,20 +233,20 @@
                     @foreach (var photo in viewModel.Photos!)
                     {
                         <div id="Pho-@photo.PhotoId" class="image-container">
-                            <img id="dynamicImage-@photo.PhotoId" src="@photo.PhotoPath" class="myImages" style="width: 150px;height:150px;" />
+                            <img id="dynamicImage-@photo.PhotoId" src="@photo.PhotoPath" class="myImages" data-photo-id="@photo.PhotoId" style="width: 150px;height:150px;" alt="Photo" />
                             <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId" data-upload-date="@photo.UploadDate"><i class="bi bi-trash"></i></button>
-                        </div>
-                        //隱藏的視窗 點擊後才會顯示
-                        <div id="myModal" class="modal">
-                            @* 一個X按鈕 *@
-                            <span class="close">&times;</span>
-                            <img class="modal-content" id="Img01">
                         </div>
                     }
                     @if (!viewModel.Photos.Any())
                     {
                         <p>當前相簿還沒有相片。</p>
                     }
+
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="Img01">
+                    </div>
+
 
                 </div>
             }
@@ -261,7 +274,7 @@
         var modal = document.getElementById("myModal");
         var modalImg = document.getElementById("Img01");
         var images = document.getElementsByClassName('myImages');
-
+        var span = document.getElementsByClassName("close")[0];
         for (var i = 0; i < images.length; i++) {
             var img = images[i];
             img.onclick = function (evt) {
@@ -269,9 +282,6 @@
                 modalImg.src = this.src;
             }
         }
-
-        // 挑選關閉按鈕
-        var span = document.getElementsByClassName("close");
 
         // 點擊關閉按鈕關閉modal
         if (span != null) {
@@ -346,7 +356,7 @@
 
         // 修改相册名称的模态窗口控制
         var editModal = document.getElementById("editAlbumModal");
-        var editSpan = editModal.getElementsByClassName("close")[0];
+        var editSpan = editModal.getElementsByClassName("close1")[0];
 
         // 当用户点击修改名称按钮时打开模态窗口
         $('.edit-album-name-button').click(function () {

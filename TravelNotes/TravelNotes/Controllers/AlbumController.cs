@@ -20,6 +20,18 @@ namespace TravelNotes.Controllers
         }
         public IActionResult Photo()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var data = from p in _context.photo
                            //UserId要抓  ****(UserId要更換)***  (AlbumId is NULL 代表只是相片 )
                        where p.UserId == userId && p.PhotoDescription == null && p.AlbumId == null
@@ -34,9 +46,19 @@ namespace TravelNotes.Controllers
         }
         public async Task<IActionResult> Album()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             //一上傳就先創一個垃圾桶
-            var GarbagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/img/user{userId}/garbage");
-            Directory.CreateDirectory(GarbagePath);
             bool albumExists = _context.album.Any(a => a.AlbumName == $"Garbage{userId}" && a.UserId == userId);
             if (!albumExists)
             {
@@ -73,6 +95,18 @@ namespace TravelNotes.Controllers
         }
         public async Task<IActionResult> Garbage()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var minAlbumId = await _context.album
                                      .Where(a => a.UserId == userId && a.State == 1)
                                      .MinAsync(a => (int?)a.AlbumId);
@@ -106,7 +140,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadImages(List<IFormFile> imageFiles)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
 
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             //條件 IF imageFile不是空的 && 大小比0大
             if (imageFiles != null && imageFiles.Any(f => f.Length > 0))
             {
@@ -169,6 +214,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAlbumId(int photoId, DateOnly ReplaceTime)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photo = await _context.photo.Where(p => p.AlbumId == null & p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -190,6 +247,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePhotoDescription([FromBody] UpdateDescriptionModel model)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photo = await _context.photo.FindAsync(model.PhotoId);
             if (photo == null)
             {
@@ -204,6 +273,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public IActionResult UpdateALLPhotoDescription([FromBody] UpdateALLPhotoDescriptionRequest request)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photos = _context.photo.Where(p => request.PhotoIds.Contains(p.PhotoId)).ToList();
 
             if (photos.Count != request.PhotoIds.Count)
@@ -224,6 +305,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> AlbumPhotoToGarbage(int photoId, DateOnly ReplaceTime)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photo = await _context.photo.Where(p => p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -242,6 +335,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFolder(string folderName)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             if (!string.IsNullOrEmpty(folderName))
             {
                 // 检查UserId=1的相册中是否已经存在同名相册（不区分大小写）
@@ -283,6 +388,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadPhotosToAlbum(List<IFormFile> imageFiles, int albumId, string albumName)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             if (imageFiles != null && imageFiles.Any(f => f.Length > 0))
             {
                 foreach (var imageFile in imageFiles)
@@ -338,6 +455,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteByAlbumAndUserId()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
                                     .MinAsync(a => (int?)a.AlbumId);
@@ -382,6 +511,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAllAlbum()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
                                     .MinAsync(a => (int?)a.AlbumId);
@@ -416,6 +557,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAllPhoto()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photosToDelete = await _context.photo
                                                .Where(p => p.UserId == userId && p.PhotoDescription == "1")
                                                .ToListAsync();
@@ -434,6 +587,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> GarbageDelete(int photoId)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photosToDelete = await _context.photo
                                                .Where(p => p.PhotoId == photoId)
                                                .ToListAsync();
@@ -451,7 +616,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAlbum(int albumId)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
 
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var album = await _context.album
                        .FirstOrDefaultAsync(a => a.AlbumId == albumId);
 
@@ -474,6 +650,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAlbumName(int albumId, string newAlbumName)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             // 查找当前相册
             var album = await _context.album.FirstOrDefaultAsync(a => a.AlbumId == albumId);
             if (album == null)
@@ -501,7 +689,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> ReturnAlbumId(int photoId, DateOnly ReplaceTime)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
 
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var photo = await _context.photo.Where(p => p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -523,6 +722,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> RestoreAlbum(int albumId)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             var album = await _context.album.FindAsync(albumId);
             if (album != null)
             {
@@ -535,7 +746,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateNullAlbumPhotosToMinAlbumId()
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
 
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
 
             // 查找所有UserId=1且AlbumId为NULL的图片
             var photosToUpdate = await _context.photo
@@ -558,6 +780,18 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAlb(int albumId)
         {
+            string cookieValue;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
+            if (result)
+            {
+                userId = Convert.ToInt32(cookieValue);
+
+            }
+            else
+            {
+                userId = 1;
+                // 处理 cookie 不存在的情况
+            }
             // 在这里编写逻辑以根据提供的albumId查找相册
             var album = await _context.album.Include(a => a.photo).FirstOrDefaultAsync(a => a.AlbumId == albumId);
             if (album != null)

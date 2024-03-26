@@ -10,6 +10,9 @@ using System.Web;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Principal;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 
 namespace TravelNotes.Controllers
@@ -18,7 +21,7 @@ namespace TravelNotes.Controllers
     public class ArticleController : Controller
     {
         private readonly object _lockObject = new object();
-        int userID = 1;
+        //int userID = 1;
         private readonly TravelContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public ArticleController(IWebHostEnvironment hostingEnvironment, TravelContext context)
@@ -38,9 +41,12 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public void CheckFolderPhotos(string contentImages, int articleId,string type)
         {
+            string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+
             // 解析 contentImages 字符串为对象
             List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
-            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userID}\\article\\{articleId}\\{type}");
+            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userId}\\article\\{articleId}\\{type}");
 
             if(!Directory.Exists(directoryPath))
             {
@@ -62,12 +68,14 @@ namespace TravelNotes.Controllers
         }
         public string CopyToArticleFolder(IFormFile file, int articleId, string type)
         {
+            string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
             string imgFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
             if (!Directory.Exists(imgFolder))
             {
                 Directory.CreateDirectory(imgFolder);
             }
-            string userFolder = Path.Combine(imgFolder, "user" + userID);
+            string userFolder = Path.Combine(imgFolder, "user" + userId);
             if (!Directory.Exists(userFolder))
             {
                 Directory.CreateDirectory(userFolder);
@@ -133,9 +141,36 @@ namespace TravelNotes.Controllers
         [HttpGet]
         public IActionResult Draft(int? articleId)
         {
-            ViewBag.articleId = articleId;
-            var data = _context.article.Where(a => a.UserId == userID && a.ArticleState == "草稿").ToList();
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            
+            article target;
+            if (articleId == null)
+            {
+                target = _context.article.Where(a => a.UserId == Convert.ToInt32(userId) && a.ArticleState == "草稿").OrderBy(a=>a.ArticleId).LastOrDefault()!;
+
+            }
+            else
+            {
+                target = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
+            }
+            if (target == null)
+            {
+                return RedirectToAction("CreateDraft");
+            }
+            if (CheckOwner(target.UserId.ToString()))
+            {
+                RedirectToAction("errorView");
+            }
+            ViewBag.target = target;
+            var data = _context.article.Where(a => a.UserId == Convert.ToInt32(userId) && a.ArticleState == "草稿").ToList();
             ViewBag.spotTagList = _context.Spots.ToList();
+            ViewBag.otherTagList = _context.OtherTags.ToList();
+            List<int> otherTagsIds = _context.articleOtherTags.Where(a => a.ArticleId == target.ArticleId).Select(a => a.OtherTagId).ToList();
+            ViewBag.currentOtherTags = _context.OtherTags.Where(a=>otherTagsIds.Contains(a.OtherTagId)).ToList();
             if (data == null)
             {
                 return View("errorView");
@@ -143,21 +178,82 @@ namespace TravelNotes.Controllers
             return View(data);
         }
         [HttpPost]
-        public IActionResult Save(int articleId, string title, string subtitle, DateTime travelTime, string content,string contentImages)
+        public IActionResult Save(int articleId, string title, string subtitle, DateTime travelTime, 
+            string content,string contentImages,int SpotId,string ScenicSpotName,string City,string currentOtherTags)
         {
-            CheckFolderPhotos(contentImages, articleId,"content");
-            var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
-			currentArticle!.Title = title;
-			currentArticle.Subtitle = subtitle;
-            currentArticle.TravelTime = travelTime;
-            currentArticle.Contents = content;
-            _context.SaveChanges();
-            return Ok();
+            lock (_lockObject)
+            {
+                CheckFolderPhotos(contentImages, articleId, "content");
+                var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
+                if (SpotId == 0)
+                {
+                    if (!string.IsNullOrEmpty(ScenicSpotName)) 
+                    {
+                        Spots newSpot = new Spots();
+                        newSpot.ScenicSpotName = ScenicSpotName;
+                        newSpot.City = City;
+                        _context.Spots.Add(newSpot);
+                        _context.SaveChanges();
+                        var orderSpots = _context.Spots.OrderBy(a => a.SpotId);
+                        currentArticle!.SpotId = orderSpots.LastOrDefault()!.SpotId;
+                    }
+                    
+                }
+                else
+                {
+                    currentArticle!.SpotId = SpotId;
+                }
+                List<OtherTags> articleOtherTags = JsonSerializer.Deserialize<List<OtherTags>>(currentOtherTags)!;
+                List<int> myOtherTagId = new List<int>();
+                for(int i = 0; i < articleOtherTags.Count; i++)
+                {
+                    if (articleOtherTags[i].OtherTagId == 0)
+                    {
+                        List<string> OtherTagNames = _context.OtherTags.Select(a => a.OtherTagName).ToList();
+                        if (!OtherTagNames.Contains(articleOtherTags[i].OtherTagName))
+                        {
+                            OtherTags newOtherTag = new OtherTags();
+                            newOtherTag.OtherTagName = articleOtherTags[i].OtherTagName;
+                            _context.OtherTags.Add(newOtherTag);
+                            _context.SaveChanges();
+                            myOtherTagId.Add(_context.OtherTags.FirstOrDefault(a=>a.OtherTagName == newOtherTag.OtherTagName)!.OtherTagId);
+                        }
+                    }
+                    else
+                    {
+                        myOtherTagId.Add(articleOtherTags[i].OtherTagId);
+                    }
+                }
+                foreach (var item in _context.articleOtherTags.Where(a=>a.ArticleId == articleId)) 
+                {
+                    _context.articleOtherTags.Remove(item);
+                }
+                _context.SaveChanges();
+                foreach(int tagId in myOtherTagId)
+                {
+                    articleOtherTags aot = new articleOtherTags();
+                    aot.ArticleId = articleId;
+                    aot.OtherTagId = tagId;
+                    _context.articleOtherTags.Add(aot);
+                }
+                currentArticle!.Title = title;
+                currentArticle.Subtitle = subtitle;
+                currentArticle.TravelTime = travelTime;
+                currentArticle.Contents = content;
+                _context.SaveChanges();
+                return Ok();
+            }
+               
         }
-        public IActionResult CreateDraft()
+        public IActionResult CreateDraft(int? SpotId)
         {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return RedirectToAction("Login", "Member");
+            }
             article article = new article();
-            article.UserId = userID;//之後要改
+            article.UserId = Convert.ToInt32(userId);//之後要改
             article.Title = "";
             article.Subtitle = "";
             article.TravelTime = DateTime.Now;
@@ -166,6 +262,7 @@ namespace TravelNotes.Controllers
             article.LikeCount = 0;
             article.PageView = 0;
             article.ArticleState = "草稿";
+            article.SpotId = SpotId;
             _context.Add(article);
             _context.SaveChanges();
             return RedirectToAction("Draft");
@@ -174,7 +271,16 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public IActionResult PublishDraft(int articleId)
         {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return RedirectToAction("Login", "Member");
+            }
             article articleToPublish = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
+            if (CheckOwner(articleToPublish.UserId.ToString()))
+            {
+                RedirectToAction("errorView");
+            }
             articleToPublish.PublishTime = DateTime.Now;
             articleToPublish.ArticleState = "發佈";
             _context.SaveChanges(); // 保存更改
@@ -185,69 +291,21 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public IActionResult Delete(int articleId)
         {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return RedirectToAction("Login", "Member");
+            }
             article articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
+            if (CheckOwner(articleToDelete.UserId.ToString()))
+            {
+                RedirectToAction("errorView");
+            }
             _context.article.Remove(articleToDelete); // 从数据库中移除文章
             _context.SaveChanges(); // 保存更改
 
             return Ok();
         }
-
-
-        public IActionResult ArticleEdit(int articleId)
-        {
-            article data = _context.article.FirstOrDefault(a => a.ArticleId == articleId && a.ArticleState == "發佈")!;
-            if (data == null)
-            {
-                return View("errorView");
-            }
-            return View(data);
-        }
-        //[HttpPost]
-        //public IActionResult SaveArticle(int articleId, string title, string subtitle, DateTime travelTime, string content, string contentImages)
-        //{
-        //    // 解析 contentImages 字符串为对象
-        //    List<string> imageList = JsonSerializer.Deserialize<List<string>>(contentImages)!;
-        //    string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\user1\\article\\3038\\content");
-
-        //    // 获取目录中的所有文件名
-        //    string[] fileNames = Directory.GetFiles(directoryPath);
-
-        //    // 遍历文件名列表
-        //    foreach (string fileName in fileNames)
-        //    {
-        //        // 如果文件名不在 imageList 中，就删除该文件
-        //        if (!imageList.Contains(Path.GetFileName(fileName)))
-        //        {
-        //            System.IO.File.Delete(fileName);
-        //        }
-        //    }
-
-
-        //    var currentArticle = _context.article.FirstOrDefault(x => x.ArticleId == articleId);
-        //    if (title == null)
-        //    {
-        //        currentArticle!.Title = "";
-        //    }
-        //    else
-        //    {
-        //        currentArticle!.Title = title;
-        //    }
-        //    currentArticle.Subtitle = subtitle;
-        //    currentArticle.TravelTime = travelTime;
-        //    currentArticle.PublishTime = DateTime.Now;
-        //    currentArticle.Contents = content;
-        //    _context.SaveChanges();
-        //    return Ok();
-        //}
-        //[HttpPost]
-        //public IActionResult DeleteArticle(int articleId)
-        //{
-        //    var articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId);
-        //    _context.article.Remove(articleToDelete); // 从数据库中移除文章
-        //    _context.SaveChanges(); // 保存更改
-
-        //    return Ok();
-        //}
 
         #endregion
         #region 文章頁面相關
@@ -272,6 +330,10 @@ namespace TravelNotes.Controllers
             ViewBag.messageBoards = messageBoards;
             users user = _context.users.FirstOrDefault(a => a.UserId == data.UserId)!;
             ViewBag.user = user;
+            Spots spots = _context.Spots.FirstOrDefault(a=>a.SpotId == data.SpotId)!;
+            ViewBag.spot = spots;
+            List<int> otherTagsIds = _context.articleOtherTags.Where(a => a.ArticleId == data.ArticleId).Select(a => a.OtherTagId).ToList();
+            ViewBag.otherTags = _context.OtherTags.Where(a => otherTagsIds.Contains(a.OtherTagId)).ToList();
             return View(data);
         }
         [HttpPost]
@@ -316,55 +378,42 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public string InsertMessage(int articleId, string message)
         {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return "Not Login";
+            }
             messageBoard messageBoard = new messageBoard();
             messageBoard.ArticleId = articleId;
-            messageBoard.UserId = userID;
+            messageBoard.UserId = Convert.ToInt32(userId);
             messageBoard.Contents = message;
             messageBoard.MessageTime = DateTime.Now;
             _context.messageBoard.Add(messageBoard);
             _context.SaveChanges();
-            return message;
+            return "Ok";
         }
         #endregion
+        public bool CheckOwner(string checkId)
+        {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return false;
+            }
+            if(userId != checkId)
+            {
+                return false;
+            }
+            return true;
+        }
         public IActionResult TestArticle()
         {
-			Response.Cookies.Append("UsernameCookie", "1");
-			bool isEmpty = Request.Cookies["UsernameCookie"] == null;
-			string userId = Request.Cookies["UsernameCookie"].ToString();
+            bool isUser = User.Identity.IsAuthenticated;
+
 
 
             return View();
         }
-        //public void DisplayUserInfo()
-        //{
-        //    // 获取当前 HTTP 上下文
-        //    HttpContext context = HttpContext.Current;
-
-        //    // 检查当前用户是否已通过身份验证
-        //    if (context.User.Identity.IsAuthenticated)
-        //    {
-        //        // 获取当前用户的身份信息
-        //        IIdentity identity = context.User.Identity;
-
-        //        // 输出当前用户的用户名
-        //        string username = identity.Name;
-        //        Console.WriteLine("Username: " + username);
-
-        //        // 检查当前用户是否属于某个角色
-        //        if (context.User.IsInRole("Admin"))
-        //        {
-        //            Console.WriteLine("User is in Admin role.");
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("User is not in Admin role.");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("User is not authenticated.");
-        //    }
-        //}
-
+        
     }
 }

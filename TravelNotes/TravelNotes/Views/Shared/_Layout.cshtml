@@ -72,21 +72,20 @@
 				Logo
 				</a>
 		</div>
-
-
 		<div class="row my-4">
 			@if (!User.Identity.IsAuthenticated)
 			{
 				<a asp-controller="Member" asp-action="Login">
 					<i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
 				</a>
-			}else{
+			}
+			else
+			{
 
 				<a asp-controller="Member" asp-action="Logout">
 					<i class="fa-solid fa-right-from-bracket fa-lg" style="color: #ffffff;"></i>
 				</a>
 			}
-			
 		</div>
 
 		
@@ -117,7 +116,12 @@
 				推薦趣
 				</a>
 		</div>
-		
+		<div class="row my-4">
+			<a asp-controller="PersonalPage" asp-action="ViewSchedule">
+				<i class="fa-regular fa-compass fa-sm" style="color: #ffffff;"></i>
+				我的最愛
+			</a>
+		</div>
 	</div>
 	<div id="allContainer">
 
