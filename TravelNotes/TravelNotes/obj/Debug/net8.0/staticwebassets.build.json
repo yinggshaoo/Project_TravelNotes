@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OmAtJxE9YVyvYnqFgouJVYGHX3RYao19XDe/rV8atmA=",
+  "Hash": "ZMZET260cPVFDsO06JO/DSEYMumXy10Hxj5gIb6/4ac=",
   "Source": "TravelNotes",
   "BasePath": "_content/TravelNotes",
   "Mode": "Default",
@@ -376,6 +376,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\ai\\changeButton.js"
+    },
+    {
+      "Identity": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\golocation.js",
+      "SourceId": "TravelNotes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\",
+      "BasePath": "_content/TravelNotes",
+      "RelativePath": "js/ai/golocation.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\ai\\golocation.js"
     },
     {
       "Identity": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\intelligence.js",

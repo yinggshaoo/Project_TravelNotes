@@ -73,6 +73,10 @@
       "PackagePath": "staticwebassets\\js\\ai\\changeButton.js"
     },
     {
+      "Id": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\golocation.js",
+      "PackagePath": "staticwebassets\\js\\ai\\golocation.js"
+    },
+    {
       "Id": "C:\\Users\\klas9\\Desktop\\TravelNotes\\TravelNotes\\TravelNotes\\wwwroot\\js\\ai\\intelligence.js",
       "PackagePath": "staticwebassets\\js\\ai\\intelligence.js"
     },

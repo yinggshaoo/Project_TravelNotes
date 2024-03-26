@@ -322,8 +322,8 @@ C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\TravelNotes-Project\Trav
 C:\Users\klas9\Desktop\人生計畫Excel\大專題\code\TravelNotes-Project\TravelNotes\TravelNotes\obj\Debug\net8.0\ref\TravelNotes.dll
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\appsettings.json
-C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelML.mlnet
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelNotes.staticwebassets.runtime.json
+C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelML.mlnet
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelNotes.exe
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelNotes.deps.json
 C:\Users\klas9\Desktop\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelNotes.runtimeconfig.json

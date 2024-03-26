@@ -30,6 +30,7 @@ namespace TravelNotes.Controllers
             return View(myAL.ToArray());
         }
 
+        // 0325 預設頁面廢棄了
         [HttpGet]
         public List<Spots> DefaultPage(string city)
         {
@@ -49,7 +50,7 @@ namespace TravelNotes.Controllers
             int totalPages = (int)Math.Ceiling((double)totalSpots / pageSize); // 總頁數
 
             int currentPageIndex = Convert.ToInt32(currentPage); // 當前頁碼
-            if (currentPageIndex < 1)
+            if (currentPageIndex <= 1)
             {
                 currentPageIndex = 1; // 如果 currentPage 小於 1，則設置為第一頁
             }
