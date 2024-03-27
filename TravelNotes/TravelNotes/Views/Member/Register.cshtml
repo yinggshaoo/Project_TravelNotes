@@ -1,13 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "註冊";
 }
-
-<h1>@ViewData["Title"]</h1>
-
 <div class="row">
     <div class="col-md-4">
         <form id="registerForm" action="/Member/Register" method="post" onsubmit="return validateForm()">
-            <h2>Create a new account.</h2>
+            <h2>註冊一段美好的旅程吧!</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
@@ -31,6 +28,12 @@
     
 </div>
 
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Member" asp-action="Login">登入去 ➜</a>
+    </div>
+</div>
+
 <script>
     function validateForm() {
         var email = document.getElementById("email").value.trim();
@@ -51,7 +54,7 @@
         var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,20}$/;
 
         if (!passwordPattern.test(password)) {
-            document.getElementById("passwordError").innerText = "Password must contain at least one lowercase letter, one uppercase letter, and one digit.";
+            document.getElementById("passwordError").innerText = "密碼必須是包含一個大寫以及8-20位數";
             return false; // 阻止表單提交
         } else {
             document.getElementById("passwordError").innerText = ""; // 清除錯誤消息
@@ -59,7 +62,7 @@
 
         // 檢查密碼與確認密碼是否相同
         if (password !== confirmPassword) {
-            document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+            document.getElementById("confirmPasswordError").innerText = "密碼不一致";
             return false; // 阻止表單提交
         } else {
             document.getElementById("confirmPasswordError").innerText = ""; // 清除錯誤消息

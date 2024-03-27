@@ -1,16 +1,21 @@
-﻿<h1>這是登入頁面</h1>
-
-@{
-    ViewData["Title"] = "Log in";
+﻿@{
+    ViewData["Title"] = "登入";
 }
-
-<h1>@ViewData["Title"]</h1>
 @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger" role="alert">
         @TempData["ErrorMessage"]
     </div>
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -30,6 +35,12 @@
                 <button id="LoginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
             </form>
         </section>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Member" asp-action="Register">註冊去 ➜</a>
     </div>
 </div>
 
