@@ -54,21 +54,27 @@ namespace TravelNotes.Controllers
 
                         var roles = user.SuperUser.ToString().Trim();
                         var userId = user.UserId.ToString();
-                        // 這裡討論完寫 權限不足要導向哪裡
-                        //if(roles == "Admin")
-                        //if (roles =="Normal")
+                        
                         var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Name, "username"),
-                            new Claim(ClaimTypes.Role, roles)
+                            new Claim(ClaimTypes.Role, roles),
 						};
-                        
+
+                        var _headshot = (from h in _context.users
+                                       where h.UserId == Convert.ToInt32(userId)
+                                       select h.Headshot).ToList();
+
+                        string headshot = _headshot[0].ToString(); 
+
                         //權限
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                         // cookies
                         Response.Cookies.Append("UsernameCookie", userId);
+                        Response.Cookies.Append("UserheadshotCookie", headshot);
+                        Response.Cookies.Append("UserheadshotCookie", password);
                         return RedirectToAction("Index", "AiRecommend");
                     }
 
@@ -88,6 +94,10 @@ namespace TravelNotes.Controllers
         {
             // 執行登出操作，清除用戶身份驗證信息
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            string userId;
+            var test = Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            userId = null;
 
             // 返回到首頁或其他適當的頁面
             return RedirectToAction("Login");
@@ -114,21 +124,32 @@ namespace TravelNotes.Controllers
                 string hashedPassword = ComputeSHA256Hash(password);
 
                 //缺比對資料庫中有無重複的信箱
+                var repeatMail = (from o in _context.users
+                                 where o.Mail == email
+                                 select o.Mail).ToList();
 
-                //缺對應關連到username(有空在說)
-
-                var user = new users
+                if(repeatMail.Count == 0)
                 {
-                    Mail = email,
-                    Pwd = hashedPassword, // 密碼應該是哈希後的值
-                    SuperUser = "N"
-                };
+                    var user = new users
+                    {
+                        Mail = email,
+                        Pwd = hashedPassword, // 密碼應該是哈希後的值
+                        SuperUser = "N",
+                        Headshot= "default headshot"
+                    };
 
-                _context.users.Add(user);
-                _context.SaveChanges();
+                    _context.users.Add(user);
+                    _context.SaveChanges();
 
-
-                return RedirectToAction("Login");
+                    TempData["SuccessMessage"] = "註冊成功";
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "註冊失敗 - 帳號已被註冊";
+                    return RedirectToAction("Login");
+                }
+                
             }
 			return View();
 		}

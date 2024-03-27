@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TravelNotes.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CalimsTest : Controller
     {
-        [Authorize(Roles = "Y")]
+        //[Authorize(Roles = "Y")]
         public IActionResult Apple()
         {
+            string userId;
+            var test = Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            ViewBag.UserId = userId;
             return View();
         }
 
