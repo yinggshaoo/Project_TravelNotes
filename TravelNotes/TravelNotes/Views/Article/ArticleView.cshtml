@@ -8,29 +8,64 @@
     var travelTime = (DateTime)target!.TravelTime!;
     var publishTime = (DateTime)target!.PublishTime!;
     string content = target!.Contents!;
+    users loginUser = ViewBag.loginUser;
 }
-<link rel="stylesheet" href="~/css/article.css">
 <style>
+    #notification {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--color2);
+        color: var(--color4);
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+    .row{
+        margin:5px;
+    }
     .headShotImg {
         border-radius: 50%;
         width: 50px; /* 設置圖片的寬度 */
         height: 50px; /* 設置圖片的高度 */
-        border: white solid 1px;
+        cursor:pointer
     }
 
     #messageBoard{
-        background-color:white;
+        background-color: rgb(241, 241, 241);
         border-radius: 10px; /* 圆角半径 */
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
         margin-top:10px;
+        padding:5px;
     }
 
+        #messageBoard>.row{
+            margin:2px
+        }
+
+    .messageContents{
+        background-color: white;
+        word-wrap: break-word;
+        border-radius:5px;
+        padding:2px;
+    }
+    #messageInput{
+        background-color: white;
+    }
     .custom-badge {
-        background-color: #ffc107; /* 设置背景颜色为黄色 */
+        background-color: rgb(236, 220, 126); /* 设置背景颜色为黄色 */
         color: #212529; /* 设置文本颜色 */
         padding: 5px 10px; /* 设置内边距 */
         border-radius: 0.25rem; /* 设置圆角 */
     }
+    .btn-msg{
+        background-color: var(--color2);
+        color: white;
+    }
+    
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
@@ -87,28 +122,30 @@
                 </div>
             </div>
 
-            <div>
-                <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; cursor: pointer;" />
+            <div class="row">
+                <div class="col-auto">
+                    <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; " />
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
-
-<div>
-    <textarea id="tiny"></textarea>
+<div id="content">
+    
 </div>
 <div id="messageBoard">
     @foreach (var item in ViewBag.messageBoards)
     {
         <div class="row">
-            <div class="col-1">
-                <img class="headShotImg" src="@item.Haedshot" onclick="personalPageView(@item.UserId)" />
+            <div class="col-auto">
+                <img class="headShotImg" src="@item.Headshot" onclick="personalPageView(@item.UserId)" />
             </div>
-            <div class="col-9">
-                <span>@item.Contents</span>
+            <div class="col-8">
+                <div class="messageContents">@item.Contents</div>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <span>@item.MessageTime</span>
             </div>
 
@@ -116,39 +153,43 @@
             
         </div>
     }
-    <div class="row">
-        <div class="col">
-            <input type="text" id="messageInput" class="form-control articleInput" />
+    @if (loginUser.UserId == 0)
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>您尚未登入</p>
+            </div>
         </div>
-        <div class="col-auto">
-            <button id="messageButton">發佈</button>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-auto">
+                <img class="headShotImg" src="@loginUser.Headshot" onclick="personalPageView(@loginUser.UserId)" />
+            </div>
+            <div class="col-8">
+                <input type="text" id="messageInput" class="form-control articleInput" placeholder="留言......"/>
+            </div>
+            <div class="col-3">
+                <button id="messageButton" class="btn btn-msg" >發佈</button>
+            </div>
         </div>
-    </div>
+    }
+    
 </div>
-
+<div id="notification"></div>
 <script>
 
 
     let articleId = $('#articleId').val();
     let backendData = @Html.Raw(Json.Serialize(content));
-    //console.log(backendData);
+    if (backendData == null) {
+        backendData = "";
+    }
+    console.log(backendData);
     $(function () {
-        tinymce.init({
-            selector: '#tiny',
-            toolbar: false, // 隐藏工具栏
-            statusbar: false, // 隐藏状态栏
-            readonly: true, // 将编辑器设置为只读
-            init_instance_callback: function (editor) {
-                if (backendData == null) {
-                    editor.setContent("");
-                }
-                else {
-                    editor.setContent(backendData);
-                }
-                $(".tox-editor-header").css("display", "none");
-
-            }
-        });
+        $('#content').html(backendData);        
+        
         $('#likeButton').on('click', function () {
             $.ajax({
                 type: "post",
@@ -162,6 +203,10 @@
             });
         });
         $('#messageButton').on('click', function () {
+            if ($('#messageInput').val() == "") {
+                showNotification("請輸入留言");
+                return;
+            }
             $.ajax({
                 type: "post",
                 url: "/Article/InsertMessage",
@@ -182,7 +227,8 @@
         setTimeout(viewArticle,5000)
     });
     function personalPageView(userId) {
-        console.log(userId);
+        document.location.href = "/PersonalPage/PersonalPage?userId="
+        window.location = "/PersonalPage/PersonalPage?userId=" + userId;
     }
     function viewArticle(){
         $.ajax({
@@ -195,5 +241,11 @@
                 $('#pageView').text(pageView)
             }
         });
+    }
+    function showNotification(message) {
+        $("#notification").text(message).css("display", "block")
+        setTimeout(function () {
+            $("#notification").css("display", "none");
+        }, 1000)
     }
 </script>

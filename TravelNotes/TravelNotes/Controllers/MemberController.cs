@@ -101,9 +101,8 @@ namespace TravelNotes.Controllers
             Response.Cookies.Delete("UsernameCookie");
             Response.Cookies.Delete("UserheadshotCookie");
             Response.Cookies.Delete("UserPasswordCookie");
-
-            // 返回到首頁或其他適當的頁面
-            return RedirectToAction("Login");
+			// 返回到首頁或其他適當的頁面
+			return RedirectToAction("Login");
         }
 
 		public IActionResult fail() 
