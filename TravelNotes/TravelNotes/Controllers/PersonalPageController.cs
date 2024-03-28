@@ -453,5 +453,36 @@ namespace TravelNotes.Controllers
 
             return RedirectToAction("ViewSchedule");
         }
+
+		// 寫貼文
+		public IActionResult MarkDown(string scenicSpotName)
+		{
+            string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            int id = Convert.ToInt32(userId);
+
+            if (scenicSpotName != null)
+			{
+                //抓目前的景點ID
+                var findSpotId = (from s in _context.Spots
+                                  where s.ScenicSpotName == scenicSpotName
+                                  select s.SpotId).ToList();
+                int spotId = Convert.ToInt32(findSpotId[0]);
+
+                //抓目前的流水號
+                var checkQuery = (from f in _context.myFavor
+                                  where f.UserId == id && f.SpotId == spotId
+                                  select f).ToList();
+
+				int uuid = checkQuery[0].SpotId;
+
+                return RedirectToAction("CreateDraft", "Article", new { SpotId = uuid });
+			}
+
+			else
+			{
+                return RedirectToAction("fail","Member");
+            }
+        }
     }
 }

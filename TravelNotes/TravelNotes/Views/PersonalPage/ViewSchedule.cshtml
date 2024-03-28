@@ -1,19 +1,50 @@
 ﻿@model List<TravelNotes.Models.Spots>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-@foreach (var item in Model)
-{
-    <form action="/PersonalPage/Remove" method="post">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <label for="scenicSpotName">景點名稱:</label>
-                    <input type="text" id="scenicSpotName" name="scenicSpotName" value="@item.ScenicSpotName" readonly>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-danger">移除</button>
-                </div>
-            </div>
-        </div>
-    </form>
-}
-@* CreateDraft(int? SpotId) *@
+
+<h1>行前規劃</h1>
+<table class="table table-borderless">
+    <tr>
+        <th>景點名稱</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <form action="/PersonalPage/Remove" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" id="scenicSpotName" name="scenicSpotName" value="@item.ScenicSpotName" readonly>
+                        <button type="submit" class="btn btn-danger">移除</button>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form action="/PersonalPage/MarkDown" method="post">
+                    <input type="hidden" id="scenicSpotNameHidden" name="scenicSpotName" value="@item.ScenicSpotName">
+                    <button type="submit" class="btn btn-primary">撰寫貼文</button>
+                </form>
+            </td>
+            <td>
+                <img class="thumbnail" src="@item.PictureUrl1" style="width:48px; height:48px; border-radius: 50%; object-fit: cover;" />
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('.thumbnail').mouseenter(function () {
+            $(this).css({
+                'transform': 'scale(10)',
+                'z-index': '9999' // 将图像移动到最上层
+            });
+
+        }).mouseleave(function () {
+            $(this).css({
+                'transform': 'scale(1)',
+                'z-index': 'auto' // 将图像还原到默认图层
+            });
+        });
+    });
+</script>
+

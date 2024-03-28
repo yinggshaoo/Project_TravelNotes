@@ -65,7 +65,10 @@ namespace TravelNotes.Controllers
                                        where h.UserId == Convert.ToInt32(userId)
                                        select h.Headshot).ToList();
 
-                        string headshot = _headshot[0].ToString(); 
+                        string headshot = _headshot?.FirstOrDefault() ?? "Default String";
+
+
+                        //string? headshot = _headshot[0].ToString(); 
 
                         //權限
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -74,7 +77,7 @@ namespace TravelNotes.Controllers
                         // cookies
                         Response.Cookies.Append("UsernameCookie", userId);
                         Response.Cookies.Append("UserheadshotCookie", headshot);
-                        Response.Cookies.Append("UserheadshotCookie", password);
+                        Response.Cookies.Append("UserPasswordCookie", password);
                         return RedirectToAction("Index", "AiRecommend");
                     }
 
@@ -95,9 +98,9 @@ namespace TravelNotes.Controllers
             // 執行登出操作，清除用戶身份驗證信息
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            string userId;
-            var test = Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            userId = null;
+            Response.Cookies.Delete("UsernameCookie");
+            Response.Cookies.Delete("UserheadshotCookie");
+            Response.Cookies.Delete("UserPasswordCookie");
 
             // 返回到首頁或其他適當的頁面
             return RedirectToAction("Login");
