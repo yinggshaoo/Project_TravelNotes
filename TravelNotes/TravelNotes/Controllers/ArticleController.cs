@@ -13,6 +13,7 @@ using System.Security.Principal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.ML;
 
 
 namespace TravelNotes.Controllers
@@ -224,11 +225,10 @@ namespace TravelNotes.Controllers
                         myOtherTagId.Add(articleOtherTags[i].OtherTagId);
                     }
                 }
-                foreach (var item in _context.articleOtherTags.Where(a=>a.ArticleId == articleId)) 
-                {
-                    _context.articleOtherTags.Remove(item);
-                }
+                //刪除此文章的標籤
+                _context.articleOtherTags.RemoveRange(_context.articleOtherTags.Where(a => a.ArticleId == articleId));
                 _context.SaveChanges();
+                //重新添加此文章的標籤
                 foreach(int tagId in myOtherTagId)
                 {
                     articleOtherTags aot = new articleOtherTags();
@@ -277,10 +277,12 @@ namespace TravelNotes.Controllers
                 return RedirectToAction("Login", "Member");
             }
             article articleToPublish = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
+
             if (CheckOwner(articleToPublish.UserId.ToString()))
             {
                 RedirectToAction("errorView");
             }
+
             articleToPublish.PublishTime = DateTime.Now;
             articleToPublish.ArticleState = "發佈";
             _context.SaveChanges(); // 保存更改
@@ -297,10 +299,19 @@ namespace TravelNotes.Controllers
                 return RedirectToAction("Login", "Member");
             }
             article articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
+            
             if (CheckOwner(articleToDelete.UserId.ToString()))
             {
                 RedirectToAction("errorView");
             }
+            //刪除文章的留言
+            List<messageBoard> messageBoards = _context.messageBoard.Where(a => a.ArticleId == articleId).ToList();
+            _context.messageBoard.RemoveRange(messageBoards);
+            _context.SaveChanges();
+            //刪除文章的標籤
+            List<articleOtherTags> articleOtherTags = _context.articleOtherTags.Where(a => a.ArticleId == articleId).ToList();
+            _context.articleOtherTags.RemoveRange(articleOtherTags);
+            _context.SaveChanges();
             _context.article.Remove(articleToDelete); // 从数据库中移除文章
             _context.SaveChanges(); // 保存更改
 
@@ -325,7 +336,7 @@ namespace TravelNotes.Controllers
                             Contents = m.Contents,
                             UserId = m.UserId,
                             MessageTime = m.MessageTime,
-                            Haedshot = u.Headshot,
+                            Headshot = u.Headshot,
                         };
             ViewBag.messageBoards = messageBoards;
             users user = _context.users.FirstOrDefault(a => a.UserId == data.UserId)!;
@@ -334,6 +345,17 @@ namespace TravelNotes.Controllers
             ViewBag.spot = spots;
             List<int> otherTagsIds = _context.articleOtherTags.Where(a => a.ArticleId == data.ArticleId).Select(a => a.OtherTagId).ToList();
             ViewBag.otherTags = _context.OtherTags.Where(a => otherTagsIds.Contains(a.OtherTagId)).ToList();
+            string userId;
+            users loginUser = new users();
+            if (Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                loginUser = _context.users.FirstOrDefault(a=>a.UserId == Convert.ToInt32(userId));
+            }
+            else
+            {
+                loginUser.UserId = 0;
+            }
+            ViewBag.loginUser = loginUser;
             return View(data);
         }
         [HttpPost]
@@ -409,10 +431,12 @@ namespace TravelNotes.Controllers
         public IActionResult TestArticle()
         {
             bool isUser = User.Identity.IsAuthenticated;
+			string userId;
+            bool result = Request.Cookies.TryGetValue("UsernameCookie", out userId);
 
 
 
-            return View();
+			return View();
         }
         
     }

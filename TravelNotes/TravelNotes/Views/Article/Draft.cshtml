@@ -38,48 +38,30 @@
         top: 10px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--secondary-color);
-        color: var(--text-color);
+        background-color: var(--color2);
+        color: var(--color4);
         padding: 10px 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 1000;
     }
 
-    /*     .selectedTag {
-            background-color: var(--accent-color);
-            color: #fff;
-            border: 1px solid var(--accent-color);
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .unselectedTag {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            border: 1px solid var(--secondary-color);
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        } */
 
     .buttons {
         margin: 2px;
     }
 
     .articleLabel {
-        color: var(--primary-color);
+        color: var(--color5);
     }
 
     .articleInput {
-        border-color: var(--primary-color);
+        border-color: var(--color5);
     }
 
     .articleSelect {
-        /*         background-color: var(--secondary-color); */
-        color: var(--text-color);
-        border-color: var(--primary-color);
+        color: var(--color4);
+        border-color: var(--color5);
     }
 
     .spotPanel {
@@ -89,10 +71,59 @@
     }
 
     .custom-badge {
-        background-color: #ffc107; /* 设置背景颜色为黄色 */
+        background-color: rgb(236, 220, 126);
         color: #212529; /* 设置文本颜色 */
         padding: 5px 10px; /* 设置内边距 */
         border-radius: 0.25rem; /* 设置圆角 */
+        margin:2px;
+    }
+
+    #currentSpotTag{
+        font-weight:bold;
+        margin:5px;
+    }
+    .col-auto{
+        margin:2px
+    }
+    .btn{
+        margin:1px;
+    }
+    .btn-tag{
+        background-color:var(--color2);
+        color:white;
+    }
+    .panel{
+        background-color:var(--color1);
+        width:fit-content;
+        padding:2px;
+        border-radius:5px;
+    }
+
+
+    .tox .tox-edit-area__iframe {
+        background-color: transparent;
+    }
+
+    .tox:not(.tox-tinymce-inline) .tox-editor-header {
+        background-color: transparent;
+    }
+    .tox .tox-menubar{
+        background-color: transparent;
+    }
+    .tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary{
+        background-color: transparent;
+    }
+    .tox .tox-toolbar-overlord{
+        background-color: transparent;
+    }
+    .tox .tox-tbtn--bespoke{
+        background-color: transparent;
+    }
+    .tox-tinymce{
+        border:1px solid black;
+    }
+    .tox .tox-statusbar{
+        display:none;
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -166,15 +197,15 @@
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row ">
         @for (int i = 0; i < cityNames.Count; i++)
         {
             <div class="col-auto">
                 <button class="cityButton btn btn-secondary" onclick="refreshTag(@i)">@cityNames[i]</button>
-                <div class="spotPanel">
+                <div class="spotPanel panel">
                     <div>
                         <input type="text" id="spotTagInput_@i" oninput="refreshTag(@i)"></input>
-                        <button onclick="addSpotTag(this)">新增</button>
+                        <button onclick="addSpotTag(this)" class="btn btn-tag">新增</button>
                     </div>
                     <div id="spotTag_@i">
                     </div>
@@ -183,24 +214,30 @@
         }
 
     </div>
-    <div >
-        <span>旅遊景點:</span>
-        <span id="currentSpotTag" >@(targetSpot==null?"":targetSpot.ScenicSpotName)</span>
-    </div>
-    <div>
-        <div class="row">
-            <div class="col-auto">文章標籤:</div>
-            <div class="col-auto" id="currentOtherTag">
+    <div class="row">
+        <div class="col">
+            <div>
+                <span>旅遊景點:</span>
+                <span id="currentSpotTag">@(targetSpot == null ? "" : targetSpot.ScenicSpotName)</span>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-auto">文章標籤:</div>
+                    <div class="col-auto" id="currentOtherTag">
+                    </div>
+                </div>
+
             </div>
         </div>
-
-    </div>
-    <div class="otherTagPanel">
-        <div>
-            <input type="text" id="otherTagInput" oninput="refreshOtherTag(this)"></input>
-            <button onclick="addOtherTag(this)">新增</button>
-        </div>
-        <div id="otherTags">
+        <div class="col-auto ml-auto">
+            <div class="otherTagPanel panel">
+                <div>
+                    <input type="text" id="otherTagInput" oninput="refreshOtherTag(this)"></input>
+                    <button onclick="addOtherTag(this)" class="btn btn-tag">新增</button>
+                </div>
+                <div id="otherTags">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -212,7 +249,7 @@
 </div>
 
 
-<div id="notification">562323</div>
+<div id="notification"></div>
 
 
 <script>
@@ -471,7 +508,8 @@
                 else {
                     editor.setContent(backendData);
                 }
-            }
+            },
+            content_css: "/css/tiny.css"
         });
         for (let i = 0; i < dropdown.children().length; i++) {
             if (dropdown.children()[i].value == articleId) {
@@ -639,7 +677,7 @@
         if (spotTagInput == "") {
             for (let i = 0; i < AllCity[id].length; i++) {
                 $(`#spotTag_${id}`).append(
-                    `<button class="btn btn-primary" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
+                    `<button class="btn btn-tag" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
                         ${AllCity[id][i].ScenicSpotName}
                         </button>`)
                 if (i == 4) {
@@ -654,7 +692,7 @@
                     continue;
                 }
                 $(`#spotTag_${id}`).append(
-                    `<button class="btn btn-primary" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
+                    `<button class="btn btn-tag" onclick="chooseSpotTag(${AllCity[id][i].SpotId}, '${AllCity[id][i].ScenicSpotName}')">
                     ${AllCity[id][i].ScenicSpotName}
                     </button>`)
                 index++;
@@ -683,7 +721,7 @@
         if (otherTagInput == "") {
             for (let i = 0; i < otherTagsData.length; i++) {
                 $("#otherTags").append(
-                    `<button class="btn btn-primary" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
+                    `<button class="btn btn-tag" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
                                 ${otherTagsData[i].OtherTagName}
                             </button>`)
                 if (i == 4) {
@@ -699,7 +737,7 @@
                     continue;
                 }
                 $("#otherTags").append(
-                    `<button class="btn btn-primary" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
+                    `<button class="btn btn-tag" onclick="chooseOtherTag(${otherTagsData[i].OtherTagId}, '${otherTagsData[i].OtherTagName}')">
                                     ${otherTagsData[i].OtherTagName}
                                 </button>`)
                 index++;

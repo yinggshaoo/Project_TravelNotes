@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+	bool isLogin = true;
+	string userId = "";
+	if (!Context.Request.Cookies.TryGetValue("UsernameCookie", out userId))
+	{
+		isLogin = false;
+	}
+	bool isHeadShotExit = true;
+	string headshotPath = "";
+	if (!Context.Request.Cookies.TryGetValue("UserheadshotCookie", out headshotPath))
+	{
+		isHeadShotExit = false;
+	}
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -9,16 +25,21 @@
 	<link rel="stylesheet" href="~/TravelNotes.styles.css" asp-append-version="true" />
 	<script src="~/js/site.js"></script>
 	<script src="https://kit.fontawesome.com/f749459404.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	<style>
 		:root {
-			--side-color: #728CA3 ;
-			
+			--side-color: #728CA3;
 			--background-color: #F3E4C6;
-			--primary-color: #1B1924;
-			--secondary-color: #B5C1B4;
-			--tertiary-color: #DCD9C6;
-			--accent-color: #74593D;
-			--text-color: #3F3232;
+			--border-color: #74593D;
+			--border-hover-color: rgba(116, 89, 61, 0.5);
+			--sideBarSpace: 100px;
+			--color1: #DCD9C6;
+			--color2: #B5C1B4;
+			--color3: #74593D;
+			--color4: #3F3232;
+			--color5: #1B1924;
+
+
 		}
 
 		body {
@@ -26,54 +47,82 @@
 			margin: 0;
 			padding: 0;
 		}
+
 		#allContainer {
 			display: flex;
 		}
 
 		#sideBarSpace {
-			width: 100px;
+			width: var(--sideBarSpace);
 		}
 
 		#sideBar {
 			width: 100px;
-			height:90%;
+			height: 100%;
 			position: fixed;
 			right: 0px;
 			top: 0px;
 			background-color: var(--side-color);
 			border-radius: 10px; /* 圆角半径 */
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
-			text-align:center;
+			text-align: center;
+			border-left: 5px solid var(--border-color);
+			transform: translateX(0%);
+			z-index:99999;
+		}
+
+		#sideBarSlider {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			left: -40px;
+			width: auto;
+			padding: 15px;
+			color: white;
+			font-weight: bold;
+			font-size: 18px;
+			transition: 0.6s ease;
+			border-radius: 3px 3px 3px 3px;
+			background-color: var(--border-color);
+		}
+
+
+			#sideBarSlider:hover {
+				background-color: var(--border-hover-color);
+			}
+
+		#sideBar {
 		}
 
 			#sideBar a {
 				text-decoration: none;
 				color: white;
 			}
-			
-		#sideBar span{
-			text-decoration:none;
-			color:white;
-		}
-		.smallItem{
-			width: 20px; /* 設置圖片的寬度 */
-			height: 20px; /* 設置圖片的高度 */
-		}
-		.middleItem{
-			width: 40px; /* 設置圖片的寬度 */
-			height: 40px; /* 設置圖片的高度 */ */
+
+			#sideBar span {
+				text-decoration: none;
+				color: white;
+			}
+
+		.headShotLink {
+			border-radius: 50%;
+			width: 50px; /* 設置圖片的寬度 */
+			height: 50px; /* 設置圖片的高度 */
+			cursor: pointer
 		}
 	</style>
+
 </head>
 <body>
+	
 	<div id="sideBar">
 		<div class="row my-4">
 			<a asp-controller="Home" asp-action="Index">
 				Logo
-				</a>
+			</a>
 		</div>
 		<div class="row my-4">
-			@if (!User.Identity.IsAuthenticated)
+			@if (!isLogin)
 			{
 				<a asp-controller="Member" asp-action="Login">
 					<i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
@@ -88,7 +137,7 @@
 			}
 		</div>
 
-		
+
 		<div class="row my-4">
 			<a asp-controller="Article" asp-action="CreateDraft">
 				<i class="fa-regular fa-pen-to-square fa-sm" style="color: #ffffff;"></i>
@@ -108,31 +157,58 @@
 			</a>
 		</div>
 		<div class="row my-4">
-			<a asp-controller="PersonalPage" asp-action="PersonalPage">個人頁面</a>
+
+			<a asp-controller="PersonalPage" asp-action="PersonalPage">
+				@if (isHeadShotExit)
+				{
+					<img src="@headshotPath" class="headShotLink">
+				}
+				else
+				{
+					<img src="" class="headShotLink" alt="">
+				}
+				</a>
 		</div>
 		<div class="row my-4">
 			<a asp-controller="AiRecommend" asp-action="Index">
 				<i class="fa-regular fa-compass fa-sm" style="color: #ffffff;"></i>
 				推薦趣
-				</a>
+			</a>
 		</div>
 		<div class="row my-4">
 			<a asp-controller="PersonalPage" asp-action="ViewSchedule">
-				<i class="fa-regular fa-compass fa-sm" style="color: #ffffff;"></i>
+				<i class="fa-solid fa-star fa-sm" style="color: #ffffff;"></i>
 				我的最愛
 			</a>
 		</div>
+		<a onclick="sideBarSlide(this)" id="sideBarSlider">&#10095;</a>
 	</div>
 	<div id="allContainer">
 
 		<div class="container">
-			<main role="main" class="pb-3">
-				@RenderBody()
-			</main>
+			@RenderBody()
 		</div>
 		<div id="sideBarSpace">
 		</div>
 	</div>
-	
+	<script>
+		let sideBarSpace = $('#sideBarSpace');
+		let sideBar = $('#sideBar');
+		let sideBarOpen = true;
+		function sideBarSlide(obj) {
+			sideBarOpen = !sideBarOpen;
+			if (sideBarOpen) {
+				obj.innerHTML = "&#10095;";
+				sideBarSpace.css("width", "100px");
+				sideBar.css('transform', 'translateX(0%)');
+			}
+			else {
+				obj.innerHTML = "&#10094;";
+				sideBarSpace.css("width", "0px");
+				sideBar.css('transform', 'translateX(100%)');
+			}
+
+		}
+	</script>
 </body>
 </html>
