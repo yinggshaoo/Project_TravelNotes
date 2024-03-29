@@ -18,55 +18,78 @@ namespace TravelNotes.Controllers
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-        public IActionResult Photo()
+        public IActionResult Photo(int? userId)
         {
             string cookieValue;
-            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
-            if (result)
+            int UserId;
+            int login = 0;
+            // 如果URL中没有提供userId，那么尝试从Cookie中获取当前登录用户的userId
+            if (userId == null)
             {
-                userId = Convert.ToInt32(cookieValue);
+                if (Request.Cookies.TryGetValue("UsernameCookie", out  cookieValue))
+                {
+                    UserId = Convert.ToInt32(cookieValue);
+                    login = UserId;
+                }
+                else
+                {
+                    // 如果连Cookie也没有userId，那么重定向到登录页面
+                    return RedirectToAction("Login", "Member");
+                }
+            }
+            else {
+                UserId = (int)userId;
+            }
+            
+        
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
-            var data = from p in _context.photo
-                           //UserId要抓  ****(UserId要更換)***  (AlbumId is NULL 代表只是相片 )
-                       where p.UserId == userId && p.PhotoDescription == null && p.AlbumId == null
-                       select new photo
-                       {
-                           PhotoPath = p.PhotoPath,
-                           PhotoId = p.PhotoId,
-                           UploadDate = p.UploadDate
-                       };
-            //回傳Travel資料庫裡Photo表的所有PhotoPath
-            return View(data.ToList());
+            // 使用提供的userId来查询并显示相片
+            var photos = _context.photo
+                                 .Where(p => p.UserId == UserId && p.PhotoDescription == null && p.AlbumId == null)
+                                 .Select(p => new photo
+                                 {
+                                     PhotoPath = p.PhotoPath,
+                                     PhotoId = p.PhotoId,
+                                     UploadDate = p.UploadDate
+                                 }).ToList();
+            bool IsMyPage = login == UserId;
+            ViewBag.IsMyPage = IsMyPage;
+            ViewBag.UserPage = userId;
+            // 回传数据到视图
+            return View(photos);
         }
-        public async Task<IActionResult> Album()
+        public async Task<IActionResult> Album(int? userId)
         {
             string cookieValue;
-            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
-            if (result)
+            int UserId;
+            int login = 0;
+            // 如果URL中没有提供userId，那么尝试从Cookie中获取当前登录用户的userId
+            if (userId == null)
             {
-                userId = Convert.ToInt32(cookieValue);
-
+                if (Request.Cookies.TryGetValue("UsernameCookie", out cookieValue))
+                {
+                    UserId = Convert.ToInt32(cookieValue);
+                    login = UserId;
+                }
+                else
+                {
+                    // 如果连Cookie也没有userId，那么重定向到登录页面
+                    return RedirectToAction("Login", "Member");
+                }
             }
             else
             {
-                userId = 1;
-                // 处理 cookie 不存在的情况
+                UserId = (int)userId;
             }
             //一上傳就先創一個垃圾桶
-            bool albumExists = _context.album.Any(a => a.AlbumName == $"Garbage{userId}" && a.UserId == userId);
+            bool albumExists = _context.album.Any(a => a.AlbumName == $"Garbage{UserId}" && a.UserId == UserId);
             if (!albumExists)
             {
                 var album = new album
                 {
-                    AlbumName = $"Garbage{userId}",
+                    AlbumName = $"Garbage{UserId}",
                     CreateTime = DateOnly.FromDateTime(DateTime.Now),
-                    UserId = userId,
+                    UserId = (int)UserId,
                     State = 1,//在垃圾桶
                 };
                 _context.album.Add(album);
@@ -76,12 +99,12 @@ namespace TravelNotes.Controllers
 
             // 首先找到UserId等於2的最小AlbumId
             var minAlbumId = await _context.album
-                                            .Where(a => a.UserId == userId)
+                                            .Where(a => a.UserId == UserId)
                                             .MinAsync(a => (int?)a.AlbumId); // 使用(int?)以處理查詢結果可能為空的情況
 
             // 然後選擇除了最小AlbumId之外的所有Album
             var albumsExceptMin = await _context.album
-                                                 .Where(a => a.UserId == userId && a.AlbumId != minAlbumId && a.State == 2)
+                                                 .Where(a => a.UserId == UserId && a.AlbumId != minAlbumId && a.State == 2)
                                                  .ToListAsync();
             // AlbumId != 1  && UserId == 1的都顯示出來 ****(UserId要更換)***
             //var albums = await _context.Albums.Where(a => a.AlbumId != 1 && a.UserId == 1).ToListAsync();
@@ -91,32 +114,44 @@ namespace TravelNotes.Controllers
                 var photos = await _context.photo.Where(p => p.AlbumId == album.AlbumId && p.PhotoDescription == null).ToListAsync();
                 viewModelList.Add(new AlbumPhotosViewModel { Album = album, Photos = photos });
             }
+            bool IsMyPage = login == UserId;
+            ViewBag.IsMyPage = IsMyPage;
+            ViewBag.UserPage = userId;
             return View(viewModelList);
         }
-        public async Task<IActionResult> Garbage()
+        public async Task<IActionResult> Garbage(int? userId)
         {
             string cookieValue;
-            bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue!);
-            if (result)
+            int UserId;
+            int login = 0;
+            // 如果URL中没有提供userId，那么尝试从Cookie中获取当前登录用户的userId
+            if (userId == null)
             {
-                userId = Convert.ToInt32(cookieValue);
-
+                if (Request.Cookies.TryGetValue("UsernameCookie", out cookieValue))
+                {
+                    UserId = Convert.ToInt32(cookieValue);
+                    login = UserId;
+                }
+                else
+                {
+                    // 如果连Cookie也没有userId，那么重定向到登录页面
+                    return RedirectToAction("Login", "Member");
+                }
             }
             else
             {
-                userId = 1;
-                // 处理 cookie 不存在的情况
+                UserId = (int)userId;
             }
             var minAlbumId = await _context.album
-                                     .Where(a => a.UserId == userId && a.State == 1)
+                                     .Where(a => a.UserId == UserId && a.State == 1)
                                      .MinAsync(a => (int?)a.AlbumId);
 
             var albums = await _context.album
-                                       .Where(a => a.UserId == userId && a.State == 1 && (!minAlbumId.HasValue || a.AlbumId != minAlbumId.Value))
+                                       .Where(a => a.UserId == UserId && a.State == 1 && (!minAlbumId.HasValue || a.AlbumId != minAlbumId.Value))
                                        .ToListAsync();
 
             var targetAlbum = await _context.album
-                                            .Where(a => a.UserId == userId)
+                                            .Where(a => a.UserId == UserId)
                                             .OrderBy(a => a.AlbumId)
                                             .FirstOrDefaultAsync();
 
@@ -126,7 +161,7 @@ namespace TravelNotes.Controllers
                 return NotFound(); // 這裡僅作為示例，實際上您可能需要根據業務邏輯進行調整
             }
             var photos = await _context.photo
-                              .Where(p => p.UserId == userId && p.PhotoDescription == "1")
+                              .Where(p => p.UserId == UserId && p.PhotoDescription == "1")
                               .ToListAsync();
 
             var viewModel = new GarbageViewModel
@@ -134,6 +169,8 @@ namespace TravelNotes.Controllers
                 Photos = photos,
                 Albums = albums // ??整?albums列表，如果你只需要?前?中的相簿，可以?建相??性
             };
+            bool IsMyPage = login == UserId;
+            ViewBag.IsMyPage = IsMyPage;
             return View(viewModel);
         }
         //上傳相片方法

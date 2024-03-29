@@ -3,26 +3,38 @@
 
 <style>
     #TopS {
-        position: sticky;
-        top: -1%;
-        width: 100%;
-        height: 58px;
-        margin-top: -7px;
-        background-color: #B5C1B4;
-        z-index: 999;
-        font-size: 22px;
+        display: flex;
+        align-items: center; /* 使所有项垂直居中 */
+        z-index: 100;
     }
 
+        #TopS > div {
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+    #GuidedTour > a {
+        border-radius: 10px;
+    }
+
+        #GuidedTour > a:hover {
+            background-color: whitesmoke;
+            transform: scale(1.05);
+        }
     #A {
-        display: flex;
+        display:flex;
+        margin-top: 10px;
         justify-content: center; /* 水平居中 */
         align-items: center; /* 垂直居中 */
-        height: 200vh; /* 让容器高度占满整个视窗高度 */
+        background-color: white;
+        border: 5px solid gray;
+        border-radius: 20px;
+        width: 100%;
+        height: auto;
+        padding-top: 14px;
     }
-    .container {
-        /* 维持相对定位，作为相册的容器 */
-        position: relative;
-    }
+
 
     .album-container {
         border: 1px solid black; /* 可选：为相册添加边框 */
@@ -30,13 +42,15 @@
         padding: 10px; /* 相册内边距 */
         background-color:white;
         position: relative;
+        margin-top:15px;
         margin-bottom: 20px;
     }
 
     .image-container {
-        display: inline-block;
-        margin-left: 20px;
         position: relative;
+        display: inline-block;
+        padding: 2.4px;
+        padding-bottom: 4px;
     }
 
         .image-container:hover {
@@ -46,8 +60,8 @@
         .image-container .hover-button {
             position: absolute;
             border:none;
-            top: 0; /* 定位到容器的左上角 */
-            left: 0;
+            top: 3px; /* 定位到容器的左上角 */
+            left: 3px;
             width: 40px; /* 按钮宽度，根据需要调整 */
             height: 40px; /* 按钮高度，根据需要调整 */
             color: white; /* 按钮文字颜色为白色 */
@@ -75,7 +89,7 @@
     .modal {
         display: none; /* 不顯示 */
         position: fixed; /* 固定定位 */
-        z-index: 1000; /* 設定在最表層 */
+        z-index: 10000; /* 設定在最表層 */
         padding-top: 100px; /* 位置 */
         left: 0;
         top: 0;
@@ -92,70 +106,116 @@
         max-width: 700px;
     }
     /* 關閉按鈕 */
-    .close {
+    .close1 {
         position: absolute;
-        top: 15px;
+        width: 35px; /* 设置宽度 */
+        height: 35px; /* 设置高度 */
+        display: flex; /* 使用弹性盒子 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        top: 35px;
         right: 35px;
         color: #f1f1f1;
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
-        z-index:1100;
+        border-radius: 35px;
+        z-index: 9999
 
     }
 
-    .close1 {
+    .close:hover {
+        transform: scale(1.2);
+    }
+
+    .close {
         position: absolute;
-        top: 15px;
+        width: 35px; /* 设置宽度 */
+        height: 35px; /* 设置高度 */
+        display: flex; /* 使用弹性盒子 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        top: 35px;
         right: 35px;
         color: #f1f1f1;
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
-        z-index: 1100;
+        border-radius: 35px;
+        z-index: 9999
     }
 
     #toggleMenuButton {
-        position: absolute;
-        border: none !important;
-        background-color: #B5C1B4;
+        border: none;
         font-weight: bold;
-        border-radius: 10px 10px 0 0;
-        right: 0%;
-        top: 10%;
-        height: 51px;
+        background-color: #F3E4C6; 
+        border-radius: 10px;
+    }
+
+    #toggleMenuButton:hover{
+            transform: scale(1.05);
+        background-color: whitesmoke;
+    }
+
+    .showUploadFormButton {
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: white;
+    }
+
+    .edit-album-name-button {
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: white;
+    }
+
+    .delete-album-button {
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: white;
     }
 </style>
-<header id="TopS">
-    <nav class="navbar navbar-expand-sm  navbar-light  ">
-
-        <div class="container-fluid" style="background-color: white">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" style="font-weight: bold;">我的相片</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" style="background-color:#B5C1B4;font-weight: bold;border-radius: 10px 10px 0 0;">我的相簿</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage" style="font-weight: bold;">我的垃圾桶</a>
-                    </li>
-                    <li>
-                        <button id="toggleMenuButton" >新增相簿</button>
-                    </li>
-                   
-
-                </ul>
-
-            </div>
+<div id="TopS">
+    <div>
+        <a class="nav-link text-dark" style="font-weight: bold;font-size:20px;" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
+    </div>
+    <div id="GuidedTour" style="margin:10px;">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" asp-route-userId=@ViewBag.UserPage style="font-weight: bold;font-size:20px;">我的相片</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" asp-route-userId=@ViewBag.UserPage style="background-color:whitesmoke;font-weight: bold;border-radius: 10px;font-size:20px;">我的相簿</a>
+        @if (@ViewBag.IsMyPage == true)
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage" style="font-weight: bold;font-size:20px;">我的垃圾桶</a>
+        }
+    </div>
+    @if (@ViewBag.IsMyPage == true){
+        <div style="margin-left:48%;">
+            <button id="toggleMenuButton" class="nav-link text-dark" style="font-weight: bold;font-size:20px;"><i class="bi bi-plus-circle"></i> 新增相簿</button>
         </div>
-    </nav>
+    }
+    
+</div>
+<div id="menuContainer" style="display:none; position: absolute; background-color: whitesmoke; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 10px; z-index:999; margin-left:68%;">
+    <form asp-action="CreateFolder" method="post" id="createForm">
+        <input id="userId" type="text" style="display:none" />
+        <div class="form-group">
+            <label for="folderName">相簿名稱</label>
+            <input type="text" class="form-control" id="folderName" name="folderName" placeholder="請輸入相簿名稱">
+        </div>
+        <br />
+        <!-- 使用图标按钮 -->
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+        </button>
+    </form>
+    
+</div>
+    
     <div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 150px; z-index: 1050; display: flex; flex-direction: column; justify-content: center; text-align: center;">
         @if (TempData["Message"] != null)
         {
@@ -172,85 +232,86 @@
         <div id="successMessage" class="alert alert-success" style="display:none;"></div>
         <div id="falseMessage" class="alert alert-danger" style="display:none;"></div>
     </div>
-    <div id="menuContainer" style="display:none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); padding: 12px 16px; z-index:999;right:4%">
-        <form asp-action="CreateFolder" method="post" id="createForm">
-            <input id="userId" type="text" style="display:none" />
+    
+
+<div id="editAlbumModal" class="modal">
+    <div class="modal-content">
+        <div class="close1"><i class="bi bi-x-circle"></i></div>
+        <form id="editAlbumForm">
+            <input type="hidden" id="editAlbumId" name="albumId">
             <div class="form-group">
-                <label for="folderName">相簿名稱</label>
-                <input type="text" class="form-control" id="folderName" name="folderName" placeholder="請輸入相簿名稱">
+                <label for="newAlbumName">新相簿名稱：</label>
+                <input type="text" class="form-control" id="newAlbumName" name="newAlbumName" required>
             </div>
-            <br />
-            <button type="submit">新增</button>
+            <button type="submit" class="btn btn-primary">保存</button>
         </form>
     </div>
-</header>
-<body>
-    <div id="A" style="background-color:#B5C1B4; ">
+</div>
+
+    <div id="A">
         <div style=" width: 96%;height:96%">
-            <div id="editAlbumModal" class="modal">
-                <div class="modal-content">
-                    <span class="close1">&times;</span>
-                    <form id="editAlbumForm">
-                        <input type="hidden" id="editAlbumId" name="albumId">
-                        <div class="form-group">
-                            <label for="newAlbumName">新相簿名稱：</label>
-                            <input type="text" class="form-control" id="newAlbumName" name="newAlbumName" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">保存</button>
-                    </form>
-                </div>
-            </div>
-            
-            
 
-            @* 接收HomeControll裡的MyAlbum回傳的PhotoPath，然後放在<Img>的src裡面 *@
-            @* 想顯示該使用者所有相簿 *@
-            @foreach (var viewModel in Model)
+            @if (Model != null && Model.Any())
             {
-                <div class="album-container">
-                    <h3>@viewModel.Album!.AlbumName</h3> <!-- 相册名字 -->
-                    <div>
-                        <button class="delete-album-button" data-album-id="@viewModel.Album.AlbumId" style="position:absolute; right:2%" >刪除相簿</button> <!-- 删除相册按钮 -->
-                        <button class="edit-album-name-button" data-album-id="@viewModel.Album.AlbumId" style="position:absolute; right:9%">修改名稱</button>
-                        <button class="showUploadFormButton" data-album-id="@viewModel.Album.AlbumId" style="position:absolute; right:16%">新增相片</button>
-                    </div>
-                    <br />
-                    <div class="uploadForm" data-album-id="@viewModel.Album.AlbumId" style="display:none;width:400px;z-index: 1000;position:absolute; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,.1);right:15%;margin-top:10px">
-                        <form asp-action="UploadPhotosToAlbum" method="post" enctype="multipart/form-data" style="display: flex; align-items: center; justify-content: space-between;">
-                            <input type="hidden" name="albumId" value="@viewModel.Album.AlbumId" />
-                            <input type="hidden" name="albumName" value="@viewModel.Album.AlbumName" />
-                            <div style="flex-grow: 1; margin-right: 10px;">
-                                <!-- 为了让input和按钮有间隔 -->
-                                <input type="file" name="imageFiles" multiple style="width: 100%;"accept=".png, .jpg, .jpeg;">
-                            </div>
-                            <button type="submit" style="white-space: nowrap;">上傳</button>
-                        </form>
-                    </div>
-                   <hr />
-                 
+                @foreach (var viewModel in Model)
+                {
+                    <div class="album-container">
+                        <h3>@viewModel.Album!.AlbumName</h3> <!-- 相册名字 -->
+                    <div style="margin-left:73%;">
+                        @if (@ViewBag.IsMyPage == true)
+                        {
+                            <button class="showUploadFormButton" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-upload"></i>  上傳</button>
+                         
+                            <button class="edit-album-name-button" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-pencil-square"></i> 修改名稱</button>
+                            <button class="delete-album-button" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-trash"></i> 刪除相簿</button> <!-- 删除相册按钮 -->
+                        }
 
-                    <!-- 相册中的图片 -->
-                    @foreach (var photo in viewModel.Photos!)
-                    {
-                        <div id="Pho-@photo.PhotoId" class="image-container">
-                            <img id="dynamicImage-@photo.PhotoId" src="@photo.PhotoPath" class="myImages" data-photo-id="@photo.PhotoId" style="width: 150px;height:150px;" alt="Photo" />
-                            <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId" data-upload-date="@photo.UploadDate"><i class="bi bi-trash"></i></button>
+                        
                         </div>
-                    }
-                    @if (!viewModel.Photos.Any())
-                    {
-                        <p>當前相簿還沒有相片。</p>
-                    }
+                        <div class="uploadForm" data-album-id="@viewModel.Album.AlbumId" style="display:none;width:400px;z-index: 1000;position:absolute; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,.1);right:15%;margin-top:10px">
+                            <form asp-action="UploadPhotosToAlbum" method="post" enctype="multipart/form-data" style="display: flex; align-items: center; justify-content: space-between;">
+                                <input type="hidden" name="albumId" value="@viewModel.Album.AlbumId" />
+                                <input type="hidden" name="albumName" value="@viewModel.Album.AlbumName" />
+                                <div style="flex-grow: 1; margin-right: 10px;">
+                                    <!-- 为了让input和按钮有间隔 -->
+                                    <input type="file" name="imageFiles" multiple style="width: 100%;"accept=".png, .jpg, .jpeg;">
+                                </div>
+                                <button type="submit" style="white-space: nowrap;">上傳</button>
+                            </form>
+                        </div>
+                       <hr />
+                     
 
-                    <div id="myModal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="Img01">
+                        <!-- 相册中的图片 -->
+                        @foreach (var photo in viewModel.Photos!)
+                        {
+                            <div id="Pho-@photo.PhotoId" class="image-container">
+                                <img id="dynamicImage-@photo.PhotoId" src="@photo.PhotoPath" class="myImages" data-photo-id="@photo.PhotoId" style="width: 165px;height:165px;" alt="Photo" />
+                                @if (@ViewBag.IsMyPage == true)
+                                    {
+                                        <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId" data-upload-date="@photo.UploadDate"><i class="bi bi-trash"></i></button>
+                                    }    
+                            </div> 
+                        }
+                        @if (!viewModel.Photos.Any())
+                        {
+                            <h3 style="text-align:center">目前沒有新增任何相片</h3>
+                        }
+
+                        <div id="myModal" class="modal">
+                            <div class="close"><i class="bi bi-x-circle"></i></div>
+                            <img class="modal-content" id="Img01">
+                        </div>
+
+
                     </div>
-
-
-                </div>
+                }
+            }else
+            {
+                <h1 style="text-align:center;">目前沒有新增任何相簿</h1>
             }
         </div>
+        
     </div>
 
 
@@ -267,7 +328,7 @@
         });
         $('.showUploadFormButton').click(function () {
             // 获取点击的按钮对应的相簿ID
-            var albumId = $(this).data('album-id');
+            var albumId = $('.showUploadFormButton').data('album-id');
             // 切换对应相簿ID的上传表单的显示状态
             $('.uploadForm[data-album-id="' + albumId + '"]').toggle();
         });
@@ -401,4 +462,3 @@
 
 
     </script>
-</body>
