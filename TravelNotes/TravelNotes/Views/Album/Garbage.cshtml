@@ -1,13 +1,44 @@
 ﻿@model TravelNotes.Models.GarbageViewModel;
-<!-- Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
 
 <style>
+    #TopS {
+        display: flex;
+        align-items: center; /* 使所有项垂直居中 */
+        z-index: 100;
+    }
+
+        #TopS > div {
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+    #GuidedTour > a {
+        border-radius: 10px;
+    }
+
+        #GuidedTour > a:hover {
+            background-color: whitesmoke;
+            transform: scale(1.05);
+        }
+
+    #A {
+        display: inline-block;
+        margin-top: 10px;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        background-color: white;
+        border: 5px solid gray;
+        border-radius: 20px;
+        width: 100%;
+        height: auto;
+        padding-top: 14px;
+    }
     .image-container {
         display: inline-block;
         margin-left: 20px;
@@ -51,33 +82,81 @@
         .image-container:hover .hover-button-2 {
             opacity: 1; /* 滑鼠停在上方才顯示出來 */
         }
-</style>
-<header>
 
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo">我的相片</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album">我的相簿</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage">我的垃圾桶</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    #deleteButton {
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: #F3E4C6;
+    }
+
+        #deleteButton:hover {
+        transform: scale(1.05);
+        background-color: whitesmoke;
+    }
+    #RetuAndDele > form > button{
+        border: none;
+        width: 45px;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    #RetuAndDele > form > button:hover{
+        transform: scale(1.05);
+        background-color: whitesmoke;
+
+    }
+
+    #deleteAllAlbum {
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: white;
+    }
+
+        #deleteAllAlbum:hover {
+            transform: scale(1.05);
+            background-color: whitesmoke;
+        }
+
+    #deleteAllPhoto{
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: white;
+    }
+
+        #deleteAllPhoto:hover {
+        transform: scale(1.05);
+        background-color: whitesmoke;
+    }
+</style>
+<div id="TopS">
     <div>
-        <h1>垃圾桶</h1>
+        <a class="nav-link text-dark" style="font-weight: bold;font-size:20px;" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
+    </div>
+    <div id="GuidedTour" style="margin:10px;">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" style="font-weight: bold;font-size:20px;">我的相片</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" style="font-weight: bold;font-size:20px;">我的相簿</a>
+        @if (@ViewBag.IsMyPage == true)
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage" style="background-color:whitesmoke;font-weight: bold;border-radius: 10px;font-size:20px;">我的垃圾桶</a>
+        }
+        
+
+    </div>
+    @if (@ViewBag.IsMyPage == true)
+    {
+       <div style="margin-left:48%;">
+            <button id="deleteButton" class="nav-link text-dark" style="font-weight: bold;font-size:20px;"><i class="bi bi-trash"></i> 全部清空</button>
+       </div> 
+    }
+    
+</div>
+    <div>
         <div id="SuccessMessage" class="alert alert-success" style="display:none;"></div>
         <div id="FalseMessage" class="alert alert-danger" style="display:none;"></div>
         @if (TempData["Message"] != null)
@@ -86,50 +165,124 @@
                 @TempData["Message"]
             </div>
         }
-        <button id="deleteButton">全部清空</button>
+    </div>
+<div id="A">
+    <div style="margin-left:20px;">
+        <div style="display:inline-block;font-size:30px;"><i class="fa-solid fa-book"></i> 相簿</div>
+        @if (@ViewBag.IsMyPage == true)
+        {
+            <div style="display:inline-block;margin-left:1000px;font-weight: bold;font-size:16px;"><button id="deleteAllAlbum">清空相簿</button></div>
+            
+        }
+        
+        <hr />
+        @if (Model.Albums != null && Model.Albums.Any())
+        {
+            @foreach (var album in Model.Albums!)
+            {
+                <div style="display:inline-block;margin-left:20px;">
+                    <!-- 图片和段落的容器 -->
+                    <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;">
+                        <img style="width:100px;" src="~/images/photo-album.png" alt="Folder Icon" />
+                        <p style="margin:0;">@album.AlbumName</p>
+                    </div>
+                    @if (@ViewBag.IsMyPage == true)
+                    {
+                        <!-- 按钮容器 -->
+                    <div id="RetuAndDele" style="display: flex; justify-content: space-between;">
+                        <!-- 还原相册的表单 -->
+                        <form method="post" action="/Album/RestoreAlbum" style="display: inline;">
+                            <input type="hidden" name="albumId" value="@album.AlbumId" />
+                            <!-- 使用<button>标签来包裹图标，通过JS提交表单 -->
+                            <button type="button" onclick="submitForm(this)">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </button>
+                        </form>
+
+                        <!-- 删除相册的表单 -->
+                        <form method="post" action="/Album/DeleteAlb" style="display: inline;">
+                            <input type="hidden" name="albumId" value="@album.AlbumId" />
+                            <!-- 使用<button>标签并添加点击事件 -->
+                            <button type="button" onclick="confirmDeletion(this)">
+                                <i class="bi bi-trash"></i> <!-- Bootstrap 图标 -->
+                            </button>
+                        </form>
+                    </div>
+                        
+                    }
+                    
+                </div>
+            }
+        }
+        else
+        {
+            <h3>目前沒有任何相簿</h3>
+        }
     </div>
     <hr />
-</header>
-<body>
-    <h2>相簿</h2>
+    <div style="margin:20px;">
+        <div style="display:inline-block;font-size:30px;"><i class="bi bi-images"></i> 相片</div>
+        @if (@ViewBag.IsMyPage == true)
+        {
+           <div style="display:inline-block;margin-left:1000px;font-weight: bold;font-size:16px;"><button id="deleteAllPhoto">清空相片</button></div> 
+        }
+        
+        <hr />
+        @if (Model.Photos != null && Model.Photos.Any())
+            {
+                @foreach (var photo in Model.Photos!)
+                {
+                // 假设photo.UploadDate是DateOnly类型
+                DateOnly uploadDate = (DateOnly)photo.UploadDate;
 
-    <button id="deleteAllAlbum">清空相簿</button>
+                // 将DateOnly转换为DateTime，时间设置为当天的开始（即午夜0点）
+                DateTime uploadDateTime = uploadDate.ToDateTime(new TimeOnly(0, 0));
 
-    @foreach (var album in Model.Albums!)
-    {
-        <div style="display:inline-block">
-            <img style="width:80px" src="~/images/photo-album.png" alt="Folder Icon" />
-            <p style="margin-left:25px">@album.AlbumName</p>
+                // 计算从上传日期到现在的天数差异
+                TimeSpan difference = DateTime.Now - uploadDateTime;
 
-            <!-- 还原相册的表单 -->
-            <form method="post" action="/Album/RestoreAlbum" style="display: inline;">
-                <input type="hidden" name="albumId" value="@album.AlbumId" />
-                <input type="submit" value="還原" />
-            </form>
+                // 计算到达30天还剩多少天
+                int daysLeft = 30 - difference.Days;
 
-            <!-- 删除相册的表单 -->
-            <form method="post" action="/Album/DeleteAlb" style="display: inline;">
-                <input type="hidden" name="albumId" value="@album.AlbumId" />
-                <input type="submit" value="刪除" onclick="return confirm('確定要刪除這個相簿嗎?');" />
-            </form>
-        </div>
-    }
-    <hr />
-    <h2>相片</h2>
-    <button id="deleteAllPhoto">清空相片</button>
-    @foreach (var photo in Model.Photos!)
-    {
-        <div id="Pho" class="image-container">
-            <img id="dynamicImage" src="@photo.PhotoPath" class="myImages" style="width: 150px;height:150px;" />
-            <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId "><i class="bi bi-trash"></i></button>
-            <button id="return-image-btn-@photo.PhotoId" class="hover-button-2" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId "><i class="bi bi-arrow-counterclockwise"></i></button>
-        </div>
-    }
+                // 确保天数差异为正数，如果超过30天，可以设置为0或者保持为负数，根据你的需求来调整
+                daysLeft = Math.Max(daysLeft, 0);
+                <div id="Pho" class="image-container" style="margin-bottom:10px;">
+                        <img id="dynamicImage" src="@photo.PhotoPath" class="myImages" style="width: 150px;height:150px;" />
+                        @if (@ViewBag.IsMyPage == true)
+                        {
+                            <div>
+                                <p style="text-align:center;">距離刪除日期還有 @daysLeft 天</p>
+                            </div> 
+                            <button id="change-image-btn-@photo.PhotoId" class="hover-button" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId "><i class="bi bi-trash"></i></button>
+                            <button id="return-image-btn-@photo.PhotoId" class="hover-button-2" data-album-id="@photo.AlbumId" data-photo-id="@photo.PhotoId "><i class="bi bi-arrow-counterclockwise"></i></button>
+                        }
+                    
+                        
+                    </div>
+                }
+        }else
+        {
+            <h3>目前沒有任何相片</h3>
+        }
+    </div>
 
-
+</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-
+    function submitForm(button) {
+        // 找到按钮所在的表单并提交
+        var form = button.closest('form');
+        form.submit();
+    }
+    function confirmDeletion(button) {
+        // 弹出确认对话框
+        var confirmed = confirm('确定要删除这个相簿吗?');
+        if (confirmed) {
+            // 如果用户点击"确定", 提交所在的表单
+            var form = button.closest('form');
+            form.submit();
+        }
+    }
 
         $(document).ready(function () {
             var successMessage = localStorage.getItem('deleteSuccessMessage');
@@ -294,4 +447,4 @@
         });
 
     </script>
-</body>
+

@@ -20,61 +20,52 @@ namespace TravelNotes.Controllers
             _logger = logger;
             _context = context;
         }
-
-        //public IActionResult Index(string search)
-        //{
-        //    List<article> articles;
-        //    if (!string.IsNullOrWhiteSpace(search))
-        //    {
-        //        // 当提供搜索条件时，根据Title和Contents搜索，并按LikeCount降序排序
-        //        articles = _context.article
-        //                    .Where(a => (a.Contents != null && a.Contents.Contains(search) && a.ArticleState == "發佈")
-        //                             || (a.Title != null && a.Title.Contains(search) && a.ArticleState == "發佈"))
-        //                    .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
-        //                    .ToList();
-        //    }
-        //    else
-        //    {
-        //        // 当没有提供搜索条件时，直接按LikeCount降序排序显示所有文章
-        //        articles = _context.article
-        //            .Where(a => a.ArticleState == "發佈")
-        //                    .OrderByDescending(a => a.LikeCount) // 按LikeCount从大到小排序
-        //                    .ToList();
-        //    }
-        //    //List<article> articles1 = _context.article.ToList();
-        //    List<usersArticleModel> dataList = new List<usersArticleModel>();
-        //    foreach (article article in articles)
-        //    {
-        //        users user = _context.users.FirstOrDefault(a => a.UserId == article.UserId);
-        //        usersArticleModel data = new usersArticleModel();
-        //        data.article = article;
-        //        data.user = user;
-        //        dataList.Add(data);
-        //    }
-
-        //    return View(dataList);
-        //}
         public IActionResult Index(string search)
         {
-            // 定义正则表达式来匹配HTML标签
             Regex htmlTagRegex = new Regex("<.*?>");
 
-            // 检索所有状态为"發佈"的文章
-            var articles = _context.article
+            // 从数据库检索所有状态为"發佈"的文章
+            var articlesWithSpots = _context.article
                 .Where(a => a.ArticleState == "發佈")
-                .ToList() // 先将查询结果物化，将数据拉取到内存中
-                .Where(a => !string.IsNullOrWhiteSpace(search) ?
-                    (a.Contents != null && htmlTagRegex.Replace(a.Contents, "").Contains(search)) ||
-                    (a.Title != null && a.Title.Contains(search)) : true)
-                .OrderByDescending(a => a.LikeCount) // 对结果进行LikeCount降序排序
+                .Join(_context.Spots, // 连接Spots表
+                      article => article.SpotId,
+                      spot => spot.SpotId,
+                      (article, spot) => new { Article = article, Spot = spot })
+                .ToList(); // 物化查询结果以便在内存中处理
+
+            // 过滤: 如果提供了搜索字符串，就在内存中应用正则表达式去除HTML标签后进行搜索
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                articlesWithSpots = articlesWithSpots
+                    .Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
+                                a.Article.Title.Contains(search) ||
+                                a.Spot.ScenicSpotName.Contains(search))
+                    .ToList();
+            }
+
+            // 对结果进行LikeCount降序排序并转换为usersArticleModel列表
+            var dataList = articlesWithSpots
+                .OrderByDescending(a => a.Article.LikeCount)
+                .Select(a => new usersArticleModel
+                {
+                    article = a.Article,
+                    user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
+                    // 如果你还需要从Spots表中获取信息，你可以在这里添加
+                    // 比如，SpotName = a.Spot.ScenicSpotName
+                })
                 .ToList();
 
-            // 转换为usersArticleModel列表
-            List<usersArticleModel> dataList = articles.Select(article => new usersArticleModel
+            string userId;
+            users loginUser = new users();
+            if (Request.Cookies.TryGetValue("UsernameCookie", out userId))
             {
-                article = article,
-                user = _context.users.FirstOrDefault(u => u.UserId == article.UserId)
-            }).ToList();
+                loginUser = _context.users.FirstOrDefault(a => a.UserId == Convert.ToInt32(userId));
+            }
+            else
+            {
+                loginUser.UserId = 0;
+            }
+            ViewBag.loginUser = loginUser;
 
             return View(dataList);
         }

@@ -1,32 +1,50 @@
 ﻿@model List<TravelNotes.Models.photo>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <style>
     #TopS {
-        position: sticky;
-        top: -1%;
-        width: 100%;
-        height: 58px;
-        margin-top: -7px;
-        z-index: 999;
-        font-size:22px;
-        background-color:#F3E4C6
+        display: flex;
+        align-items: center; /* 使所有项垂直居中 */
+        z-index:100;
+    }
+
+        #TopS > div {
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+    #GuidedTour > a{
+        border-radius:10px;
+    }
+
+    #GuidedTour > a:hover{
+        background-color: whitesmoke;
+            transform: scale(1.05);
     }
 
     #A {
-        display: flex;
+        display:inline-block;
+        margin-top:10px;
         justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直居中 */
-        height: 100vh; /* 让容器高度占满整个视窗高度 */
+        align-items: center; /* 垂直居中 */   
+        background-color: white;
+        border: 5px solid gray;
+        border-radius:20px;
+        width: 100%;
+        height: auto;
+        padding-top:14px;
+        text-align:center;
         
     }
 
     .image-container {
-        display: inline-block;
-        margin-left: 1.8px;
-        margin-top: 3px;
-        margin-bottom: 5px;
         position: relative;
+        display: inline-block;
+        padding:2px;
+        padding-bottom:4px;
+
     }
 
         .image-container:hover {
@@ -36,8 +54,8 @@
         .image-container .hover-button {
             position: absolute;
             border: none;
-            top: 0; /* 定位到容器的左上角 */
-            left: 0;
+            top: 2px; /* 定位到容器的左上角 */
+            left: 2px;
             width: 40px; /* 按钮宽度，根据需要调整 */
             height: 40px; /* 按钮高度，根据需要调整 */
             color: white; /* 按钮文字颜色为白色 */
@@ -46,7 +64,6 @@
             opacity: 0; /* 初始化不可见 */
             transition: opacity 0.3s ease; /* 平滑过渡效果 */
             cursor: pointer;
-            background-color: black;
             background-color: rgba(0,0,0,0.3);
         }
 
@@ -55,14 +72,7 @@
         }
 
 
-    .check-icon {
-        font-size: 24px; /* 或任何合适的大小 */
-        position: absolute;
-        top: 0;
-        right: 0;
-        color: black; /* 或任何你希望的颜色 */
-        cursor: pointer;
-    }
+
     .modal {
         display: none; /* 不顯示 */
         position: fixed; /* 固定定位 */
@@ -85,12 +95,22 @@
     /* 關閉按鈕 */
     .close {
         position: absolute;
-        top: 15px;
+        width: 35px; /* 设置宽度 */
+        height: 35px; /* 设置高度 */
+        display: flex; /* 使用弹性盒子 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        top: 35px;
         right: 35px;
         color: #f1f1f1;
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
+        border-radius: 35px;
+        z-index:9999
+    }
+    .close:hover{
+            transform: scale(1.2);
     }
     /* 添加一個樣式以突顯選中的圖片 */
     .selected {
@@ -99,177 +119,193 @@
     }
 
 
-    
-    #uploadBtn{
-        position:absolute; 
-        border: none !important;
-        background-color: #B5C1B4;
-        font-weight: bold;
-        border-radius: 10px 0 0 0;
-        right: 12%;
-        top: 10%;
-        height: 51px;
-    }
-    #uploadBtn:hover{
-        transform: scale(1.05);
-        background-color: ghostwhite;
-    }
-    #toggle-select-mode {
+    .check-icon {
+        font-size: 24px; /* 或任何合适的大小 */
         position: absolute;
-        border: none !important;
-        background-color: #B5C1B4;
-        font-weight: bold;
-        right: 7.7%;
-        top: 10%;
-        height: 51px;
-    }
-    #toggle-select-mode:hover{
-        transform: scale(1.05);
-        background-color: ghostwhite;
+        top: 10px;
+        right: 14px;
+        color: black; /* 或任何你希望的颜色 */
+        cursor: pointer;
     }
 
-    #updateNullAlbumPhotos{
-        position: absolute;
-        border: none !important;
-        background-color: #B5C1B4;
+    
+    #uploadBtn{
+        border: none;
         font-weight: bold;
-        border-radius: 0 10px 0 0;
-        right: 0%;
-        top: 10%;
-        height: 51px;
+        border-radius: 10px;
+        font-size:20px;
+        background-color: #F3E4C6;
+    }
+    
+    #toggle-select-mode {
+        border: none;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 10px;
+        background-color: #F3E4C6;
+    }
+   
+
+    #updateNullAlbumPhotos{
+        border: none;
+        font-weight: bold;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: #F3E4C6;
+    }
+
+    #uploadBtn:hover {
+        transform: scale(1.05);
+        background-color: whitesmoke;
+    }
+    #toggle-select-mode:hover {
+        transform: scale(1.05);
+        background-color: whitesmoke;
     }
     #updateNullAlbumPhotos:hover {
         transform: scale(1.05);
-        background-color:ghostwhite;
+        background-color: whitesmoke;
     }
 
     .modal-navigation {
         cursor: pointer;
         position: absolute;
         top: 50%;
+        display: flex;
         transform: translateY(-50%);
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
         font-size: 2em;
         color: white;
         z-index: 1000;
         user-select: none;
+        width: 100%; /* 根据需要调整 */
+        height: 100%; /* 根据需要调整 */
     }
     .prev {
         left: 0;
+        line-height: 70px;
+        width:27.25%;
+        height:100%;
     }
 
     .next {
-        right: 0;
+        right:0;
+        line-height: 70px;
+        width: 27.25%;
+        height: 100%;
     }
-    
+
 
 
 </style>
-<header id="TopS">
-    <nav class="navbar navbar-expand-sm  navbar-light  ">
-
-        <div class="container-fluid" style="background-color:">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" style="background-color:#B5C1B4;font-weight: bold;border-radius: 10px;">我的相片</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" style="font-weight: bold;">我的相簿</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage" style="font-weight: bold;">我的垃圾桶</a>
-                    </li>
-                    <li>
-                        <form asp-action="UploadImages" method="post" enctype="multipart/form-data">
-                            <input type="file" class="form-control" id="imageFiles" name="imageFiles" accept=".png, .jpg, .jpeg" multiple style="display:none;">
-                            <button type="button" id="uploadBtn">上傳</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <button id="toggle-select-mode">選取</button>
-                    </li>
-                    <li>
-                        <button id="updateNullAlbumPhotos"style="z-index:1000">清空相片</button>
-                    </li>
-                    
-                </ul>
-                
-            </div>
-        </div>
-    </nav>
-    <div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 150px; z-index: 1050; display: flex; flex-direction: column; justify-content: center; text-align: center;">
-        @if (TempData["Message"] != null)
-        {
-            <div class="alert alert-warning" role="alert" id="messageAlert">
-                @TempData["Message"]
-            </div>
-        }
-        <div id="SuccessMessage" class="alert alert-success" style="display:none;">
-            刪除成功！
-        </div>
-        <div id="FalseMessage" class="alert alert-danger" style="display:none;">
-            刪除失敗！
-        </div>
-        <div id="successMessage" class="alert alert-success" style="display:none;"></div>
-        <div id="falseMessage" class="alert alert-danger" style="display:none;"></div>
+<div id="TopS">
+    <div >
+        <a class="nav-link text-dark" style="font-weight: bold;font-size:20px;" asp-area="" asp-controller="Home" asp-action="Index">TravelNotes</a>
     </div>
-</header>
-<body>
-    <div id="A">
-        <div style="background-color:white;border: 1px solid black; width: 96%;height:96%">
+    <div id="GuidedTour" style="margin:10px;">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Photo" asp-route-userId=@ViewBag.UserPage style="background-color:whitesmoke;font-weight: bold;border-radius: 10px;font-size:20px;">我的相片</a>
 
+        <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Album" asp-route-userId=@ViewBag.UserPage style="font-weight: bold;font-size:20px;">我的相簿</a>
+        @if (@ViewBag.IsMyPage == true)
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Garbage" style="font-weight: bold;font-size:20px;">我的垃圾桶</a>
+        }
+    </div>
+
+    <div style="margin-left:33%;">
+        @if (@ViewBag.IsMyPage == true){
+            <form asp-action="UploadImages" method="post" enctype="multipart/form-data">
+            <input type="file" class="form-control" id="imageFiles" name="imageFiles" accept=".png, .jpg, .jpeg" multiple style="display:none;">
+            <button type="button" id="uploadBtn" class="nav-link text-dark"><i class="bi bi-upload"></i>  上傳</button>
+            </form>
+            <button id="toggle-select-mode" class="nav-link text-dark">
+            
+                <i class="bi bi-hand-index"></i> 選取 
+          
+            </button>
+            <button id="updateNullAlbumPhotos" class="nav-link text-dark" style="z-index:1000;"><i class="bi bi-trash"></i> 清空相片</button>
+        }
+    </div>
+</div>
+<div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 100px; z-index: 1050; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-warning" role="alert" id="messageAlert">
+            @TempData["Message"]
+        </div>
+    }
+    <div id="SuccessMessage" class="alert alert-success" style="display:none;">
+        刪除成功！
+    </div>
+    <div id="FalseMessage" class="alert alert-danger" style="display:none;">
+        刪除失敗！
+    </div>
+    <div id="successMessage" class="alert alert-success" style="display:none;"></div>
+    <div id="falseMessage" class="alert alert-danger" style="display:none;"></div>
+</div>
+
+    <div id="A">
+        @if (Model != null && Model.Any())
+        {
             @foreach (photo p in Model)
             {
                 <div id="Pho-@p.PhotoId" class="image-container">
                     <img id="dynamicImage-@p.PhotoId" src="@p.PhotoPath" class="image-item" data-photodescription="@p.PhotoDescription" style="width:150px;height:150px;" />
+                @if (@ViewBag.IsMyPage == true)
+                {
                     <button id="change-image-btn-@p.PhotoId" class="hover-button" data-album-id="@p.AlbumId" data-photo-id="@p.PhotoId" data-upload-date="@p.UploadDate"><i class="bi bi-trash"></i></button>
-                    <i class="bi bi-check-circle check-icon" style="display:none;" id="CheckCircle-@p.PhotoId"></i>
+                }
+                <i class="bi bi-check-circle-fill check-icon" style="display:none;" id="CheckCircle-@p.PhotoId"></i>
                 </div>
                 <div id="myModal" class="modal">
-                    <span class="close">&times;</span>
+                    <div class="close"><i class="bi bi-x-circle"></i></div>
                     <img class="modal-content" id="Img01">
-                    <a class="prev modal-navigation" onclick="changeImage(-1)">&#10094;</a>
-                    <a class="next modal-navigation" onclick="changeImage(1)">&#10095;</a>
+                    <a class="prev modal-navigation" onclick="changeImage(-1)"><i class="bi bi-arrow-left-circle"></i></a>
+                    <a class="next modal-navigation" onclick="changeImage(1)"><i class="bi bi-arrow-right-circle"></i></a>
                 </div>
             }
-        </div>
-        
-
-    </div>
-    
-    <div id="popup-div" style="display:none; position: fixed; top: 90%; left: 50%; transform: translate(-50%, -50%); background-color: black; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
+        }
+        else
+        {
+            <h1>目前沒有新增任何相片</h1>
+        }
+    <div id="popup-div" style="display:none; position: fixed; top: 90%; left: 45%; transform: translate(-50%, -50%); background-color: black; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
         <i class="bi bi-trash" id="delete-selected-images" style="color: white; display:none;cursor: pointer;"></i>
         <div id="selected-count" style="color: white; display: inline-block; margin-left: 10px;"></div>
     </div>
+    </div>
+    
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        document.getElementById('uploadBtn').addEventListener('click', function () {
-            document.getElementById('imageFiles').click();
-        });
-
-        document.getElementById('imageFiles').addEventListener('change', function () {
-            if (this.files.length > 0) {
-                // 如果已選擇檔案，提交表單
-                this.form.submit();
-            }
-        });
-
         var modal = document.getElementById("myModal");
         var modalImg = document.getElementById("Img01");
         var images = document.getElementsByClassName('image-item');
         var currentImageIndex = 0; // 当前显示图片的索引
         let isSelectModeActive = false; // 初始时不在选择模式
+        var IsMyPage = @Html.Raw(Json.Serialize(ViewBag.IsMyPage));
+        if (IsMyPage == true){
+            $('#uploadBtn').click(function () {
+                $('#imageFiles').click();
+            });
+            }
+            $('#imageFiles').change(function() {
+                if (this.files.length > 0)
+                {
+            // 如果已选择文件，则提交表单
+            $(this.form).submit();
+                }
+            });
+        
+        
+            
+                $('#toggle-select-mode').click(function () {
+                    isSelectModeActive = !isSelectModeActive; // 切换选择模式的状态
+                });  
 
-        document.getElementById('toggle-select-mode').addEventListener('click', function () {
-            isSelectModeActive = !isSelectModeActive; // 切换选择模式的状态
-            this.textContent = isSelectModeActive ? "取消" : "选取";
-        });
+        
 
         // 给所有图片添加点击事件
         for (let i = 0; i < images.length; i++) {
@@ -315,18 +351,25 @@
         document.addEventListener('DOMContentLoaded', function () { 
             const toggleSelectModeBtn = document.getElementById('toggle-select-mode');
             const popupDiv = document.getElementById('popup-div');
+            const Clean = document.getElementById('updateNullAlbumPhotos');
             let isSelectModeActive = false;
-
-            toggleSelectModeBtn.addEventListener('click', function () {
+            
+                $('#toggle-select-mode').click(function () {
                 isSelectModeActive = !isSelectModeActive;
-                this.textContent = isSelectModeActive ? "取消" : "選取";
-                document.querySelectorAll('.hover-button').forEach(function (btn) {
-                    btn.style.display = isSelectModeActive ? 'none' : 'block';
+                this.innerHTML = isSelectModeActive ? "<i class='fa-solid fa-ban'></i> 取消" : "<i class='bi bi-hand-index'></i> 選取";
+            Clean.style.display = isSelectModeActive ? 'none' : 'block';
+            document.querySelectorAll('.hover-button').forEach(function (btn) {
+                    btn.style.display = isSelectModeActive ? 'none' : 'block'; 
                 });
+                
+            
+                
+            
 
                 if (!isSelectModeActive) {
                     document.querySelectorAll('.check-icon').forEach(function (icon) {
                         icon.style.display = 'none';
+                        
                     });
                     // 移除所有选中图片的'selected'类
                     document.querySelectorAll('.image-item.selected').forEach(function (image) {
@@ -366,6 +409,7 @@
             });
             function updateSelectedCount() {
                 const selectedCount = document.querySelectorAll('.image-item.selected').length;
+                
                 if (selectedCount > 0) {
                     $('#delete-selected-images').css('display', 'inline-block');
                 }
@@ -373,6 +417,7 @@
                     $('#delete-selected-images').css('display', 'none');
                 }
                 document.getElementById('selected-count').textContent = `已選取${selectedCount}張相片`;
+                
             }
             
 
@@ -514,25 +559,6 @@
                 localStorage.removeItem('deleteSuccessMessage');
             }
         });
-        document.addEventListener('DOMContentLoaded', function () {
-            var images = document.getElementsByClassName('image-item');
-
-            for (var i = 0; i < images.length; i++) {
-                images[i].addEventListener('contextmenu', function (e) {
-                    e.preventDefault(); // 阻止默认的右键菜单
-                    var contextMenu = document.getElementById("contextMenu");
-                    // 设置菜单位置
-                    contextMenu.style.left = e.pageX + 'px';
-                    contextMenu.style.top = e.pageY + 'px';
-                    contextMenu.style.display = "block"; // 显示菜单
-                });
-            }
-
-            // 点击其他地方隐藏菜单
-            document.addEventListener('click', function (e) {
-                document.getElementById("contextMenu").style.display = 'none';
-            });
-        });
 
         $(document).ready(function () {
             // 檢查localStorage中是否有删除成功的消息
@@ -551,4 +577,3 @@
             }
         });
     </script>
-</body>
