@@ -24,9 +24,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 1000;
     }
-    .row{
-        margin:5px;
-    }
+
     .headShotImg {
         border-radius: 50%;
         width: 50px; /* 設置圖片的寬度 */
@@ -65,7 +63,10 @@
         background-color: var(--color2);
         color: white;
     }
-    
+    .topRightPanel{
+        padding:5px;
+        margin:5px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
@@ -111,23 +112,33 @@
                 
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="row">
-                <div class="col-auto">
+        <div class="col-sm-3 ">
+            <div class="row justify-content-end topRightPanel" >
+                <div class="col-auto ml-auto" >
                     <i class="fa-regular fa-thumbs-up fa-2xl btn" style="color: #da3f0b;" id="likeButton"></i>
                     <span id="likeCount">@target.LikeCount</span>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto ml-auto">
                     <span>瀏覽人數:</span><span id="pageView">@target.PageView</span>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-auto">
+            <div class="row justify-content-end topRightPanel">
+                <div class="col-auto ml-auto">
                     <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; " />
                 </div>
 
             </div>
+            @if(loginUser.UserId == target.UserId)
+            {
+                <div class="row justify-content-end topRightPanel">
+                    <div class="col-auto ml-auto">
+                        <a class="btn btn-secondary buttons" href="/Article/Draft?articleId=@target.ArticleId">編輯此文章</a>
+                    </div>
+
+                </div>
+            }
+            
         </div>
     </div>
 </div>
@@ -145,7 +156,7 @@
             <div class="col-8">
                 <div class="messageContents">@item.Contents</div>
             </div>
-            <div class="col-3">
+            <div class="col-3 text-end">
                 <span>@item.MessageTime</span>
             </div>
 

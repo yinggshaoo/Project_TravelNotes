@@ -187,7 +187,10 @@
                     <button id="createButton" class="btn btn-secondary buttons">新增</button>
                     <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
                 }
-
+                else
+                {
+                    <a class="btn btn-secondary buttons" href="/Article/ArticleView?articleId=@target.ArticleId">到文章頁面</a>
+                }
                 <button id="deleteButton" class="btn btn-danger">删除</button>
                 @*                 <button id="testButton" class="btn btn-danger">測試</button> *@
             </div>
