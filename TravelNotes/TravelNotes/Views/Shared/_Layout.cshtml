@@ -47,7 +47,9 @@
 			margin: 0;
 			padding: 0;
 		}
-
+		#siteLogo{
+			width:50px;
+		}
 		#allContainer {
 			display: flex;
 		}
@@ -110,6 +112,7 @@
 			height: 50px; /* 設置圖片的高度 */
 			cursor: pointer
 		}
+		
 	</style>
 
 </head>
@@ -118,7 +121,7 @@
 	<div id="sideBar">
 		<div class="row my-4">
 			<a asp-controller="Home" asp-action="Index">
-				Logo
+				<img src="~/images/Logo_text_big.webp" alt="Alternate Text" id="siteLogo" />
 			</a>
 		</div>
 		<div class="row my-4">

@@ -67,14 +67,18 @@
         width: 200px;
         height: 200px;
     }
+
+    .partialViewContainer{
+        cursor:pointer;
+    }
 </style>
 
-<div>
-    <div>
+<div onclick="articleView(@article.ArticleId)" class="partialViewContainer">
+    <div >
         <span>發佈時間:@article.PublishTime</span>
     </div>
     <div class="titleContainer">
-        <div onclick="articleView(@article.ArticleId)" class="partialViewTitle">@article.Title</div>
+        <div  class="partialViewTitle">@article.Title</div>
         <div class="partialViewSubTitle">@article.Subtitle</div>
     </div>
     <div class="outerDiv">
