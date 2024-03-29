@@ -6,20 +6,22 @@
     color:aliceblue;
 }
 
-.container-fluid {
+
+.container{
     display: flex;
-    /* 水平置中 */
     justify-content: center;
-    /* 垂直置中 */
     align-items: center;
+    
 }
 
-img{
-    margin-left: 20%;
-    width: 25%;
-    height: auto;
-}
-
-.custom-btn-text-color {
-    color: red; /* 修改文字顏色為紅色，可以修改為你想要的任何顏色 */
-}
+    .container img {
+        width: 200px;
+        height: auto;
+        position: relative;
+        left: 50%;
+        top: 15px;
+        margin-bottom: 15px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        object-fit: cover;
+    }

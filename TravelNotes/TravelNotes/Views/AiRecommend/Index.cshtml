@@ -2,15 +2,11 @@
     Layout = "_AiLayout";
 }
 
-
-<div class="row row-cols-1">
-    <div class="col top bg-primary full">Column</div>
-    <div class="col">
-        <img src="~/img/logo.png" />
+<div class="row">
+    <div class="col-12">
+        <img src="~/images/logo.png" />
     </div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div id="Hello">
+    <div class="col-12" id="Hello">
         <h2>您好!今天想去哪裡玩? 我可以幫您推薦喔</h2>
     </div>
     <div class="col" id="Aip">
@@ -19,24 +15,22 @@
     <div class="col" id="Cip">
         @Html.Partial("../shared/AiRecommendPartialView/CustomerPickPartial.cshtml")
     </div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
-            </div>
-            <div class="col">
-                <a class="btn btn-outline-secondary btn-lg"  asp-controller="Home" asp-action="Index">
-                    回首頁 ➜
-                </a>
-            </div>
-        </div>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
+    </div>
+    <div class="col-4">
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Home" asp-action="Index">
+            回首頁 ➜
+        </a>
     </div>
 </div>
+
 
 
 

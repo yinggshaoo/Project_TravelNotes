@@ -26,7 +26,7 @@
         if (typeof dataText[i] == 'undefined') {
             setTimeout(function () {
                 StartTextAnimation(0);
-            }, 20000);
+            }, 10000);
         }else if (i < dataText[i].length) {
             // text exists! start typewriter animation
             typeWriter(dataText[i], 0, function () {
