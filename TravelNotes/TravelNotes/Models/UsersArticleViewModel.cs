@@ -64,6 +64,8 @@ namespace TravelNotes.Models
 
 		public virtual users User { get; set; } = null!;
 
+		public string PasswordCookie { get; set; }
+
 
 		public UsersArticleViewModel()
 		{

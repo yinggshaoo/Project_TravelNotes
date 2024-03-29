@@ -6,6 +6,8 @@ using TravelNotes.Models;
 using System.IO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.RegularExpressions;
+using System.Text;
+using System.Security.Cryptography;
 
 
 namespace TravelNotes.Controllers
@@ -64,7 +66,11 @@ namespace TravelNotes.Controllers
 				.ToList();
 			// ??誹?┪ㄤよ? UsersArticleViewModel ??誹
 			UsersArticleViewModel viewModel = new UsersArticleViewModel();
+			// ? Cookie い?盞?
+			string passwordCookie = Request.Cookies["UserPasswordCookie"];
 			// 安? articles 琌 IEnumerable<Article> ?家?誹
+			// ?盞??????家
+			viewModel.PasswordCookie = passwordCookie;
 			viewModel.article = articles; // ?ゅ彻????家 article ?┦
 			viewModel.users = users;
 			ViewBag.loginUserId = loginUserId;
@@ -144,19 +150,42 @@ namespace TravelNotes.Controllers
 				return RedirectToAction("Login", "Member");
 				//矪瞶 Cookie ぃ薄猵
 			}
+			
+			int userId = Convert.ToInt32(cookieValue);
 			users a = _context.users.FirstOrDefault(a => a.UserId == UserId);
 			a.UserName = userName;
 			a.Phone = Phone;
 			a.Mail = Mail;
 			a.Gender = Gender;
-			a.Pwd = Pwd;
+			a.Pwd = ComputeSHA256Hash(Pwd);
+			//if (!string.IsNullOrEmpty(Pwd))
+			//{
+			//a.Pwd = ComputeSHA256Hash(Pwd); // ?衡盞?玂
+			//}
 			a.Nickname = Nickname;
 			a.Birthday = Birthday;
 			a.Address = Address;
 			a.Introduction = Introduction;
 			a.Interest = Interest;
 			_context.SaveChanges();
+			// 穝盞? Cookie
+			Response.Cookies.Append("UserPasswordCookie", Pwd);
 			return RedirectToAction("PersonalPage");
+		}
+
+		private string ComputeSHA256Hash(string input)
+		{
+			using (SHA256 sha256Hash = SHA256.Create())
+			{
+				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+				StringBuilder builder = new StringBuilder();
+				for (int i = 0; i < bytes.Length; i++)
+				{
+					builder.Append(bytes[i].ToString("x2"));
+				}
+				return builder.ToString();
+			}
 		}
 
 		//Load Photo DataList for LookBack
