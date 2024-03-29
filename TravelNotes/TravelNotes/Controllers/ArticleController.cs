@@ -337,7 +337,8 @@ namespace TravelNotes.Controllers
                             UserId = m.UserId,
                             MessageTime = m.MessageTime,
                             Headshot = u.Headshot,
-                        };
+							Nickname = u.Nickname
+						};
             ViewBag.messageBoards = messageBoards;
             users user = _context.users.FirstOrDefault(a => a.UserId == data.UserId)!;
             ViewBag.user = user;

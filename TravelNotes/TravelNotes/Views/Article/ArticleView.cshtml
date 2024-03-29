@@ -149,14 +149,15 @@
 <div id="messageBoard">
     @foreach (var item in ViewBag.messageBoards)
     {
-        <div class="row">
-            <div class="col-auto">
-                <img class="headShotImg" src="@item.Headshot" onclick="personalPageView(@item.UserId)" />
+        <div class="row justify-content-center align-items-center">
+            <div class="col-2" onclick="personalPageView(@item.UserId)">
+                <img class="headShotImg" src="@item.Headshot"/>
+                <span class="Nickname">@item.Nickname</span>
             </div>
             <div class="col-8">
                 <div class="messageContents">@item.Contents</div>
             </div>
-            <div class="col-3 text-end">
+            <div class="col-2 text-end">
                 <span>@item.MessageTime</span>
             </div>
 
@@ -174,14 +175,15 @@
     }
     else
     {
-        <div class="row">
-            <div class="col-auto">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-2">
                 <img class="headShotImg" src="@loginUser.Headshot" onclick="personalPageView(@loginUser.UserId)" />
+                <span class="Nickname">@loginUser.Nickname</span>
             </div>
             <div class="col-8">
                 <input type="text" id="messageInput" class="form-control articleInput" placeholder="留言......"/>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <button id="messageButton" class="btn btn-msg" >發佈</button>
             </div>
         </div>
