@@ -434,7 +434,7 @@ namespace TravelNotes.Controllers
 			string userId;
             bool result = Request.Cookies.TryGetValue("UsernameCookie", out userId);
 
-
+            
 
 			return View();
         }

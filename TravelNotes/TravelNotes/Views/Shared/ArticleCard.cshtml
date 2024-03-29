@@ -11,7 +11,8 @@
 
     var article = Model;
     string content = Model.Contents == null ? "" : Model.Contents;
-    content = Regex.Replace(content, @"<img\b[^>]*>", "");
+    content = Regex.Replace(content, @"<img\b[^>]*>", ""); //刪掉img標籤
+    content = Regex.Replace(content, @"<(?!p\b)[^>]+>", "<p>"); //全部換成p標籤
 }
 <style>
     .outerDiv {
@@ -33,6 +34,7 @@
     .inner2 {
         width: fit-content;
         height: fit-content;
+        margin-left:10px;
     }
 
     .titleContainer{
@@ -53,29 +55,36 @@
         }
     .partialViewSubTitle {
         font-size: 15px;
+        font-weight:bold;
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
     }
     .articleContent{
-        overflow:hidden;
-        height: 200px;
+        display: -webkit-box; /* 使用 flexbox */
+        -webkit-box-orient: vertical; /* 垂直方向 */
+        overflow: hidden; /* 超出部分隱藏 */
+        -webkit-line-clamp: 5; /* 指定顯示的行數 */
         width: 500px;
     }
 
     .articleImage{
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
     }
 
     .partialViewContainer{
         cursor:pointer;
     }
+
+    .partialViewTime{
+        color:gray;
+    }
 </style>
 
 <div onclick="articleView(@article.ArticleId)" class="partialViewContainer">
     <div >
-        <span>發佈時間:@article.PublishTime</span>
+        <span class="partialViewTime">發佈時間:@article.PublishTime</span>
     </div>
     <div class="titleContainer">
         <div  class="partialViewTitle">@article.Title</div>
@@ -104,7 +113,7 @@
     if (backendData_@article.ArticleId == null) {
             backendData_@article.ArticleId = "";
     }
-    //console.log(backendData_@article.ArticleId);
+    console.log(backendData_@article.ArticleId);
     $(function () {
         $('.articleContent_@article.ArticleId').html(backendData_@article.ArticleId);
         
