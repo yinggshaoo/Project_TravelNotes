@@ -1,5 +1,4 @@
-﻿@* @model UsersArticleViewModel *@
-@model TravelNotes.Models.UsersArticleViewModel
+﻿@model TravelNotes.Models.UsersArticleViewModel
 
 @{
 	var user = Model.users.UserId;
@@ -36,7 +35,7 @@
  		padding-top: 30px;
 		padding-bottom: 50px;
 		margin:60px 20px 0px 0px;
-		width:800px;
+		width:700px;
 	}
 
 	#rightpartdiv{
@@ -45,7 +44,7 @@
  */		border-radius: 50px;
 		padding-top: 30px;
 		height: fit-content;
-		margin:60px 0px 0px 50px;
+		margin:60px 0px 0px 160px;
 	}
 
 	.textColor{
@@ -68,6 +67,22 @@
 	#searchId{
 		background-color:whitesmoke;
 		width:200px;
+	}
+
+	.dropdown-toggle::after {
+		display: none;
+	}
+
+	.articleDropdown {
+		text-align: center; /* 將文字置中 */
+		
+	}
+
+	.setDropdown .btn.dropdown-toggle {
+		background-color: transparent; /* 取消按钮背景色 */
+		border: none; /* 取消按钮边框 */
+		box-shadow: none; /* 取消按钮阴影 */
+		color: inherit; /* 使用默认颜色 */
 	}
 
 	.editPencil {
@@ -102,18 +117,9 @@
 		cursor: pointer;
 	} */
 
-	.articleDropdown {
-		text-align: center; /* 將文字置中 */
-	}
+	
 
 </style>
-
-@*icon: ... *@
-<!-- <svg id="dots" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-					class="bi bi-three-dots" viewBox="0 0 16 16">
-					<path
-						d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
-				</svg> -->
 	<div class="g-5 row">
 		<div class="col-12 col-md-8" id="leftpartdiv">
 			<header>
@@ -158,16 +164,16 @@
 				@Html.Partial("ArticleCard", item)
 				</div>
 				@if(isMyPage){
-				<div class="dropdown" style="left:450px;">
+				<div class="dropdown setDropdown" style="left:450px;">
 					<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						<svg id="dots" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 						class="bi bi-three-dots" viewBox="0 0 16 16">
 							<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
 						</svg>
 					</button>
-						<ul class="dropdown-menu dropdown-menu-end articleDropdown" aria-labelledby="dropdownMenuButton1">
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
 							<li>
-								<a class="dropdown-item" href="~/Article/Draft?articleId=@item.ArticleId">
+							<a class="dropdown-item articleDropdown" href="~/Article/Draft?articleId=@item.ArticleId">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
 										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
 									</svg>&nbsp編輯
@@ -201,7 +207,7 @@
 					<br /><br />
 					@if (isMyPage)
 					{
-						<input type="file" @* id="userImage" *@ id="formFileSm" class="form-control form-control-sm" value="" />
+						<input type="file" id="formFileSm" class="form-control form-control-sm" value="" />
 					}
 				</div>
 				<div id="myProfileName">
@@ -210,10 +216,6 @@
 				<div class="myProfile" style="block">
 					<p>@Model.users.Introduction</p>
 				</div>
-				<!-- <p id="myEdit" class="d-inline-flex gap-1">
-					<button type="button" id="yearBtn" class="btn active" data-bs-toggle="button"
-						aria-pressed="true">Edit Profile</button>
-				</p> -->
 				<div id="myPersonalSettings">
 					<hr />
 					<div style="display:flex;">
@@ -308,9 +310,17 @@
 									<path d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802zM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.9.9 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.9.9 0 0 1 4 6.414zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4zM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z" />
 								</svg>&nbsp生日：
 							</label>
-							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday" required
-								   name="Birthday" value="@Model.users.Birthday?.ToString("yyyy-MM-dd")">
-						</div><br />
+						@if (@Model.users.Birthday == null)
+						{
+							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday"
+								   name="Birthday" value="">
+						}
+						else
+						{
+							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday"
+							name="Birthday" value="@Model.users.Birthday?.ToString("yyyy-MM-dd")">
+						}
+					</div><br />
 						@if (isMyPage)
 						{
 							<div>
@@ -339,7 +349,6 @@
 							</label>
 							<textarea type="text" name="Introduction" class="form-control personalInput">@Model.users.Introduction</textarea>
 							<br />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input id="saveSetting" type="submit" value="保存" class="form-control">
 						</div><br /><br />
 					</form>
@@ -367,9 +376,7 @@
 				processData: false,  // 禁止 jQuery 處理數據
 				contentType: false,  // 禁止 jQuery 設置內容類型
 				success: function (data) {
-					//console.log(data);
 					document.location = "/PersonalPage/PersonalPage/";
-					// alert("ok");
 				}
 			});
 		});

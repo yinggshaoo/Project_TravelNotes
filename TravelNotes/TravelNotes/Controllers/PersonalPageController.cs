@@ -124,6 +124,7 @@ namespace TravelNotes.Controllers
 			string srcString = "/img/" + Path.GetRelativePath(imgFolder, filePath).Replace('\\', '/');
 			var UserImage = _context.users.FirstOrDefault(x => x.UserId == UserId);
 			UserImage!.Headshot = srcString;
+			Response.Cookies.Append("UserheadshotCookie", srcString);
 			_context.SaveChanges();
 			// 更新??模型中的用??像信息
 			var viewModel = new UsersArticleViewModel
@@ -137,7 +138,7 @@ namespace TravelNotes.Controllers
 
 		//Update & Save User DataList for PersonalPage
 		[HttpPost]
-		public IActionResult Save(string userName, string Phone, string Mail, string Gender, string Pwd, string Nickname, DateOnly Birthday, string Address, string Introduction, string Interest)
+		public IActionResult Save(string userName, string Phone, string Mail, string Gender, string Pwd, string Nickname, DateOnly? Birthday, string Address, string Introduction, string Interest)
 		{
 			string cookieValue;
 			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
@@ -150,7 +151,13 @@ namespace TravelNotes.Controllers
 				return RedirectToAction("Login", "Member");
 				//處理 Cookie 不存在的情況
 			}
-			
+
+			// ?查生日字段是否?空，如果?空??其?置? null
+			if (string.IsNullOrEmpty(Request.Form["Birthday"]))
+			{
+				Birthday = null;
+			}
+
 			int userId = Convert.ToInt32(cookieValue);
 			users a = _context.users.FirstOrDefault(a => a.UserId == UserId);
 			a.UserName = userName;
@@ -191,19 +198,8 @@ namespace TravelNotes.Controllers
 		//Load Photo DataList for LookBack
 		public IActionResult Year(int? userId)
 		{
-			
 			string cookieValue;
 			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
-			if (result)
-			{
-				UserId = Convert.ToInt32(cookieValue);
-			}
-			else
-			{
-				return RedirectToAction("Login", "Member");
-				//處理 Cookie 不存在的情況
-			}
-			users users;//當前頁面使用者
 			int loginUserId = 0;
 			if (result)
 			{
@@ -240,6 +236,7 @@ namespace TravelNotes.Controllers
 			ViewBag.pic11 = bag.FirstOrDefault(a => a.Yid == 11);
 			ViewBag.pic12 = bag.FirstOrDefault(a => a.Yid == 12);
 			ViewBag.loginUserId = loginUserId;
+			ViewBag.isMyPage = loginUserId == userId;
 			return View(LookBackPhotoViewModel);
 		}
 
@@ -252,11 +249,6 @@ namespace TravelNotes.Controllers
 			if (result)
 			{
 				UserId = Convert.ToInt32(cookieValue);
-			}
-			else
-			{
-				return RedirectToAction("Login", "Member").ToString();
-				//處理 Cookie 不存在的情況
 			}
 			var LookBackImage = _context.LookBack.FirstOrDefault(a => a.UserId == UserId);
 			var data = _context.LookBack.FirstOrDefault(a => a.Yid == Yid && a.UserId == UserId);
