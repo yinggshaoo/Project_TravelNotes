@@ -1,11 +1,6 @@
 ﻿@model TravelNotes.Models.LookBackPhotoViewModel
 @{
-	// // @Model.photo.FirstOrDefault().PhotoPath;
-	// List<string> photoPath = new List<string>();
-	// var data = ViewBag.LookBackPhotoViewModel;
-	// //LookBackPhotoViewModel2? path1 = data.FirstOrDefault(a => a.Yid == 1);
-	// bool isMyPage = ViewBag.loginUserId == Model.LookBack.FirstOrDefault().UserId;
-	bool isMyPage = Model.LookBack != null && Model.LookBack.All(l => l.UserId == ViewBag.loginUserId);
+	bool isMyPage = ViewBag.isMyPage;
 }
 <head>
 	<title>Year</title>
