@@ -20,11 +20,7 @@
         width: fit-content;
         height: fit-content;
     }
-    .headShotImg{
-        border-radius: 50%;
-        width: 50px; 
-        height: 50px; 
-    }
+
     .inner1{
         flex-grow: 1;
         width:fit-content;
@@ -39,7 +35,9 @@
 
     .titleContainer{
         overflow: hidden; /* 隐藏溢出内容 */
-        width: 500px;
+        width: 400px;
+        margin-bottom:5px;
+        padding:0px;
     }
     .partialViewTitle{
         font-weight:bold;
@@ -48,6 +46,8 @@
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
         cursor:pointer;
+        margin:0px;
+        padding:0px;
     }
 
         .partialViewTitle:hover{
@@ -59,18 +59,22 @@
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
+        margin:0px;
+        padding:0px;
     }
     .articleContent{
         display: -webkit-box; /* 使用 flexbox */
         -webkit-box-orient: vertical; /* 垂直方向 */
         overflow: hidden; /* 超出部分隱藏 */
-        -webkit-line-clamp: 5; /* 指定顯示的行數 */
-        width: 500px;
+        -webkit-line-clamp: 3; /* 指定顯示的行數 */
+        width: 300px;
     }
-
+    .articleContent p{
+        font-size:14px
+    }
     .articleImage{
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
     }
 
     .partialViewContainer{
