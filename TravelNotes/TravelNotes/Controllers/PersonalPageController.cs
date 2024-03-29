@@ -6,6 +6,9 @@ using TravelNotes.Models;
 using System.IO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.RegularExpressions;
+using System.Text;
+using System.Security.Cryptography;
+
 
 namespace TravelNotes.Controllers
 {
@@ -22,96 +25,7 @@ namespace TravelNotes.Controllers
 			_hostingEnvironment = hostingEnvironment;
 		}
 
-		//Load Article DataList for ViewPersonaPage
-		public IActionResult ViewPersonalPage()
-		{
-			string cookieValue;
-			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
-			if (result)
-			{
-				UserId = Convert.ToInt32(cookieValue);
-			}
-			else
-			{
-				UserId = 2;
-				//處理 Cookie 不存在的情況
-			}
-			var users = _context.users.FirstOrDefault(a => a.UserId == UserId);
-			var article = _context.article.Where(p => p.UserId == UserId);
-			var UsersArticleViewModel = new UsersArticleViewModel
-			{
-				users = users,
-				article = article
-			};
-			return View(UsersArticleViewModel);
-		}
-
-		//Search Article for ViewPersonalPage
-		[HttpPost]
-		public IActionResult ViewPersonalPage(string search)
-		{
-			string cookieValue;
-			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
-			if (result)
-			{
-				UserId = Convert.ToInt32(cookieValue);
-			}
-			else
-			{
-				UserId = 2;
-				//處理 Cookie 不存在的情況
-			}
-			// 在?存中使用正?表?式，所以先?索所有文章到?存中
-			var users = _context.users.FirstOrDefault(a => a.UserId == UserId);
-			var articles = _context.article
-				.Where(a => a.ArticleState == "發佈" && a.UserId == UserId)
-				.ToList();
-			// 定?正?表?式?匹配 HTML ??
-			Regex htmlTagRegex = new Regex("<.*?>");
-			// 使用 LINQ 在?存中?行?一步的??和排序
-			articles = articles
-				.Where(a => string.IsNullOrWhiteSpace(search) ||
-					(a.Contents != null && htmlTagRegex.Replace(a.Contents, "").Contains(search)) ||
-					(a.Title != null && a.Title.Contains(search)))
-				.OrderByDescending(a => a.ArticleId)
-				.ToList();
-			// ??据?或其他地方?取 UsersArticleViewModel ?型的?据
-			UsersArticleViewModel viewModel = new UsersArticleViewModel();
-			// 假? articles 是 IEnumerable<Article> ?型的模型?据
-			viewModel.article = articles; // ?文章列表?值???模型的 article ?性
-			viewModel.users = users;
-			// 返回??，并???模型?????
-			return View(viewModel);
-		}
-
-		//Load Article DataList for PersonaPage
-		//public IActionResult PersonalPage(/*int? UserId*/)
-		//{
-		//	string cookieValue;
-		//	bool result = Request.Cookies.TryGetValue("UsernameCookie",out cookieValue);
-		//	if (result)
-		//	{
-		//		UserId = Convert.ToInt32(cookieValue);
-		//	}
-		//	else
-		//	{
-		//		UserId = 2;
-		//		//處理 Cookie 不存在的情況
-		//	}
-		//	var users = _context.users.FirstOrDefault(a => a.UserId == UserId);
-		//	var article = _context.article.Where(p => p.UserId == UserId);
-		//	var UsersArticleViewModel = new UsersArticleViewModel
-		//	{
-		//			users = users,
-		//			article = article
-		//	};
-		//	return View(UsersArticleViewModel);
-		//	//var usersArticleViewModel = _context.UsersArticleViewModels.FirstOrDefault();
-		//	//ViewBag.article = _context.article.Where((a => a.UserId == UserId)).ToList();
-		//	//return View(_context.users.ToList());
-		//}
-
-		//Search Article for PersonalPage
+		//Find User & Search Article for PersonalPage
 		//[HttpPost]
 		public IActionResult PersonalPage(string? search,int? userId)
 		{
@@ -138,7 +52,6 @@ namespace TravelNotes.Controllers
 			{
 				users = _context.users.FirstOrDefault(a => a.UserId == userId);
             }
-
 			var articles = _context.article
 				.Where(a => a.ArticleState == "發佈" && a.UserId == users.UserId)
 				.ToList();
@@ -149,11 +62,15 @@ namespace TravelNotes.Controllers
 				.Where(a => string.IsNullOrWhiteSpace(search) ||
 					(a.Contents != null && htmlTagRegex.Replace(a.Contents, "").Contains(search)) ||
 					(a.Title != null && a.Title.Contains(search)))
-				.OrderByDescending(a => a.ArticleId)
+				.OrderByDescending(a => a.PublishTime)
 				.ToList();
 			// ??据?或其他地方?取 UsersArticleViewModel ?型的?据
 			UsersArticleViewModel viewModel = new UsersArticleViewModel();
+			// ? Cookie 中?取密?值
+			string passwordCookie = Request.Cookies["UserPasswordCookie"];
 			// 假? articles 是 IEnumerable<Article> ?型的模型?据
+			// ?密?值?????模型
+			viewModel.PasswordCookie = passwordCookie;
 			viewModel.article = articles; // ?文章列表?值???模型的 article ?性
 			viewModel.users = users;
 			ViewBag.loginUserId = loginUserId;
@@ -173,7 +90,11 @@ namespace TravelNotes.Controllers
 			}
 			else
 			{
-				UserId = 2;
+				// 生成登??面的 URL
+				string loginUrl = Url.Content("~/Member/Login");  // 替?成您?目的 URL 生成方法
+
+				// 使用 HttpResponse 重定向到生成的 URL
+				return Redirect(loginUrl).ToString();
 				//處理 Cookie 不存在的情況
 			}
 			string imgFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
@@ -226,27 +147,51 @@ namespace TravelNotes.Controllers
 			}
 			else
 			{
-				UserId = 2;
+				return RedirectToAction("Login", "Member");
 				//處理 Cookie 不存在的情況
 			}
+			
+			int userId = Convert.ToInt32(cookieValue);
 			users a = _context.users.FirstOrDefault(a => a.UserId == UserId);
 			a.UserName = userName;
 			a.Phone = Phone;
 			a.Mail = Mail;
 			a.Gender = Gender;
-			a.Pwd = Pwd;
+			a.Pwd = ComputeSHA256Hash(Pwd);
+			//if (!string.IsNullOrEmpty(Pwd))
+			//{
+			//a.Pwd = ComputeSHA256Hash(Pwd); // ?算密?哈希并保存
+			//}
 			a.Nickname = Nickname;
 			a.Birthday = Birthday;
 			a.Address = Address;
 			a.Introduction = Introduction;
 			a.Interest = Interest;
 			_context.SaveChanges();
+			// 更新密? Cookie
+			Response.Cookies.Append("UserPasswordCookie", Pwd);
 			return RedirectToAction("PersonalPage");
 		}
 
-		//Load Photo DataList for LookBack
-		public IActionResult Year()
+		private string ComputeSHA256Hash(string input)
 		{
+			using (SHA256 sha256Hash = SHA256.Create())
+			{
+				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+				StringBuilder builder = new StringBuilder();
+				for (int i = 0; i < bytes.Length; i++)
+				{
+					builder.Append(bytes[i].ToString("x2"));
+				}
+				return builder.ToString();
+			}
+		}
+
+		//Load Photo DataList for LookBack
+		public IActionResult Year(int? userId)
+		{
+			
 			string cookieValue;
 			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
 			if (result)
@@ -255,11 +200,17 @@ namespace TravelNotes.Controllers
 			}
 			else
 			{
-				UserId = 2;
+				return RedirectToAction("Login", "Member");
 				//處理 Cookie 不存在的情況
 			}
-			var LookBack = _context.LookBack.Where(a => a.UserId == UserId).ToList();
-			var photo = _context.photo.Where(p => p.UserId == UserId && p.PhotoDescription != "1").ToList();
+			users users;//當前頁面使用者
+			int loginUserId = 0;
+			if (result)
+			{
+				loginUserId = Convert.ToInt32(cookieValue);
+			}
+			var LookBack = _context.LookBack.Where(a => a.UserId == userId).ToList();
+			var photo = _context.photo.Where(p => p.UserId == userId && p.PhotoDescription != "1").ToList();
 			//photo.FirstOrDefault().PhotoPath
 			var data = from p in photo
 					   join l in LookBack
@@ -275,7 +226,6 @@ namespace TravelNotes.Controllers
 				LookBack = LookBack,
 				photo = photo,
 				photoPaths = bag,
-				
 			};
 			ViewBag.pic1 = bag.FirstOrDefault(a => a.Yid == 1);
 			ViewBag.pic2 = bag.FirstOrDefault(a => a.Yid == 2);
@@ -289,26 +239,13 @@ namespace TravelNotes.Controllers
 			ViewBag.pic10 = bag.FirstOrDefault(a => a.Yid == 10);
 			ViewBag.pic11 = bag.FirstOrDefault(a => a.Yid == 11);
 			ViewBag.pic12 = bag.FirstOrDefault(a => a.Yid == 12);
-
-
-			//ViewBag.LookBackPhotoViewModel = data;
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-			//var result = data.FirstOrDefault(a => a.Yid == 1);
-
-			//return View(bag);
+			ViewBag.loginUserId = loginUserId;
 			return View(LookBackPhotoViewModel);
 		}
 
 		//Upload & Save for LookBack Page
 		[HttpPost]
-		public string SaveLookBackImage(int Yid, int PhotoId, int id)
+		public string SaveLookBackImage(int Yid, int PhotoId, int id, int? userId)
 		{
 			string cookieValue;
 			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
@@ -318,7 +255,7 @@ namespace TravelNotes.Controllers
 			}
 			else
 			{
-				UserId = 2;
+				return RedirectToAction("Login", "Member").ToString();
 				//處理 Cookie 不存在的情況
 			}
 			var LookBackImage = _context.LookBack.FirstOrDefault(a => a.UserId == UserId);
@@ -337,8 +274,9 @@ namespace TravelNotes.Controllers
 				lookBack.UserId = UserId;
 				_context.LookBack.Add(lookBack);
 			}
-
+			
 			_context.SaveChanges();
+			
 			return "look:" + Yid + "照片id:" + PhotoId;
 		}
 

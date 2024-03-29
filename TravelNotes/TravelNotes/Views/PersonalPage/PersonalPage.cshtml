@@ -2,6 +2,7 @@
 @model TravelNotes.Models.UsersArticleViewModel
 
 @{
+	var user = Model.users.UserId;
 	bool isMyPage = ViewBag.loginUserId == Model.users.UserId;
 }
 <link rel="stylesheet" href="~/PersonalPage/PersonalPage" />
@@ -32,12 +33,9 @@
 		background-color: whitesmoke;
 /* 		border: 2px #3F3232 solid;
  */		border-radius: 50px;
-		margin-top: 30px;
-		margin-bottom: 30px;
- 		padding-top:30px;
-		padding: 30px;
-		position: absolute; /* 絕對定位 */
-		left: 40px; /* 設定左邊間距 */
+ 		padding-top: 30px;
+		padding-bottom: 50px;
+		margin:60px 20px 0px 0px;
 		width:800px;
 	}
 
@@ -45,15 +43,9 @@
 		background-color: whitesmoke;
 /* 		border: 2px #3F3232 solid;
  */		border-radius: 50px;
-		margin-top: 30px;
 		padding-top: 30px;
-		position: absolute; /* 絕對定位 */
-		right: 140px; /* 設定右邊間距 */
-		/* margin-bottom: 50px; */
-	}
-
-	#divContainer {
-		margin-bottom: 30px; /* 添加下方边距 */
+		height: fit-content;
+		margin:60px 0px 0px 50px;
 	}
 
 	.textColor{
@@ -61,21 +53,59 @@
 		font-weight: bold;
 	}
 
+	.yearBtn{
+		width:145px;
+	}
+
+	.bi-person-gear{
+		margin: 0px 0px 5px 0px;
+	}
+
+	.searchClass{
+		display:flex;
+	}
+
+	#searchId{
+		background-color:whitesmoke;
+		width:200px;
+	}
+
+	.editPencil {
+		color: #728CA3; 
+		margin: 5px 0px 0px 235px;
+	}
+
+	.editPencil:hover {
+		cursor: pointer;
+		color: cornflowerblue;
+	}
+
+	#saveSetting{
+		font-weight:bold;
+		color: #01579b;
+	}
+
+	#saveSetting:hover{
+		background-color: hsl(210, 30%, 88%);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		cursor: pointer;
+	}
+
 	#articlePartial {
-		/* background-color: #728CA3; */
-		/* background-color:#F3E4C6; */
+		/* background-color: hsl(210, 30%, 88%); */
 		overflow: hidden;
 		width: fit-content;
 		height: fit-content;
 	}
 
-	#articlePartial:hover {
+	/* #articlePartial:hover {
 		cursor: pointer;
-	}
+	} */
 
-	.dropdown-item {
+	.articleDropdown {
 		text-align: center; /* 將文字置中 */
 	}
+
 </style>
 
 @*icon: ... *@
@@ -84,10 +114,9 @@
 					<path
 						d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
 				</svg> -->
-<div class="cotainer" id="divContainer">
 	<div class="g-5 row">
 		<div class="col-12 col-md-8" id="leftpartdiv">
-			<header class="myTitle">
+			<header>
 				@if (@Model.users.Nickname == null)
 				{
 					<p></p>
@@ -98,53 +127,62 @@
 				}
 			</header>
 			<p class="d-inline-flex gap-1">
-
-				<form method="post" action="~/PersonalPage/PersonalPage" style="display:flex;">
+				<form method="post" action="~/PersonalPage/PersonalPage" class="searchClass" style="display:flex;">
 					<label for="search">
 					</label>
-					<input id="searchId" name="search" type="text" class="form-control border-dark" style="width:200px;" />&nbsp;
+					<input name="userId" type="text" style="display:none;" value="@Model.users.UserId"/>
+					<input id="searchId" name="search" type="text" class="form-control border-dark" />&nbsp;
 					<input type="submit" value="搜尋" class="btn btn-outline-dark" />
 				</form><br />
 				<button onclick="album()" type="button" id="albumBtn" class="btn btn-outline-dark" data-bs-toggle="button"
-						aria-pressed="true">
+						aria-pressed="true" style="width:115px;">
 					相簿
 				</button>
-				&nbsp;
-				<button onclick="year()" type="button" id="yearBtn" class="btn btn-outline-dark" data-bs-toggle="button"
-						aria-pressed="true">
+
+				<a href="/PersonalPage/Year?userid=@user" class="btn btn-outline-dark" style="width:145px;">
 					年度回顧
-				</button>&nbsp;
+				</a>
+				
 				<button onclick="schedule()" type="button" id="planBtn" class="btn btn-outline-dark" data-bs-toggle="button"
-						aria-pressed="true">
+						aria-pressed="true" style="width:145px;">
 					行前規劃
 				</button>
+
+				
+				
+				
 			</p><br />
 			@foreach (var item in Model.article)
 			{
 				<div id="articlePartial">
 				@Html.Partial("ArticleCard", item)
 				</div>
+				@if(isMyPage){
 				<div class="dropdown" style="left:450px;">
 					<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						<svg id="dots" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							 class="bi bi-three-dots" viewBox="0 0 16 16">
+						class="bi bi-three-dots" viewBox="0 0 16 16">
 							<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
 						</svg>
 					</button>
-					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-						<li>
-							<a class="dropdown-item" href="~/Article/ArticleEdit?articleId=@item.ArticleId">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-									<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-								</svg>&nbsp編輯&nbsp&nbsp/&nbsp
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-									<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-								</svg>&nbsp刪除
-							</a>
-						</li>
-						@* <li><a class="dropdown-item" href="#">刪除</a></li> *@
-					</ul>
+						<ul class="dropdown-menu dropdown-menu-end articleDropdown" aria-labelledby="dropdownMenuButton1">
+							<li>
+								<a class="dropdown-item" href="~/Article/Draft?articleId=@item.ArticleId">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+									</svg>&nbsp編輯
+								</a>
+							</li>
+							<li>
+								<button class="deleteArticleBtn dropdown-item articleDropdown" data-article-id="@item.ArticleId">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+									</svg>&nbsp刪除
+								</button>
+							</li>
+						</ul>
 				</div>
+				}
 				<br />
 			}
 		</div>
@@ -152,16 +190,23 @@
 				<div>
 				<div id="myProfileImg" class="mb-3">
 					<label for="formFileSm" class="form-label"></label>
-					<img id="userImageId" class="rounded-circle" src="@Model.users.Headshot" alt="" style="width:100px;height:100px;"><br /><br />
+					@if(@Model.users.Headshot == null)
+					{
+						<img id="userImageId" class="rounded-circle" src="/images/year-photo.jpg" alt="" style="width:100px;height:100px;">
+					}
+					else
+					{
+						<img id="userImageId" class="rounded-circle" src="@Model.users.Headshot" alt="" style="width:100px;height:100px;">
+					}
+					<br /><br />
 					@if (isMyPage)
 					{
 						<input type="file" @* id="userImage" *@ id="formFileSm" class="form-control form-control-sm" value="" />
 					}
-					<br />
 				</div>
 				<div id="myProfileName">
 					<h5 class="textColor">@Model.users.Nickname</h5>
-				</div><br />
+				</div>
 				<div class="myProfile" style="block">
 					<p>@Model.users.Introduction</p>
 				</div>
@@ -171,35 +216,58 @@
 				</p> -->
 				<div id="myPersonalSettings">
 					<hr />
+					<div style="display:flex;">
 					<h4 style="font-weight:bold;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
 							<path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
-						</svg>&nbsp;個人資料
+						</svg>&nbsp;個人資料&nbsp;
+					</h4>
+					@if (isMyPage)
+					{
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-fill editPencil" viewBox="0 0 16 16" onclick="personalEdit()">
+							<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+						</svg>
+					}
+					</div>
+					<form action="/PersonalPage/Save" method="post">
 						@if (isMyPage)
 						{
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16" onclick="personalEdit()">
-								<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-							</svg>
-						}
-						
-					</h4><br />
-					<form action="/PersonalPage/Save" method="post">
 						<div>
 							<label for="" class="textColor">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
 									<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
 								</svg>&nbsp;姓名：
 							</label>
-							<input type="text" name="UserName" value="@Model.users.UserName" class="form-control personalInput">
+							
+								<input type="text" name="UserName" value="@Model.users.UserName" class="form-control personalInput">
+						</div>
+						<br />
+						}
+						
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+									<path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
+									<path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
+								</svg>&nbsp;暱稱：
+							</label>
+							<input type="text" name="Nickname" value="@Model.users.Nickname" class="form-control personalInput">
 						</div><br />
+
+						@if (isMyPage)
+						{
 						<div>
 							<label for="" class="textColor">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
 									<path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
 								</svg>&nbsp;電話：
 							</label>
-							<input type="text" name="Phone" value="@Model.users.Phone" class="form-control personalInput">
-						</div><br />
+							
+								<input type="text" name="Phone" value="@Model.users.Phone" class="form-control personalInput">
+						</div>
+						<br />
+						}
+						
 						@if (isMyPage)
 						{
 							<div>
@@ -210,7 +278,6 @@
 								</label>
 								<input type="text" name="Mail" value="@Model.users.Mail" class="form-control personalInput">
 							</div>
-
 							<br />
 						}
 						
@@ -231,20 +298,10 @@
 										<path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
 									</svg>&nbsp;密碼：
 								</label>
-								<input type="text" name="Pwd" value="@Model.users.Pwd" class="form-control personalInput">
+							<input type="text" name="Pwd" value="@Model.PasswordCookie" class="form-control personalInput">
 							</div>
-
 							<br />
 						}
-						<div>
-							<label for="" class="textColor">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
-									<path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
-									<path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
-								</svg>&nbsp;暱稱：
-							</label>
-							<input type="text" name="Nickname" value="@Model.users.Nickname" class="form-control personalInput">
-						</div><br />
 						<div>
 							<label for="" class="textColor">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake" viewBox="0 0 16 16">
@@ -254,15 +311,18 @@
 							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday" required
 								   name="Birthday" value="@Model.users.Birthday?.ToString("yyyy-MM-dd")">
 						</div><br />
-						<div>
-							<label for="" class="textColor">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z" />
-									<path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
-								</svg>&nbsp地址：
-							</label>
-							<input type="text" name="Address" value="@Model.users.Address" class="form-control personalInput">
-						</div><br />
+						@if (isMyPage)
+						{
+							<div>
+								<label for="" class="textColor">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z" />
+										<path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+									</svg>&nbsp地址：
+								</label>
+								<input type="text" name="Address" value="@Model.users.Address" class="form-control personalInput">
+							</div><br />
+						}
 						<div>
 							<label for="" class="textColor">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -281,7 +341,6 @@
 							<br />
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input id="saveSetting" type="submit" value="保存" class="form-control">
-							
 						</div><br /><br />
 					</form>
 				</div>
@@ -289,8 +348,6 @@
 		</div>
 	</div>
 	<br />
-
-</div>
 <br />
 <br />
 <br />
@@ -320,16 +377,11 @@
 		$('.personalInput').each(function () {
 			$(this).prop('disabled', true);
 		})
-
 		$('#saveSetting').css("display","none")
-
 	});
+
 	function album() {
 		document.location.href = "/Album/Album/";
-	}
-
-	function year() {
-		document.location.href = "/PersonalPage/Year/";
 	}
 
 	function schedule() {
@@ -341,7 +393,18 @@
 		$('.personalInput').each(function () {
 			$(this).prop('disabled', false);
 		});
-	
 	}
-	// $.post("/Article/Delete", { articleId: articleId })
+
+	$('.deleteArticleBtn').on('click', function () {
+		var articleId = $(this).data('articleId'); // 從數據屬性獲取 articleId
+		var confirmation = confirm("確定要刪除這篇文章嗎？");
+		if (confirmation) {
+			$.post("/Article/Delete", { articleId: articleId })
+				.done(function () {
+					alert("刪除成功");
+					window.location.reload(); // 刷新頁面
+				})
+		}
+	});
+	
 </script>
