@@ -47,11 +47,6 @@
         location.reload(); // 重新加载页面
     });
 
-    $("#favor").click(function () {
-        alert("OK");
-    });
-
-
     function toggleActiveClass(element) {
         if (!element.hasClass("active")) {
             element.addClass("active");
@@ -71,7 +66,7 @@
             }
         }).done(function (data) {
             $.each(data, function (idx, elem) {
-                if (idx <= 10) {
+                if (idx <= 100) {
                     $("h4").after(`
                     <form action="/PersonalPage/Schedule" method="post">
                         <div class="container">
