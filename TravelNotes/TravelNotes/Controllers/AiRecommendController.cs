@@ -71,7 +71,8 @@ namespace TravelNotes.Controllers
 
         public List<Spots> MlHandel(string Interests1, string Interests2, string Interests3,string weather, string country)
         {
-            var sampleData = new TravelML.ModelInput()
+
+            var sampleData = new TravelModel5.ModelInput()
             {
                 Col0 = weather,
                 Col1 = Interests1,
@@ -81,14 +82,29 @@ namespace TravelNotes.Controllers
             };
 
             //Load model and predict output
-            var result = TravelML.Predict(sampleData);
+            var result = TravelModel5.Predict(sampleData);
             string prediction = result.PredictedLabel;
-            var query = _context.Spots.Where(x => x.City == prediction);
-            var ReturnFontend = Shuffle(query.ToList());
+            //TempData["prediction"] = prediction;
 
-            return ReturnFontend.ToList();
+            var answer = new List<Spots>();
 
-            //return $"OK-POST-V2-{1}-{Interests1}-{Interests2}-{Interests3}-{weather}-{country}-{prediction}";
+            if (prediction != null && Interests1!= null && Interests2 != null && Interests3 != null && weather != null && country != null)
+            {
+                // 如果 prediction 不為 null，根據預測值查找相符的景點
+                answer = (from o in _context.Spots
+                          where o.DescriptionDetail.Contains(prediction)
+                          select o).ToList();
+                answer = answer.Take(10).ToList();
+            }
+            else
+            {
+                var allSpots = _context.Spots.ToList(); // 取得所有的景點
+                allSpots = (List<Spots>)Shuffle(allSpots); // 隨機排序所有的景點
+                answer = allSpots.Take(10).ToList(); // 選擇前10個景點
+            }
+
+            return answer;
+
         }
 
         private IList<T> Shuffle<T>(IList<T> list)

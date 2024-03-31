@@ -11,8 +11,6 @@ public partial class TravelContext : DbContext
     {
     }
 
-    public virtual DbSet<Itinerary> Itinerary { get; set; }
-
     public virtual DbSet<LookBack> LookBack { get; set; }
 
     public virtual DbSet<OtherTags> OtherTags { get; set; }
@@ -41,109 +39,6 @@ public partial class TravelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Itinerary>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("Itinerary");
-
-            entity.Property(e => e.Class1)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Class2)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Class3)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.DescriptionDetail)
-                .HasMaxLength(5000)
-                .IsUnicode(false);
-            entity.Property(e => e.GeoHash)
-                .HasMaxLength(15)
-                .IsUnicode(false);
-            entity.Property(e => e.Keyword)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.OpenTime)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            entity.Property(e => e.ParkingGeoHash)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.ParkingInfo)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.ParkingLat)
-                .HasMaxLength(11)
-                .IsUnicode(false);
-            entity.Property(e => e.ParkingLon)
-                .HasMaxLength(11)
-                .IsUnicode(false);
-            entity.Property(e => e.Phone)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureDescription1)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureDescription2)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureDescription3)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureUrl1)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureUrl2)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PictureUrl3)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PositionLat)
-                .HasMaxLength(11)
-                .IsUnicode(false);
-            entity.Property(e => e.PositionLon)
-                .HasMaxLength(11)
-                .IsUnicode(false);
-            entity.Property(e => e.Remarks)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            entity.Property(e => e.ScenicSpotID)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .IsFixedLength();
-            entity.Property(e => e.ScenicSpotName)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.TicketInfo)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            entity.Property(e => e.TravelInfo)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            entity.Property(e => e.WebsiteUrl)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.ZipCode)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e._Address)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            entity.Property(e => e._Description)
-                .HasMaxLength(5000)
-                .IsUnicode(false);
-            entity.Property(e => e._level)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.city)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength();
-        });
-
         modelBuilder.Entity<LookBack>(entity =>
         {
             entity.HasOne(d => d.Photo).WithMany(p => p.LookBack)
@@ -161,6 +56,7 @@ public partial class TravelContext : DbContext
         {
             entity.HasKey(e => e.OtherTagId);
 
+            entity.Property(e => e.OtherTagId).ValueGeneratedNever();
             entity.Property(e => e.OtherTagName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -281,7 +177,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<TagList>(entity =>
         {
-            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC3434FF953");
+            entity.HasKey(e => e.LabelId).HasName("PK__TagList__397E2BC391F82D6A");
 
             entity.Property(e => e.TagClass)
                 .HasMaxLength(6)
@@ -303,7 +199,7 @@ public partial class TravelContext : DbContext
 
         modelBuilder.Entity<album>(entity =>
         {
-            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE37571D3459");
+            entity.HasKey(e => e.AlbumId).HasName("PK__album__97B4BE371B59CB44");
 
             entity.Property(e => e.AlbumName).HasMaxLength(10);
 
