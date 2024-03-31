@@ -11,6 +11,8 @@ public partial class TravelContext : DbContext
     {
     }
 
+    public virtual DbSet<CitySpotCount> CitySpotCount { get; set; }
+
     public virtual DbSet<LookBack> LookBack { get; set; }
 
     public virtual DbSet<OtherTags> OtherTags { get; set; }
@@ -39,6 +41,18 @@ public partial class TravelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CitySpotCount>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("CitySpotCount");
+
+            entity.Property(e => e.City)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength();
+        });
+
         modelBuilder.Entity<LookBack>(entity =>
         {
             entity.HasOne(d => d.Photo).WithMany(p => p.LookBack)

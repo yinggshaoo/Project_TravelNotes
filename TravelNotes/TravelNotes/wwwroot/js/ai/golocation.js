@@ -106,40 +106,30 @@
                     method: "get",
                     data: { city: cityString, currentPage: currentPageNumber }
                 }).done(function (data) {
+                    $("#form-container").append(`<h3>以下可能是您會喜歡的地點</h3>`)
                     $("#form-container").empty();
                     $.each(data, function (idx, elem) {
                         $('#form-container').append(
                             `
                         <form action="/PersonalPage/Schedule" method="post">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="scenicSpotName">景點名稱:</label>
-                                       <input type="text" id="scenicSpotName" name="scenicSpotName" value="${elem.scenicSpotName}" readonly>
-                                    </div>
+                        <table class="table table-striped">
+                          <tr>
+                            <td>
+                                <input type="text" id="scenicSpotName" name="scenicSpotName" value="${elem.scenicSpotName}" readonly>
+                            </td>
+                            <td>
+                                 <input type="tel" id="phone" name="phone" value="${elem.phone}" readonly>
 
-                                    <div class="col"></div>
-
-                                    <div class="col">
-                                        <label for="phone">電話:</label>
-                                        <input type="tel" id="phone" name="phone" value="${elem.phone}" readonly>
-                                    </div>
-
-                                    <div class="col"></div>
-
-                                    <div class="col">
-                                        <label for="_Address">地址:</label>
-                                        <input type="text" id="_Address" name="_Address" value="${elem._Address}" readonly>
-                                    </div>
-
-                                    <div class="col"></div>
-
-                                    <div class="col">
-                                        <button type="submit" class="btn btn-primary btn-sm">添加到行程</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            </td>
+                            <td>
+                                <input type="text" id="_Address" name="_Address" value="${elem._Address}" readonly>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary btn-sm">添加到行程</button>
+                            </td>
+                          </tr>
+                        </table>
+                    </form>
                     `
                         );
                     })
