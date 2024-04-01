@@ -95,13 +95,13 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <td>
-                                            <input type="text" id="scenicSpotName" name="scenicSpotName" value="${elem.scenicSpotName}" readonly>
+                                            <input type="text" class="input-group-text" id="scenicSpotName" name="scenicSpotName" value="${elem.scenicSpotName}" readonly>
                                         </td>
                                         <td>
-                                            <input type="tel" id="phone" name="phone" value="${elem.phone}" readonly>
+                                            <input type="tel" class="input-group-text" id="phone" name="phone" value="${elem.phone}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" id="_Address" name="_Address" value="${elem._Address}" readonly>
+                                            <input type="text" class="input-group-text" id="_Address" name="_Address" value="${elem._Address}" readonly>
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary btn-sm">添加到行程</button>
