@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var photos = ViewBag.photos;
+    var articles = ViewBag.articles;
+}
+<form action="/Backstage/Index" method="get">
+    <label for="userIdInput">UserId:</label>
+    <input type="text" name="UserId" id="userIdInput" />
+    <label for="userNameInput">UserName:</label>
+    <input type="text" name="userName" id="userNameInput" />
+    <input type="submit" value="查詢" />
+</form>
+<style>
+    .imgDefault{
+        width:100px;
+        height:100px;
+    }
+</style>
+<table>
+    <tr>
+        <th>UserId</th>
+        <th>UserName</th>
+        <th>PhotoId</th>
+        <th>PhotoName</th>
+        <th>photo</th>
+        <th>修改</th>
+    </tr>
+    @foreach(var item in photos)
+    {
+        <tr>
+            <th>@item.user.UserId</th>
+            <th>@item.user.Nickname</th>
+            <th>@item.photo.PhotoId</th>
+            <th>@item.photo.PhotoTitle</th>
+            <th><img src="@item.photo.PhotoPath" alt="Alternate Text" class="imgDefault"/></th>
+            <th>刪除</th>
+        </tr>
+    }
+</table>
