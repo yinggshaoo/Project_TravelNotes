@@ -1,4 +1,16 @@
-﻿
+﻿/* 螢幕寬度小於 1366 像素時 */
+@media (max-width: 1366px) {
+    body {
+        transform: scale(0.5);
+    }
+}
+
+/*@media only screen and (max-width: 1366px) {
+    .container {
+        max-width: 60%;
+    }
+}
+*/
 #dots {
     margin: 20px 0px 0px 500px;
 }

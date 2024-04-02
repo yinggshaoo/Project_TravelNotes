@@ -11,12 +11,12 @@
 	<style>
 		:root {
 			/* --side-color: #728CA3;
-			--background-color: #F3E4C6;
-			--primary-color: #1B1924;
-			--secondary-color: #B5C1B4;
-			--tertiary-color: #DCD9C6;
-			--accent-color: #74593D;
-			--text-color: #3F3232; */
+					--background-color: #F3E4C6;
+					--primary-color: #1B1924;
+					--secondary-color: #B5C1B4;
+					--tertiary-color: #DCD9C6;
+					--accent-color: #74593D;
+					--text-color: #3F3232; */
 			background-color: hsl(210, 30%, 88%);
 		}
 
@@ -26,52 +26,52 @@
 			padding: 0;
 		}
 
-		h1{
-			padding:15px 0px 25px 10px;
+		h1 {
+			padding: 15px 0px 25px 10px;
 			/* padding-top: 10px; */
-			font-weight:bold;
+			font-weight: bold;
 			color: #01579b
 		}
 
-		#titleSet{
-			width:200px;
+		#titleSet {
+			width: 200px;
 		}
 
-		.addPhoto{
+		.addPhoto {
 			color: cornflowerblue;
 			border: none;
 		}
 
-		.addPhoto:hover{
-			background-color: hsl(210, 30%, 88%);
-			color: black;
-			font-weight:bold;
-			padding-bottom:7px;
-		}
+			.addPhoto:hover {
+				background-color: hsl(210, 30%, 88%);
+				color: black;
+				font-weight: bold;
+				padding-bottom: 7px;
+			}
 
-		#containerId{
+		#containerId {
 			background-color: whitesmoke;
 			/* 		border: 2px #3F3232 solid;
-		 */ border-radius: 50px;
-			padding:20px 0px 10px 25px;
+				 */ border-radius: 50px;
+			padding: 20px 0px 10px 25px;
 		}
 
 		/* div.border-3{
-			background-color: #F3E4C6;
-		} */
+					background-color: #F3E4C6;
+				} */
 
-		.border-3{
-			display:flex;
+		.border-3 {
+			display: flex;
 		}
 
-		.Month{
+		.Month {
 			margin-right: 70%;
 			background-color: #F3E4C6;
-			font-weight:bold;
-			width:32px;
+			font-weight: bold;
+			width: 32px;
 		}
 
-		.imgSet{
+		.imgSet {
 			/* background-color: hsl(210, 30%, 88%); */
 		}
 
@@ -81,19 +81,19 @@
 			display: flex;
 		}
 
-		.photoSet:hover {
-			cursor: pointer;
-		}
+			.photoSet:hover {
+				cursor: pointer;
+			}
 
-		.imgSet{
+		.imgSet {
 			max-width: 250px;
 			max-height: 150px;
-			padding-bottom:10px;
+			padding-bottom: 10px;
 		}
 
-		.albumPhoto{
-			padding-top:20px;
-			padding-bottom:10px;
+		.albumPhoto {
+			padding-top: 20px;
+			padding-bottom: 10px;
 		}
 
 		.modal-content {
@@ -105,10 +105,10 @@
 			color: whitesmoke;
 		}
 
-		.modal-title{
-			margin:10px 0px 10px 35px;
-			font-weight:bold;
-			font-size:27px;
+		.modal-title {
+			margin: 10px 0px 10px 35px;
+			font-weight: bold;
+			font-size: 27px;
 			color: whitesmoke;
 		}
 
@@ -127,11 +127,11 @@
 			background-color: none;
 		}
 
-		.modal-footer{
+		.modal-footer {
 			height: 50px;
 		}
 
-		.modal-closeBtn{
+		.modal-closeBtn {
 			margin: 15px 25px 0px 0px;
 		}
 	</style>
@@ -139,14 +139,14 @@
 <br />
 <br />
 <div id="containerId">
-<div id="titleSet">	
-<h1>年度回顧</h1>
-</div>
-<div class="container" >
-	<div class="g-5 row">
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
+	<div id="titleSet">
+		<h1>年度回顧</h1>
+	</div>
+	<div class="container">
+		<div class="g-5 row">
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
 						<h5 class="Month">1月</h5>
 						@if (isMyPage)
 						{
@@ -158,22 +158,22 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic1 != null && ViewBag.pic1.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic1.PhotoPath" alt="" class="w-100 imgSet" id="set1" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set1" />
-				}
+					@if (ViewBag.pic1 != null && ViewBag.pic1.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic1.PhotoPath" alt="" class="w-100 imgSet" id="set1" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set1" />
+					}
 
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">2月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">2月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(2)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -183,21 +183,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic2 != null && ViewBag.pic2.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic2.PhotoPath" alt="" class="w-100 imgSet" id="set2" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set2" />
-				}
+					@if (ViewBag.pic2 != null && ViewBag.pic2.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic2.PhotoPath" alt="" class="w-100 imgSet" id="set2" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set2" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">3月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">3月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(3)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -207,21 +207,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic3 != null && ViewBag.pic3.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic3.PhotoPath" alt="" class="w-100 imgSet" id="set3" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set3" />
-				}
+					@if (ViewBag.pic3 != null && ViewBag.pic3.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic3.PhotoPath" alt="" class="w-100 imgSet" id="set3" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set3" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">4月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">4月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(4)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -231,23 +231,23 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic4 != null && ViewBag.pic4.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic4.PhotoPath" alt="" class="w-100 imgSet" id="set4" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set4" />
-				}
-			</div>
-		</div><br /><br />
-	</div>
-	<div class="g-5 row">
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">5月</h5>
-					@if (isMyPage)
+					@if (ViewBag.pic4 != null && ViewBag.pic4.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic4.PhotoPath" alt="" class="w-100 imgSet" id="set4" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set4" />
+					}
+				</div>
+			</div><br /><br />
+		</div>
+		<div class="g-5 row">
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">5月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(5)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -257,21 +257,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic5 != null && ViewBag.pic5.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic5.PhotoPath" alt="" class="w-100 imgSet" id="set5" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set5" />
-				}
+					@if (ViewBag.pic5 != null && ViewBag.pic5.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic5.PhotoPath" alt="" class="w-100 imgSet" id="set5" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set5" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">6月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">6月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(6)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -281,21 +281,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic6 != null && ViewBag.pic6.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic6.PhotoPath" alt="" class="w-100 imgSet" id="set6" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set6" />
-				}
+					@if (ViewBag.pic6 != null && ViewBag.pic6.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic6.PhotoPath" alt="" class="w-100 imgSet" id="set6" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set6" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">7月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">7月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(7)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -305,21 +305,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic7 != null && ViewBag.pic7.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic7.PhotoPath" alt="" class="w-100 imgSet" id="set7" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set7" />
-				}
+					@if (ViewBag.pic7 != null && ViewBag.pic7.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic7.PhotoPath" alt="" class="w-100 imgSet" id="set7" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set7" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">8月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">8月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(8)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -329,23 +329,23 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic8 != null && ViewBag.pic8.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic8.PhotoPath" alt="" class="w-100 imgSet" id="set8" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set8" />
-				}
+					@if (ViewBag.pic8 != null && ViewBag.pic8.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic8.PhotoPath" alt="" class="w-100 imgSet" id="set8" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set8" />
+					}
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="g-5 row">
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month">9月</h5>
-					@if (isMyPage)
+		<div class="g-5 row">
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month">9月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(9)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -355,19 +355,19 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic9 != null && ViewBag.pic9.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic9.PhotoPath" alt="" class="w-100 imgSet" id="set9" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set9" />
-				}
+					@if (ViewBag.pic9 != null && ViewBag.pic9.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic9.PhotoPath" alt="" class="w-100 imgSet" id="set9" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set9" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
 						<h5 class="Month" style="margin-right: 67%;width:45px;">10月</h5>
 						@if (isMyPage)
 						{
@@ -379,19 +379,19 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic10 != null && ViewBag.pic10.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic10.PhotoPath" alt="" class="w-100 imgSet" id="set10" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set10" />
-				}
+					@if (ViewBag.pic10 != null && ViewBag.pic10.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic10.PhotoPath" alt="" class="w-100 imgSet" id="set10" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set10" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
 						<h5 class="Month" style="margin-right: 67%;width:45px;">11月</h5>
 						@if (isMyPage)
 						{
@@ -403,21 +403,21 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic11 != null && ViewBag.pic11.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic11.PhotoPath" alt="" class="w-100 imgSet" id="set11" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set11" />
-				}
+					@if (ViewBag.pic11 != null && ViewBag.pic11.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic11.PhotoPath" alt="" class="w-100 imgSet" id="set11" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set11" />
+					}
+				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-3">
-			<div class="item">
-				<div class="border-3">
-					<h5 class="Month" style="margin-right: 67%;width:45px;">12月</h5>
-					@if (isMyPage)
+			<div class="col-12 col-md-3">
+				<div class="item">
+					<div class="border-3">
+						<h5 class="Month" style="margin-right: 67%;width:45px;">12月</h5>
+						@if (isMyPage)
 						{
 							<button onclick="apple(12)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -427,55 +427,55 @@
 							</button>
 						}
 					</div>
-				@if (ViewBag.pic12 != null && ViewBag.pic12.PhotoPath != null)
-				{
-					<img src="@ViewBag.pic12.PhotoPath" alt="" class="w-100 imgSet" id="set12" />
-				}
-				else
-				{
-					<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set12" />
-				}
+					@if (ViewBag.pic12 != null && ViewBag.pic12.PhotoPath != null)
+					{
+						<img src="@ViewBag.pic12.PhotoPath" alt="" class="w-100 imgSet" id="set12" />
+					}
+					else
+					{
+						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set12" />
+					}
+				</div>
 			</div>
-		</div>
 
 		</div><br />
-</div>
+	</div>
 
-<!-- Modal -->
-<div id="album" class="modal fade" @* data-bs-backdrop="static" *@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-dialog-scrollable">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">選取當月照片</h5>
+	<!-- Modal -->
+	<div id="album" class="modal fade" @* data-bs-backdrop="static" *@ data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">選取當月照片</h5>
 					<button type="button" id="btn-close-id" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="container-fluid d-flex justify-content-center">
-					<div class="row">
-
-						@foreach (var item in Model.photo)
-						{
-							<div class="col-md-4 albumPhoto">
-								@* @item.PhotoId *@
-									<img class="photoSet" title="點選圖片即可更改當月照片" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath","@item.PhotoId")' />
-							</div>
-						}
-					</div>
 				</div>
-				<br />
-				<br />
-				<div class="modal-footer">
+				<div class="modal-body">
+					<div class="container-fluid d-flex justify-content-center">
+						<div class="row">
+
+							@foreach (var item in Model.photo)
+							{
+								<div class="col-md-4 albumPhoto">
+									@* @item.PhotoId *@
+									<img class="photoSet" title="點選圖片即可更改當月照片" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath","@item.PhotoId")' />
+								</div>
+							}
+						</div>
+					</div>
+					<br />
+					<br />
+					<div class="modal-footer">
 						<button type="button" id="bigCloseBtn" class="btn modal-closeBtn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-					@* <button type="button" class="btn btn-primary">Save changes</button> *@
+						@* <button type="button" class="btn btn-primary">Save changes</button> *@
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-</div>
 
 <script>
-	
+
 	let settings = []
 	for (let i = 1; i < 13; i++) {
 		let a = document.getElementById(`set${i}`);

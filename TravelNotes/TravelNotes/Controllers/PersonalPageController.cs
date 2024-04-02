@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Diagnostics;
@@ -26,10 +26,9 @@ namespace TravelNotes.Controllers
 		}
 
 		//Find User & Search Article for PersonalPage
-		//[HttpPost]
-		public IActionResult PersonalPage(string? search,int? userId)
+		public IActionResult PersonalPage(string? search, int? userId)
 		{
-			users users;//·í«e­¶­±¨Ï¥ÎªÌ
+			users users;//ç•¶å‰é é¢ä½¿ç”¨è€…
 			int loginUserId = 0;
 			string cookieValue;
 			bool result = Request.Cookies.TryGetValue("UsernameCookie", out cookieValue);
@@ -39,42 +38,64 @@ namespace TravelNotes.Controllers
 			}
 			if (userId == null)
 			{
-                if (loginUserId != 0)
-                {
+				if (loginUserId != 0)
+				{
 					users = _context.users.FirstOrDefault(a => a.UserId == loginUserId);
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Member");
-                }
-            }
+				}
+				else
+				{
+					return RedirectToAction("Login", "Member");
+				}
+			}
 			else
 			{
 				users = _context.users.FirstOrDefault(a => a.UserId == userId);
-            }
-			var articles = _context.article
-				.Where(a => a.ArticleState == "µo§G" && a.UserId == users.UserId)
-				.ToList();
-			// ©w?¥¿?ªí?¦¡?¤Ç°t HTML ??
+			}
 			Regex htmlTagRegex = new Regex("<.*?>");
-			// ¨Ï¥Î LINQ ¦b?¦s¤¤?¦æ?¤@¨Bªº??©M±Æ§Ç
-			articles = articles
-				.Where(a => string.IsNullOrWhiteSpace(search) ||
-					(a.Contents != null && htmlTagRegex.Replace(a.Contents, "").Contains(search)) ||
-					(a.Title != null && a.Title.Contains(search)))
-				.OrderByDescending(a => a.PublishTime)
+			var articles = _context.article
+				.Where(a => a.ArticleState == "ç™¼ä½ˆ" && a.UserId == users.UserId)
+				.GroupJoin(_context.Spots, // é€²è¡Œåˆ†çµ„é€£æ¥
+				article => article.SpotId,
+				spot => spot.SpotId,
+				 (article, spots) => new { Article = article, Spots = spots })
+				.SelectMany(
+				x => x.Spots.DefaultIfEmpty(), // å°æ–¼æ²’æœ‰å°æ‡‰ Spot çš„ Articleï¼ŒSpots å°‡æ˜¯ä¸€å€‹åŒ…å«ä¸€å€‹ null å…ƒç´ çš„é›†åˆ
+				(x, spot) => new { Article = x.Article, Spots = spot })
+				.ToList(); // ç‰©åŒ–æŸ¥è¯¢ç»“æœä»¥ä¾¿åœ¨å†…å­˜ä¸­å¤„ç†
+						   // è¿‡æ»¤: å¦‚æœæä¾›äº†æœç´¢å­—ç¬¦ä¸²ï¼Œå°±åœ¨å†…å­˜ä¸­åº”ç”¨æ­£åˆ™è¡¨è¾¾å¼å»é™¤HTMLæ ‡ç­¾åè¿›è¡Œæœç´¢
+			if (!string.IsNullOrWhiteSpace(search))
+			{
+				articles = articles
+					.Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
+								a.Article.Title.Contains(search) ||
+								a.Spots != null && a.Spots.ScenicSpotName.Contains(search))
+					.ToList();
+			}
+			// å°çµæœé€²è¡Œ PublishTime é™åºæ’åºä¸¦è½‰æ›ç‚º usersArticleModel åˆ—è¡¨
+			var dataList = articles
+				.OrderByDescending(a => a.Article.PublishTime)
+				.Select(a => new usersArticleModel
+				{
+					article = a.Article,
+					user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
+					// å¦‚æœä½ é‚„éœ€è¦å¾ Spots è¡¨ä¸­ç²å–ä¿¡æ¯ï¼Œä½ å¯ä»¥åœ¨é€™è£¡æ·»åŠ 
+					// æ¯”å¦‚ï¼ŒSpotName = a.Spot.ScenicSpotName
+				})
 				.ToList();
-			// ??Õu?©Î¨ä¥L¦a¤è?¨ú UsersArticleViewModel ?«¬ªº?Õu
+			// æ ¹æ®ç”¨æˆ·æˆ–å…¶ä»–åœ°æ–¹è·å– UsersArticleViewModel ç±»å‹çš„æ•°æ®
 			UsersArticleViewModel viewModel = new UsersArticleViewModel();
-			// ? Cookie ¤¤?¨ú±K?­È
+			// ä» Cookie ä¸­è·å–å¯†é’¥å€¼
 			string passwordCookie = Request.Cookies["UserPasswordCookie"];
-			// °²? articles ¬O IEnumerable<Article> ?«¬ªº¼Ò«¬?Õu
-			// ?±K?­È?????¼Ò«¬
+			// å‡è®¾ articles æ˜¯ IEnumerable<Article> ç±»å‹çš„æ¨¡å‹æ•°æ®
+			// å°†å¯†é’¥å€¼è®¾å®šåˆ°æ¨¡å‹
 			viewModel.PasswordCookie = passwordCookie;
-			viewModel.article = articles; // ?¤å³¹¦Cªí?­È???¼Ò«¬ªº article ?©Ê
+			// å°†æ–‡ç« åˆ—è¡¨çš„å€¼è®¾å®šåˆ°æ¨¡å‹çš„ article å±æ€§
+			// å°‡è³‡æ–™åˆ—è¡¨ä¸­çš„æ–‡ç« è³‡æ–™è½‰æ›ç‚º IEnumerable<article> å‹åˆ¥çš„ viewModel.article å±¬æ€§
+			viewModel.article = (IEnumerable<article>)dataList.Select(a => a.article).ToList();
+			// å°†ç”¨æˆ·åˆ—è¡¨çš„å€¼è®¾å®šåˆ°æ¨¡å‹çš„ users å±æ€§
 			viewModel.users = users;
 			ViewBag.loginUserId = loginUserId;
-			// ªğ¦^??¡A¦}???¼Ò«¬?????
+			// è¿”å›è§†å›¾ï¼Œå¹¶ä¼ é€’æ¨¡å‹æ•°æ®
 			return View(viewModel);
 		}
 
@@ -90,12 +111,12 @@ namespace TravelNotes.Controllers
 			}
 			else
 			{
-				// ¥Í¦¨µn??­±ªº URL
-				string loginUrl = Url.Content("~/Member/Login");  // ´À?¦¨±z?¥Øªº URL ¥Í¦¨¤èªk
+				// ç”Ÿæˆç™»??é¢çš„ URL
+				string loginUrl = Url.Content("~/Member/Login");  // æ›¿?æˆæ‚¨?ç›®çš„ URL ç”Ÿæˆæ–¹æ³•
 
-				// ¨Ï¥Î HttpResponse ­«©w¦V¨ì¥Í¦¨ªº URL
+				// ä½¿ç”¨ HttpResponse é‡å®šå‘åˆ°ç”Ÿæˆçš„ URL
 				return Redirect(loginUrl).ToString();
-				//³B²z Cookie ¤£¦s¦bªº±¡ªp
+				//è™•ç† Cookie ä¸å­˜åœ¨çš„æƒ…æ³
 			}
 			string imgFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
 			if (!Directory.Exists(imgFolder))
@@ -126,13 +147,11 @@ namespace TravelNotes.Controllers
 			UserImage!.Headshot = srcString;
 			Response.Cookies.Append("UserheadshotCookie", srcString);
 			_context.SaveChanges();
-			// §ó·s??¼Ò«¬¤¤ªº¥Î??¹³«H®§
+			// æ›´æ–°æ¨¡å‹ä¸­çš„ä½¿ç”¨è€…åƒä¿¡æ¯
 			var viewModel = new UsersArticleViewModel
 			{
-				// ¨ä¥L??¼Ò«¬?Õu
-				users = UserImage // §ó·s¥Î??¹³«H®§
+				users = UserImage
 			};
-			//return PartialView("ArticleCard", viewModel); // ?§ó·s¦Zªº??¼Ò«¬??¨ì??¤¤
 			return ("Ok");
 		}
 
@@ -149,10 +168,10 @@ namespace TravelNotes.Controllers
 			else
 			{
 				return RedirectToAction("Login", "Member");
-				//³B²z Cookie ¤£¦s¦bªº±¡ªp
+				//è™•ç† Cookie ä¸å­˜åœ¨çš„æƒ…æ³
 			}
 
-			// ?¬d¥Í¤é¦r¬q¬O§_?ªÅ¡A¦pªG?ªÅ??¨ä?¸m? null
+			// æª¢æŸ¥ç”Ÿæ—¥å­—æ®µæ˜¯å¦ç‚ºç©ºï¼Œå¦‚æœç‚ºç©ºå‰‡å°‡å…¶è¨­ç½®ç‚º null
 			if (string.IsNullOrEmpty(Request.Form["Birthday"]))
 			{
 				Birthday = null;
@@ -167,7 +186,7 @@ namespace TravelNotes.Controllers
 			a.Pwd = ComputeSHA256Hash(Pwd);
 			//if (!string.IsNullOrEmpty(Pwd))
 			//{
-			//a.Pwd = ComputeSHA256Hash(Pwd); // ?ºâ±K?«¢§Æ¦}«O¦s
+			//a.Pwd = ComputeSHA256Hash(Pwd); // è¨ˆç®—å¯†ç¢¼çš„ SHA-256 é›œæ¹Šå€¼ä¸¦ä¿å­˜
 			//}
 			a.Nickname = Nickname;
 			a.Birthday = Birthday;
@@ -175,7 +194,7 @@ namespace TravelNotes.Controllers
 			a.Introduction = Introduction;
 			a.Interest = Interest;
 			_context.SaveChanges();
-			// §ó·s±K? Cookie
+			// æ›´æ–°å¯†ç¢¼ Cookie
 			Response.Cookies.Append("UserPasswordCookie", Pwd);
 			return RedirectToAction("PersonalPage");
 		}
@@ -266,10 +285,10 @@ namespace TravelNotes.Controllers
 				lookBack.UserId = UserId;
 				_context.LookBack.Add(lookBack);
 			}
-			
+
 			_context.SaveChanges();
-			
-			return "look:" + Yid + "·Ó¤ùid:" + PhotoId;
+
+			return "look:" + Yid + "ç…§ç‰‡id:" + PhotoId;
 		}
 
 		//Model
@@ -279,140 +298,140 @@ namespace TravelNotes.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-        //ÀËµø¦æµ{
-        public IActionResult ViewSchedule()
-        {
-            string userId;
-            Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            int id = Convert.ToInt32(userId);
+		//æª¢è¦–è¡Œç¨‹
+		public IActionResult ViewSchedule()
+		{
+			string userId;
+			Request.Cookies.TryGetValue("UsernameCookie", out userId);
+			int id = Convert.ToInt32(userId);
 
-            if (userId != null)
-            {
-                var query = (from s in _context.Spots
-                             where (from o in _context.myFavor
-                                    where o.UserId == id
-                                    select o.SpotId).Contains(s.SpotId)
-                             select s).ToList();
+			if (userId != null)
+			{
+				var query = (from s in _context.Spots
+							 where (from o in _context.myFavor
+									where o.UserId == id
+									select o.SpotId).Contains(s.SpotId)
+							 select s).ToList();
 
-                return View(query);
-            }
+				return View(query);
+			}
 
-            return RedirectToAction("fail", "Member");
+			return RedirectToAction("fail", "Member");
 
-        }
+		}
 
-        //±qai¨ºÃä¥[¤J¨ì¦æµ{
-        public IActionResult Schedule(string scenicSpotName)
-        {
-            if (scenicSpotName == null)
-            {
-                return RedirectToAction("ViewSchedule");
-            }
+		//å¾aié‚£é‚ŠåŠ å…¥åˆ°è¡Œç¨‹
+		public IActionResult Schedule(string scenicSpotName)
+		{
+			if (scenicSpotName == null)
+			{
+				return RedirectToAction("ViewSchedule");
+			}
 
-            string userId;
-            Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            int id = Convert.ToInt32(userId);
-            var query = (from o in _context.Spots
-                         where o.ScenicSpotName == scenicSpotName
-                         select o.SpotId).ToList();
+			string userId;
+			Request.Cookies.TryGetValue("UsernameCookie", out userId);
+			int id = Convert.ToInt32(userId);
+			var query = (from o in _context.Spots
+						 where o.ScenicSpotName == scenicSpotName
+						 select o.SpotId).ToList();
 
-            var viewQuery = _context.Spots.Where(x => x.ScenicSpotName == scenicSpotName).ToList();
+			var viewQuery = _context.Spots.Where(x => x.ScenicSpotName == scenicSpotName).ToList();
 
-            int value = Convert.ToInt32(query[0]);
+			int value = Convert.ToInt32(query[0]);
 
-            //³o¸ÌÀË¬d¬O§_»P¸ê®Æ®w­«½Æ
-            var checkRepect = (from f in _context.myFavor
-                               where f.UserId == id && f.SpotId == value
-                               select f).ToList();
+			//é€™è£¡æª¢æŸ¥æ˜¯å¦èˆ‡è³‡æ–™åº«é‡è¤‡
+			var checkRepect = (from f in _context.myFavor
+							   where f.UserId == id && f.SpotId == value
+							   select f).ToList();
 
-            var flag = checkRepect.Count > 0;
-
-
-
-            if (userId != null && flag == false)
-            {
-                myFavor favor = new myFavor();
-                favor.UserId = id;
-                favor.SpotId = value;
-                _context.myFavor.Add(favor);
-                _context.SaveChanges();
-            }
-            else
-            {
-                return RedirectToAction("fail", "Member");
-            }
-
-
-            return RedirectToAction("ViewSchedule");
-        }
-
-        //²¾°£¦æµ{
-        public IActionResult Remove(string scenicSpotName)
-        {
-
-            string userId;
-            Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            int id = Convert.ToInt32(userId);
-
-
-            //ÀË¬d¨Ï¥ÎªÌ¤£¬°ªÅ
-            if (scenicSpotName != null)
-            {
-                //§ì¥Ø«eªº´ºÂIID
-                var findSpotId = (from s in _context.Spots
-                                  where s.ScenicSpotName == scenicSpotName
-                                  select s.SpotId).ToList();
-                int spotId = Convert.ToInt32(findSpotId[0]);
-
-                //§ì¥Ø«eªº¬y¤ô¸¹
-                var checkQuery = (from f in _context.myFavor
-                                  where f.UserId == id && f.SpotId == spotId
-                                  select f).ToList();
+			var flag = checkRepect.Count > 0;
 
 
 
-                if (checkQuery.Any())
-                {
-                    // ¦pªG¦s¦b¬Û²Åªº¦¬ÂÃ°O¿ı¡A§R°£¥¦­Ì
-                    _context.myFavor.RemoveRange(checkQuery);
+			if (userId != null && flag == false)
+			{
+				myFavor favor = new myFavor();
+				favor.UserId = id;
+				favor.SpotId = value;
+				_context.myFavor.Add(favor);
+				_context.SaveChanges();
+			}
+			else
+			{
+				return RedirectToAction("fail", "Member");
+			}
 
-                    // Àx¦sÅÜ§ó¨ì¸ê®Æ®w
-                    _context.SaveChangesAsync();
-                }
-            }
 
-            return RedirectToAction("ViewSchedule");
-        }
+			return RedirectToAction("ViewSchedule");
+		}
 
-		// ¼g¶K¤å
+		//ç§»é™¤è¡Œç¨‹
+		public IActionResult Remove(string scenicSpotName)
+		{
+
+			string userId;
+			Request.Cookies.TryGetValue("UsernameCookie", out userId);
+			int id = Convert.ToInt32(userId);
+
+
+			//æª¢æŸ¥ä½¿ç”¨è€…ä¸ç‚ºç©º
+			if (scenicSpotName != null)
+			{
+				//æŠ“ç›®å‰çš„æ™¯é»ID
+				var findSpotId = (from s in _context.Spots
+								  where s.ScenicSpotName == scenicSpotName
+								  select s.SpotId).ToList();
+				int spotId = Convert.ToInt32(findSpotId[0]);
+
+				//æŠ“ç›®å‰çš„æµæ°´è™Ÿ
+				var checkQuery = (from f in _context.myFavor
+								  where f.UserId == id && f.SpotId == spotId
+								  select f).ToList();
+
+
+
+				if (checkQuery.Any())
+				{
+					// å¦‚æœå­˜åœ¨ç›¸ç¬¦çš„æ”¶è—è¨˜éŒ„ï¼Œåˆªé™¤å®ƒå€‘
+					_context.myFavor.RemoveRange(checkQuery);
+
+					// å„²å­˜è®Šæ›´åˆ°è³‡æ–™åº«
+					_context.SaveChangesAsync();
+				}
+			}
+
+			return RedirectToAction("ViewSchedule");
+		}
+
+		// å¯«è²¼æ–‡
 		public IActionResult MarkDown(string scenicSpotName)
 		{
-            string userId;
-            Request.Cookies.TryGetValue("UsernameCookie", out userId);
-            int id = Convert.ToInt32(userId);
+			string userId;
+			Request.Cookies.TryGetValue("UsernameCookie", out userId);
+			int id = Convert.ToInt32(userId);
 
-            if (scenicSpotName != null)
+			if (scenicSpotName != null)
 			{
-                //§ì¥Ø«eªº´ºÂIID
-                var findSpotId = (from s in _context.Spots
-                                  where s.ScenicSpotName == scenicSpotName
-                                  select s.SpotId).ToList();
-                int spotId = Convert.ToInt32(findSpotId[0]);
+				//æŠ“ç›®å‰çš„æ™¯é»ID
+				var findSpotId = (from s in _context.Spots
+								  where s.ScenicSpotName == scenicSpotName
+								  select s.SpotId).ToList();
+				int spotId = Convert.ToInt32(findSpotId[0]);
 
-                //§ì¥Ø«eªº¬y¤ô¸¹
-                var checkQuery = (from f in _context.myFavor
-                                  where f.UserId == id && f.SpotId == spotId
-                                  select f).ToList();
+				//æŠ“ç›®å‰çš„æµæ°´è™Ÿ
+				var checkQuery = (from f in _context.myFavor
+								  where f.UserId == id && f.SpotId == spotId
+								  select f).ToList();
 
 				int uuid = checkQuery[0].SpotId;
 
-                return RedirectToAction("CreateDraft", "Article", new { SpotId = uuid });
+				return RedirectToAction("CreateDraft", "Article", new { SpotId = uuid });
 			}
 
 			else
 			{
-                return RedirectToAction("fail","Member");
-            }
-        }
-    }
+				return RedirectToAction("fail", "Member");
+			}
+		}
+	}
 }

@@ -16,96 +16,116 @@
 }
 <style>
     .outerDiv {
-        display:flex;
+        display: flex;
         width: fit-content;
         height: fit-content;
     }
 
-    .inner1{
+    .inner1 {
         flex-grow: 1;
-        width:fit-content;
-        height:fit-content;
+        width: fit-content;
+        height: fit-content;
     }
 
     .inner2 {
         width: fit-content;
         height: fit-content;
-        margin-left:10px;
+        margin-left: 10px;
     }
 
-    .titleContainer{
+    .titleContainer {
         overflow: hidden; /* 隐藏溢出内容 */
-        width: 500px;
-        margin-bottom:5px;
-        padding:0px;
+        /* width: 500px; */
+        margin-bottom: 5px;
+        padding: 0px;
     }
-    .partialViewTitle{
-        font-weight:bold;
-        font-size:25px;
+
+    .partialViewTitle {
+        font-weight: bold;
+        font-size: 23px;
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
-        cursor:pointer;
-        margin:0px;
-        padding:0px;
+        cursor: pointer;
+        margin: 0px;
+        padding: 0px;
+        letter-spacing: 1px;
+        color: #01579b;
+        max-width: 16em; /* 設定最大寬度，16個字的寬度 */
     }
 
-        .partialViewTitle:hover{
-            text-decoration:underline;
+        .partialViewTitle:hover {
+            text-decoration: underline;
         }
+
     .partialViewSubTitle {
-        font-size: 15px;
-        font-weight:bold;
+        font-size: 16px;
+        font-weight: bold;
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
-        margin:0px;
-        padding:0px;
+        margin: 0px;
+        padding: 0px;
+        letter-spacing: 1px;
+        color: gray;
     }
-    .articleContent{
+
+    .articleContent {
         display: -webkit-box; /* 使用 flexbox */
         -webkit-box-orient: vertical; /* 垂直方向 */
         overflow: hidden; /* 超出部分隱藏 */
         -webkit-line-clamp: 3; /* 指定顯示的行數 */
         width: 400px;
-    }
-    .articleContent p{
-        font-size:14px
-    }
-    .articleImage{
-        width: 100px;
-        height: 100px;
+        margin: 10px 0px 0px 0px;
     }
 
-    .partialViewContainer{
-        cursor:pointer;
+        .articleContent p {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            line-height: 2;
+        }
+
+    .articleImage {
+        width: 150px;
+        height: 150px;
     }
 
-    .partialViewTime{
-        color:gray;
+    .partialViewContainer {
+        cursor: pointer;
+    }
+
+    .partialViewTime {
+        color: gray;
+        font-size: 13px;
     }
 </style>
 
-<div onclick="articleView(@article.ArticleId)" class="partialViewContainer">
-    <div >
+<div onclick="articleView(@article.ArticleId)" class="partialViewContainer container">
+    <div>
         <span class="partialViewTime">發佈時間:@article.PublishTime</span>
     </div>
-    <div class="titleContainer">
-        <div  class="partialViewTitle">@article.Title</div>
-        <div class="partialViewSubTitle">@article.Subtitle</div>
-    </div>
     <div class="outerDiv">
-        <div class="inner1">
-            <div class="articleContent articleContent_@article.ArticleId ">
-
+        <div class="leftDiv">
+            <div class="titleContainer">
+                <div class="partialViewTitle">@article.Title</div>
+                <div class="partialViewSubTitle">@article.Subtitle</div>
+            </div>
+            <div class="inner1">
+                <div class="articleContent articleContent_@article.ArticleId ">
+                </div>
             </div>
         </div>
-        <div class="inner2">
-            <img src="@article.Images" class="articleImage" />
+        <div class="rightDiv">
+            <div class="inner2">
+                <img src="@article.Images" class="articleImage" />
+            </div>
         </div>
     </div>
-    
-</div> 
+</div>
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -115,12 +135,12 @@
 <script>
     var backendData_@article.ArticleId = @Html.Raw(Json.Serialize(content));
     if (backendData_@article.ArticleId == null) {
-            backendData_@article.ArticleId = "";
+                backendData_@article.ArticleId = "";
     }
     console.log(backendData_@article.ArticleId);
     $(function () {
         $('.articleContent_@article.ArticleId').html(backendData_@article.ArticleId);
-        
+
     });
     function articleView(articleId) {
         window.location = '/Article/ArticleView?articleId=' + articleId;
