@@ -62,26 +62,77 @@ namespace TravelNotes.Controllers
 				x => x.Spots.DefaultIfEmpty(), // 對於沒有對應 Spot 的 Article，Spots 將是一個包含一個 null 元素的集合
 				(x, spot) => new { Article = x.Article, Spots = spot })
 				.ToList(); // 物化查询结果以便在内存中处理
-						   // 过滤: 如果提供了搜索字符串，就在内存中应用正则表达式去除HTML标签后进行搜索
+			var groupJoinQuery = _context.articleOtherTags
+			.GroupJoin(
+				_context.OtherTags, // 要连接的第二个序列
+				articleOtherTag => articleOtherTag.OtherTagId, // 第一个序列的连接键
+				otherTag => otherTag.OtherTagId, // 第二个序列的连接键
+				(articleOtherTag, otherTags) => new // 结果选择器
+				{
+					ArticleId = articleOtherTag.ArticleId,
+					OtherTags = otherTags
+				}
+			).ToList();
+			var combinedResults = articles
+				.GroupJoin( // 使用 GroupJoin 实现左连接
+					groupJoinQuery,
+					articleWithOrWithoutSpot => articleWithOrWithoutSpot.Article.ArticleId,
+					groupJoinResult => groupJoinResult.ArticleId,
+					(articleWithOrWithoutSpot, groupJoinResultCollection) => new
+					{
+						Article = articleWithOrWithoutSpot.Article,
+						Spot = articleWithOrWithoutSpot.Spots,
+						OtherTags = groupJoinResultCollection.SelectMany(gjr => gjr.OtherTags).ToList()
+					}).ToList();
 			if (!string.IsNullOrWhiteSpace(search))
 			{
-				articles = articles
+				combinedResults = combinedResults
 					.Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
 								a.Article.Title.Contains(search) ||
-								a.Spots != null && a.Spots.ScenicSpotName.Contains(search))
+								a.Spot != null && a.Spot.ScenicSpotName.Contains(search) ||
+								a.OtherTags.Any(tag => tag.OtherTagName.Contains(search)))
 					.ToList();
 			}
-			// 對結果進行 PublishTime 降序排序並轉換為 usersArticleModel 列表
-			var dataList = articles
+			var dataList = combinedResults
 				.OrderByDescending(a => a.Article.PublishTime)
 				.Select(a => new usersArticleModel
-				{
-					article = a.Article,
-					user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
-					// 如果你還需要從 Spots 表中獲取信息，你可以在這裡添加
-					// 比如，SpotName = a.Spot.ScenicSpotName
-				})
-				.ToList();
+			{
+				article = a.Article,
+				user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
+				// 使用 Select 来获取所有 OtherTagId，并处理可能的 null 情况
+				OtherTagIds = a.OtherTags?.Select(ot => ot.OtherTagId).ToList() ?? new List<int>()
+			})
+			.ToList();
+			//var articles = _context.article
+			//	.Where(a => a.ArticleState == "發佈" && a.UserId == users.UserId)
+			//	.GroupJoin(_context.Spots, // 進行分組連接
+			//	article => article.SpotId,
+			//	spot => spot.SpotId,
+			//	 (article, spots) => new { Article = article, Spots = spots })
+			//	.SelectMany(
+			//	x => x.Spots.DefaultIfEmpty(), // 對於沒有對應 Spot 的 Article，Spots 將是一個包含一個 null 元素的集合
+			//	(x, spot) => new { Article = x.Article, Spots = spot })
+			//	.ToList(); // 物化查询结果以便在内存中处理
+			//			   // 过滤: 如果提供了搜索字符串，就在内存中应用正则表达式去除HTML标签后进行搜索
+			//if (!string.IsNullOrWhiteSpace(search))
+			//{
+			//	articles = articles
+			//		.Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
+			//					a.Article.Title.Contains(search) ||
+			//					a.Spots != null && a.Spots.ScenicSpotName.Contains(search))
+			//		.ToList();
+			//}
+			//// 對結果進行 PublishTime 降序排序並轉換為 usersArticleModel 列表
+			//var dataList = articles
+			//	.OrderByDescending(a => a.Article.PublishTime)
+			//	.Select(a => new usersArticleModel
+			//	{
+			//		article = a.Article,
+			//		user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
+			//		// 如果你還需要從 Spots 表中獲取信息，你可以在這裡添加
+			//		// 比如，SpotName = a.Spot.ScenicSpotName
+			//	})
+			//	.ToList();
 			// 根据用户或其他地方获取 UsersArticleViewModel 类型的数据
 			UsersArticleViewModel viewModel = new UsersArticleViewModel();
 			// 从 Cookie 中获取密钥值
@@ -94,6 +145,7 @@ namespace TravelNotes.Controllers
 			viewModel.article = (IEnumerable<article>)dataList.Select(a => a.article).ToList();
 			// 将用户列表的值设定到模型的 users 属性
 			viewModel.users = users;
+
 			ViewBag.loginUserId = loginUserId;
 			// 返回视图，并传递模型数据
 			return View(viewModel);

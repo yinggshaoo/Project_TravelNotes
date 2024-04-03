@@ -66,6 +66,7 @@ namespace TravelNotes.Models
 
 		public string PasswordCookie { get; set; }
 
+		public List<int>? OtherTagIds { get; set; }
 
 		public UsersArticleViewModel()
 		{

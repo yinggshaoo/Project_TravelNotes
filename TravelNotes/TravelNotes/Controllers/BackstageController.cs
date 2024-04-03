@@ -14,6 +14,7 @@ namespace TravelNotes.Controllers
             _hostingEnvironment = hostingEnvironment;
             _context = context;
         }
+        #region 頁面
         public IActionResult Index(int? UserId, string? userName)
         {
             string userId;
@@ -36,18 +37,38 @@ namespace TravelNotes.Controllers
                              user = u
                          };
             ViewBag.photos = photos;
-            var article = UserId == null ? _context.article : _context.article.Where(a => a.UserId == UserId);
+            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
+            var article = UserId == null ? publishArticle : publishArticle.Where(a => a.UserId == UserId);
             var articles = from a in article
-                          join u in _context.users
-                          on a.UserId equals u.UserId
-                          select new
-                          {
-                              article = a,
-                              user = u
-                          };
+                           join u in user
+                           on a.UserId equals u.UserId
+                           select new
+                           {
+                               article = a,
+                               user = u
+                           };
             ViewBag.articles = articles;
             return View();
         }
+        #endregion
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+
+        #region 刪除功能
+        [HttpPost]
+        public void DeletePhotos(int photoId)
+        {
+            photo photoToDelete = _context.photo.FirstOrDefault(a => a.PhotoId == photoId)!;
+
+            if (photoToDelete != null)
+            {
+                _context.photo.Remove(photoToDelete);
+                _context.SaveChanges();
+            }
+        }
+        #endregion
         public bool CheckSuperUser()
         {
             string userId;

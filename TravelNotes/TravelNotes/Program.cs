@@ -55,6 +55,9 @@ app.UseAuthorization();
 //    pattern: "{controller=Article}/{action=draft}/{id?}");
 app.MapControllerRoute(
     name: "default",
+    pattern: "{controller=Backstage}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
     pattern: "{controller=PersonalPage}/{action=PersonalPage}/{id?}");
 
 

@@ -186,6 +186,9 @@
 				我的最愛
 			</a>
 		</div>
+		<div class="row my-4" id="backStageContainer">
+
+		</div>
 		<a onclick="sideBarSlide(this)" id="sideBarSlider">&#10095;</a>
 	</div>
 	<div id="allContainer">
@@ -214,6 +217,19 @@
 			}
 
 		}
+		function Init(){
+			$.ajax({
+				url: "/Layout/GetUserInformation",
+				type:"get",
+				success: function (e) {
+					if (e == "Y") {
+						$("#backStageContainer").html("");
+						$("#backStageContainer").append('<a href="/Backstage/Index"><i class= "fa-solid fa-chart-simple fa-sm" style = "color: #ffffff;" ></i>後臺管理</a>');
+					}
+				}
+			});
+		}
+		Init();
 	</script>
 </body>
 </html>

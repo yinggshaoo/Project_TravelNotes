@@ -5,7 +5,7 @@
 <style>
     #TopS {
         display: flex;
-        align-items: center; /* 使所有项垂直居中 */
+        align-items: center;
         z-index:100;
     }
 
@@ -27,8 +27,8 @@
     #A {
         display:inline-block;
         margin-top:10px;
-        justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直居中 */   
+        justify-content: center;
+        align-items: center;
         background-color: white;
         border: 5px solid gray;
         border-radius:20px;
@@ -48,58 +48,56 @@
     }
 
         .image-container:hover {
-            transform: scale(1.05); /* 滑鼠停在.image-container上時放大圖片 */
+            transform: scale(1.05);
         }
 
         .image-container .hover-button {
             position: absolute;
             border: none;
-            top: 2px; /* 定位到容器的左上角 */
+            top: 2px;
             left: 2px;
-            width: 40px; /* 按钮宽度，根据需要调整 */
-            height: 40px; /* 按钮高度，根据需要调整 */
-            color: white; /* 按钮文字颜色为白色 */
+            width: 40px;
+            height: 40px;
+            color: white;
             text-align: center;
-            line-height: 30px; /* 使文字垂直居中 */
-            opacity: 0; /* 初始化不可见 */
-            transition: opacity 0.3s ease; /* 平滑过渡效果 */
+            line-height: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
             cursor: pointer;
             background-color: rgba(0,0,0,0.3);
         }
 
         .image-container:hover .hover-button {
-            opacity: 1; /* 鼠标悬停时完全可见 */
+            opacity: 1;
         }
 
 
 
     .modal {
-        display: none; /* 不顯示 */
-        position: fixed; /* 固定定位 */
-        z-index: 1000; /* 設定在最表層 */
-        padding-top: 100px; /* 位置 */
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto; /* 如果需要，使用滾動 */
+        overflow: auto;
         background-color: rgb(0,0,0);
     }
-    /* 點擊出來的img */
     .modal-content {
         margin: auto;
         display: block;
         width: 80%;
         max-width: 700px;
     }
-    /* 關閉按鈕 */
     .close {
         position: absolute;
-        width: 35px; /* 设置宽度 */
-        height: 35px; /* 设置高度 */
-        display: flex; /* 使用弹性盒子 */
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 35px;
         right: 35px;
         color: #f1f1f1;
@@ -112,19 +110,18 @@
     .close:hover{
             transform: scale(1.2);
     }
-    /* 添加一個樣式以突顯選中的圖片 */
     .selected {
-        position: relative; /* 添加相对定位 */
+        position: relative;
         transform: scale(0.9);
     }
 
 
     .check-icon {
-        font-size: 24px; /* 或任何合适的大小 */
+        font-size: 24px;
         position: absolute;
         top: 10px;
         right: 14px;
-        color: black; /* 或任何你希望的颜色 */
+        color: black;
         cursor: pointer;
     }
 
@@ -173,14 +170,14 @@
         top: 50%;
         display: flex;
         transform: translateY(-50%);
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
+        align-items: center;
+        justify-content: center;
         font-size: 2em;
         color: white;
         z-index: 1000;
         user-select: none;
-        width: 100%; /* 根据需要调整 */
-        height: 100%; /* 根据需要调整 */
+        width: 100%;
+        height: 100%;
     }
     .prev {
         left: 0;

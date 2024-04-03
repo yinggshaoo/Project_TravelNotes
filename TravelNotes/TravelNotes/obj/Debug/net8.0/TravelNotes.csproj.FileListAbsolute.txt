@@ -644,3 +644,7 @@ C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\obj\Debug\net
 C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\obj\Debug\net8.0\TravelNotes.pdb
 C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\obj\Debug\net8.0\TravelNotes.genruntimeconfig.cache
 C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\obj\Debug\net8.0\ref\TravelNotes.dll
+C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelML4.mlnet
+C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelML2.mlnet
+C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelML3.mlnet
+C:\Users\user\Documents\GitHub\TravelNotes\TravelNotes\TravelNotes\bin\Debug\net8.0\TravelModel5.mlnet

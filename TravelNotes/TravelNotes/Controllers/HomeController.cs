@@ -24,34 +24,59 @@ namespace TravelNotes.Controllers
         {
             Regex htmlTagRegex = new Regex("<.*?>");
 
-            // 从数据库检索所有状态为"發佈"的文章
-            var articlesWithSpots = _context.article
-                .Where(a => a.ArticleState == "發佈")
-                .Join(_context.Spots, // 连接Spots表
-                      article => article.SpotId,
-                      spot => spot.SpotId,
-                      (article, spot) => new { Article = article, Spot = spot })
-                .ToList(); // 物化查询结果以便在内存中处理
+            
 
-            // 过滤: 如果提供了搜索字符串，就在内存中应用正则表达式去除HTML标签后进行搜索
+            var articlesWithOrWithoutSpots = _context.article
+                .Where(a => a.ArticleState == "發佈")
+                .GroupJoin(_context.Spots,
+                    article => article.SpotId,
+                    spot => spot.SpotId,
+                    (article, spots) => new { Article = article, Spots = spots })
+                .SelectMany(
+                    x => x.Spots.DefaultIfEmpty(),
+                    (x, spot) => new { Article = x.Article, Spot = spot })
+                .ToList();
+            var groupJoinQuery = _context.articleOtherTags
+            .GroupJoin(
+                _context.OtherTags, // 要连接的第二个序列
+                articleOtherTag => articleOtherTag.OtherTagId, // 第一个序列的连接键
+                otherTag => otherTag.OtherTagId, // 第二个序列的连接键
+                (articleOtherTag, otherTags) => new // 结果选择器
+                {
+                    ArticleId = articleOtherTag.ArticleId,
+                    OtherTags = otherTags
+                }
+            ).ToList();
+            var combinedResults = articlesWithOrWithoutSpots
+                .GroupJoin( // 使用 GroupJoin 实现左连接
+                    groupJoinQuery,
+                    articleWithOrWithoutSpot => articleWithOrWithoutSpot.Article.ArticleId,
+                    groupJoinResult => groupJoinResult.ArticleId,
+                    (articleWithOrWithoutSpot, groupJoinResultCollection) => new
+                    {
+                        Article = articleWithOrWithoutSpot.Article,
+                        Spot = articleWithOrWithoutSpot.Spot,
+                        OtherTags = groupJoinResultCollection.SelectMany(gjr => gjr.OtherTags).ToList()
+                    }).ToList();
+
             if (!string.IsNullOrWhiteSpace(search))
             {
-                articlesWithSpots = articlesWithSpots
+                combinedResults = combinedResults
                     .Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
                                 a.Article.Title.Contains(search) ||
-                                a.Spot.ScenicSpotName.Contains(search))
+                                a.Spot != null && a.Spot.ScenicSpotName.Contains(search) ||
+                                a.OtherTags.Any(tag => tag.OtherTagName.Contains(search)))
                     .ToList();
             }
 
-            // 对结果进行LikeCount降序排序并转换为usersArticleModel列表
-            var dataList = articlesWithSpots
-                .OrderByDescending(a => a.Article.LikeCount)
+            var dataList = combinedResults
+                .OrderByDescending(a => a.Article.LikeCount + a.Article.PageView)
                 .Select(a => new usersArticleModel
                 {
                     article = a.Article,
                     user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
-                    // 如果你还需要从Spots表中获取信息，你可以在这里添加
-                    // 比如，SpotName = a.Spot.ScenicSpotName
+                    // 使用 Select 来获取所有 OtherTagId，并处理可能的 null 情况
+                    OtherTagIds = a.OtherTags?.Select(ot => ot.OtherTagId).ToList() ?? new List<int>()
                 })
                 .ToList();
 
@@ -69,8 +94,7 @@ namespace TravelNotes.Controllers
 
             return View(dataList);
         }
-
-
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

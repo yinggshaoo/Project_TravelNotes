@@ -14,6 +14,27 @@
     content = Regex.Replace(content, @"<img\b[^>]*>", ""); //刪掉img標籤
     content = Regex.Replace(content, @"<(?!p\b)[^>]+>", "<p>"); //全部換成p標籤
 }
+@functions {
+    public string FormatPublishTime(DateTime? publishTime)
+    {
+        if (!publishTime.HasValue)
+            return "未知";
+
+        var now = DateTime.Now;
+        var difference = now.Subtract(publishTime.Value);
+
+        if (difference.TotalDays >= 7)
+            return $"{publishTime.Value}";
+        if (difference.TotalDays >= 1)
+            return $"{difference.Days} 天前";
+        if (difference.TotalHours >= 1)
+            return $"{difference.Hours} 小時前";
+        if (difference.TotalMinutes >= 1)
+            return $"{difference.Minutes} 分鐘前";
+
+        return "剛剛";
+    }
+}
 <style>
     .outerDiv {
         display: flex;
@@ -103,7 +124,7 @@
 
 <div onclick="articleView(@article.ArticleId)" class="partialViewContainer container">
     <div>
-        <span class="partialViewTime">發佈時間:@article.PublishTime</span>
+        <span class="partialViewTime">發佈時間：@FormatPublishTime(@article.PublishTime)</span>
     </div>
     <div class="outerDiv">
         <div class="leftDiv">

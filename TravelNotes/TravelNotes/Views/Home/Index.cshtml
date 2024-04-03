@@ -1,6 +1,7 @@
-﻿
-@model List<usersArticleModel>
+﻿@model List<usersArticleModel>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
 @functions {
     public string FormatPublishTime(DateTime? publishTime)
     {
@@ -22,10 +23,23 @@
 }
 
 <style>
+    .sticky-search-bar {
+        position: sticky;
+        top: 0;
+        background-color: #F3E4C6;
+        z-index: 1000;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:5px;
+        height:50px;
+        
+    }
+
     .input-icon-container {
         position: relative;
         display: inline-block;
         width: 100%;
+        margin-top:3px;
     }
 
         .input-icon-container i {
@@ -35,46 +49,59 @@
             transform: translateY(-50%);
             color: #ccc;
         }
+
+    .parent {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ArtCarForHome{
+        padding: 2px;
+        position: relative;
+        background-color: white;
+        border-radius: 10px;
+        width: 95%;
+    }
+
+    .ParVie{
+        margin: 10px;
+        position: relative;
+    }
     </style>
-<header style="margin-left:auto;margin-right:auto;margin-top:10px;width:90%;">
+<div class="sticky-search-bar">
     <form asp-controller="Home" asp-action="Index" method="get">
         <div class="input-icon-container">
             <i class="bi bi-search"></i>
-            <input type="text" name="search" placeholder="請輸入關鍵字" style="width:100%; border-radius: 30px; border: 1px solid #ccc; padding: 10px 40px;" />
+            <input type="text" name="search" placeholder="請輸入關鍵字" style="width:100%; border-radius: 30px; border: 0px solid #ccc; padding: 10px 40px;" />
         </div>
     </form>
-</header>
-<body>
+</div>
+<div>
     <hr />
     @if (Model != null && Model.Any())
     {
 
         @foreach (var item in Model)
         {
-            <div style="padding:2px;position: relative;background-color:white;border-radius: 10px;"class="ArtCarForHome">
-                <div style="margin:10px;">
-                    
-                    <div style="display:inline-block;">
-                        <a href="PersonalPage/PersonalPage?userId=@item.user.UserId" style="text-decoration: none; color: inherit;">
-                            <img src="@item.user.Headshot" style="width:35px;height:35px;border-radius:50%;"></img>
-                            @item.user.Nickname
-                        </a>
+            <div class="parent">
+                <div class="ArtCarForHome">
+                    <div style="margin:10px;">
+                        <div style="display:inline-block;">
+                            <a href="/PersonalPage/PersonalPage?userId=@item.user.UserId" style="text-decoration: none; color: inherit;">
+                                <img src="@item.user.Headshot" style="width:35px;height:35px;border-radius:50%;"></img>
+                                @item.user.Nickname
+                            </a>
+                        </div>
+                        <div style="display:inline-block; color: gray; font-size: 12px;">發佈時間: @FormatPublishTime(item.article.PublishTime)</div>
                     </div>
-                    <div style="display:inline-block; color: gray; font-size: 12px;">發布時間: @FormatPublishTime(item.article.PublishTime)</div>
-
-
-
-
-
-
-                </div>
-                <div style="margin:10px; position: relative;" class="ParVie">
-                    <!-- 這裡的超連結覆蓋了整個文章卡片區域 -->
-                    <a href="/Article/ArticleView?articleId=@item.article.ArticleId" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></a>
-                    <partial name="ArticleCardForHome" model="item.article" />
+                    <div class="ParVie">
+                        <a href="/Article/ArticleView?articleId=@item.article.ArticleId" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></a>
+                        <partial name="ArticleCardForHome" model="item.article" />
+                    </div>
                 </div>
             </div>
-
             <br />
             <br />
         }     
@@ -123,8 +150,8 @@
                 element.innerText = timeSince(publishTime) + '前';
             });
         });
-
+        
         
         
     </script>
-</body>
+</div>

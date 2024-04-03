@@ -162,9 +162,9 @@ namespace TravelNotes.Controllers
             {
                 return RedirectToAction("CreateDraft");
             }
-            if (CheckOwner(target.UserId.ToString()))
+            if (!CheckOwner(target.UserId.ToString()))
             {
-                RedirectToAction("errorView");
+                return View("errorView");
             }
             ViewBag.target = target;
             var data = _context.article.Where(a => a.UserId == Convert.ToInt32(userId) && a.ArticleState == "草稿").ToList();
@@ -278,11 +278,10 @@ namespace TravelNotes.Controllers
             }
             article articleToPublish = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
 
-            if (CheckOwner(articleToPublish.UserId.ToString()))
+            if (!CheckOwner(articleToPublish.UserId.ToString()))
             {
-                RedirectToAction("errorView");
+                return View("errorView");
             }
-
             articleToPublish.PublishTime = DateTime.Now;
             articleToPublish.ArticleState = "發佈";
             _context.SaveChanges(); // 保存更改
@@ -300,9 +299,9 @@ namespace TravelNotes.Controllers
             }
             article articleToDelete = _context.article.FirstOrDefault(a => a.ArticleId == articleId)!;
             
-            if (CheckOwner(articleToDelete.UserId.ToString()))
+            if (!CheckOwnerOrSuperUser(articleToDelete.UserId.ToString()))
             {
-                RedirectToAction("errorView");
+                return View("errorView");
             }
             //刪除文章的留言
             List<messageBoard> messageBoards = _context.messageBoard.Where(a => a.ArticleId == articleId).ToList();
@@ -416,6 +415,7 @@ namespace TravelNotes.Controllers
             return "Ok";
         }
         #endregion
+        #region 判斷相關
         public bool CheckOwner(string checkId)
         {
             string userId;
@@ -423,12 +423,32 @@ namespace TravelNotes.Controllers
             {
                 return false;
             }
-            if(userId != checkId)
+            if (userId != checkId)
             {
                 return false;
             }
             return true;
         }
+        public bool CheckOwnerOrSuperUser(string checkId)
+        {
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return false;
+            }
+            users user = _context.users.FirstOrDefault(a => a.UserId == Convert.ToInt32(userId))!;
+            if (user.SuperUser!.ToUpper().Trim() == "Y")
+            {
+                return true;
+            }
+            if (userId != checkId)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
         public IActionResult TestArticle()
         {
             bool isUser = User.Identity.IsAuthenticated;

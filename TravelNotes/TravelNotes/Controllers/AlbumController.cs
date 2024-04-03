@@ -8,7 +8,7 @@ namespace TravelNotes.Controllers
     
     public class AlbumController : Controller
     {
-        int userId = 1;
+        int userId = 0;
         private readonly ILogger<AlbumController> _logger;
         private readonly TravelContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -23,7 +23,6 @@ namespace TravelNotes.Controllers
             string cookieValue;
             int UserId;
             int login = 0;
-            // 如果URL中没有提供userId，那么尝试从Cookie中获取当前登录用户的userId
             if (userId == null)
             {
                 if (Request.Cookies.TryGetValue("UsernameCookie", out  cookieValue))
@@ -33,17 +32,13 @@ namespace TravelNotes.Controllers
                 }
                 else
                 {
-                    // 如果连Cookie也没有userId，那么重定向到登录页面
                     return RedirectToAction("Login", "Member");
                 }
             }
             else {
                 UserId = (int)userId;
             }
-            
-        
-
-            // 使用提供的userId来查询并显示相片
+            //挑選photo裡 UserId&&不在垃圾桶&&不在Album裡面的
             var photos = _context.photo
                                  .Where(p => p.UserId == UserId && p.PhotoDescription == null && p.AlbumId == null)
                                  .Select(p => new photo
@@ -52,10 +47,11 @@ namespace TravelNotes.Controllers
                                      PhotoId = p.PhotoId,
                                      UploadDate = p.UploadDate
                                  }).ToList();
+            //判斷登入者是否在查看自己的頁面
             bool IsMyPage = login == UserId;
             ViewBag.IsMyPage = IsMyPage;
             ViewBag.UserPage = userId;
-            // 回传数据到视图
+
             return View(photos);
         }
         public async Task<IActionResult> Album(int? userId)
@@ -184,11 +180,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             //條件 IF imageFile不是空的 && 大小比0大
             if (imageFiles != null && imageFiles.Any(f => f.Length > 0))
             {
@@ -258,11 +249,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var photo = await _context.photo.Where(p => p.AlbumId == null & p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -291,11 +277,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var photo = await _context.photo.FindAsync(model.PhotoId);
             if (photo == null)
             {
@@ -316,11 +297,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             var photos = _context.photo.Where(p => request.PhotoIds.Contains(p.PhotoId)).ToList();
 
@@ -349,11 +325,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var photo = await _context.photo.Where(p => p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -378,11 +349,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             if (!string.IsNullOrEmpty(folderName))
             {
@@ -431,11 +397,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             if (imageFiles != null && imageFiles.Any(f => f.Length > 0))
             {
@@ -499,11 +460,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
                                     .MinAsync(a => (int?)a.AlbumId);
@@ -555,11 +511,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var minAlbumId = await _context.album
                                     .Where(a => a.UserId == userId && a.State == 1)
                                     .MinAsync(a => (int?)a.AlbumId);
@@ -584,7 +535,11 @@ namespace TravelNotes.Controllers
             // ?除?些相?及其照片
             foreach (var album in albumsToDelete)
             {
-                _context.photo.RemoveRange(album.photo); // ?除相?中的照片
+                // 筛选出当前相册中PhotoDescript不等于"1"的照片
+                var photosToDelete = album.photo.Where(p => p.PhotoDescription != "1").ToList();
+
+                // 删除筛选后的照片
+                _context.photo.RemoveRange(photosToDelete);
                 _context.album.Remove(album); // ?除相?
             }
             await _context.SaveChangesAsync();
@@ -600,11 +555,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             var photosToDelete = await _context.photo
                                                .Where(p => p.UserId == userId && p.PhotoDescription == "1")
@@ -631,11 +581,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var photosToDelete = await _context.photo
                                                .Where(p => p.PhotoId == photoId)
                                                .ToListAsync();
@@ -660,11 +605,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var album = await _context.album
                        .FirstOrDefaultAsync(a => a.AlbumId == albumId);
 
@@ -675,6 +615,7 @@ namespace TravelNotes.Controllers
 
             // 設置 State 欄位為 1 來表示該相簿現在是非活動狀態
             album.State = 1;
+            album.CreateTime = DateOnly.FromDateTime(DateTime.Now);
 
             // 標記實體為已修改，讓 EF Core 知道需要更新這個實體
             _context.Entry(album).State = EntityState.Modified;
@@ -693,11 +634,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             // 查找当前相册
             var album = await _context.album.FirstOrDefaultAsync(a => a.AlbumId == albumId);
@@ -733,11 +669,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var photo = await _context.photo.Where(p => p.PhotoId == photoId).FirstOrDefaultAsync();
             var NowTime = DateTime.Today;
             string formattedDate = NowTime.ToString("yyyy-MM-dd");
@@ -766,11 +697,6 @@ namespace TravelNotes.Controllers
                 userId = Convert.ToInt32(cookieValue);
 
             }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
-            }
             var album = await _context.album.FindAsync(albumId);
             if (album != null)
             {
@@ -789,11 +715,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
 
             // 查找所有UserId=1且AlbumId为NULL的图片
@@ -823,11 +744,6 @@ namespace TravelNotes.Controllers
             {
                 userId = Convert.ToInt32(cookieValue);
 
-            }
-            else
-            {
-                userId = 1;
-                // 处理 cookie 不存在的情况
             }
             // 在这里编写逻辑以根据提供的albumId查找相册
             var album = await _context.album.Include(a => a.photo).FirstOrDefaultAsync(a => a.AlbumId == albumId);
