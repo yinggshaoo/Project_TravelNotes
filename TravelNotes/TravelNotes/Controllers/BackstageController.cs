@@ -60,6 +60,8 @@ namespace TravelNotes.Controllers
         [HttpPost]
         public void DeletePhotos(int photoId)
         {
+            List<LookBack> lookBack = _context.LookBack.Where(a => a.PhotoId == photoId).ToList();
+            _context.RemoveRange(lookBack);
             photo photoToDelete = _context.photo.FirstOrDefault(a => a.PhotoId == photoId)!;
 
             if (photoToDelete != null)

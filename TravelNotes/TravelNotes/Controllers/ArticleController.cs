@@ -254,11 +254,11 @@ namespace TravelNotes.Controllers
             }
             article article = new article();
             article.UserId = Convert.ToInt32(userId);//之後要改
-            article.Title = "";
+            article.Title = "新的文章";
             article.Subtitle = "";
             article.TravelTime = DateTime.Now;
             article.Contents = "";
-            article.Images = "";
+            article.Images = "/images/upload.webp";
             article.LikeCount = 0;
             article.PageView = 0;
             article.ArticleState = "草稿";
