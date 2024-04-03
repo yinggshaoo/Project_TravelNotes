@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "註冊";
 }
-<div class="row">
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-md-4">
         <form id="registerForm" action="/Member/Register" method="post" onsubmit="return validateForm()">
             <h2>註冊一段美好的旅程吧!</h2>
@@ -23,16 +23,17 @@
                 <span id="confirmPasswordError" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
+        </form></br>
+        <a class="btn btn-outline-secondary btn-lg" asp-controller="Member" asp-action="Login">登入去 ➜</a>
     </div>
     
 </div>
 
-<div class="row">
+@* <div class="row">
     <div class="col-md-4">
-        <a class="btn btn-outline-secondary btn-lg" asp-controller="Member" asp-action="Login">登入去 ➜</a>
+        
     </div>
-</div>
+</div> *@
 
 <script>
     function validateForm() {
