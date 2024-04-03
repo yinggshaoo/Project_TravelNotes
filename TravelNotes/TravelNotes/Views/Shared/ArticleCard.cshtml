@@ -23,18 +23,31 @@
         var now = DateTime.Now;
         var difference = now.Subtract(publishTime.Value);
 
-        if (difference.TotalDays >= 7)
-            return $"{publishTime.Value}";
-        if (difference.TotalDays >= 1)
-            return $"{difference.Days} 天前";
-        if (difference.TotalHours >= 1)
-            return $"{difference.Hours} 小時前";
-        if (difference.TotalMinutes >= 1)
+        // 若日期在1分钟内，则返回"剛剛"
+        if (difference.TotalMinutes < 1)
+            return "剛剛";
+
+        // 如果日期在1分钟以上，且小于1小时，则返回分钟前缀的字符串
+        if (difference.TotalMinutes < 60)
             return $"{difference.Minutes} 分鐘前";
 
-        return "剛剛";
+        // 如果日期在1小时以上，且小于1天，则返回小时前缀的字符串
+        if (difference.TotalHours < 24)
+            return $"{difference.Hours} 小時前";
+
+        // 如果日期在1天以上但不到7天，则返回天数前缀的字符串
+        if (difference.TotalDays < 7)
+            return $"{difference.Days} 天前";
+
+        // 若日期超过7天，且小于365天，则返回完整的年、月、日
+        if (difference.TotalDays < 365)
+            return publishTime.Value.ToString("M 月 d 日");
+
+        // 若日期超过一年，则返回完整的年、月、日
+        return publishTime.Value.ToString("yyyy 年 M 月 d 日");
     }
 }
+
 <style>
     .outerDiv {
         display: flex;
@@ -56,7 +69,6 @@
 
     .titleContainer {
         overflow: hidden; /* 隐藏溢出内容 */
-        /* width: 500px; */
         margin-bottom: 5px;
         padding: 0px;
     }
@@ -156,7 +168,7 @@
 <script>
     var backendData_@article.ArticleId = @Html.Raw(Json.Serialize(content));
     if (backendData_@article.ArticleId == null) {
-                backendData_@article.ArticleId = "";
+                    backendData_@article.ArticleId = "";
     }
     console.log(backendData_@article.ArticleId);
     $(function () {

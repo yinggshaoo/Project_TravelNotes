@@ -1,28 +1,11 @@
 ﻿@model TravelNotes.Models.UsersArticleViewModel
 
 @{
-	var user = Model.users.UserId;
-	bool isMyPage = ViewBag.loginUserId == Model.users.UserId;
-	
-}
-@functions {
-	public string FormatPublishTime(DateTime? publishTime)
-	{
-		if (!publishTime.HasValue)
-			return "未知";
+	// var user = Model.users.UserId;
+	var user = Model.users?.UserId;
+	// bool isMyPage = ViewBag.loginUserId == Model.users.UserId;
+	bool isMyPage = ViewBag.loginUserId?.Equals(Model.users?.UserId) ?? false;
 
-		var now = DateTime.Now;
-		var difference = now.Subtract(publishTime.Value);
-
-		if (difference.TotalDays >= 1)
-			return $"{difference.Days} 天前";
-		if (difference.TotalHours >= 1)
-			return $"{difference.Hours} 小時前";
-		if (difference.TotalMinutes >= 1)
-			return $"{difference.Minutes} 分鐘前";
-
-		return "剛剛";
-	}
 }
 
 <link rel="stylesheet" href="~/PersonalPage/PersonalPage" />
@@ -69,10 +52,10 @@
 	#rightpartdiv {
 		background-color: whitesmoke;
 		/* 		border: 2px #3F3232 solid;
-	 */ border-radius: 50px;
+		 */ border-radius: 50px;
 		padding-top: 30px;
 		padding-bottom: 50px;
-		/* height: fit-content; */
+		height: fit-content;
 		/* margin:60px 0px 0px 0px; */
 		/* width: 400px; */
 		/* width:fit-content; */
@@ -154,7 +137,7 @@
 	<div class="col-12 col-md-8" id="leftpartdiv">
 		<div class="titleDiv">
 			<header>
-				@if (@Model.users.Nickname == null)
+				@if (Model.users?.Nickname == null)
 				{
 					<p></p>
 				}
@@ -167,7 +150,7 @@
 				<form method="post" action="~/PersonalPage/PersonalPage" class="searchClass" style="display:flex;">
 					<label for="search">
 					</label>
-					<input name="userId" type="text" style="display:none;" value="@Model.users.UserId" />
+					<input name="userId" type="text" style="display:none;" value="@Model.users?.UserId" />
 					<input id="searchId" name="search" type="text" class="form-control border-dark" />&nbsp;
 					<input type="submit" value="搜尋" class="btn btn-outline-dark" />
 				</form><br />
@@ -238,9 +221,9 @@
 		<div>
 			<div id="myProfileImg" class="mb-3">
 				<label for="formFileSm" class="form-label"></label>
-				@if (@Model.users.Headshot == null)
+				@if (@Model.users?.Headshot == null)
 				{
-					<img id="userImageId" class="rounded-circle" src="/images/year-photo.jpg" alt="" style="width:100px;height:100px;">
+					<img id="userImageId" class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
 				}
 				else
 				{
@@ -253,10 +236,10 @@
 				}
 			</div>
 			<div id="myProfileName">
-				<h5 class="textColor">@Model.users.Nickname</h5>
+				<h5 class="textColor">@Model.users?.Nickname</h5>
 			</div>
 			<div class="myProfile" style="block">
-				<p>@Model.users.Introduction</p>
+				<p>@Model.users?.Introduction</p>
 			</div>
 			<div id="myPersonalSettings">
 				<hr />
@@ -295,7 +278,7 @@
 								<path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
 							</svg>&nbsp;暱稱：
 						</label>
-						<input type="text" name="Nickname" value="@Model.users.Nickname" class="form-control personalInput">
+						<input type="text" name="Nickname" value="@Model.users?.Nickname" class="form-control personalInput">
 					</div><br />
 
 					@if (isMyPage)
@@ -332,7 +315,7 @@
 								<path fill-rule="evenodd" d="M11.5 1a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-3.45 3.45A4 4 0 0 1 8.5 10.97V13H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V14H6a.5.5 0 0 1 0-1h1.5v-2.03a4 4 0 1 1 3.471-6.648L14.293 1zm-.997 4.346a3 3 0 1 0-5.006 3.309 3 3 0 0 0 5.006-3.31z" />
 							</svg>&nbsp;性別：
 						</label>
-						<input type="text" name="Gender" value="@Model.users.Gender" class="form-control personalInput">
+						<input type="text" name="Gender" value="@Model.users?.Gender" class="form-control personalInput">
 					</div><br />
 					@if (isMyPage)
 					{
@@ -353,9 +336,9 @@
 								<path d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802zM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.9.9 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.9.9 0 0 1 4 6.414zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4zM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z" />
 							</svg>&nbsp生日：
 						</label>
-						@if (@Model.users.Birthday == null)
+						@if (@Model.users?.Birthday == null)
 						{
-							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday"
+							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users?.Birthday"
 								   name="Birthday" value="">
 						}
 						else
@@ -384,7 +367,7 @@
 								<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
 							</svg>&nbsp興趣：
 						</label>
-						<input type="text" name="Interest" value="@Model.users.Interest" class="form-control personalInput">
+						<input type="text" name="Interest" value="@Model.users?.Interest" class="form-control personalInput">
 					</div><br />
 					<div>
 						<label for="" class="textColor">
@@ -392,7 +375,7 @@
 								<path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0" />
 							</svg>&nbsp簡介：
 						</label>
-						<textarea type="text" name="Introduction" class="form-control personalInput">@Model.users.Introduction</textarea>
+						<textarea type="text" name="Introduction" class="form-control personalInput">@Model.users?.Introduction</textarea>
 						<br />
 						<input id="saveSetting" type="submit" value="保存" class="form-control">
 					</div><br /><br />
@@ -487,5 +470,5 @@
 		}
 		return true;
 	}
-	
+
 </script>
