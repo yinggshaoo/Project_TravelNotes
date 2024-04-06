@@ -69,7 +69,7 @@ namespace TravelNotes.Controllers
             return spots;
         }
 
-        public List<Spots> MlHandel(string Interests1, string Interests2, string Interests3,string weather, string country)
+        public IActionResult MlHandel(string Interests1, string Interests2, string Interests3, string weather, string country)
         {
 
             var sampleData = new TravelModel5.ModelInput()
@@ -87,14 +87,31 @@ namespace TravelNotes.Controllers
             //TempData["prediction"] = prediction;
 
             var answer = new List<Spots>();
+            var additional = new List<Spots>();
+
+            if(prediction == "太魯")
+            {
+                prediction = "太魯閣";
+            }
 
             if (prediction != null && Interests1!= null && Interests2 != null && Interests3 != null && weather != null && country != null)
             {
+                answer = (from s in _context.Spots
+                          where s.ScenicSpotName.Contains(prediction)
+                          select s).ToList();
+
+                if (answer.Count > 1)
+                {
+                    Random rand = new Random();
+                    answer = answer.OrderBy(x => rand.Next()).ToList();
+                }
+
                 // 如果 prediction 不為 null，根據預測值查找相符的景點
-                answer = (from o in _context.Spots
-                          where o.DescriptionDetail.Contains(prediction)
-                          select o).ToList();
-                answer = answer.Take(10).ToList();
+                additional = (from o in _context.Spots
+                              where o.DescriptionDetail.Contains(prediction)
+                              select o).ToList();
+
+                additional = additional.Take(10).ToList();
             }
             else
             {
@@ -103,8 +120,8 @@ namespace TravelNotes.Controllers
                 answer = allSpots.Take(10).ToList(); // 選擇前10個景點
             }
 
-            return answer;
-
+            // 大風 野餐 瑜珈 攀岩 巴西
+            return new JsonResult(new object[] { prediction, answer[0], additional });
         }
 
         private IList<T> Shuffle<T>(IList<T> list)
@@ -139,11 +156,6 @@ namespace TravelNotes.Controllers
             int totalPages = number / 20;
             return totalPages;
         }
-
-        
-
-        
-
     }
 }
 

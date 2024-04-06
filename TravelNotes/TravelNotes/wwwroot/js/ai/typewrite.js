@@ -1,6 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', function (event) {
     // array with texts to type in typewriter
-    var dataText = ["你好!今天想去哪裡玩? 我可以幫您推薦喔!"];
+    var dataText = ["您好!今天想去哪裡玩?"];
 
     // type one text in the typwriter
     // keeps calling itself until the text is finished
@@ -18,7 +18,7 @@
         // text finished, call callback if there is a callback function
         else if (typeof fnCallback == 'function') {
             // call callback after timeout
-            setTimeout(fnCallback, 700);
+            setTimeout(fnCallback, 200000);
         }
     }
     // start a typewriter animation for a text in the dataText array
@@ -27,7 +27,7 @@
             setTimeout(function () {
                 StartTextAnimation(0);
             }, 10000);
-        }else if (i < dataText[i].length) {
+        } else if (i < dataText[i].length) {
             // text exists! start typewriter animation
             typeWriter(dataText[i], 0, function () {
                 // after callback (and whole text has been animated), start next text

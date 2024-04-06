@@ -1,111 +1,132 @@
 ﻿$(document).ready(function () {
-    var maxSelections = 3;
-    var selectedInterests = [];
-    var weatherString = "";
-    var countryString = "";
+    $('#submitButton').click(function (e) {
+        e.preventDefault(); // 防止表單提交
+        $('#top').remove();
+        // 取出每個選項的值
+        var weatherString = $('#weatherSelect').val();
+        var interestOneValue = $('#interestOneSelect').val();
+        var interestTwoValue = $('#interestTwoSelect').val();
+        var interestThreeValue = $('#interestThreeSelect').val();
+        var countryString = $('#countrySelect').val();
 
-    $(".interest-btn").click(function () {
-        var interestValue = $(this).text().trim();
-
-        if ($(this).hasClass("active")) {
-
-            selectedInterests = selectedInterests.filter(item => item !== interestValue);
+        if (weatherString === '請選一項天氣' || interestOneValue === '請選興趣之一' || interestTwoValue === '請選興趣之二' || interestThreeValue === '請選興趣之三' || countryString === '請選一個國家') {
+            // 如果有任何一個選項沒有被選擇，顯示警告訊息
+            alert('請確保每個選項都已選擇！');
         } else {
-            if (selectedInterests.length >= maxSelections) {
+            // 如果所有選項都已選擇，進行其他操作，比如提交表單或其他處理
+            // 在這裡我們僅僅打印選擇的值到控制台上
+            $.ajax({
+                url: '/AiRecommend/MlHandel',
+                type: 'POST',
+                data: {
+                    Interests1: interestOneValue,
+                    Interests2: interestTwoValue,
+                    Interests3: interestThreeValue,
+                    weather: weatherString,
+                    country: countryString
+                },
+                success: function (response) {
+                    var prediction = response[0];
+                    var answer = response[1];
+                    var additional = response[2];
+                    console.log(prediction)
+                    console.log(answer)
+                    console.log(additional)
 
-                alert("最多選3個!")
-                return;
-            }
+                    $("h4").append(`<div id="top">
+                            <h4>猜你喜歡的主題 - ${prediction}</h4> </br>
+                            <h4>以下是我為您推薦的景點</h4>
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">${answer ? answer.scenicSpotName : ''}</h5>
+                                    <p class="card-text">${answer ? answer.phone : ''}</p>
+                                    <p class="card-text">${answer ? answer._Address : ''}</p>
+                                    <a id="add" class="btn btn-primary">添加到行程</a>
+                                    <a id="detail" class="btn btn-primary">看詳細</a>
+                                </div>
+                            </div>
+                            </br>
+                            <h4>你也可能會喜歡</h4>
+                            <div class="row" id="additionalCards"></div>
+                        `);
 
-            selectedInterests.push(interestValue);
-        }
+                    $.each(additional, function (idx, elem) {
+                        if (idx % 3 == 0) {
+                            $("#additionalCards").append(`<div class="w-100"></div>`); 
+                        }
+                        console.log(this.spotId);
+                        $("#additionalCards").append(`
+                                <div class="col-md">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${this.scenicSpotName ? this.scenicSpotName : ''}</h5>
+                                        <p class="card-text">${this.phone ? this.phone : ''}</p>
+                                        <p class="card-text">${this._Address ? this._Address : ''}</p>
+                                        <a id="add" class="btn btn-primary">添加到行程</a>
+                                        <a id="detail" class="btn btn-primary">看詳細</a>
+                                    </div>
+                                </div>
+                                `);
+                    });
 
-        $(this).toggleClass("active");
-        //updateAjaxData();
-    });
+                    $(document).on('click', '#add', function () {
+                        var cardTitle = $(this).closest('.card-body').find('.card-title').text();
 
-    $(".weather-btn").click(function () {
-        $(".weather-btn").removeClass("active");
-        weatherString = $(this).text().trim();
-        console.log(weatherString);
-        toggleActiveClass($(this));
-        //updateAjaxData();
-    });
 
-    $(".country-btn").click(function () {
-        $(".country-btn").removeClass("active");
-        countryString = $(this).text().trim();
-        console.log(countryString);
-        toggleActiveClass($(this));
-        //updateAjaxData();
-    });
+                        $.ajax({
+                            url: '/PersonalPage/Schedule',
+                            type: 'POST',
+                            data: {
+                                scenicSpotName: cardTitle
+                            },
+                            success: function (response) {
+                                if (response === "ok") {
+                                    alert("添加成功");
+                                } else if (response === "找不到景點，請聯絡管理員") {
+                                    alert("找不到景點，請聯絡管理員")
+                                } else if (response === "後端添加失敗") {
+                                    alert("重複添加景點，新增失敗")
+                                } else {
+                                    alert("添加失敗，請先登入");
+                                }
+                                // $(this).remove();
+                                console.log(response);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(error);
+                            }
 
-    $("#submit").click(function () {
-        updateAjaxData(selectedInterests, weatherString, countryString);
-        disableAllButtons();
-    })
+                        })
 
-    $("#reset").click(function () {
-        location.reload(); // 重新加载页面
-    });
 
-    function toggleActiveClass(element) {
-        if (!element.hasClass("active")) {
-            element.addClass("active");
-        }
-    }
+                        console.log(cardTitle);
 
-    function updateAjaxData(selectedInterests, weatherString, countryString) {
-
-        $.ajax({
-            url: "/AiRecommend/MlHandel",
-            method: "POST",
-            data: {
-                Interests1: selectedInterests[0],
-                Interests2: selectedInterests[1],
-                Interests3: selectedInterests[2],
-                weather: weatherString,
-                country: countryString
-            }
-        }).done(function (data) {
-            $("h4").append(`<h3>以下可能是您會喜歡的地點</h3>`)
-            $.each(data, function (idx, elem) {
-                if (idx <= 100) {
-                    $("h4").after(`
-                    <form action="/PersonalPage/Schedule" method="post">
-                        <table class="table table-striped">
-                          <tr>
-                            <td>
-                                <input type="text" id="scenicSpotName" name="scenicSpotName" value="${elem.scenicSpotName}" readonly>
-                            </td>
-                            <td>
-                                 <input type="tel" id="phone" name="phone" value="${elem.phone}" readonly>
-
-                            </td>
-                            <td>
-                                <input type="text" id="_Address" name="_Address" value="${elem._Address}" readonly>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary btn-sm">添加到行程</button>
-                            </td>
-                          </tr>
-                        </table>
-                    </form>
-
-                            `);
-                    console.log(idx + " " + elem.scenicSpotName);
-                } else {
-                    return false;
+                    });
+                    $(document).on('click', '#detail', function () {
+                        var cardTitle = $(this).closest('.card-body').find('.card-title').text();
+                        $.ajax({
+                            url: '/PersonalPage/Detail',
+                            type: 'POST',
+                            data: {
+                                scenicSpotName: cardTitle
+                            },
+                            success: function (response) {
+                                if (response === "請先登入") {
+                                    alert("請先登入");
+                                } else {
+                                    alert(response);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(error);
+                            }
+                        })
+                    })
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
                 }
+
             })
-        })
-    }
-
-    function disableAllButtons() {
-        $(".btn").prop("disabled", true); // 禁用所有按钮
-        $("#reset").prop("disabled", false)
-    }
-
+        }
+    })
 });
-
-

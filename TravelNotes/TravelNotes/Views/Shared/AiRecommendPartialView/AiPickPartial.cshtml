@@ -1,93 +1,100 @@
 ﻿@using TravelNotes.Models;
 @model Array
-@{
-    int count = 0;
-}
 
-
-<h3>讓我們開始吧!</h3>
-
-<h3>如果您可以改變天氣，您現在最想要甚麼天氣?</h3>
-<div id="page1" class="page">
-    @foreach (var item in Model)
-    {
-        if (item is List<TagList>)
-        {
-            var tagLists = item as List<TagList>;
-            <div id="weather" class="page">
-                @foreach (var tagList in tagLists)
-                {
-                    @if (tagList.TagClass == "W")
-                    {
-                        <button type="button" class="btn btn-outline-violet weather-btn">
-                            @Html.DisplayFor(modelItem => tagList.TagName)
-                        </button>
-                    }
-                }
-            </div>
-
-        }
+<style>
+    #filter_bk {
+        background-color:white;
+        border-radius: 5px;
     }
-</div>
 
-<br />
-
-<h3>您現在最想從事的三個活動是什麼?</h3>
-<div id="page2" class="page">
-    @foreach (var item in Model)
-    {
-        if (item is List<TagList>)
-        {
-            var tagLists = item as List<TagList>;
-            <div id="activities" class="page">
-                @foreach (var tagList in tagLists)
-                {
-                    @if (tagList.TagClass == "I")
-                    {
-                        <button type="button" class="btn btn-outline-success interest-btn">
-                            @Html.DisplayFor(modelItem => tagList.TagName)
-                        </button>
-                    }
-                }
-            </div>
-        }
+    .form-select{
+        width:200px;
     }
-</div>
+</style>
 
-<br />
-
-<h3>最後，您最想去的國家是哪一國?</h3>
-<div id="page3" class="page">
-    @foreach (var item in Model)
-    {
-        if (item is List<TagList>)
-        {
-            var tagLists = item as List<TagList>;
-            <div id="countries" class="page">
-                @foreach (var tagList in tagLists)
-                {
-                    @if (tagList.TagClass == "C")
-                    {
-                        <button type="button" class="btn btn-outline-secondary country-btn">
-                            @Html.DisplayFor(modelItem => tagList.TagName)
-                        </button>
-                    }
-                }
+<div class="container" id="filter_bk">
+    <div class="row justify-content-center align-items-center">
+            <h1 class="text-center mb-4">Ai推薦啟動!</h1>
+            <div class="row">
+                <div class="col-md">
+                    <select id="weatherSelect" class="form-select mb-4" aria-label="Default select example">
+                        <option selected>請選一項天氣</option>
+                        <option value="晴天">晴天</option>
+                        <option value="雨天">雨天</option>
+                        <option value="大風">大風</option>
+                        <option value="陰天">陰天</option>
+                        <option value="下雪">下雪</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <select id="interestOneSelect" class="form-select mb-4" aria-label="Default select example">
+                        <option selected>請選興趣之一</option>
+                        <option value="足球">足球</option>
+                        <option value="健行">健行</option>
+                        <option value="野餐">野餐</option>
+                        <option value="游泳">游泳</option>
+                        <option value="跑步">跑步</option>
+                        <option value="電玩">電玩</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <select id="interestTwoSelect" class="form-select mb-4" aria-label="Default select example">
+                        <option selected>請選興趣之二</option>
+                        <option value="滑雪">滑雪</option>
+                        <option value="瑜珈">瑜珈</option>
+                        <option value="腳踏車">腳踏車</option>
+                        <option value="慢跑">慢跑</option>
+                        <option value="潛水">潛水</option>
+                        <option value="音樂">音樂</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <select id="interestThreeSelect" class="form-select mb-4" aria-label="Default select example">
+                        <option selected>請選興趣之三</option>
+                        <option value="踏青">踏青</option>
+                        <option value="騎馬">騎馬</option>
+                        <option value="攀岩">攀岩</option>
+                        <option value="籃球">籃球</option>
+                        <option value="電影">電影</option>
+                        <option value="閱讀">閱讀</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <select id="countrySelect"class="form-select mb-4" aria-label="Default select example">
+                        <option selected>請選一個國家</option>
+                        <option value="中國">中國</option>
+                        <option value="巴西">巴西</option>
+                        <option value="巴哈馬">巴哈馬</option>
+                        <option value="日本">日本</option>
+                        <option value="西班牙">西班牙</option>
+                        <option value="希臘">希臘</option>
+                        <option value="法國">法國</option>
+                        <option value="俄羅斯">俄羅斯</option>
+                        <option value="南非">南非</option>
+                        <option value="南韓">南韓</option>
+                        <option value="美國">美國</option>
+                        <option value="埃及">埃及</option>
+                        <option value="紐西蘭">紐西蘭</option>
+                        <option value="捷克">捷克</option>
+                        <option value="荷蘭">荷蘭</option>
+                        <option value="新加坡">新加坡</option>
+                        <option value="瑞典">瑞典</option>
+                        <option value="義大利">義大利</option>
+                        <option value="葡萄牙">葡萄牙</option>
+                        <option value="德國">德國</option>
+                        <option value="澳洲">澳洲</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <button id="submitButton" type="submit" class="btn btn-outline-secondary">推薦結果</button>
+                </div>
             </div>
-
-        }
-    }
+            <div class="col-md">
+                <h4></h4>
+            </div>
+    </div>
 </div>
 
-<br />
 
-<button id="submit" class="btn btn-success">送出</button>
-<button id="reset" class="btn btn-success">重置</button>
-
-<br />
-
-<div id="card-container">
-    <h4></h4>
-</div>
 
 

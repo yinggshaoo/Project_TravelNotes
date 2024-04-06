@@ -330,6 +330,8 @@ namespace TravelNotes.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
+
         //檢視行程
         public IActionResult ViewSchedule()
         {
@@ -353,49 +355,74 @@ namespace TravelNotes.Controllers
         }
 
         //從ai那邊加入到行程
-        public IActionResult Schedule(string scenicSpotName)
+        public string Schedule(string scenicSpotName)
         {
-            if (scenicSpotName == null)
-            {
-                return RedirectToAction("ViewSchedule");
-            }
-
             string userId;
             Request.Cookies.TryGetValue("UsernameCookie", out userId);
             int id = Convert.ToInt32(userId);
-            var query = (from o in _context.Spots
-                         where o.ScenicSpotName == scenicSpotName
-                         select o.SpotId).ToList();
-
-            var viewQuery = _context.Spots.Where(x => x.ScenicSpotName == scenicSpotName).ToList();
-
-            int value = Convert.ToInt32(query[0]);
-
-            //這裡檢查是否與資料庫重複
-            var checkRepect = (from f in _context.myFavor
-                               where f.UserId == id && f.SpotId == value
-                               select f).ToList();
-
-            var flag = checkRepect.Count > 0;
-
-
-
-            if (userId != null && flag == false)
+            if (userId != null)
             {
-                myFavor favor = new myFavor();
-                favor.UserId = id;
-                favor.SpotId = value;
-                _context.myFavor.Add(favor);
-                _context.SaveChanges();
+                if (scenicSpotName == null)
+                {
+                    return "找不到景點，請聯絡管理員";
+                }
+                else
+                {
+                    var query = (from o in _context.Spots
+                                 where o.ScenicSpotName == scenicSpotName
+                                 select o.SpotId).ToList();
+
+                    int value = Convert.ToInt32(query[0]);
+
+                    //這裡檢查是否與資料庫重複
+                    var checkRepect = (from f in _context.myFavor
+                                       where f.UserId == id && f.SpotId == value
+                                       select f).ToList();
+
+                    var flag = checkRepect.Count > 0;
+
+                    if(flag == false)
+                    {
+                        myFavor favor = new myFavor();
+                        favor.UserId = id;
+                        favor.SpotId = value;
+                        _context.myFavor.Add(favor);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        return "後端添加失敗";
+                    }
+
+                }
+                return "ok";
             }
             else
             {
-                return RedirectToAction("fail", "Member");
+                return "not ok";
             }
-
-
-            return RedirectToAction("ViewSchedule");
+            
         }
+
+        //看景點詳細
+        public string Detail(string scenicSpotName)
+        {
+            string userId;
+            Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            int id = Convert.ToInt32(userId);
+            if (userId != null)
+            {
+                var query = (from o in _context.Spots
+                             where o.ScenicSpotName == scenicSpotName
+                             select o.DescriptionDetail).ToList();
+                return query[0].Trim().ToString();
+            }
+            else
+            {
+                return "請先登入";
+            }
+        }
+
 
         //移除行程
         public IActionResult Remove(string scenicSpotName)
