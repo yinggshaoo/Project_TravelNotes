@@ -15,8 +15,7 @@ namespace TravelNotes.Controllers
         {
             _context = context;
         }
-
-        
+ 
         public async Task<IActionResult> Index()
         {
             var tagLists = await _context.TagList.ToListAsync();
@@ -29,46 +28,8 @@ namespace TravelNotes.Controllers
             myAL.Add(cityList);
             return View(myAL.ToArray());
         }
-
-        // 0325 預設頁面廢棄了
-        [HttpGet]
-        public List<Spots> DefaultPage(string city)
-        {
-            var spots = _context.Spots.Where(x => x.City == city)
-                                       .Skip(0)
-                                       .Take(10)
-                                       .ToList();
-            return spots;
-        }
-
-        [HttpGet]
-        public List<Spots> Itinerary(string city, string currentPage)
-        {
-            int pageSize = 20; // 定義每頁顯示的記錄數
-
-            int totalSpots = _context.Spots.Where(x => x.City == city).Count();
-            int totalPages = (int)Math.Ceiling((double)totalSpots / pageSize); // 總頁數
-
-            int currentPageIndex = Convert.ToInt32(currentPage); // 當前頁碼
-            if (currentPageIndex <= 1)
-            {
-                currentPageIndex = 1; // 如果 currentPage 小於 1，則設置為第一頁
-            }
-            else if (currentPageIndex > totalPages)
-            {
-                currentPageIndex = totalPages; // 如果 currentPage 大於總頁數，則設置為最後一頁
-            }
-
-            int skip = (currentPageIndex - 1) * pageSize; // 計算要跳過的記錄數
-
-            var spots = _context.Spots.Where(x => x.City == city)
-                                       .Skip(skip)
-                                       .Take(pageSize)
-                                       .ToList();
-
-            return spots;
-        }
-
+        
+        // AI推薦功能
         public IActionResult MlHandel(string Interests1, string Interests2, string Interests3, string weather, string country)
         {
 
@@ -139,6 +100,48 @@ namespace TravelNotes.Controllers
             return list;
         }
 
+
+        //區域過濾功能
+        [HttpGet]
+        public List<Spots> Itinerary(string city, string currentPage)
+        {
+            int pageSize = 20; // 定義每頁顯示的記錄數
+
+            int totalSpots = _context.Spots.Where(x => x.City == city).Count();
+            int totalPages = (int)Math.Ceiling((double)totalSpots / pageSize); // 總頁數
+
+            int currentPageIndex = Convert.ToInt32(currentPage); // 當前頁碼
+            if (currentPageIndex <= 1)
+            {
+                currentPageIndex = 1; // 如果 currentPage 小於 1，則設置為第一頁
+            }
+            else if (currentPageIndex > totalPages)
+            {
+                currentPageIndex = totalPages; // 如果 currentPage 大於總頁數，則設置為最後一頁
+            }
+
+            int skip = (currentPageIndex - 1) * pageSize; // 計算要跳過的記錄數
+
+            var spots = _context.Spots.Where(x => x.City == city)
+                                       .Skip(skip)
+                                       .Take(pageSize)
+                                       .ToList();
+
+            return spots;
+        }
+
+        public int PagesNumber(string citiesValue) {
+            var query = (from c in _context.Spots
+                        where c.City == citiesValue
+                        select c).ToList();
+            int result = query.Count;
+
+            return result;
+        }
+
+
+
+        //0407廢棄
         [HttpGet]
         public Array Subtotal()
         {
@@ -150,6 +153,7 @@ namespace TravelNotes.Controllers
             return statisticsCity.ToArray();
         }
 
+        //0407廢棄
         [HttpPost]
         public int Cut(int number)
         {
