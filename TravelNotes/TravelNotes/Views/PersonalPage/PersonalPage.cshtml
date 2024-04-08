@@ -52,7 +52,7 @@
     #rightpartdiv {
         background-color: whitesmoke;
         /* 		border: 2px #3F3232 solid;
-                                                                                         */ border-radius: 50px;
+                                                                                             */ border-radius: 50px;
         padding-top: 30px;
         padding-bottom: 50px;
         height: fit-content;
@@ -194,6 +194,13 @@
                 <button onclick="friendRequest()" type="button" id="friendReqBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
                     好友邀請列表<span class="badge badge-light"></span>
                 </button>
+                @if (isMyPage)
+                {
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
+                        <a href="/FriendRequestsSent/@user">已送出的邀請</a>
+                    </button>
+
+                }
 
 
 
@@ -427,7 +434,7 @@
                 "Accept": "application/json"
             },
             body: JSON.stringify({
-                                    //document.cookie.split("; ")[0].split("=")[1]
+                                        //document.cookie.split("; ")[0].split("=")[1]
     @{
         string userid;
         ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userid);
@@ -436,7 +443,7 @@
                 SenderUserId: parseInt(@userid),
                 ReceiverUserId: parseInt(document.location.href.split("=")[1]),
                 Status: 0
-                                })
+                                    })
     }).then(res => {
         return res.json();
     }).then(ret => {
@@ -449,7 +456,7 @@
         }
     });
 
-                        })
+                            })
     $(function () {
         $('#formFileSm').on('change', function () {
             console.log("ok");
@@ -522,7 +529,7 @@
                 }
             }).then(() => {
                 // 如果已經送出邀請 對這個(#sendFriendRequestButtonWrapper)元素加入 刪除邀請 事件監聽
-                
+
             })
         })
 
@@ -542,7 +549,7 @@
     {
         @:document.location.href = `/Friend/${document.location.href.split("=")[1]}/`;
     }
-                                    }
+                                        }
     function friendRequest() {
     @if (isMyPage)
     {
@@ -552,7 +559,7 @@
     {
         @:document.location.href = `/FriendRequests/${document.location.href.split("=")[1]}/`;
     }
-                                        }
+                                            }
 
 
     function album() {
