@@ -83,6 +83,7 @@
                     }
                     $("#additionalCards").append(`
                             <div class="col-md">
+                                <img src="${this.pictureUrl1}" class="card-img-top" alt="..." id="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">${this.scenicSpotName ? this.scenicSpotName : ''}</h5>
                                     <p class="card-text">${this.phone ? this.phone : ''}</p>

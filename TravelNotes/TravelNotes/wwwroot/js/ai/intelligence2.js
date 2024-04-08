@@ -35,6 +35,7 @@
                             <h4>猜你喜歡的主題 - ${prediction}</h4> </br>
                             <h4>以下是我為您推薦的景點</h4>
                             <div class="card" style="width: 18rem;">
+                                <img src="${answer ? answer.pictureUrl1 : ''}" class="card-img-top" alt="..." id="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">${answer ? answer.scenicSpotName : ''}</h5>
                                     <p class="card-text">${answer ? answer.phone : ''}</p>
@@ -54,7 +55,8 @@
                         }
                         console.log(this.spotId);
                         $("#additionalCards").append(`
-                                <div class="col-md">
+                                <div class="card col-md">
+                                <img src="${this.pictureUrl1}" class="card-img-top" alt="..." id="card-img-top">
                                     <div class="card-body">
                                         <h5 class="card-title">${this.scenicSpotName ? this.scenicSpotName : ''}</h5>
                                         <p class="card-text">${this.phone ? this.phone : ''}</p>
