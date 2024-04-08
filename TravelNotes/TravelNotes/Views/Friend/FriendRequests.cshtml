@@ -61,13 +61,19 @@
             <p>送出者:@item.SenderUserId</p>
             <a href="/PersonalPage/PersonalPage/?userId=@item.SenderUserId">前往個人頁</a>
             @*<p>受邀者:@item.ReceiverUserId</p>*@
-            @if (item.Status == 0)
+            @{
+                string userId;
+                ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            }
+            @if (item.Status == 0 && userId == ViewContext.HttpContext.Request.Path.Value?.Split("/")[2])
             {
                 <button class="acceptFriendRequest">接受邀請</button>
             }
         </div>
     }
 </div>
+@*勿動*@
+@*<script src="~/js/FriendRequest.js" defer></script>*@
 <script defer>
     if (document.getElementById("friendList").children.length == 1) {
         document.querySelector(".friendListUnit").style = "border-radius: 50px;";
@@ -89,12 +95,12 @@
                     UserId: parseInt(@userid),
                     FriendId: parseInt(e.target.previousElementSibling.previousElementSibling.innerText.split(":")[1]),
                     Status: true
-                })
-            }).then(res => {
-                return res.json();
-            }).then(ret => {
-                e.target.innerText = ret.message;
-            });
-        }
-    });
+                    })
+        }).then(res => {
+            return res.json();
+        }).then(ret => {
+            e.target.innerText = ret.message;
+        });
+            }
+        });
 </script>

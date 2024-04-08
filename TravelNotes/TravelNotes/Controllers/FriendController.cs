@@ -1,16 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 using TravelNotes.Models;
 
 namespace TravelNotes.Controllers
 {
     public class FriendController(TravelContext ctx) : Controller
     {
+        /// <summary>
+        /// 新好友邀請
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("api/NumberofFriendRequests")]
+        public JsonResult NumberofFriendRequests()
+        {
+            string UserId;
+            HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out UserId);
+            int NumberofFrienqRequests = ctx.FriendRequest.Where(fr => fr.ReceiverUserId == Convert.ToInt32(UserId) && fr.Status == 0).Count();
+            return Json(new
+            {
+                success = true,
+                number = NumberofFrienqRequests,
+            });
+        }
         [HttpGet]
         [Route("api/IsFriend/{CurrentUserId}/{FriendUserId}")]
         public JsonResult IsFriend(string CurrentUserId, string FriendUserId)
         {
-            if(ctx.Friend.Any(f => f.UserId == Convert.ToInt32(CurrentUserId) && f.FriendId == Convert.ToInt32(FriendUserId))) return Json(new
+            if (ctx.Friend.Any(f => f.UserId == Convert.ToInt32(CurrentUserId) && f.FriendId == Convert.ToInt32(FriendUserId))) return Json(new
             {
                 success = true,
             });
@@ -23,7 +41,7 @@ namespace TravelNotes.Controllers
         [Route("api/IsFriendRequestSent/{CurrentUserId}/{FriendUserId}")]
         public JsonResult IsFriendRequestSent(string CurrentUserId, string FriendUserId)
         {
-            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(CurrentUserId) && fr.ReceiverUserId == Convert.ToInt32(FriendUserId))) return Json(new
+            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(CurrentUserId) && fr.ReceiverUserId == Convert.ToInt32(FriendUserId)) || ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(FriendUserId) && fr.ReceiverUserId == Convert.ToInt32(CurrentUserId))) return Json(new
             {
                 success = true
             });
@@ -187,6 +205,66 @@ namespace TravelNotes.Controllers
         {
             var ret = ctx.FriendRequest.Where(fr => fr.SenderUserId == UserId).Include(fr => fr.ReceiverUser).ToList();
             return View(ret);
+        }
+        /// <summary>
+        /// delete friendrequest
+        /// </summary>
+        /// <param name="friendRequest"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("api/FriendRequest")]
+        public JsonResult DeleteFriendRequest([FromBody] FriendRequest friendRequest)
+        {
+            try
+            {
+                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friendRequest.SenderUserId && fr.ReceiverUserId == friendRequest.ReceiverUserId));
+                ctx.SaveChanges();
+                return Json(new
+                {
+                    success = true,
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    success = false,
+                });
+            }
+        }
+        /// <summary>
+        /// delete friend
+        /// </summary>
+        /// <param name="friend"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("api/Friend")]
+        public JsonResult DeleteFriend([FromBody] Friend friend)
+        {
+            try
+            {
+                // remove friend
+                var friendOneSide = ctx.Friend.Single(f => f.FriendId == friend.FriendId && f.UserId == friend.UserId);
+                ctx.Remove(friendOneSide);
+                var friendRequestOpposite = ctx.Friend.Single(f => f.FriendId == friend.UserId && f.UserId == friend.FriendId);
+                ctx.Remove(friendRequestOpposite);
+                //remove friend req
+                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId));
+                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId));
+                // save change
+                ctx.SaveChanges();
+                return Json(new
+                {
+                    success = true,
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    success = false,
+                });
+            }
         }
     }
 }
