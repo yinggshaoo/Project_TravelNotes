@@ -5,16 +5,35 @@
         background-color: whitesmoke;
     }
 
+
     .friendListUnit {
-        border-radius: 1rem;
-        margin: 2rem;
+        position: relative;
+        border: 1px solid black;
     }
 
-        .friendListUnit > * {
-            margin: 0.5rem;
-        }
-</style>
+    #friendList div:first-child {
+        border-radius: 50px 50px 0 0;
+    }
 
+    #friendList div:last-child {
+        border-radius: 0 0 50px 50px;
+    }
+
+    .friendListUnit:hover {
+        background-color: antiquewhite;
+        transition: 0.3s;
+    }
+
+    .friendListUnit:not(:hover) {
+        background-color: whitesmoke;
+        transition: 0.3s;
+    }
+
+    .friendListUnit > * {
+        margin: 1rem;
+    }
+</style>
+<h1>交友邀請</h1>
 <div id="friendList">
     @if (Model.Count() == 0)
     {
@@ -40,6 +59,7 @@
                     break;
             }
             <p>送出者:@item.SenderUserId</p>
+            <a href="/PersonalPage/PersonalPage/?userId=@item.SenderUserId">前往個人頁</a>
             @*<p>受邀者:@item.ReceiverUserId</p>*@
             @if (item.Status == 0)
             {
@@ -48,9 +68,12 @@
         </div>
     }
 </div>
-<script>
+<script defer>
+    if (document.getElementById("friendList").children.length == 1) {
+        document.querySelector(".friendListUnit").style = "border-radius: 50px;";
+    }
     // 批量對邀請列表的所有接受邀請按鈕添加事件監聽
-    document.getElementById("friendRequestList").addEventListener("click", (e) => {
+    document.getElementById("friendList").addEventListener("click", (e) => {
         if (e.target.classList.contains("acceptFriendRequest")) {
             fetch("/api/Friend", {
                 method: "POST",
@@ -59,7 +82,11 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    UserId: parseInt(e.target.previousElementSibling.innerText.split(":")[1]),
+    @{
+        string userid;
+        ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userid);
+    }
+                    UserId: parseInt(@userid),
                     FriendId: parseInt(e.target.previousElementSibling.previousElementSibling.innerText.split(":")[1]),
                     Status: true
                 })
