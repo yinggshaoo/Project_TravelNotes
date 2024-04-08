@@ -217,7 +217,7 @@ namespace TravelNotes.Controllers
         {
             try
             {
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friendRequest.SenderUserId && fr.ReceiverUserId == friendRequest.ReceiverUserId));
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friendRequest.SenderUserId && fr.ReceiverUserId == friendRequest.ReceiverUserId));
                 ctx.SaveChanges();
                 return Json(new
                 {
@@ -241,30 +241,25 @@ namespace TravelNotes.Controllers
         [Route("api/Friend")]
         public JsonResult DeleteFriend([FromBody] Friend friend)
         {
-            try
+            // remove friend
+            var friendOneSide = ctx.Friend.Single(f => f.FriendId == friend.FriendId && f.UserId == friend.UserId);
+            ctx.Remove(friendOneSide);
+            var friendRequestOpposite = ctx.Friend.Single(f => f.FriendId == friend.UserId && f.UserId == friend.FriendId);
+            ctx.Remove(friendRequestOpposite);
+            //remove friend req
+            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId))
             {
-                // remove friend
-                var friendOneSide = ctx.Friend.Single(f => f.FriendId == friend.FriendId && f.UserId == friend.UserId);
-                ctx.Remove(friendOneSide);
-                var friendRequestOpposite = ctx.Friend.Single(f => f.FriendId == friend.UserId && f.UserId == friend.FriendId);
-                ctx.Remove(friendRequestOpposite);
-                //remove friend req
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId));
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId));
-                // save change
-                ctx.SaveChanges();
-                return Json(new
-                {
-                    success = true,
-                });
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId));
             }
-            catch
+            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId))
             {
-                return Json(new
-                {
-                    success = false,
-                });
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId));
             }
+            ctx.SaveChanges();
+            return Json(new
+            {
+                success = true,
+            });
         }
     }
 }

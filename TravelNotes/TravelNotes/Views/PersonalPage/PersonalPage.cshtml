@@ -52,7 +52,7 @@
     #rightpartdiv {
         background-color: whitesmoke;
         /* 		border: 2px #3F3232 solid;
-                                                                     */ border-radius: 50px;
+                                                                                         */ border-radius: 50px;
         padding-top: 30px;
         padding-bottom: 50px;
         height: fit-content;
@@ -142,6 +142,10 @@
         fill: #FFFFFF;
     }
 
+    #friendReqBtn > span {
+        color: black;
+    }
+
 </style>
 <div class="g-5 row allDiv">
     <div class="col-12 col-md-8" id="leftpartdiv">
@@ -187,7 +191,9 @@
                     行前規劃
                 </button>
                 <button onclick="friend()" type="button" id="friendBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">好友列表</button>
-                <button onclick="friendRequest()" type="button" id="friendBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">好友邀請列表</button>
+                <button onclick="friendRequest()" type="button" id="friendReqBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
+                    好友邀請列表<span class="badge badge-light"></span>
+                </button>
 
 
 
@@ -411,6 +417,9 @@
 <br />
 <script>
     document.querySelector("#sendFriendRequestButtonWrapper").addEventListener("click", (e) => {
+        if (!e.currentTarget.firstChild.classList.contains("fa-user-plus")) {
+            return;
+        }
         fetch("/api/FriendRequest", {
             method: "POST",
             headers: {
@@ -418,28 +427,29 @@
                 "Accept": "application/json"
             },
             body: JSON.stringify({
-                //document.cookie.split("; ")[0].split("=")[1]
+                                    //document.cookie.split("; ")[0].split("=")[1]
     @{
         string userid;
         ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userid);
     }
+                // 用c#抓登入的User Id
                 SenderUserId: parseInt(@userid),
                 ReceiverUserId: parseInt(document.location.href.split("=")[1]),
                 Status: 0
-            })
-        }).then(res => {
-            return res.json();
-        }).then(ret => {
-            if (ret.code == 200) {
-                //console.log(e.currentTarget.children[0])
-            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>`;
-            }
-            else {
-                alert(ret.message);
-            }
-        });
+                                })
+    }).then(res => {
+        return res.json();
+    }).then(ret => {
+        if (ret.code == 200) {
+            //console.log(e.currentTarget.children[0])
+            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>收回邀請</span>`;
+        }
+        else {
+            alert(ret.message);
+        }
+    });
 
-    })
+                        })
     $(function () {
         $('#formFileSm').on('change', function () {
             console.log("ok");
@@ -462,13 +472,44 @@
             $(this).prop('disabled', true);
         })
         $('#saveSetting').css("display", "none")
+        // 判斷交友情況決定顯示的icon
         fetch(`/api/IsFriendRequestSent/@userid/${document.location.href.split("=")[1]}`).then(res => {
             return res.json();
         }).then(ret => {
             if (ret.success) {
+                // 如果已經送出邀請顯示送出圖像
                 document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>`;
+
+
+                if (document.getElementById("sendFriendRequestButtonWrapper").innerHTML == `<i class="fa-solid fa-paper-plane"></i>`) {
+                    document.getElementById("sendFriendRequestButtonWrapper").innerHTML += `<span>收回邀請</span>`;
+                    document.getElementById("sendFriendRequestButtonWrapper").addEventListener("click", () => {
+                        fetch("/api/FriendRequest", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify({
+                                SenderUserId: parseInt(@userid),
+                                ReceiverUserId: parseInt(document.location.href.split("=")[1]),
+                            })
+                        }).then(res => {
+                            return res.json();
+                        }).then(ret => {
+                            if (ret.success) {
+                                // 刪除好友邀請成功 將icon回到加好友圖示
+                                document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+                            }
+                        })
+                    })
+                }
+
+
+
             }
             else {
+                // 還沒送出邀請
                 document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
             }
         }).then(() => {
@@ -479,7 +520,10 @@
                 if (ret.success) {
                     document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-group"></i>`;
                 }
-            });
+            }).then(() => {
+                // 如果已經送出邀請 對這個(#sendFriendRequestButtonWrapper)元素加入 刪除邀請 事件監聽
+                
+            })
         })
 
 
@@ -498,7 +542,7 @@
     {
         @:document.location.href = `/Friend/${document.location.href.split("=")[1]}/`;
     }
-                }
+                                    }
     function friendRequest() {
     @if (isMyPage)
     {
@@ -508,7 +552,7 @@
     {
         @:document.location.href = `/FriendRequests/${document.location.href.split("=")[1]}/`;
     }
-                    }
+                                        }
 
 
     function album() {
