@@ -137,7 +137,7 @@ namespace TravelNotes.Controllers
                         Mail = email,
                         Pwd = hashedPassword, // 密碼應該是哈希後的值
                         SuperUser = "N",
-                        Headshot= "default headshot"
+                        Headshot= "/images/userImageDefault.jpg"
                     };
 
                     _context.users.Add(user);

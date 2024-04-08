@@ -1,6 +1,9 @@
-﻿@{
-    Layout = "_AiLayout";
-}
+﻿<link rel="stylesheet" href="~/css/ai/switchbar.css" />
+<link rel="stylesheet" href="~/css/ai/typewrite.css" />
+<link rel="stylesheet" href="~/css/ai/gptstyle2.css" />
+<link rel="stylesheet" href="~/css/customizationbtn.css" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery-ui.js"></script>
 
 <div class="row justify-content-center align-items-center">
     <div class="col-12">
@@ -15,16 +18,25 @@
     <div class="col" id="Cip">
         @Html.Partial("../shared/AiRecommendPartialView/CustomerPickPartial.cshtml")
     </div>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
+        </div>
+    </div>
+    @* <div class="col">
+        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
+    </div> *@
 </div>
 
 
-<div class="row justify-content-center align-items-center">
-    <div class="col-3">
-        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowAi">Ai推薦趣 ➜  </button>
-    </div>
-    <div class="col-3">
-        <button type="button" class="btn btn-outline-secondary btn-lg" id="hideLogoShowCity">縣市旅遊趣 ➜  </button>
-    </div>
+@* <div class="row justify-content-center align-items-center">
+    
     <div class="col-3">
         <a class="btn btn-outline-secondary btn-lg" asp-controller="Home" asp-action="Index">
             回首頁 ➜
@@ -36,7 +48,13 @@
         </a>
     </div>
 </div>
+ *@
 
+<script src="~/js/ai/switchbar.js"></script>
+<script src="~/js/ai/typewrite.js"></script>
+<script src="~/js/ai/intelligence2.js"></script>
+<script src="~/js/ai/changeButton.js"></script>
+<script src="~/js/ai/golocation2.js"></script>
 
 
 
