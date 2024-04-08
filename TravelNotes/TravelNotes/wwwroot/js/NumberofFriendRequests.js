@@ -21,13 +21,6 @@ NumberofFriendRequests().then(ret => {
 
 // test getting UsernameCookie
 function getUserNameCookie() {
-    var cookieArray = document.cookie.split("; ");
-    var userid
-    cookieArray.forEach(ele => {
-        if (new RegExp('UsernameCookie*').test(ele)) {
-            userid = ele.split("=")[1];
-        }
-    })
-    return userid;
+    return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
 }
 console.log(getUserNameCookie());
