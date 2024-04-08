@@ -1,0 +1,58 @@
+﻿@model List<Friend>
+<style>
+    #friendList{
+        border-radius: 50px;
+        background-color: whitesmoke;
+    }
+    .friendListUnit {
+        border-radius: 1rem;
+        margin: 2rem;
+    }
+
+        .friendListUnit > * {
+            margin: 0.5rem;
+        }
+</style>
+<label for="searchTerm">查名字</label>
+<input id="searchTerm" />
+<div id="friendList">
+    @foreach (var item in Model)
+    {
+        <div class="friendListUnit">
+            @*<p>流水號:@item.uuid</p>*@
+            @*<p>目前使用者:@item.UserId</p>*@
+            <p>Id:@item.FriendId</p>
+            <p>名稱:@item.FriendUser.UserName</p>
+            <p>暱稱:@item.FriendUser.Nickname</p>
+            <p>電子郵件:@item.FriendUser.Mail</p>
+            <p>地址:@item.FriendUser.Address</p>
+            @if (item.FriendUser?.Headshot == null)
+            {
+                <img id="userImageId" class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
+            }
+            else
+            {
+                <img id="userImageId" class="rounded-circle" src=@item.FriendUser.Headshot alt="" style="width:100px;height:100px;">
+            }
+
+            <p>自介:@item.FriendUser.Introduction</p>
+            <a href="/PersonalPage/PersonalPage/?userId=@item.FriendUser.UserId">到個人頁</a>
+        </div>
+    }
+</div>
+@*
+    <p>@item.FriendUser.UserId</p>
+    <p>@item.FriendUser.UserName</p>
+    <p>@item.FriendUser.Introduction</p>
+    <p>@item.FriendUser.Gender</p>
+
+<label for="Sender">送出邀請的UserId</label>
+
+<input id="Sender" />
+<label for="Receiver">對象的UserId</label>
+<input id="Receiver" />
+<button id="send_Friend_Request_Button">Send</button>
+<a href="/FriendRequests/@ViewContext.HttpContext.Request.Path.Value?.Split("/")[2]">得到的邀請</a>
+<a href="/FriendRequestsSent/@ViewContext.HttpContext.Request.Path.Value?.Split("/")[2]">送出的邀請</a>
+
+<script src="~/js/ai/friendRequest.js" defer></script>*@
