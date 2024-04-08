@@ -217,7 +217,7 @@ namespace TravelNotes.Controllers
         {
             try
             {
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friendRequest.SenderUserId && fr.ReceiverUserId == friendRequest.ReceiverUserId));
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friendRequest.SenderUserId && fr.ReceiverUserId == friendRequest.ReceiverUserId));
                 ctx.SaveChanges();
                 return Json(new
                 {
@@ -249,8 +249,8 @@ namespace TravelNotes.Controllers
                 var friendRequestOpposite = ctx.Friend.Single(f => f.FriendId == friend.UserId && f.UserId == friend.FriendId);
                 ctx.Remove(friendRequestOpposite);
                 //remove friend req
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId));
-                ctx.Remove(ctx.FriendRequest.Where(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId));
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friend.UserId && fr.ReceiverUserId == friend.FriendId));
+                ctx.Remove(ctx.FriendRequest.Single(fr => fr.SenderUserId == friend.FriendId && fr.ReceiverUserId == friend.UserId));
                 // save change
                 ctx.SaveChanges();
                 return Json(new
