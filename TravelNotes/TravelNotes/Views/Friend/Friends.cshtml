@@ -14,7 +14,7 @@
         justify-content: space-around;
     }
 
-        .friendListUnit:nth-child(1){
+        .friendListUnit:nth-child(1) {
             flex: 1;
         }
 
@@ -69,13 +69,21 @@
             <a href="/PersonalPage/PersonalPage/?userId=@item.FriendUser.UserId" style="display: block; border-radius: 100rem;">
                 @if (item.FriendUser?.Headshot == null)
                 {
-                    <img id="userImageId" class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
+                    <img class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
                 }
                 else
                 {
-                    <img id="userImageId" class="rounded-circle" src=@item.FriendUser.Headshot alt="" style="width:100px;height:100px;">
+                    <img class="rounded-circle" src=@item.FriendUser.Headshot alt="" style="width:100px;height:100px;">
                 }
             </a>
+            @{
+                string userId;
+                ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userId);
+            }
+            @if (Convert.ToInt32(userId) != item.FriendId)
+            {
+                <button class="endFriendshipBtn">解除好友關係</button>
+            }
         </div>
     }
 </div>
@@ -101,3 +109,4 @@
         document.querySelector(".friendListUnit").style = "border-radius: 50px;";
     }
 </script>
+<script src="~/js/Friend.js"></script>
