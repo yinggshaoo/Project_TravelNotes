@@ -20,6 +20,13 @@
 </div>
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
+    $.ajax({
+        type: "get",
+        url: "/Backstage/GetArticles", // 控制器的 URL
+        success: function (data) {
+            console.log(data);
+        }
+    });
     let myChart;
     let chartTitle;
     generateChart();

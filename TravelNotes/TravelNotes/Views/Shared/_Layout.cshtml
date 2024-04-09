@@ -1,4 +1,4 @@
-﻿@{
+@{
 	bool isLogin = true;
 	string userId = "";
 	if (!Context.Request.Cookies.TryGetValue("UsernameCookie", out userId))
@@ -30,7 +30,7 @@
 	<script src="~/lib/jquery/dist/jquery-ui.js"></script>
 	
 	<script src="~/js/site.js"></script>
-	
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	
 	<script src="https://kit.fontawesome.com/f749459404.js" crossorigin="anonymous"></script>
 	<style>
@@ -45,6 +45,9 @@
 			--color3: #74593D;
 			--color4: #3F3232;
 			--color5: #1B1924;
+			--color-yellow:#FFF3C1;
+			--color-pink: #FFD8B1;
+			--color-blue: #C6E2FF;
 		}
 
 		body {
@@ -209,6 +212,8 @@
 		<div id="sideBarSpace">
 		</div>
 	</div>
+
+
 	<script>
 		let sideBarSpace = $('#sideBarSpace');
 		let sideBar = $('#sideBar');

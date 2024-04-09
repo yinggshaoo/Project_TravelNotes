@@ -52,7 +52,8 @@
     }
 
     .articleLabel {
-        color: var(--color5);
+        color: black;
+        font-weight:bold;
     }
 
     .articleInput {
@@ -65,8 +66,8 @@
     }
 
     #articleImage{
-       width: 150px; 
-       height: 150px; 
+       width: 120px; 
+       height: 120px; 
        cursor: pointer;
        border:3px solid black;
        border-radius:5px;
@@ -74,11 +75,7 @@
     #articleImage:hover{
         background-color:rgba(0.9,0.9,0.9,0.2);
     }
-    .spotPanel {
-        position: absolute;
-        z-index:100;
-        display:none;
-    }
+    
 
     .custom-badge {
         background-color: rgb(236, 220, 126);
@@ -89,7 +86,6 @@
     }
 
     #currentSpotTag{
-        font-weight:bold;
         margin:5px;
     }
     .col-auto{
@@ -107,8 +103,14 @@
         width:fit-content;
         padding:2px;
         border-radius:5px;
+        position: absolute;
+        z-index: 100;
+        display: none;
     }
 
+/*     .otherTagPanel{
+        right:0px;
+    } */
 
     .tox .tox-edit-area__iframe {
         background-color: transparent;
@@ -135,6 +137,14 @@
     .tox .tox-statusbar{
         display:none;
     }
+
+    #dropdown{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: var(--color-yellow);
+    }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 @* <script src="~/lib/_js/jquery-3.6.0.js"></script> *@
@@ -145,14 +155,27 @@
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 <div class="container">
     
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center ">
         <!-- 创建三个列（columns） -->
         <div class="col-sm-2">
-            <img src="@target.Images" id="articleImage" />
-            <input type="file" id="articleImageUpload" style="display:none;" />
+            <div class="row align-items-start">
+                @if (!isPublish)
+                {
+                    <select id="dropdown" class="form-select articleSelect">
+                        @foreach (var article in Model)
+                        {
+                            var truncatedTitle = article.Title.Length > 10 ? article.Title.Substring(0, 12)+"..." : article.Title;
+
+                            <option value="@article.ArticleId">@truncatedTitle</option>
+                        }
+                    </select>
+                }
+            </div>
+            
+
         </div>
         <div class="col-sm-8 text-center">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-auto">
                     <label for="title" class="articleLabel">標題:</label>
                 </div>
@@ -181,30 +204,9 @@
             </div>
         </div>
         <div class="col-sm-2">
-            @if(!isPublish){
-            <select id="dropdown" class="form-select articleSelect">
-                @foreach (var article in Model)
-                {
-                    <option value="@article.ArticleId">@article.Title</option>
-                }
-            </select>
-            }
+            <img src="@target.Images" id="articleImage" />
+            <input type="file" id="articleImageUpload" style="display:none;" />
             
-            <div >
-                <button id="saveButton" class="btn btn-secondary buttons">儲存</button>
-                @if (!isPublish)
-                {
-                    <button id="createButton" class="btn btn-secondary buttons">新增</button>
-                    <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
-                }
-                else
-                {
-                    <a class="btn btn-secondary buttons" href="/Article/ArticleView?articleId=@target.ArticleId">到文章頁面</a>
-                }
-                <button id="deleteButton" class="btn btn-danger">删除</button>
-                @*                 <button id="testButton" class="btn btn-danger">測試</button> *@
-            </div>
-
         </div>
     </div>
 </div>
@@ -215,14 +217,17 @@
         {
             <div class="col-auto">
                 <button class="cityButton btn btn-secondary" onclick="refreshTag(@i)">@cityNames[i]</button>
-                <div class="spotPanel panel">
-                    <div>
-                        <input type="text" id="spotTagInput_@i" oninput="refreshTag(@i)"></input>
-                        <button onclick="addSpotTag(this)" class="btn btn-tag">新增</button>
-                    </div>
-                    <div id="spotTag_@i">
+                <div class="row">
+                    <div class="spotPanel panel ">
+                        <div>
+                            <input type="text" id="spotTagInput_@i" oninput="refreshTag(@i)"></input>
+                            <button onclick="addSpotTag(this)" class="btn btn-tag">新增</button>
+                        </div>
+                        <div id="spotTag_@i">
+                        </div>
                     </div>
                 </div>
+                
             </div>
         }
 
@@ -230,27 +235,35 @@
     <div class="row">
         <div class="col">
             <div>
-                <span>旅遊景點:</span>
+                <span class="articleLabel">旅遊景點:</span>
                 <span id="currentSpotTag">@(targetSpot == null ? "" : targetSpot.ScenicSpotName)</span>
             </div>
             <div>
                 <div class="row">
-                    <div class="col-auto">文章標籤:</div>
+                    <div class="col-auto articleLabel">文章標籤:</div>
                     <div class="col-auto" id="currentOtherTag">
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="col-auto ml-auto">
-            <div class="otherTagPanel panel">
-                <div>
-                    <input type="text" id="otherTagInput" oninput="refreshOtherTag(this)"></input>
-                    <button onclick="addOtherTag(this)" class="btn btn-tag">新增</button>
-                </div>
-                <div id="otherTags">
+        <div class="col-auto">
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <button class="btn btn-secondary" id="otherTagButton">新增標籤</button>
+                </div>        
+            </div>
+            <div class="row justify-content-end">
+                <div class="otherTagPanel panel ">
+                    <div>
+                        <input type="text" id="otherTagInput" oninput="refreshOtherTag(this)"></input>
+                        <button onclick="addOtherTag(this)" class="btn btn-tag">新增</button>
+                    </div>
+                    <div id="otherTags">
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -259,6 +272,20 @@
 
 <div>
     <textarea id="tiny"></textarea>
+</div>
+<div>
+    <button id="saveButton" class="btn btn-secondary buttons">儲存</button>
+    @if (!isPublish)
+    {
+        <button id="createButton" class="btn btn-secondary buttons">新增</button>
+        <button id="publishButton" class="btn btn-secondary buttons">發佈</button>
+    }
+    else
+    {
+        <a class="btn btn-secondary buttons" href="/Article/ArticleView?articleId=@target.ArticleId">到文章頁面</a>
+    }
+    <button id="deleteButton" class="btn btn-danger">删除</button>
+    @*                 <button id="testButton" class="btn btn-danger">測試</button> *@
 </div>
 
 
@@ -293,12 +320,14 @@
     let Other = [];
     let AllCity = [TaipeiCity, NewTaipeiCity, TaoyuanCity, KeelungCity, YilanCounty, HsinchuCity, HsinchuCounty,
         MiaoliCounty, TaichungCity, ChanghuaCounty, NantouCounty, YunlinCounty, ChiayiCity, ChiayiCounty,
-        TainanCity, KaohsiungCity, PingtungCounty, TaitungCounty, HualienCounty, PenghuCounty, KinmenCounty, 
-        LienchiangCounty, Other]
-
+        TainanCity, KaohsiungCity, PingtungCounty, TaitungCounty, HualienCounty, PenghuCounty, KinmenCounty,
+        LienchiangCounty, Other];
+    
     for (let i = 0; i < spotsData.length;i++) {
-        
-        if (spotsData[i].City.trim() == "臺北市") {
+        if (spotsData[i].City == null) {
+            continue;
+        }
+        if (spotsData[i].City.trim() === "臺北市") {
             TaipeiCity.push({
                 SpotId: spotsData[i].SpotId,
                 ScenicSpotName: spotsData[i].ScenicSpotName
@@ -465,6 +494,7 @@
     $(function () {
         refreshOtherTag(document.getElementById("otherTagInput"));
         updateCurrentOtherTags();
+        initLabel();
         let dropdown = $("#dropdown");
         let articleId = $('#articleId').val();
         const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
@@ -531,18 +561,7 @@
             }
         }
 
-        $("#dropdown").on("change", function () {
-            let id = $(this).val();
 
-            window.location = '/Article/Draft?articleId=' + id;
-        });
-        
-        $('.cityButton').on('click', function () {
-            // 切换点击的 span 元素相邻的 .spotPanel 元素的显示状态
-            $(this).next('.spotPanel').toggle();
-            // 关闭其他已经打开的 .spotPanel 元素
-            $('.spotPanel').not($(this).next('.spotPanel')).hide();
-        });
         
         function save() { 
             if (isPublish) {
@@ -767,19 +786,24 @@
                 return;
             }
         }
+        if (currentOtherTags.length >= 3) {
+            alert("大於三個標籤");
+            return;
+        }
         let ot = {
             OtherTagId: OtherTagId,
             OtherTagName: OtherTagName
         }
         currentOtherTags.push(ot);
         updateCurrentOtherTags();
-        //console.log(currentOtherTags);
+        console.log(currentOtherTags);
 
     }
     function addOtherTag(obj) {
         
         let otherTagInput = $(obj).prev('input')
-        if (otherTagInput == "") {
+
+        if (otherTagInput.val().trim() == "") {
             return;
         }
         for (let i = 0; i < otherTagsData.length; i++) {
@@ -787,7 +811,7 @@
                 return;
             }
         }
-        chooseOtherTag(0, otherTagInput.val());
+        chooseOtherTag(0, otherTagInput.val().trim());
         otherTagInput.val("");
     }
     function updateCurrentOtherTags() {
@@ -813,15 +837,66 @@
         $(obj).parent().remove();
 
     }
+    function initLabel() {
+        $("#dropdown").on("change", function () {
+            let id = $(this).val();
+
+            window.location = '/Article/Draft?articleId=' + id;
+        });
+
+        $('.cityButton').on('click', function () {
+            // 切换点击的 span 元素相邻的 .spotPanel 元素的显示状态
+            $(this).next('.row').find('.spotPanel').toggle();
+            // 关闭其他已经打开的 .spotPanel 元素
+            $('.spotPanel').not($(this).next('.row').find('.spotPanel')).hide();
+        });
+        $('.cityButton').each(function () {
+            var buttonPosition = $(this).offset().left; // 获取按钮相对于文档左上角的水平位置
+   
+            // 获取视窗宽度
+            var windowWidth = $(window).width();
+            var halfWindowWidth = windowWidth / 2;
+
+            // 判断按钮是否在屏幕右半边
+            if (buttonPosition > halfWindowWidth) {
+                // 找到相邻的 row 元素
+                var $row = $(this).next('.row');
+
+                // 在相邻的 row 元素上添加 justify-content-end class
+                $row.addClass('justify-content-end');
+            }
+            // console.log(this)
+            // console.log(buttonPosition > halfWindowWidth);
+            // console.log($(this).next('.row'));
+            // return;
+        });
+        $('#otherTagButton').on('click', function () {
+            $('.otherTagPanel').toggle();
+        });
+        // // 获取所有具有.panel类的元素
+        // const panels = $('.panel');
+        // console.log(panels);
+     
+    }
     function publishCheck() {
-        if ($('#title').val() == "") {
+        let titleValue = $('#title').val();
+        if (titleValue.trim() == "") {
             alert("文章標題不能為空")
+            return false;
+        }
+        if (titleValue.trim().length >50) {
+            alert("文章標題過長")
+            return false;
+        }
+        if ($('#subtitle').val().trim().length > 30) {
+            alert("文章副標題過長")
             return false;
         }
         if ($('#currentSpotTag').text() == '') {
             alert("旅遊地點不能為空")
             return false;
         }
+        
         return true;  
     }
 </script>

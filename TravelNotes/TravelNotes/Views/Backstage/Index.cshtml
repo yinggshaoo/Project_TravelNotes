@@ -19,10 +19,16 @@
         padding: 8px;
     }
 
-   /*  tr:nth-child(even) {
-        background-color: #def3c6;
-    } */
+    th {
+        font-size: 16px; /* 修改字体大小为 16 像素 */
+    }
+    tr:nth-child(even) {
+        background-color: var(--color-yellow);
+    }
 
+    tr:first-child {
+        background-color: lightblue;
+    }
     .imgDefault {
         max-width: 100px;
         max-height: 100px;
@@ -48,27 +54,36 @@
         cursor: pointer;
         border-top-left-radius: 10px; /* 左上角圆角 */
         border-top-right-radius: 10px; /* 右上角圆角 */
+        font-size:16px;
     }
     .selected {
         background-color: lightblue; /* 设置被选中时的背景色 */
         color: #fff; /* 设置选中时的文字颜色 */
     }
+
+    #UpperRow{
+        margin-bottom:10px;
+    }
 </style>
-<div class="row">
+<div class="row" id="UpperRow">
     <div class="col">
         <div id="searchPanel">
-            <form action="/Backstage/Index" method="get">
-                <label for="userIdInput">UserId:</label>
-                <input type="text" name="UserId" id="userIdInput" />
-                <label for="userNameInput">UserName:</label>
-                <input type="text" name="userName" id="userNameInput" />
-                <input type="submit" value="查詢" />
+            <form action="/Backstage/Index" method="get" class="d-flex">
+                <div class="me-2">
+                    <label for="userIdInput" class="visually-hidden">UserId:</label>
+                    <input type="text" class="form-control" id="userIdInput" name="UserId" placeholder="UserId">
+                </div>
+                <div class="me-2">
+                    <label for="userNameInput" class="visually-hidden">UserName:</label>
+                    <input type="text" class="form-control" id="userNameInput" name="userName" placeholder="UserName">
+                </div>
+                <button type="submit" class="btn btn-primary">查詢</button>
             </form>
         </div>
     </div>
-    <div class="col-auto ml-auto">
+@*     <div class="col-auto ml-auto">
         <a href="/Backstage/Statistics">統計圖表</a>
-    </div>
+    </div> *@
 </div>
 
 
@@ -94,12 +109,12 @@
             @foreach (var item in photos)
             {
                 <tr>
-                    <th>@item.user.UserId</th>
-                    <th>@item.user.Nickname</th>
-                    <th>@item.photo.PhotoId</th>
-                    <th>@item.photo.PhotoTitle</th>
-                    <th><img src="@item.photo.PhotoPath" alt="Alternate Text" class="imgDefault" /></th>
-                    <th><button onclick="deletePhoto(@item.photo.PhotoId)" class="btn btn-danger">刪除</button></th>
+                    <td>@item.user.UserId</td>
+                    <td>@item.user.Nickname</td>
+                    <td>@item.photo.PhotoId</td>
+                    <td>@item.photo.PhotoTitle</td>
+                    <td><img src="@item.photo.PhotoPath" alt="Alternate Text" class="imgDefault" /></td>
+                    <td><button onclick="deletePhoto(@item.photo.PhotoId)" class="btn btn-danger">屏蔽</button></td>
                 </tr>
             }
         </table>
@@ -116,11 +131,11 @@
             @foreach (var item in articles)
             {
                 <tr>
-                    <th>@item.user.UserId</th>
-                    <th>@item.user.Nickname</th>
-                    <th>@item.article.ArticleId</th>
-                    <th onclick="articleView(@item.article.ArticleId)" class="articleViewLink">@item.article.Title</th>
-                    <th><button onclick="deleteArticle(@item.article.ArticleId)" class="btn btn-danger">刪除</button></th>
+                    <td>@item.user.UserId</td>
+                    <td>@item.user.Nickname</td>
+                    <td>@item.article.ArticleId</td>
+                    <td onclick="articleView(@item.article.ArticleId)" class="articleViewLink">@item.article.Title</td>
+                    <td><button onclick="deleteArticle(@item.article.ArticleId)" class="btn btn-danger">屏蔽</button></td>
                 </tr>
             }
         </table>

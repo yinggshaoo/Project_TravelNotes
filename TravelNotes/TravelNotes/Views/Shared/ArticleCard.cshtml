@@ -12,7 +12,7 @@
     var article = Model;
     string content = Model.Contents == null ? "" : Model.Contents;
     content = Regex.Replace(content, @"<img\b[^>]*>", ""); //刪掉img標籤
-    content = Regex.Replace(content, @"<(?!p\b)[^>]+>", "<p>"); //全部換成p標籤
+    content = Regex.Replace(content, @"<a\b([^>]*)>(.*?)</a>", "<span$1>$2</span>");
 }
 @functions {
     public string FormatPublishTime(DateTime? publishTime)

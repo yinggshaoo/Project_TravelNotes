@@ -53,7 +53,31 @@ namespace TravelNotes.Controllers
         #endregion
         public IActionResult Statistics()
         {
+            
+            string userId;
+            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            if (!CheckSuperUser())
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = _context.users;
+            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
+            var article = publishArticle;
+            List<usersArticleModel> articles = (from a in article
+                           join u in user
+                           on a.UserId equals u.UserId
+                           select new usersArticleModel
+                           {
+                               article = a,
+                               user = u
+                           }).ToList<usersArticleModel>();
+            ViewBag.articles = articles;
             return View();
+            
+ 
         }
 
         #region 刪除功能
@@ -88,6 +112,22 @@ namespace TravelNotes.Controllers
                 return false;
             }
             return true;
+        }
+        public IActionResult GetArticles()
+        {
+            var user = _context.users;
+            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
+            var article = publishArticle;
+            var articles = (from a in article
+                            join u in user
+                            on a.UserId equals u.UserId
+                            select new usersArticleModel
+                            {
+                                article = a,
+                                user = u
+                            });
+
+            return Json(articles);
         }
     }
 }
