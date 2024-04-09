@@ -642,8 +642,8 @@
 		return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
 	}
 
-	// 綁定送交友邀請事件
 	if (document.location.href.split("=").length > 1) {
+		// 綁定送交友邀請事件
 		document.querySelector("#sendFriendRequestButtonWrapper").addEventListener("click", (e) => {
 			if (!e.currentTarget.firstChild.classList.contains("fa-user-plus")) {
 				return;
