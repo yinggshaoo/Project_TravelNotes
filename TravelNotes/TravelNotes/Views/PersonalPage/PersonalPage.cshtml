@@ -196,8 +196,8 @@
                 </button>
                 @if (isMyPage)
                 {
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
-                        <a href="/FriendRequestsSent/@user">已送出的邀請</a>
+                    <button type="button" onclick="document.location.href='/FriendRequestsSent/@user';" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
+                        <a href="/" style="color: black; text-decoration: none;">已送出的邀請</a>
                     </button>
 
                 }
