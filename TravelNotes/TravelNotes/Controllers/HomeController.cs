@@ -64,6 +64,7 @@ namespace TravelNotes.Controllers
                 combinedResults = combinedResults
                     .Where(a => htmlTagRegex.Replace(a.Article.Contents ?? "", "").Contains(search) ||
                                 a.Article.Title.Contains(search) ||
+                                a.Article.Subtitle != null && a.Article.Subtitle.Contains(search) ||
                                 a.Spot != null && a.Spot.ScenicSpotName.Contains(search) ||
                                 a.OtherTags.Any(tag => tag.OtherTagName.Contains(search)))
                     .ToList();
