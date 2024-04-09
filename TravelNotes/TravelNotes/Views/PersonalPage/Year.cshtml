@@ -11,12 +11,12 @@
 	<style>
 		:root {
 			/* --side-color: #728CA3;
-					--background-color: #F3E4C6;
-					--primary-color: #1B1924;
-					--secondary-color: #B5C1B4;
-					--tertiary-color: #DCD9C6;
-					--accent-color: #74593D;
-					--text-color: #3F3232; */
+							--background-color: #F3E4C6;
+							--primary-color: #1B1924;
+							--secondary-color: #B5C1B4;
+							--tertiary-color: #DCD9C6;
+							--accent-color: #74593D;
+							--text-color: #3F3232; */
 			background-color: hsl(210, 30%, 88%);
 		}
 
@@ -27,7 +27,7 @@
 		}
 
 		h1 {
-			padding: 15px 0px 25px 10px;
+			padding: 15px 0px 15px 10px;
 			/* padding-top: 10px; */
 			font-weight: bold;
 			color: #01579b
@@ -46,58 +46,77 @@
 				background-color: hsl(210, 30%, 88%);
 				color: black;
 				font-weight: bold;
-				padding-bottom: 7px;
+				transform: translateY(-5px);
 			}
+
+		.btn-outline-light:focus,
+		.btn-outline-light:active {
+			outline: none !important; /* 取消聚焦状态下的外边框线，并使用 !important 来强制应用 */
+			border-color: transparent !important; /* 取消边框颜色，并使用 !important 来强制应用 */
+			box-shadow: none !important; /* 取消阴影效果，并使用 !important 来强制应用 */
+			border: none !important; /* 取消边框，并使用 !important 来强制应用 */
+		}
 
 		#containerId {
 			background-color: whitesmoke;
 			/* 		border: 2px #3F3232 solid;
-				 */ border-radius: 50px;
-			padding: 20px 0px 10px 25px;
+						 */ border-radius: 10px;
+			padding: 20px 25px 10px 25px;
 		}
 
 		/* div.border-3{
-					background-color: #F3E4C6;
-				} */
+							background-color: #F3E4C6;
+						} */
 
 		.border-3 {
 			display: flex;
 		}
 
 		.Month {
-			margin-right: 70%;
+			margin-right: 75%;
 			background-color: #F3E4C6;
 			font-weight: bold;
 			width: 32px;
-		}
-
-		.imgSet {
-			/* background-color: hsl(210, 30%, 88%); */
 		}
 
 		.photoSet {
 			width: 300px;
 			height: 200px;
 			display: flex;
+			border-radius: 10px;
+			overflow: hidden; /* 隐藏超出容器的部分 */
+			transition: transform 0.3s ease; /* 添加过渡效果 */
 		}
+
+			.photoSet:hover {
+				transform: scale(1.1); /* 鼠标悬停时放大 1.1 倍 */
+			}
 
 			.photoSet:hover {
 				cursor: pointer;
 			}
 
 		.imgSet {
-			max-width: 250px;
-			max-height: 150px;
-			padding-bottom: 10px;
+			height: 150px;
+			margin-bottom: 10px;
+			border-radius: 10px;
+			object-fit: cover;
+			overflow: hidden; /* 隐藏超出容器的部分 */
+			transition: transform 0.3s ease; /* 添加过渡效果 */
 		}
+
+			.imgSet:hover {
+				transform: scale(1.1); /* 鼠标悬停时放大 1.1 倍 */
+			}
 
 		.albumPhoto {
 			padding-top: 20px;
 			padding-bottom: 10px;
+			object-fit: cover;
 		}
 
 		.modal-content {
-			border-radius: 50px;
+			border-radius: 10px;
 		}
 
 		.modal-header {
@@ -150,7 +169,7 @@
 						<h5 class="Month">1月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(1)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn1" onclick="apple(1)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -164,7 +183,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set1" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set1" />
 					}
 
 				</div>
@@ -175,7 +194,7 @@
 						<h5 class="Month">2月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(2)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn2" onclick="apple(2)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -189,7 +208,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set2" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set2" />
 					}
 				</div>
 			</div>
@@ -199,7 +218,7 @@
 						<h5 class="Month">3月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(3)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn3" onclick="apple(3)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -213,7 +232,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set3" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set3" />
 					}
 				</div>
 			</div>
@@ -223,7 +242,7 @@
 						<h5 class="Month">4月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(4)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn4" onclick="apple(4)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -237,7 +256,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set4" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set4" />
 					}
 				</div>
 			</div><br /><br />
@@ -249,7 +268,7 @@
 						<h5 class="Month">5月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(5)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn5" onclick="apple(5)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -263,7 +282,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set5" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set5" />
 					}
 				</div>
 			</div>
@@ -273,7 +292,7 @@
 						<h5 class="Month">6月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(6)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn6" onclick="apple(6)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -287,7 +306,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set6" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set6" />
 					}
 				</div>
 			</div>
@@ -297,7 +316,7 @@
 						<h5 class="Month">7月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(7)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn7" onclick="apple(7)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -311,7 +330,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set7" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set7" />
 					}
 				</div>
 			</div>
@@ -321,7 +340,7 @@
 						<h5 class="Month">8月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(8)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn8" onclick="apple(8)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -335,7 +354,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set8" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set8" />
 					}
 				</div>
 			</div>
@@ -347,7 +366,7 @@
 						<h5 class="Month">9月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(9)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn9" onclick="apple(9)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -361,7 +380,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set9" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set9" />
 					}
 				</div>
 			</div>
@@ -371,7 +390,7 @@
 						<h5 class="Month" style="margin-right: 67%;width:45px;">10月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(10)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn10" onclick="apple(10)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -385,7 +404,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set10" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set10" />
 					}
 				</div>
 			</div>
@@ -395,7 +414,7 @@
 						<h5 class="Month" style="margin-right: 67%;width:45px;">11月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(11)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn11" onclick="apple(11)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -409,7 +428,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set11" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set11" />
 					}
 				</div>
 			</div>
@@ -419,7 +438,7 @@
 						<h5 class="Month" style="margin-right: 67%;width:45px;">12月</h5>
 						@if (isMyPage)
 						{
-							<button onclick="apple(12)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
+							<button id="addPhotoBtn12" onclick="apple(12)" type="button" class="btn btn-sm btn btn-outline-light rounded-circle addPhoto" data-bs-toggle="modal" data-bs-target="#album">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -433,7 +452,7 @@
 					}
 					else
 					{
-						<img src="~/images/year-photo.jpg" alt="" class="w-100 imgSet" id="set12" />
+						<img src="~/images/travel-photo.jpeg" alt="" class="w-100 imgSet" id="set12" />
 					}
 				</div>
 			</div>
@@ -457,7 +476,8 @@
 							{
 								<div class="col-md-4 albumPhoto">
 									@* @item.PhotoId *@
-									<img class="photoSet" title="點選圖片即可更改當月照片" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath","@item.PhotoId")' />
+									@* title="點選圖片即可更改當月照片" *@
+									<img class="photoSet" title="@item.UploadDate" src="@item.PhotoPath" onclick='setPhoto("@item.PhotoPath","@item.PhotoId")' />
 								</div>
 							}
 						</div>
@@ -506,6 +526,30 @@
 		});
 
 	}
+
+	function disableButton() {
+		// 獲取當前日期和時間
+		var now = new Date();
+
+		// 獲取日期開始時間
+		var startDate = new Date("2024-04-01 00:00:00");
+
+		// 比較當前日期和時間與日期開始時間
+		if (now >= startDate) {
+			// 禁用 button 功能
+			document.getElementById("addPhotoBtn5").disabled = true;
+			document.getElementById("addPhotoBtn6").disabled = true;
+			document.getElementById("addPhotoBtn7").disabled = true;
+			document.getElementById("addPhotoBtn8").disabled = true;
+			document.getElementById("addPhotoBtn9").disabled = true;
+			document.getElementById("addPhotoBtn10").disabled = true;
+			document.getElementById("addPhotoBtn11").disabled = true;
+			document.getElementById("addPhotoBtn12").disabled = true;
+		}
+	}
+
+	// 在頁面加載時調用該函數
+	window.onload = disableButton;
 
 </script>
 

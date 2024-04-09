@@ -12,7 +12,7 @@
     var article = Model;
     string content = Model.Contents == null ? "" : Model.Contents;
     content = Regex.Replace(content, @"<img\b[^>]*>", ""); //刪掉img標籤
-    content = Regex.Replace(content, @"<a\b([^>]*)>(.*?)</a>", "<span$1>$2</span>");
+    content = Regex.Replace(content, @"<(?!span\b)[^>]+>", "<span>");
 }
 @functions {
     public string FormatPublishTime(DateTime? publishTime)
@@ -84,7 +84,7 @@
         padding: 0px;
         letter-spacing: 1px;
         color: #01579b;
-        max-width: 16em; /* 設定最大寬度，16個字的寬度 */
+        max-width: 17em; /* 設定最大寬度，17個字的寬度 */
     }
 
         .partialViewTitle:hover {
@@ -93,7 +93,7 @@
 
     .partialViewSubTitle {
         font-size: 16px;
-        font-weight: bold;
+        /* font-weight: bold; */
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 隐藏溢出内容 */
         text-overflow: ellipsis; /* 显示省略号 */
@@ -101,7 +101,12 @@
         padding: 0px;
         letter-spacing: 1px;
         color: gray;
+        max-width: 24em;
     }
+
+        .partialViewSubTitle:empty {
+            margin-top: 16px;
+        }
 
     .articleContent {
         display: -webkit-box; /* 使用 flexbox */
@@ -112,17 +117,26 @@
         margin: 10px 0px 0px 0px;
     }
 
-        .articleContent p {
+        .articleContent span {
             font-size: 14px;
             margin: 0;
             padding: 0;
             line-height: 2;
+            width: 400px;
         }
 
     .articleImage {
         width: 150px;
         height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+        transition: transform 0.3s ease; /* 添加动画过渡效果 */
+        overflow: hidden; /* 隐藏溢出内容 */
     }
+
+        .articleImage:hover {
+            transform: translateY(-5px); /* 图片向上跳动 5px */
+        }
 
     .partialViewContainer {
         cursor: pointer;
@@ -168,7 +182,7 @@
 <script>
     var backendData_@article.ArticleId = @Html.Raw(Json.Serialize(content));
     if (backendData_@article.ArticleId == null) {
-                    backendData_@article.ArticleId = "";
+                        backendData_@article.ArticleId = "";
     }
     console.log(backendData_@article.ArticleId);
     $(function () {

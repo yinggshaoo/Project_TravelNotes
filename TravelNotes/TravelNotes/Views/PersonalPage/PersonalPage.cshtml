@@ -1,10 +1,10 @@
 ﻿@model TravelNotes.Models.UsersArticleViewModel
 
 @{
-    // var user = Model.users.UserId;
-    var user = Model.users?.UserId;
-    // bool isMyPage = ViewBag.loginUserId == Model.users.UserId;
-    bool isMyPage = ViewBag.loginUserId?.Equals(Model.users?.UserId) ?? false;
+	// var user = Model.users.UserId;
+	var user = Model.users?.UserId;
+	// bool isMyPage = ViewBag.loginUserId == Model.users.UserId;
+	bool isMyPage = ViewBag.loginUserId?.Equals(Model.users?.UserId) ?? false;
 
 }
 
@@ -16,405 +16,519 @@
 <br />
 <br />
 <style>
-    :root {
-        --side-color: #728CA3;
-        --background-color: #F3E4C6;
-        --primary-color: #1B1924;
-        --secondary-color: #B5C1B4;
-        --tertiary-color: #DCD9C6;
-        --accent-color: #74593D;
-        --text-color: #3F3232;
-    }
+	:root {
+		--side-color: #728CA3;
+		--background-color: #F3E4C6;
+		--primary-color: #1B1924;
+		--secondary-color: #B5C1B4;
+		--tertiary-color: #DCD9C6;
+		--accent-color: #74593D;
+		--text-color: #3F3232;
+	}
 
-    body {
-        background-color: var(--background-color);
-        margin: 0;
-        padding: 0;
-    }
+	body {
+		background-color: var(--background-color);
+		margin: 0;
+		padding: 0;
+	}
 
-    .allDiv {
-        width: 100%;
-    }
+		body::-webkit-scrollbar {
+			width: 10px; /* 滚动条宽度 */
+		}
 
-    #leftpartdiv {
-        background-color: whitesmoke;
-        /* border: 2px #3F3232 solid; */
-        border-radius: 50px;
-        padding-top: 30px;
-        padding-bottom: 50px;
-        /* margin:60px 80px 20px 0px; */
-        width: 660px;
-        /* width: fit-content; */
-        margin-right: 70px;
-        margin-left: 60px;
-    }
+		body::-webkit-scrollbar-track {
+			background-color: #eee; /* 滚动条轨道背景色 */
+			border-radius: 5px; /* 滚动条轨道圆角 */
+		}
 
-    #rightpartdiv {
-        background-color: whitesmoke;
-        /* 		border: 2px #3F3232 solid;
-                                                                                             */ border-radius: 50px;
-        padding-top: 30px;
-        padding-bottom: 50px;
-        height: fit-content;
-        /* margin:60px 0px 0px 0px; */
-        /* width: 400px; */
-        /* width:fit-content; */
-        margin-left: 50px;
-    }
+		body::-webkit-scrollbar-thumb {
+			background-color: darkgray; /* 滚动条手柄颜色 */
+			border-radius: 5px; /* 滚动条手柄圆角 */
+		}
 
-    .textColor {
-        color: #01579b;
-        font-weight: bold;
-    }
+			body::-webkit-scrollbar-thumb:hover {
+				background-color: #555; /* 鼠标悬停时的滚动条手柄颜色 */
+			}
 
-    .yearBtn {
-        width: 145px;
-    }
+	.allDiv {
+		width: 100%;
+	}
 
-    .titleDiv {
-        padding-left: 30px;
-    }
+	#leftpartdiv {
+		background-color: whitesmoke;
+		/* border: 2px #3F3232 solid; */
+		border-radius: 10px;
+		padding-top: 40px;
+		/* padding-bottom: 50px; */
+		/* margin:60px 80px 20px 0px; */
+		width: 660px;
+		/* width: fit-content; */
+		margin-right: 70px;
+		margin-left: 60px;
+		overflow: auto;
+		overflow-x: hidden;
+		/* height: 1271px; */
+		height: 700px;
+	}
 
-    .bi-person-gear {
-        margin: 0px 0px 5px 0px;
-    }
+		/* 自定义滚动条 */
+		#leftpartdiv::-webkit-scrollbar {
+			width: 10px; /* 滚动条宽度 */
+			/* display: none; */
+		}
 
-    .searchClass {
-        display: flex;
-    }
+		#leftpartdiv::-webkit-scrollbar-thumb {
+			background-color: hsl(210, 30%, 88%); /* 滚动条滑块颜色 */
+			border-radius: 5px; /* 滚动条滑块圆角 */
+		}
 
-    #searchId {
-        background-color: whitesmoke;
-        width: 200px;
-    }
+		#leftpartdiv::-webkit-scrollbar-track {
+			background-color: #eee; /* 滚动条轨道颜色 */
+			border-radius: 5px; /* 滚动条轨道圆角 */
+		}
 
-    .dropdown-toggle::after {
-        display: none;
-    }
+		#leftpartdiv::-webkit-scrollbar-thumb:hover {
+			background-color: darkgray; /* 鼠标悬停时的滚动条手柄颜色 */
+		}
 
-    .articleDropdown {
-        text-align: center; /* 將文字置中 */
-    }
+	#rightpartdiv {
+		background-color: whitesmoke;
+		/* 		border: 2px #3F3232 solid;
+											 */ border-radius: 10px;
+		padding-top: 30px;
+		/* padding-bottom: 50px; */
+		height: fit-content;
+		/* margin:60px 0px 0px 0px; */
+		/* width: 400px; */
+		/* width:fit-content; */
+		margin-left: 50px;
+		height: 700px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
 
-    .setDropdown .btn.dropdown-toggle {
-        background-color: transparent; /* 取消按钮背景色 */
-        border: none; /* 取消按钮边框 */
-        box-shadow: none; /* 取消按钮阴影 */
-        color: inherit; /* 使用默认颜色 */
-    }
+		/* 自定义滚动条 */
+		#rightpartdiv::-webkit-scrollbar {
+			width: 10px; /* 滚动条宽度 */
+			/* display: none; */
+		}
 
-    .editPencil {
-        color: #728CA3;
-        margin: 5px 0px 0px 240px;
-    }
+		#rightpartdiv::-webkit-scrollbar-thumb {
+			background-color: hsl(210, 30%, 88%); /* 滚动条滑块颜色 */
+			border-radius: 5px; /* 滚动条滑块圆角 */
+		}
 
-        .editPencil:hover {
-            cursor: pointer;
-            color: cornflowerblue;
-        }
+		#rightpartdiv::-webkit-scrollbar-track {
+			background-color: #eee; /* 滚动条轨道颜色 */
+			border-radius: 5px; /* 滚动条轨道圆角 */
+		}
 
-    #saveSetting {
-        font-weight: bold;
-        color: #01579b;
-    }
+		#rightpartdiv::-webkit-scrollbar-thumb:hover {
+			background-color: darkgray; /* 鼠标悬停时的滚动条手柄颜色 */
+		}
 
-        #saveSetting:hover {
-            background-color: hsl(210, 30%, 88%);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-        }
+	.textColor {
+		color: #01579b;
+		font-weight: bold;
+	}
 
-    #articlePartial {
-        /* background-color: hsl(210, 30%, 88%); */
-        overflow: hidden;
-        width: fit-content;
-        height: fit-content;
-        margin-right: 0px;
-    }
+	.titleBtn {
+		padding-bottom: 40px;
+	}
 
-    #sendFriendRequestButton:hover {
-        transition: 0.5s;
-        fill: grey;
-    }
+	.btnClass {
+		width: 99px;
+	}
 
-    #sendFriendRequestButton:not(:hover) {
-        transition: 0.5s;
-        fill: #FFFFFF;
-    }
+	.bi-person-gear {
+		margin: 0px 0px 5px 0px;
+	}
 
-    #friendReqBtn > span {
-        color: black;
-    }
+	.searchClass {
+		display: flex;
+	}
+
+	#searchId {
+		background-color: whitesmoke;
+		width: 530px;
+	}
+
+	.form-control.border-dark:focus {
+		border-color: lightgray; /* 将点击状态下的边框颜色改为浅灰色 */
+		box-shadow: 0 0 0 0.2rem rgba(211, 211, 211, 0.5); /* 将点击状态下的阴影颜色改为浅灰色 */
+	}
+
+	.form-control:focus {
+		border: 1px solid black;
+		box-shadow: 0 0 0 0.2rem rgba(211, 211, 211, 0.5); /* 将点击状态下的阴影颜色改为浅灰色 */
+	}
+
+	.form-control:read-only {
+		/* 在输入框被设置为只读时应用的样式 */
+		cursor: not-allowed; /* 设置鼠标指针为不允许的状态，表示输入框被禁用 */
+	}
+
+	#mailInput:focus {
+		cursor: not-allowed; /* 设置鼠标指针为不允许的状态，表示输入框被禁用 */
+		box-shadow: none; /* 取消点击状态下的阴影效果 */
+		outline: none; /* 取消点击状态下的轮廓线 */
+		border-color: #ced4da; /* 设置输入框的边框颜色 */
+	}
+
+	.dropdown-toggle::after {
+		display: none;
+	}
+
+	.articleDropdown {
+		text-align: center; /* 將文字置中 */
+	}
+
+	#dots {
+		transition: transform 0.3s ease; /* 添加动画过渡效果 */
+	}
+
+		#dots:hover {
+			background-color: hsl(210, 30%, 88%);
+			border-radius: 50px;
+			transform: translateY(-5px); /* 图片向上跳动 5px */
+		}
+
+	.setDropdown .btn.dropdown-toggle {
+		background-color: transparent; /* 取消按钮背景色 */
+		border: none; /* 取消按钮边框 */
+		box-shadow: none; /* 取消按钮阴影 */
+		color: inherit; /* 使用默认颜色 */
+	}
+
+	.editPencil {
+		color: #728CA3;
+		margin: 5px 0px 0px 230px;
+		transition: transform 0.3s ease; /* 添加动画过渡效果 */
+	}
+
+		.editPencil:hover {
+			cursor: pointer;
+			color: cornflowerblue;
+			transform: translateY(-5px);
+		}
+
+	#saveSetting {
+		font-weight: bold;
+		color: #01579b;
+	}
+
+		#saveSetting:hover {
+			background-color: hsl(210, 30%, 88%);
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			cursor: pointer;
+		}
+
+	#articlePartial {
+		/* background-color: hsl(210, 30%, 88%); */
+		overflow: hidden;
+		width: fit-content;
+		height: fit-content;
+		margin-right: 0px;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding-bottom: 30px;
+		transition: transform 0.3s ease; /* 添加动画过渡效果 */
+	}
+
+		#articlePartial:hover {
+			background-color: #f0f0f0; /* 设置背景颜色 */
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+			transform: translateY(-5px);
+		}
+
+	#sendFriendRequestButton:hover {
+		transition: 0.5s;
+		fill: grey;
+	}
+
+	#sendFriendRequestButton:not(:hover) {
+		transition: 0.5s;
+		fill: #FFFFFF;
+	}
+
+	#friendReqBtn > span {
+		color: black;
+	}
+
+	#sendFriendRequestButtonWrapper{
+	overflow: hidden; /* 隐藏超出容器的部分 */
+	transition: transform 0.3s ease; /* 添加过渡效果 */
+	margin-left: 161px;
+	}
+
+	#sendFriendRequestButtonWrapper:hover{
+		cursor: pointer;
+		transform: scale(1.1); /* 鼠标悬停时放大 1.1 倍 */
+	}
 
 </style>
 <div class="g-5 row allDiv">
-    <div class="col-12 col-md-8" id="leftpartdiv">
-        <div class="titleDiv">
-            <header>
-                @if (Model.users?.Nickname == null)
-                {
-                    <p></p>
-                }
-                else
-                {
-                    <h1 class="textColor">@Model.users.Nickname</h1>
-                }
-            </header>
-            <p class="d-inline-flex gap-1">
-                <form method="post" action="~/PersonalPage/PersonalPage" class="searchClass" style="display:flex;">
-                    <label for="search">
-                    </label>
-                    <input name="userId" type="text" style="display:none;" value="@Model.users?.UserId" />
-                    <input id="searchId" name="search" type="text" class="form-control border-dark" />&nbsp;
-                    <input type="submit" value="搜尋" class="btn btn-outline-dark" />
-                </form><br />
+	<div class="col-12 col-md-8" id="leftpartdiv">
+		@* <p>
+		@if (Model.users?.Nickname == null)
+		{
+		<p></p>
+		}
+		else
+		{
+		<h1 class="textColor">@Model.users.Nickname</h1>
+		}
+		</p> *@
+		<div class="titleBtn" @* class="d-inline-flex gap-1" *@>
+			@if (@ViewBag.loginUserId == user)
+			{
+				<a href="/Album/Album" class="btn btn-outline-dark" style="width:70px;">
+					相簿
+				</a>
+			}
+			else
+			{
+				<a href="/Album/Album?userid=@user" class="btn btn-outline-dark" style="width:70px;">
+					相簿
+				</a>
+			}
 
-                @if (@ViewBag.loginUserId == user)
-                {
-                    <a href="/Album/Album" class="btn btn-outline-dark" style="width:145px;">
-                        相簿
-                    </a>
-                }
-                else
-                {
-                    <a href="/Album/Album?userid=@user" class="btn btn-outline-dark" style="width:145px;">
-                        相簿
-                    </a>
-                }
+			<a href="/PersonalPage/Year?userid=@user" class="btn btn-outline-dark btnClass">
+				年度回顧
+			</a>
 
-                <a href="/PersonalPage/Year?userid=@user" class="btn btn-outline-dark" style="width:145px;">
-                    年度回顧
-                </a>
+			<button onclick="schedule()" type="button" class="btn btn-outline-dark btnClass" data-bs-toggle="button"
+					aria-pressed="true">
+				行前規劃
+			</button>
+			<button onclick="friend()" type="button" id="friendBtn" class="btn btn-outline-dark btnClass" data-bs-toggle="button" aria-pressed="true">好友列表</button>
+			@if (isMyPage)
+			{
+					<button onclick="friendRequest()" type="button" id="friendReqBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="position: relative; width:86px;">
+						&nbsp;邀請<span class="badge badge-light" ></span>
+				</button>
+				<button onclick="friendRequestSent()" type="button" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:129px;">
+					已送出的邀請
+				</button>
 
-                <button onclick="schedule()" type="button" id="planBtn" class="btn btn-outline-dark" data-bs-toggle="button"
-                        aria-pressed="true" style="width:145px;">
-                    行前規劃
-                </button>
-                <button onclick="friend()" type="button" id="friendBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">好友列表</button>
-                <button onclick="friendRequest()" type="button" id="friendReqBtn" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="position: relative; width:145px;">
-                    好友邀請列表<span class="badge badge-light"></span>
-                </button>
-                @if (isMyPage)
-                {
-                    <button type="button" onclick="document.location.href='/FriendRequestsSent/@user';" class="btn btn-outline-dark" data-bs-toggle="button" aria-pressed="true" style="width:145px;">
-                        <a href="/" style="color: black; text-decoration: none;">已送出的邀請</a>
-                    </button>
+			}
+			<form method="post" action="~/PersonalPage/PersonalPage" class="searchClass" style="margin-top:20px;">
+				<label for="search">
+				</label>
+				<input name="userId" type="text" style="display:none;" value="@Model.users?.UserId" />
+				<input id="searchId" name="search" type="text" class="form-control border-dark" placeholder="我想搜尋..." />&nbsp;
+				<input type="submit" value="搜尋" class="btn btn-outline-dark" style="width:70px;" />
+			</form>
+		</div>
 
-                }
+		@foreach (var item in Model.article)
+		{
+			<div id="articlePartial">
+				<br />
+				@Html.Partial("ArticleCard", item)
 
+				@if (isMyPage)
+				{
+					<div class="dropdown setDropdown" style="left:360px; height:10px;">
+						<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							<svg id="dots" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								 class="bi bi-three-dots" viewBox="0 0 16 16">
+								<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+							</svg>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+							<li>
+								<a class="dropdown-item articleDropdown" href="~/Article/Draft?articleId=@item.ArticleId">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+									</svg>&nbsp編輯
+								</a>
+							</li>
+							<li>
+								<button class="deleteArticleBtn dropdown-item articleDropdown" data-article-id="@item.ArticleId">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+									</svg>&nbsp刪除
+								</button>
+							</li>
+						</ul>
+					</div>
+				}
+			</div>
+			<br />
+		}
+	</div>
+	<div class="col-12 col-md-4" id="rightpartdiv">
+		<div>
+			<div id="myProfileImg" class="mb-3">
+				<label for="formFileSm" class="form-label"></label>
+				@if (@Model.users?.Headshot == null)
+				{
+					<img id="userImageId" class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
+				}
+				else
+				{
+					<img id="userImageId" class="rounded-circle" src="@Model.users.Headshot" alt="" style="width:100px;height:100px;">
+				}
+				<br /><br />
+				@if (isMyPage)
+				{
+					<input type="file" id="formFileSm" class="form-control form-control-sm" value="" />
+				}
+			</div>
+			<div id="myProfileName">
+				<h5 class="textColor">@Model.users?.Nickname</h5>
+			</div>
+			<div class="myProfile" style="block">
+				<p>@Model.users?.Introduction</p>
+			</div>
+			<div id="myPersonalSettings">
+				<hr />
+				<div style="display:flex;">
+					<h5 style="font-weight:bold;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+							<path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+						</svg>&nbsp;個人資料&nbsp;
+					</h5>
+					@if (!isMyPage)
+					{
+						<div id="sendFriendRequestButtonWrapper">
+						</div>
+					}
+					@if (isMyPage)
+					{
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-fill editPencil" viewBox="0 0 16 16" onclick="personalEdit()">
+							<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+						</svg>
+					}
+				</div>
+				<form action="/PersonalPage/Save" method="post" onsubmit="return validateForm()">
+					@if (isMyPage)
+					{
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+									<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+								</svg>&nbsp;姓名：
+							</label>
 
+							<input type="text" name="UserName" value="@Model.users?.UserName" class="form-control personalInput">
+						</div>
+						<br />
+					}
 
+					<div>
+						<label for="" class="textColor">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+								<path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
+								<path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
+							</svg>&nbsp;暱稱：
+						</label>
+						<input type="text" name="Nickname" value="@Model.users?.Nickname" class="form-control personalInput">
+					</div><br />
 
-            </p><br />
-        </div>
-        @foreach (var item in Model.article)
-        {
-            <div id="articlePartial">
-                @Html.Partial("ArticleCard", item)
-            </div>
-            @if (isMyPage)
-            {
-                <div class="dropdown setDropdown" style="left:360px;">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg id="dots" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-three-dots" viewBox="0 0 16 16">
-                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            <a class="dropdown-item articleDropdown" href="~/Article/Draft?articleId=@item.ArticleId">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                                </svg>&nbsp編輯
-                            </a>
-                        </li>
-                        <li>
-                            <button class="deleteArticleBtn dropdown-item articleDropdown" data-article-id="@item.ArticleId">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                </svg>&nbsp刪除
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            }
-            <br />
-        }
-    </div>
-    <div class="col-12 col-md-4" id="rightpartdiv">
-        <div>
-            <div id="myProfileImg" class="mb-3">
-                <label for="formFileSm" class="form-label"></label>
-                @if (@Model.users?.Headshot == null)
-                {
-                    <img id="userImageId" class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
-                }
-                else
-                {
-                    <img id="userImageId" class="rounded-circle" src="@Model.users.Headshot" alt="" style="width:100px;height:100px;">
-                }
-                <br /><br />
-                @if (isMyPage)
-                {
-                    <input type="file" id="formFileSm" class="form-control form-control-sm" value="" />
-                }
-            </div>
-            <div id="myProfileName">
-                <h5 class="textColor">@Model.users?.Nickname</h5>
-            </div>
-            <div class="myProfile" style="block">
-                <p>@Model.users?.Introduction</p>
-            </div>
-            <div id="myPersonalSettings">
-                <hr />
-                <div style="display:flex;">
-                    <h5 style="font-weight:bold;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
-                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
-                        </svg>&nbsp;個人資料&nbsp;
+					@if (isMyPage)
+					{
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+									<path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+									<path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+								</svg>&nbsp;手機：
+							</label>
 
-                    </h5>
-                    @if (!isMyPage)
-                    {
-                        <div id="sendFriendRequestButtonWrapper">
-                        </div>
-                    }
+							<input id="Phone" type="text" name="Phone" value="@Model.users?.Phone" class="form-control personalInput" onchange="return validatePhone(this.value)">
+						</div>
+						<br />
+					}
 
-                    @if (isMyPage)
-                    {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-fill editPencil" viewBox="0 0 16 16" onclick="personalEdit()">
-                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                        </svg>
-                    }
-                </div>
-                <form action="/PersonalPage/Save" method="post" onsubmit="return validateForm()">
-                    @if (isMyPage)
-                    {
-                        <div>
-                            <label for="" class="textColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                                </svg>&nbsp;姓名：
-                            </label>
+					@if (isMyPage)
+					{
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+									<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+								</svg>&nbsp;Mail：
+							</label>
+							<input type="text" name="Mail" value="@Model.users?.Mail" id="mailInput" class="form-control personalInput" readonly>
+						</div>
+						<br />
+					}
 
-                            <input type="text" name="UserName" value="@Model.users.UserName" class="form-control personalInput">
-                        </div>
-                        <br />
-                    }
+					<div>
+						<label for="" class="textColor">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-ambiguous" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M11.5 1a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-3.45 3.45A4 4 0 0 1 8.5 10.97V13H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V14H6a.5.5 0 0 1 0-1h1.5v-2.03a4 4 0 1 1 3.471-6.648L14.293 1zm-.997 4.346a3 3 0 1 0-5.006 3.309 3 3 0 0 0 5.006-3.31z" />
+							</svg>&nbsp;性別：
+						</label>
+						<input type="text" name="Gender" value="@Model.users?.Gender" class="form-control personalInput">
+					</div><br />
+					@if (isMyPage)
+					{
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+									<path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5" />
+									<path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+								</svg>&nbsp;密碼：
+							</label>
+							<input id="Pwd" type="text" name="Pwd" value="@Model.PasswordCookie" class="form-control personalInput" onchange="return validatePwd(this.value)">
+						</div>
+						<br />
+					}
+					<div>
+						<label for="" class="textColor">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake" viewBox="0 0 16 16">
+								<path d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802zM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.9.9 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.9.9 0 0 1 4 6.414zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4zM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z" />
+							</svg>&nbsp生日：
+						</label>
+						@if (@Model.users?.Birthday == null)
+						{
+							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users?.Birthday"
+								   name="Birthday" value="">
+						}
+						else
+						{
+							<input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday"
+								   name="Birthday" value="@Model.users.Birthday?.ToString("yyyy-MM-dd")">
+						}
+					</div><br />
+					@if (isMyPage)
+					{
+						<div>
+							<label for="" class="textColor">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z" />
+									<path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+								</svg>&nbsp地址：
+							</label>
+							<input type="text" name="Address" value="@Model.users?.Address" class="form-control personalInput">
+						</div>
 
-                    <div>
-                        <label for="" class="textColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
-                                <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
-                                <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
-                            </svg>&nbsp;暱稱：
-                        </label>
-                        <input type="text" name="Nickname" value="@Model.users?.Nickname" class="form-control personalInput">
-                    </div><br />
-
-                    @if (isMyPage)
-                    {
-                        <div>
-                            <label for="" class="textColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
-                                    <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                                    <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                                </svg>&nbsp;手機：
-                            </label>
-
-                            <input id="Phone" type="text" name="Phone" value="@Model.users.Phone" class="form-control personalInput" onchange="return validatePhone(this.value)">
-                        </div>
-                        <br />
-                    }
-
-                    @if (isMyPage)
-                    {
-                        <div>
-                            <label for="" class="textColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                                </svg>&nbsp;Mail：
-                            </label>
-                            <input type="text" name="Mail" value="@Model.users.Mail" class="form-control personalInput" readonly>
-                        </div>
-                        <br />
-                    }
-
-                    <div>
-                        <label for="" class="textColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-ambiguous" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11.5 1a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-3.45 3.45A4 4 0 0 1 8.5 10.97V13H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V14H6a.5.5 0 0 1 0-1h1.5v-2.03a4 4 0 1 1 3.471-6.648L14.293 1zm-.997 4.346a3 3 0 1 0-5.006 3.309 3 3 0 0 0 5.006-3.31z" />
-                            </svg>&nbsp;性別：
-                        </label>
-                        <input type="text" name="Gender" value="@Model.users?.Gender" class="form-control personalInput">
-                    </div><br />
-                    @if (isMyPage)
-                    {
-                        <div>
-                            <label for="" class="textColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
-                                    <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5" />
-                                    <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-                                </svg>&nbsp;密碼：
-                            </label>
-                            <input id="Pwd" type="text" name="Pwd" value="@Model.PasswordCookie" class="form-control personalInput" onchange="return validatePwd(this.value)">
-                        </div>
-                        <br />
-                    }
-                    <div>
-                        <label for="" class="textColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake" viewBox="0 0 16 16">
-                                <path d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802zM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.9.9 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.9.9 0 0 1 4 6.414zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4zM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z" />
-                            </svg>&nbsp生日：
-                        </label>
-                        @if (@Model.users?.Birthday == null)
-                        {
-                            <input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users?.Birthday"
-                                   name="Birthday" value="">
-                        }
-                        else
-                        {
-                            <input class="w3-input w3-padding-16 form-control personalInput" type="date" placeholder="@Model.users.Birthday"
-                                   name="Birthday" value="@Model.users.Birthday?.ToString("yyyy-MM-dd")">
-                        }
-                    </div><br />
-                    @if (isMyPage)
-                    {
-                        <div>
-                            <label for="" class="textColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z" />
-                                    <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
-                                </svg>&nbsp地址：
-                            </label>
-                            <input type="text" name="Address" value="@Model.users.Address" class="form-control personalInput">
-                        </div>
-
-                        <br />
-                    }
-                    <div>
-                        <label for="" class="textColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                            </svg>&nbsp興趣：
-                        </label>
-                        <input type="text" name="Interest" value="@Model.users?.Interest" class="form-control personalInput">
-                    </div><br />
-                    <div>
-                        <label for="" class="textColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-resize" viewBox="0 0 16 16">
-                                <path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0" />
-                            </svg>&nbsp簡介：
-                        </label>
-                        <textarea type="text" name="Introduction" class="form-control personalInput">@Model.users?.Introduction</textarea>
-                        <br />
-                        <input id="saveSetting" type="submit" value="保存" class="form-control">
-                    </div><br /><br />
-                </form>
-            </div>
-        </div>
-    </div>
+						<br />
+					}
+					<div>
+						<label for="" class="textColor">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+								<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+							</svg>&nbsp興趣：
+						</label>
+						<input type="text" name="Interest" value="@Model.users?.Interest" class="form-control personalInput">
+					</div><br />
+					<div>
+						<label for="" class="textColor">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-resize" viewBox="0 0 16 16">
+								<path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0" />
+							</svg>&nbsp簡介：
+						</label>
+						<textarea type="text" name="Introduction" class="form-control personalInput">@Model.users?.Introduction</textarea>
+						<br />
+						<input id="saveSetting" type="submit" value="保存" class="form-control">
+					</div><br /><br />
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <br />
 <br />
@@ -423,201 +537,228 @@
 <br />
 <br />
 <script>
-    document.querySelector("#sendFriendRequestButtonWrapper").addEventListener("click", (e) => {
-        if (!e.currentTarget.firstChild.classList.contains("fa-user-plus")) {
-            return;
-        }
-        fetch("/api/FriendRequest", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                                        //document.cookie.split("; ")[0].split("=")[1]
-    @{
-        string userid;
-        ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userid);
-    }
-                // 用c#抓登入的User Id
-                SenderUserId: parseInt(@userid),
-                ReceiverUserId: parseInt(document.location.href.split("=")[1]),
-                Status: 0
-                                    })
-    }).then(res => {
-        return res.json();
-    }).then(ret => {
-        if (ret.code == 200) {
-            //console.log(e.currentTarget.children[0])
-            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>收回邀請</span>`;
-        }
-        else {
-            alert(ret.message);
-        }
-    });
 
-                            })
-    $(function () {
-        $('#formFileSm').on('change', function () {
-            console.log("ok");
-            var file = this.files[0];
-            var formData = new FormData();
-            formData.append('file', file);
-            $.ajax({
-                type: "post",
-                url: "/PersonalPage/UserImage",
-                data: formData,
-                processData: false,  // 禁止 jQuery 處理數據
-                contentType: false,  // 禁止 jQuery 設置內容類型
-                success: function (data) {
-                    document.location = "/PersonalPage/PersonalPage/";
-                }
-            });
-        });
-        //載入所有input標籤
-        $('.personalInput').each(function () {
-            $(this).prop('disabled', true);
-        })
-        $('#saveSetting').css("display", "none")
-        // 判斷交友情況決定顯示的icon
-        fetch(`/api/IsFriendRequestSent/@userid/${document.location.href.split("=")[1]}`).then(res => {
-            return res.json();
-        }).then(ret => {
-            if (ret.success) {
-                // 如果已經送出邀請顯示送出圖像
-                document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>`;
+	$(function () {
+		$('#formFileSm').on('change', function () {
+			console.log("ok");
+			var file = this.files[0];
+			var formData = new FormData();
+			formData.append('file', file);
+			$.ajax({
+				type: "post",
+				url: "/PersonalPage/UserImage",
+				data: formData,
+				processData: false,  // 禁止 jQuery 處理數據
+				contentType: false,  // 禁止 jQuery 設置內容類型
+				success: function (data) {
+					document.location = "/PersonalPage/PersonalPage/";
+				}
+			});
+		});
+		//載入所有input標籤
+		$('.personalInput').each(function () {
+			$(this).prop('disabled', true);
+		})
+		$('#saveSetting').css("display", "none")
+		// 判斷交友情況決定顯示的icon
 
 
-                if (document.getElementById("sendFriendRequestButtonWrapper").innerHTML == `<i class="fa-solid fa-paper-plane"></i>`) {
-                    document.getElementById("sendFriendRequestButtonWrapper").innerHTML += `<span>收回邀請</span>`;
-                    document.getElementById("sendFriendRequestButtonWrapper").addEventListener("click", () => {
-                        fetch("/api/FriendRequest", {
-                            method: "DELETE",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            },
-                            body: JSON.stringify({
-                                SenderUserId: parseInt(@userid),
-                                ReceiverUserId: parseInt(document.location.href.split("=")[1]),
-                            })
-                        }).then(res => {
-                            return res.json();
-                        }).then(ret => {
-                            if (ret.success) {
-                                // 刪除好友邀請成功 將icon回到加好友圖示
-                                document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
-                            }
-                        })
-                    })
-                }
+		
 
 
+	});
 
-            }
-            else {
-                // 還沒送出邀請
-                document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
-            }
-        }).then(() => {
-            fetch(`/api/IsFriend/@userid/${document.location.href.split("=")[1]}`).then(res => {
-                return res.json();
-            }).then(ret => {
-                console.log(ret)
-                if (ret.success) {
-                    document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-group"></i>`;
-                }
-            }).then(() => {
-                // 如果已經送出邀請 對這個(#sendFriendRequestButtonWrapper)元素加入 刪除邀請 事件監聽
-
-            })
-        })
-
-
-    });
+	function getUserNameCookie() {
+		return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
+	}
 
 
 
 
 
-    function friend() {
-    @if (isMyPage)
-    {
-        @:document.location.href = `/Friend/@user/`;
-    }
-    else
-    {
-        @:document.location.href = `/Friend/${document.location.href.split("=")[1]}/`;
-    }
-                                        }
-    function friendRequest() {
-    @if (isMyPage)
-    {
-        @:document.location.href = `/FriendRequests/@user/`;
-    }
-    else
-    {
-        @:document.location.href = `/FriendRequests/${document.location.href.split("=")[1]}/`;
-    }
-                                            }
 
+	function album() {
+		document.location.href = "/Album/Album/";
+	}
 
-    function album() {
-        document.location.href = "/Album/Album/";
-    }
+	function schedule() {
+		document.location.href = "/AiRecommend/Index/";
+	}
+	function personalEdit() {
+		console.log($('#saveSetting'));
+		$('#saveSetting').css("display", "block");
+		$('.personalInput').each(function () {
+			$(this).prop('disabled', false);
+		});
+	}
 
-    function schedule() {
-        document.location.href = "/AiRecommend/Index/";
-    }
-    function personalEdit() {
-        console.log($('#saveSetting'));
-        $('#saveSetting').css("display", "block");
-        $('.personalInput').each(function () {
-            $(this).prop('disabled', false);
-        });
-    }
+	$('.deleteArticleBtn').on('click', function () {
+		var articleId = $(this).data('articleId'); // 從數據屬性獲取 articleId
+		var confirmation = confirm("確定要刪除這篇文章嗎？");
+		if (confirmation) {
+			$.post("/Article/Delete", { articleId: articleId })
+				.done(function () {
+					alert("刪除成功。");
+					window.location.reload(); // 刷新頁面
+				})
+		}
+	});
 
-    $('.deleteArticleBtn').on('click', function () {
-        var articleId = $(this).data('articleId'); // 從數據屬性獲取 articleId
-        var confirmation = confirm("確定要刪除這篇文章嗎？");
-        if (confirmation) {
-            $.post("/Article/Delete", { articleId: articleId })
-                .done(function () {
-                    alert("刪除成功。");
-                    window.location.reload(); // 刷新頁面
-                })
-        }
-    });
+	function validateForm() {
+		var Phone = document.getElementsByName("Phone")[0].value;
+		var Pwd = document.getElementsByName("Pwd")[0].value;
 
-    function validateForm() {
-        var Phone = document.getElementsByName("Phone")[0].value;
-        var Pwd = document.getElementsByName("Pwd")[0].value;
+		if (!validatePhone(Phone) || !validatePwd(Pwd)) {
+			return false; // 阻止表單提交
+		}
+		return true; // 表單提交
+	}
 
-        if (!validatePhone(Phone) || !validatePwd(Pwd)) {
-            return false; // 阻止表單提交
-        }
-        return true; // 表單提交
-    }
+	function validatePhone(Phone) {
+		if (!/^[0-9]{10}$/.test(Phone)) {
+			alert('手機號碼為10碼，請重新輸入。');
+			return false;
+		} else if (!Phone.startsWith('09')) {
+			alert('手機號碼必須以 09 開頭，請重新輸入。');
+			return false;
+		}
+		return true;
+	}
 
-    function validatePhone(Phone) {
-        if (!/^[0-9]{10}$/.test(Phone)) {
-            alert('手機號碼為10碼，請重新輸入。');
-            return false;
-        } else if (!Phone.startsWith('09')) {
-            alert('手機號碼必須以 09 開頭，請重新輸入。');
-            return false;
-        }
-        return true;
-    }
+	function validatePwd(Pwd) {
+		if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,20}$/.test(Pwd)) {
+			alert('密碼必須是包含一個大寫以及8-20位數，請重新輸入。');
+			return false;
+		}
+		return true;
+	}
 
-    function validatePwd(Pwd) {
-        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,20}$/.test(Pwd)) {
-            alert('密碼必須是包含一個大寫以及8-20位數，請重新輸入。');
-            return false;
-        }
-        return true;
-    }
 
 </script>
 <script src="~/js/NumberofFriendRequests.js" defer></script>
 <script src="~/js/FriendRequestList.js" defer></script>
+<script defer>
+	function getUserNameCookie() {
+		return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
+	}
+
+	// 綁定送交友邀請事件
+	if (document.location.href.split("=").length > 1) {
+		document.querySelector("#sendFriendRequestButtonWrapper").addEventListener("click", (e) => {
+			if (!e.currentTarget.firstChild.classList.contains("fa-user-plus")) {
+				return;
+			}
+			fetch("/api/FriendRequest", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				},
+				body: JSON.stringify({
+					SenderUserId: parseInt(getUserNameCookie()),
+					ReceiverUserId: parseInt(document.location.href.split("=")[1]),
+					Status: 0
+				})
+			}).then(res => {
+				return res.json();
+			}).then(ret => {
+				if (ret.code == 200) {
+					//console.log(e.currentTarget.children[0])
+					document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>&nbsp;<span>收回邀請</span>`;
+				}
+				else {
+					alert(ret.message);
+				}
+			});
+		});
+
+		// check any friend relation
+		fetch(`/api/IsFriendRequestSent/${getUserNameCookie()}/${document.location.href.split("=")[1]}`).then(res => {
+			return res.json();
+		}).then(ret => {
+			if (ret.success) {
+				// 如果已經送出邀請顯示送出圖像
+				document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`;
+
+
+				if (document.getElementById("sendFriendRequestButtonWrapper").innerHTML == `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`) {
+					document.getElementById("sendFriendRequestButtonWrapper").addEventListener("click", () => {
+						fetch("/api/FriendRequest", {
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json",
+								"Accept": "application/json"
+							},
+							body: JSON.stringify({
+								SenderUserId: parseInt(getUserNameCookie()),
+								ReceiverUserId: parseInt(document.location.href.split("=")[1]),
+							})
+						}).then(res => {
+							return res.json();
+						}).then(ret => {
+							if (ret.success) {
+								// 刪除好友邀請成功 將icon回到加好友圖示
+								document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>&nbsp;加入好友`;
+							}
+						})
+					})
+				}
+			}
+			else {
+				// 還沒送出邀請
+				document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-plus"></i>&nbsp;加入好友`;
+			}
+		}).then(() => {
+			// 如果已經是好友
+			fetch(`/api/IsFriend/${getUserNameCookie()}/${document.location.href.split("=")[1]}`).then(res => {
+				return res.json();
+			}).then(ret => {
+				console.log(ret)
+				if (ret.success) {
+					document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-user-group"></i>朋友`;
+				}
+			}).then(() => {
+				// TODO: 如果已經送出邀請 對這個(#sendFriendRequestButtonWrapper)元素加入 刪除邀請 事件監聽
+
+			})
+		})
+	}
+
+
+
+	function friend() {
+		if (document.location.href.split("=").length == 1) {
+			document.location.href = `/Friend/${getUserNameCookie()}/`;
+		}
+		else {
+			document.location.href = `/Friend/${document.location.href.split("=")[1]}/`;
+		}
+	}
+
+
+	function friendRequest() {
+		if (document.location.href.split("=").length == 1) {
+			document.location.href = `/FriendRequests/${getUserNameCookie()}/`;
+		}
+		else {
+			document.location.href = `/FriendRequests/${document.location.href.split("=")[1]}/`;
+		}
+	}
+	function friendRequestSent() {
+		if (document.location.href.split("=").length == 1) {
+			document.location.href = `/FriendRequestsSent/${getUserNameCookie()}/`;
+		}
+		else {
+			document.location.href = `/FriendRequestsSent/${document.location.href.split("=")[1]}/`;
+		}
+	}
+	document.getElementById("friendReqBtn").addEventListener("mouseenter", (e) => {
+		e.currentTarget.getElementsByTagName("span")[0].style.color = "white";
+		e.stopPropagation();
+	}, true);
+	document.getElementById("friendReqBtn").addEventListener("mouseleave", (e) => {
+		e.currentTarget.getElementsByTagName("span")[0].style.color = "black";
+		e.stopPropagation();
+	});
+	
+</script>
