@@ -21,6 +21,8 @@
 
                 updatePagination(pageNumber);
                 loadDataForPage(pageNumber);
+
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
             }
         });
     }
