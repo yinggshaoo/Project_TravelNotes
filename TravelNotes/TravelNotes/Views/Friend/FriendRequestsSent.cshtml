@@ -78,9 +78,20 @@
                     <p>內部伺服器錯誤</p>
                     break;
             }
+            <p>名稱:@item.ReceiverUser.UserName</p>
+            <p>暱稱:@item.ReceiverUser.Nickname</p>
             @*<p>送出者:@item.SenderUserId</p>*@
             <p>受邀者:@item.ReceiverUserId</p>
-            <a href="/PersonalPage/PersonalPage/?userId=@item.ReceiverUserId">前往個人頁</a>
+            <a href="/PersonalPage/PersonalPage/?userId=@item.ReceiverUser.UserId" style="display: block; border-radius: 100rem;">
+                @if (item.ReceiverUser?.Headshot == null)
+                {
+                    <img class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
+                }
+                else
+                {
+                    <img class="rounded-circle" src=@item.ReceiverUser.Headshot alt="" style="width:100px;height:100px;">
+                }
+            </a>
         </div>
     }
 </div>

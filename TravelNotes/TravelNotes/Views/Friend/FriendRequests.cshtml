@@ -52,6 +52,13 @@
         margin: 1rem;
         font-size: 1.5rem;
     }
+
+    .acceptFriendRequest {
+        height: 3rem;
+        border-radius: 1rem;
+        position: relative;
+        top: 1.3rem;
+    }
 </style>
 <h1>交友邀請</h1>
 <div id="friendList">
@@ -62,24 +69,37 @@
     @foreach (var item in Model)
     {
         <div class="friendListUnit">
-            <p>序列號:@item.uuid</p>
-            @switch (item.Status)
-            {
-                case 1:
-                    <p>已接受</p>
-                    break;
-                case 0:
-                    <p>已送出</p>
-                    break;
-                case -1:
-                    <p>已拒絕</p>
-                    break;
-                default:
-                    <p>內部伺服器錯誤</p>
-                    break;
-            }
-            <p>送出者:@item.SenderUserId</p>
-            <a href="/PersonalPage/PersonalPage/?userId=@item.SenderUserId">前往個人頁</a>
+            @*
+        <p>序列號:@item.uuid</p>
+        @switch (item.Status)
+        {
+        case 1:
+        <p>已接受</p>
+        break;
+        case 0:
+        <p>已送出</p>
+        break;
+        case -1:
+        <p>已拒絕</p>
+        break;
+        default:
+        <p>內部伺服器錯誤</p>
+        break;
+        }
+        *@
+            <p>邀請者:@item.SenderUserId</p>
+            <p>名稱:@item.SenderUser.UserName</p>
+            <p>暱稱:@item.SenderUser.Nickname</p>
+            <a href="/PersonalPage/PersonalPage/?userId=@item.SenderUser.UserId" style="display: block; border-radius: 100rem;">
+                @if (item.SenderUser?.Headshot == null)
+                {
+                    <img class="rounded-circle" src="/images/userImageDefault.jpg" alt="" style="width:100px;height:100px;">
+                }
+                else
+                {
+                    <img class="rounded-circle" src=@item.SenderUser.Headshot alt="" style="width:100px;height:100px;">
+                }
+            </a>
             @*<p>受邀者:@item.ReceiverUserId</p>*@
             @{
                 string userId;
@@ -113,14 +133,14 @@
         ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userid);
     }
                     UserId: parseInt(@userid),
-                    FriendId: parseInt(e.target.previousElementSibling.previousElementSibling.innerText.split(":")[1]),
+                    FriendId: parseInt(e.target.parentElement.children[0].innerText.split(":")[1]),
                     Status: true
-                    })
+                        })
         }).then(res => {
             return res.json();
         }).then(ret => {
             e.target.innerText = ret.message;
         });
-            }
-        });
+                }
+            });
 </script>
