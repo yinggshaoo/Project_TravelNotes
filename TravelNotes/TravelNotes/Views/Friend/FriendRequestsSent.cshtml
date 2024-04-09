@@ -9,7 +9,26 @@
     .friendListUnit {
         position: relative;
         border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
     }
+
+        .friendListUnit:nth-child(1) {
+            flex: 1;
+        }
+
+        .friendListUnit:nth-child(2) {
+            flex: 2;
+        }
+
+        .friendListUnit:nth-child(3) {
+            flex: 2;
+        }
+
+        .friendListUnit:nth-child(4) {
+            flex: 3;
+        }
 
     #friendList div:first-child {
         border-radius: 50px 50px 0 0;
@@ -31,6 +50,7 @@
 
     .friendListUnit > * {
         margin: 1rem;
+        font-size: 1.5rem;
     }
 </style>
 <h1>送出的交友邀請</h1>
