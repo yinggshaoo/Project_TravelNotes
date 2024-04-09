@@ -25,6 +25,22 @@
         z-index: 1000;
     }
 
+    #title {
+        font-size:32px;
+        font-weight:bold;
+        background-color: var(--color-yellow);
+        padding:10px;
+    }
+
+    #subtitle {
+        font-size: 24px;
+        font-weight: bold;
+        background-color: var(--color-yellow);
+        padding: 10px;
+        color:gray;
+        margin-top:0px;
+        padding-top:0px;
+    }
     .headShotImg {
         border-radius: 50%;
         width: 50px; /* 設置圖片的寬度 */
@@ -58,6 +74,8 @@
         color: #212529; /* 设置文本颜色 */
         padding: 5px 10px; /* 设置内边距 */
         border-radius: 0.25rem; /* 设置圆角 */
+        font-size:15px;
+        margin:5px;
     }
     .btn-msg{
         background-color: var(--color2);
@@ -75,77 +93,71 @@
 <input type="text" id="articleId" value="@target.ArticleId" style="display:none;">
 <input type="text" id="userId" value="@target.UserId" style="display:none;">
 <div class="container">
+    <div class="row text-center ">
+        <div id="title">@target.Title</div>
+        <div id="subtitle">@target.Subtitle</div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <img src="@ViewBag.user.Headshot" class="headShotImg" alt="调整大小图像" onclick="personalPageView(@ViewBag.user.UserId)">
+        </div>
+        <div class="col-auto">
+            <span class="text-dark">@ViewBag.user.Nickname</span>
+            <br />
+            <span id="publishTime" class="form-text">@publishTime</span>
 
-    <div class="row justify-content-start">
-        <div class="col-sm-9 ">
+        </div>
+        <div class="col">
             <div class="row">
-                <h1 id="title">@target.Title</h1>
-                <h5 id="subtitle">@target.Subtitle</h5>            
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <img src="@ViewBag.user.Headshot" class="headShotImg" alt="调整大小图像" onclick="personalPageView(@ViewBag.user.UserId)">
-                </div>
-                <div class="col-auto">
-                    <span>@ViewBag.user.Nickname</span>
-                    <br />
-                    <span id="publishTime">@publishTime</span>
-                </div>
-                
-            </div>  
-            <div class="row">
-                <div class="col-auto">
-                    <span>旅行地點:</span>
+                <div class="col">
+                    <span class="fw-bold">旅行地點: </span>
                     <span>@(ViewBag.spot == null ? "" : ViewBag.spot.ScenicSpotName)</span>
-                </div>   
-            </div >
-            <div class="row"> 
-                <span>旅遊時間:@travelTime.ToString("yyyy/MM/dd")</span>
+                </div>         
             </div>
             <div class="row">
-                <div class="col-auto">
-                    @foreach (OtherTags item in ViewBag.otherTags)
-                    {
-                    <span class="badge custom-badge">@item.OtherTagName</span>
-                    }
+                <div class="col">
+                    <span class="fw-bold">旅遊時間: </span>
+                    <span class="form-text">@travelTime.ToString("yyyy/MM/dd")</span>
                 </div>
-                
             </div>
         </div>
-        <div class="col-sm-3 ">
-            <div class="row justify-content-end topRightPanel" >
-                <div class="col-auto ml-auto" >
-                    <i class="fa-regular fa-thumbs-up fa-2xl btn" style="color: #da3f0b;" id="likeButton"></i>
-                    <span id="likeCount">@target.LikeCount</span>
-                </div>
-                <div class="col-auto ml-auto">
-                    <span>瀏覽人數:</span><span id="pageView">@target.PageView</span>
-                </div>
-            </div>
-
-            <div class="row justify-content-end topRightPanel">
-                <div class="col-auto ml-auto">
-                    <img src="@target.Images" id="articleImage" style="width: 200px; height: 200px; " />
-                </div>
-
-            </div>
-            @if(loginUser.UserId == target.UserId)
+        <div class="col-auto float-right">
+            @if (loginUser.UserId == target.UserId)
             {
-                <div class="row justify-content-end topRightPanel">
-                    <div class="col-auto ml-auto">
-                        <a class="btn btn-secondary buttons" href="/Article/Draft?articleId=@target.ArticleId">編輯此文章</a>
-                    </div>
-
-                </div>
+                <a class="btn btn-secondary buttons" href="/Article/Draft?articleId=@target.ArticleId">編輯此文章</a>
             }
-            
         </div>
     </div>
+    <div class="row">
+        <div class="col-auto">
+            @foreach (OtherTags item in ViewBag.otherTags)
+            {
+                <span class="badge custom-badge">@item.OtherTagName</span>
+            }
+        </div>
+
+    </div>
+    <div class="row align-content-center">
+        <img src="@target.Images" id="articleImage" />
+    </div>
+    
+
 </div>
 
 <div id="content">
     
 </div>
+<div class="row">
+    <div class="col-auto">
+        <i class="fa-regular fa-thumbs-up fa-2xl btn" style="color: #da3f0b;" id="likeButton"></i>
+        <span id="likeCount">@target.LikeCount</span>
+    </div>
+    <div class="col-auto">
+        <span class="fw-bold">瀏覽人數: </span><span id="pageView">@target.PageView</span>
+    </div>
+</div>
+
+
 <div id="messageBoard">
     @foreach (var item in ViewBag.messageBoards)
     {
@@ -185,6 +197,7 @@
             </div>
             <div class="col-2">
                 <button id="messageButton" class="btn btn-msg" >發佈</button>
+
             </div>
         </div>
     }
