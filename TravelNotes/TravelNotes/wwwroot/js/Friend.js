@@ -1,5 +1,5 @@
 
-document.getElementById("friendList").addEventListener("click", (e) => { handleDeleteFriend(e) })
+document.getElementById("friendList").addEventListener("click", (e) => { if (e.target.classList.contains("endFriendshipBtn")) { handleDeleteFriend(e) } })
 function handleDeleteFriend(e) {
     friendId = e.target.parentElement.firstElementChild.innerText.split(":")[1];
     userId = getUserNameCookie()
