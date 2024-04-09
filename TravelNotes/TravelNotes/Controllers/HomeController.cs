@@ -38,17 +38,17 @@ namespace TravelNotes.Controllers
                 .ToList();
             var groupJoinQuery = _context.articleOtherTags
             .GroupJoin(
-                _context.OtherTags, // 要连接的第二个序列
-                articleOtherTag => articleOtherTag.OtherTagId, // 第一个序列的连接键
-                otherTag => otherTag.OtherTagId, // 第二个序列的连接键
-                (articleOtherTag, otherTags) => new // 结果选择器
+                _context.OtherTags,
+                articleOtherTag => articleOtherTag.OtherTagId,
+                otherTag => otherTag.OtherTagId,
+                (articleOtherTag, otherTags) => new
                 {
                     ArticleId = articleOtherTag.ArticleId,
                     OtherTags = otherTags
                 }
             ).ToList();
             var combinedResults = articlesWithOrWithoutSpots
-                .GroupJoin( // 使用 GroupJoin 实现左连接
+                .GroupJoin(
                     groupJoinQuery,
                     articleWithOrWithoutSpot => articleWithOrWithoutSpot.Article.ArticleId,
                     groupJoinResult => groupJoinResult.ArticleId,
@@ -75,7 +75,6 @@ namespace TravelNotes.Controllers
                 {
                     article = a.Article,
                     user = _context.users.FirstOrDefault(u => u.UserId == a.Article.UserId),
-                    // 使用 Select 来获取所有 OtherTagId，并处理可能的 null 情况
                     OtherTagIds = a.OtherTags?.Select(ot => ot.OtherTagId).ToList() ?? new List<int>()
                 })
                 .ToList();

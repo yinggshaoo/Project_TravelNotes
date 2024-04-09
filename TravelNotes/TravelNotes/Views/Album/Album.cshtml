@@ -4,7 +4,7 @@
 <style>
     #TopS {
         display: flex;
-        align-items: center; /* 使所有项垂直居中 */
+        align-items: center;
         z-index: 100;
     }
 
@@ -25,8 +25,8 @@
     #A {
         display:flex;
         margin-top: 10px;
-        justify-content: center; /* 水平居中 */
-        align-items: center; /* 垂直居中 */
+        justify-content: center;
+        align-items: center;
         background-color: white;
         border: 5px solid gray;
         border-radius: 20px;
@@ -37,9 +37,9 @@
 
 
     .album-container {
-        border: 1px solid black; /* 可选：为相册添加边框 */
+        border: 1px solid black;
         border-radius: 10px;
-        padding: 10px; /* 相册内边距 */
+        padding: 10px;
         background-color:white;
         position: relative;
         margin-top:15px;
@@ -54,65 +54,63 @@
     }
 
         .image-container:hover {
-            transform: scale(1.05); /* 滑鼠停在.image-container上時放大圖片 */
+            transform: scale(1.05);
         }
 
         .image-container .hover-button {
             position: absolute;
             border:none;
-            top: 3px; /* 定位到容器的左上角 */
+            top: 3px;
             left: 3px;
-            width: 40px; /* 按钮宽度，根据需要调整 */
-            height: 40px; /* 按钮高度，根据需要调整 */
-            color: white; /* 按钮文字颜色为白色 */
+            width: 40px;
+            height: 40px;
+            color: white;
             text-align: center;
-            line-height: 30px; /* 使文字垂直居中 */
-            opacity: 0; /* 初始化不可见 */
-            transition: opacity 0.3s ease; /* 平滑过渡效果 */
+            line-height: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
             cursor: pointer;
             background-color: black;
             background-color: rgba(0,0,0,0.3);
         }
 
         .image-container:hover .hover-button {
-            opacity: 1; /* 鼠标悬停时完全可见 */
+            opacity: 1;
         }
 
         .image-container img {
             display: block;
-            width: 150px; /* 正常大小 */
+            width: 150px;
             height: auto;
-            transition: transform 0.5s ease; /* 平滑变换效果 */
-            cursor: pointer; /* 将鼠标光标改为指针形状，提示用户这是可点击的 */
+            transition: transform 0.5s ease;
+            cursor: pointer;
         }
 
     .modal {
-        display: none; /* 不顯示 */
-        position: fixed; /* 固定定位 */
-        z-index: 10000; /* 設定在最表層 */
-        padding-top: 100px; /* 位置 */
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        padding-top: 100px;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto; /* 如果需要，使用滾動 */
+        overflow: auto;
         background-color: rgb(0,0,0);
     }
-    /* 點擊出來的img */
     .modal-content {
         margin: auto;
         display: block;
         width: 80%;
         max-width: 700px;
     }
-    /* 關閉按鈕 */
     .close1 {
         position: absolute;
-        width: 35px; /* 设置宽度 */
-        height: 35px; /* 设置高度 */
-        display: flex; /* 使用弹性盒子 */
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 35px;
         right: 35px;
         color: #f1f1f1;
@@ -130,11 +128,11 @@
 
     .close {
         position: absolute;
-        width: 35px; /* 设置宽度 */
-        height: 35px; /* 设置高度 */
-        display: flex; /* 使用弹性盒子 */
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 35px;
         right: 35px;
         color: #f1f1f1;
@@ -208,7 +206,6 @@
             <input type="text" class="form-control" id="folderName" name="folderName" placeholder="請輸入相簿名稱">
         </div>
         <br />
-        <!-- 使用图标按钮 -->
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-plus"></i>
         </button>
@@ -256,14 +253,14 @@
                 @foreach (var viewModel in Model)
                 {
                     <div class="album-container">
-                        <h3>@viewModel.Album!.AlbumName</h3> <!-- 相册名字 -->
+                        <h3>@viewModel.Album!.AlbumName</h3>
                     <div style="margin-left:73%;">
                         @if (@ViewBag.IsMyPage == true)
                         {
                             <button class="showUploadFormButton" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-upload"></i>  上傳</button>
                          
                             <button class="edit-album-name-button" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-pencil-square"></i> 修改名稱</button>
-                            <button class="delete-album-button" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-trash"></i> 刪除相簿</button> <!-- 删除相册按钮 -->
+                            <button class="delete-album-button" data-album-id="@viewModel.Album.AlbumId"><i class="bi bi-trash"></i> 刪除相簿</button>
                         }
 
                         
@@ -273,16 +270,13 @@
                                 <input type="hidden" name="albumId" value="@viewModel.Album.AlbumId" />
                                 <input type="hidden" name="albumName" value="@viewModel.Album.AlbumName" />
                                 <div style="flex-grow: 1; margin-right: 10px;">
-                                    <!-- 为了让input和按钮有间隔 -->
                                     <input type="file" name="imageFiles" multiple style="width: 100%;"accept=".png, .jpg, .jpeg;">
                                 </div>
                                 <button type="submit" style="white-space: nowrap;">上傳</button>
                             </form>
                         </div>
                        <hr />
-                     
 
-                        <!-- 相册中的图片 -->
                         @foreach (var photo in viewModel.Photos!)
                         {
                             <div id="Pho-@photo.PhotoId" class="image-container">
@@ -295,7 +289,7 @@
                         }
                         @if (!viewModel.Photos.Any())
                         {
-                            <h3 style="text-align:center">目前沒有新增任何相片</h3>
+                            <h5 style="text-align:center">目前沒有新增任何相片</h5>
                         }
 
                         <div id="myModal" class="modal">
@@ -321,15 +315,13 @@
         document.getElementById('toggleMenuButton').addEventListener('click', function () {
             var menu = document.getElementById('menuContainer');
             if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block'; // 如果菜单是隐藏的，则显示菜单
+                menu.style.display = 'block';
             } else {
-                menu.style.display = 'none'; // 如果菜单是显示的，则隐藏菜单
+                menu.style.display = 'none';
             }
         });
         $('.showUploadFormButton').click(function () {
-            // 获取点击的按钮对应的相簿ID
             var albumId = $('.showUploadFormButton').data('album-id');
-            // 切换对应相簿ID的上传表单的显示状态
             $('.uploadForm[data-album-id="' + albumId + '"]').toggle();
         });
         var modal = document.getElementById("myModal");
@@ -343,8 +335,6 @@
                 modalImg.src = this.src;
             }
         }
-
-        // 點擊關閉按鈕關閉modal
         if (span != null) {
             span.onclick = function () {
                 modal.style.display = "none";
@@ -352,38 +342,32 @@
         }
         if (modal != null) {
             modal.onclick = function (event) {
-                // 檢查點擊是否發生在modal之外
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             };
         };
         $(document).ready(function () {
-            // 监听所有删除按钮的点击事件
             $('button[id^="change-image-btn"]').click(function () {
                 var result = confirm("確定要刪除嗎？");
                 var PhotoId = $(this).data('photo-id');
-                // 发送Ajax请求到服务器
                 if (result) {
                     $.ajax({
-                        url: '/Album/AlbumPhotoToGarbage', // 控制器的Action路径
+                        url: '/Album/AlbumPhotoToGarbage',
                         type: 'POST',
                         data: {
                             photoId: PhotoId,
                         },
                         success: function (response) {
-                            // 处理成功的响应
                             alert('刪除成功');
                             location.reload();
                         },
                         error: function (xhr, status, error) {
-                            // 处理错误的响应
                             alert('刪除失敗');
                             location.reload();
                         }
                     });
                 } else {
-                    // 如果用户点击“取消”，result 为 false
                     alert("刪除已取消。");
                 }
             });
@@ -392,20 +376,18 @@
 
         $(document).ready(function () {
             $('.delete-album-button').click(function () {
-                var albumId = $(this).data('album-id'); // 获取AlbumId
+                var albumId = $(this).data('album-id');
                 var result = confirm("確定要刪除此相簿及其所有照片嗎？");
                 if (result) {
                     $.ajax({
-                        url: '/Album/DeleteAlbum', // 假设的后端接口路径
+                        url: '/Album/DeleteAlbum',
                         type: 'POST',
                         data: { albumId: albumId },
                         success: function (response) {
-                            // 删除成功后的操作，如提示用户并刷新页面
                             alert('相簿刪除成功');
-                            location.reload(); // 刷新页面显示最新的相册列表
+                            location.reload();
                         },
                         error: function (xhr, status, error) {
-                            // 删除失败的操作，如提示用户
                             alert('相簿刪除失敗，請重試');
                         }
                     });
@@ -415,36 +397,33 @@
 
 
 
-        // 修改相册名称的模态窗口控制
         var editModal = document.getElementById("editAlbumModal");
         var editSpan = editModal.getElementsByClassName("close1")[0];
 
-        // 当用户点击修改名称按钮时打开模态窗口
         $('.edit-album-name-button').click(function () {
             var albumId = $(this).data('album-id');
-            $("#editAlbumId").val(albumId); // 将相册ID设置到表单中
+            $("#editAlbumId").val(albumId);
             editModal.style.display = "block";
         });
 
-        // 当用户点击模态窗口的 (x) 关闭按钮时
         editSpan.onclick = function () {
             editModal.style.display = "none";
         }
 
 
         $('#editAlbumForm').submit(function (e) {
-            e.preventDefault(); // 阻止表单默认提交行为
+            e.preventDefault();
 
             $.ajax({
-                url: '/Album/EditAlbumName', // 控制器的Action路径
+                url: '/Album/EditAlbumName',
                 type: 'POST',
-                data: $(this).serialize(), // 将表单数据序列化
+                data: $(this).serialize(),
                 success: function (response) {
                     if (response.success) {
                         alert('相簿名稱修改成功');
-                        location.reload(); // 刷新页面以显示更新后的名称
+                        location.reload();
                     } else {
-                        alert(response.message || '相簿名稱修改失敗，不能重複'); // 使用服务器返回的错误消息或默认错误消息
+                        alert(response.message || '相簿名稱修改失敗，不能重複');
                     }
                 },
                 error: function () {
@@ -453,11 +432,9 @@
             });
         });
         $(document).ready(function () {
-            // SET一個定時器
             setTimeout(function () {
-                //使用 jQuery 的 fadeOut 方法淡出
                 $("#messageAlert").fadeOut("slow");
-            }, 3000); // 3 秒
+            }, 3000);
         });
 
 
