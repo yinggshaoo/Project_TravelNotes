@@ -1,65 +1,5 @@
 ﻿@model List<Friend>
-<style>
-    #friendList {
-        border-radius: 50px;
-        background-color: whitesmoke;
-    }
-
-
-    .friendListUnit {
-        position: relative;
-        border: 1px solid black;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-        .friendListUnit:nth-child(1) {
-            flex: 1;
-        }
-
-        .friendListUnit:nth-child(2) {
-            flex: 2;
-        }
-
-        .friendListUnit:nth-child(3) {
-            flex: 2;
-        }
-
-        .friendListUnit:nth-child(4) {
-            flex: 3;
-        }
-
-    #friendList div:first-child {
-        border-radius: 50px 50px 0 0;
-    }
-
-    #friendList div:last-child {
-        border-radius: 0 0 50px 50px;
-    }
-
-    .friendListUnit:hover {
-        background-color: antiquewhite;
-        transition: 0.3s;
-    }
-
-    .friendListUnit:not(:hover) {
-        background-color: whitesmoke;
-        transition: 0.3s;
-    }
-
-    .friendListUnit > * {
-        margin: 1rem;
-        font-size: 1.5rem;
-    }
-
-    .friendListUnit > button {
-        position: relative;
-        height: 3rem;
-        top: 1rem;
-        border-radius: 1rem;
-    }
-</style>
+<link rel="stylesheet" href="~/css/friendPagesStyle.css">
 <h1>朋友列表</h1>
 @*<label for="searchTerm">查名字</label>
 <input id="searchTerm" />*@
@@ -87,7 +27,7 @@
                 string userId;
                 ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userId);
             }
-            @if (Convert.ToInt32(userId) != item.FriendId)
+            @if (userId == ViewContext.HttpContext.Request.Path.Value.Split("/")[2])
             {
                 <button class="endFriendshipBtn">解除好友關係</button>
             }
@@ -111,9 +51,4 @@
 
 <script src="~/js/ai/friendRequest.js" defer></script>*@
 
-<script defer>
-    if (document.getElementById("friendList").children.length == 1) {
-        document.querySelector(".friendListUnit").style = "border-radius: 50px;";
-    }
-</script>
 <script src="~/js/Friends.js"></script>
