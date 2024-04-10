@@ -162,7 +162,7 @@
         }
     }
     function deletePhoto(photoId) {
-        var confirmation = confirm("確定要刪除這張圖片嗎？");
+        var confirmation = confirm("確定要屏蔽這張圖片嗎？");
         if (confirmation) {
             $.ajax({
                 url: "/Backstage/DeletePhotos",
@@ -175,7 +175,7 @@
         }
     }
     function deleteArticle(articleId) {
-        var confirmation = confirm("確定要刪除這篇文章嗎？");
+        var confirmation = confirm("確定要屏蔽這篇文章嗎？");
         if (confirmation) {
             $.ajax({
                 url: "/Article/Delete",
