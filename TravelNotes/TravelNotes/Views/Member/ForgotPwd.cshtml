@@ -1,0 +1,36 @@
+﻿@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-md-4">
+            <section>
+                <form id="registerForm" action="/Member/SendEmail" method="post">
+                    <h2>忘記密碼</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input id="email" name="toAddress" type="email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label>Email</label>
+                    </div>
+
+                    <button id="SendMail" type="submit" class="w-100 btn btn-lg btn-primary">Send</button>
+                </form></br>
+                
+            </section>
+        </div>
+    </div>
+
+</div>

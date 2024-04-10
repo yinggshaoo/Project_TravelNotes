@@ -33,7 +33,7 @@ namespace TravelNotes.Controllers
         public IActionResult MlHandel(string Interests1, string Interests2, string Interests3, string weather, string country)
         {
 
-            var sampleData = new TravelModel5.ModelInput()
+            var sampleData = new TravelML6.ModelInput()
             {
                 Col0 = weather,
                 Col1 = Interests1,
@@ -43,7 +43,7 @@ namespace TravelNotes.Controllers
             };
 
             //Load model and predict output
-            var result = TravelModel5.Predict(sampleData);
+            var result = TravelML6.Predict(sampleData);
             string prediction = result.PredictedLabel;
             //TempData["prediction"] = prediction;
 
