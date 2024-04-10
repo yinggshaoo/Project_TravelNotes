@@ -1,4 +1,6 @@
-
+function getUserNameCookie() {
+    return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
+}
 document.getElementById("friendList").addEventListener("click", handleDeleteFriend);
 function handleDeleteFriend(e) {
     if (!e.target.classList.contains("endFriendshipBtn")) {
@@ -23,18 +25,4 @@ function handleDeleteFriend(e) {
             location.reload();
         }
     })
-}
-
-
-
-
-function getUserNameCookie() {
-    var cookieArray = document.cookie.split("; ");
-    var userid
-    cookieArray.forEach(ele => {
-        if (new RegExp('UsernameCookie*').test(ele)) {
-            userid = ele.split("=")[1];
-        }
-    })
-    return userid;
 }
