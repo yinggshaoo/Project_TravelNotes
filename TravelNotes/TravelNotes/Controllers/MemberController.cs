@@ -185,8 +185,8 @@ namespace TravelNotes.Controllers
             if (user != null)
             {
                 string randomString = GenerateRandomString(8);
-                user.Pwd = randomString;
                 SendPwd += randomString;
+                user.Pwd = ComputeSHA256Hash(randomString);
                 _context.SaveChanges();
                 Console.WriteLine("密碼已成功更新。");
             }
