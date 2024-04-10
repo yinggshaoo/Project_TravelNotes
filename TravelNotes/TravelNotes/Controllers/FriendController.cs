@@ -41,9 +41,15 @@ namespace TravelNotes.Controllers
         [Route("api/IsFriendRequestSent/{CurrentUserId}/{FriendUserId}")]
         public JsonResult IsFriendRequestSent(string CurrentUserId, string FriendUserId)
         {
-            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(CurrentUserId) && fr.ReceiverUserId == Convert.ToInt32(FriendUserId)) || ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(FriendUserId) && fr.ReceiverUserId == Convert.ToInt32(CurrentUserId))) return Json(new
+            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(CurrentUserId) && fr.ReceiverUserId == Convert.ToInt32(FriendUserId))) return Json(new
             {
-                success = true
+                success = true,
+                message = "=>"
+            });
+            if (ctx.FriendRequest.Any(fr => fr.SenderUserId == Convert.ToInt32(FriendUserId) && fr.ReceiverUserId == Convert.ToInt32(CurrentUserId))) return Json(new
+            {
+                success = true,
+                message = "<="
             });
             return Json(new
             {
@@ -186,9 +192,13 @@ namespace TravelNotes.Controllers
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("FriendRequests/{UserId}")]
-        public ViewResult FriendRequests(int UserId)
+        public IActionResult FriendRequests(int UserId)
         {
             var ret = ctx.FriendRequest.Where(fr => fr.ReceiverUserId == UserId).Include(fr => fr.SenderUser).ToList();
+            if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView(ret);
+            }
             return View(ret);
         }
 

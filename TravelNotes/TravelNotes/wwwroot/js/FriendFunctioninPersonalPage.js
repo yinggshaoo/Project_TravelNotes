@@ -68,9 +68,9 @@ if (document.location.href.split("=").length > 1) {
     }).then(ret => {
         if (ret.success) {
             // 如果已經送出邀請顯示送出圖像
-            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`;
+            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = (ret.message === "=>") ? `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請` : `<i class="fa-solid fa-paper-plane"></i>&nbsp;他給你的@@`;
 
-
+            // 如果是你送他的 綁定收回邀請事件
             if (document.getElementById("sendFriendRequestButtonWrapper").innerHTML == `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`) {
                 document.getElementById("sendFriendRequestButtonWrapper").addEventListener("click", deleteFriendRequest);
             }
