@@ -10,22 +10,26 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
     .friendListUnit:nth-child(1) {
-        flex: 1;
     }
 
     .friendListUnit:nth-child(2) {
-        flex: 2;
+/*        width: 25%*/
     }
 
     .friendListUnit:nth-child(3) {
-        flex: 2;
+/*        width: 25%;*/
     }
 
     .friendListUnit:nth-child(4) {
-        flex: 3;
+        width: 10%;
+    }
+    .friendListUnit>button{
+        width: 5rem;
     }
 
 #friendList div:first-child {
@@ -51,11 +55,12 @@
 .friendListUnit > * {
     margin: 1rem;
     font-size: 1.5rem;
+    position: relative;
+    flex-basis: 15%;
 }
 
 .friendListUnit > button {
     position: relative;
     height: 3rem;
-    top: 1rem;
     border-radius: 1rem;
 }
