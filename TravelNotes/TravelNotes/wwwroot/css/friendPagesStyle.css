@@ -18,17 +18,18 @@
     }
 
     .friendListUnit:nth-child(2) {
-/*        width: 25%*/
+        /*        width: 25%*/
     }
 
     .friendListUnit:nth-child(3) {
-/*        width: 25%;*/
+        /*        width: 25%;*/
     }
 
     .friendListUnit:nth-child(4) {
-        width: 10%;
+        /*        width: 10%;*/
     }
-    .friendListUnit>button{
+
+    .friendListUnit > button {
         width: 5rem;
     }
 
@@ -43,7 +44,7 @@
 }
 
 .friendListUnit:hover {
-    background-color: antiquewhite;
+    /*    background-color: antiquewhite;*/
     transition: 0.3s;
 }
 
@@ -64,3 +65,43 @@
     height: 3rem;
     border-radius: 1rem;
 }
+
+.friendListUnit > div > button {
+    border-radius: 1rem;
+}
+
+.friendListUnit > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.acceptFriendRequest {
+    background-color: lightgreen;
+    width: 10rem;
+}
+
+    .acceptFriendRequest:hover {
+        background-color: rgba(144, 238, 144, 0.6);
+        transition: 0.3s;
+    }
+
+    .acceptFriendRequest:not(:hover) {
+        background-color: lightgreen;
+        transition: 0.3s;
+    }
+
+.rejectFriendRequest {
+    background-color: palevioletred;
+    width: 10rem;
+}
+
+    .rejectFriendRequest:hover {
+        background-color: rgba(216, 112, 147, 0.6);
+        transition: 0.3s;
+    }
+
+    .rejectFriendRequest:not(:hover) {
+        background-color: palevioletred;
+        transition: 0.3s;
+    }

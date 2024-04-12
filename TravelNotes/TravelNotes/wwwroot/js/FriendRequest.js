@@ -15,7 +15,7 @@ document.getElementById("friendList").addEventListener("click", (e) => {
             },
             body: JSON.stringify({
                 UserId: parseInt(getUserNameCookie()),
-                FriendId: parseInt(e.target.parentElement.children[0].innerText.split(":")[1]),
+                FriendId: parseInt(e.target.parentElement.parentElement.children[0].innerText.split(":")[1]),
                 Status: true
             })
         }).then(res => {
@@ -23,5 +23,8 @@ document.getElementById("friendList").addEventListener("click", (e) => {
         }).then(ret => {
             e.target.innerText = ret.message;
         });
+    }
+    if (e.target.classList.contains("rejectFriendRequest")) {
+        console.log("friend request rejected");
     }
 });

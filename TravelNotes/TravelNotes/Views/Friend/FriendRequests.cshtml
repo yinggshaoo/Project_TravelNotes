@@ -9,24 +9,6 @@
     @foreach (var item in Model)
     {
         <div class="friendListUnit">
-            @*
-        <p>序列號:@item.uuid</p>
-        @switch (item.Status)
-        {
-        case 1:
-        <p>已接受</p>
-        break;
-        case 0:
-        <p>已送出</p>
-        break;
-        case -1:
-        <p>已拒絕</p>
-        break;
-        default:
-        <p>內部伺服器錯誤</p>
-        break;
-        }
-        *@
             <p>邀請者:@item.SenderUserId</p>
             <p>名稱:@item.SenderUser.UserName</p>
             <p>暱稱:@item.SenderUser.Nickname</p>
@@ -40,14 +22,16 @@
                     <img class="rounded-circle" src=@item.SenderUser.Headshot alt="" style="width:100px;height:100px;">
                 }
             </a>
-            @*<p>受邀者:@item.ReceiverUserId</p>*@
             @{
                 string userId;
                 ViewContext.HttpContext.Request.Cookies.TryGetValue("UsernameCookie", out userId);
             }
             @if (item.Status == 0 && userId == ViewContext.HttpContext.Request.Path.Value?.Split("/")[2])
             {
-                <button class="acceptFriendRequest">接受邀請</button>
+                <div>
+                    <button class="acceptFriendRequest">接受邀請</button>
+                    <button class="rejectFriendRequest">拒絕邀請</button>
+                </div>
             }
         </div>
     }
