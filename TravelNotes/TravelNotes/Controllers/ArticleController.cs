@@ -313,7 +313,12 @@ namespace TravelNotes.Controllers
             _context.SaveChanges();
             _context.article.Remove(articleToDelete); // 从数据库中移除文章
             _context.SaveChanges(); // 保存更改
+            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, $"img\\user{userId}\\article\\{articleId}");
 
+            if (Directory.Exists(directoryPath))
+            {
+                Directory.Delete(directoryPath, true);
+            }
             return Ok();
         }
 

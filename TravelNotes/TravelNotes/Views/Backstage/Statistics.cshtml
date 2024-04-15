@@ -4,66 +4,21 @@
 @{
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="/css/backstage/backstage.css" rel="stylesheet" />
+
 <div class="row">
     <div class="col">
-        <div id="searchPanel">
-            <label for="userIdInput">UserId:</label>
-            <input type="text" name="UserId" id="userIdInput" />
-            <label for="userNameInput">UserName:</label>
-            <input type="text" name="userName" id="userNameInput" />
-            <input type="submit" value="查詢" />
+        <div id="searchPanel">  
+            <input type="text" id="userIdInput" class="inputText" placeholder="UserId" />
+            <input type="text" id="pageViewInput" class="inputText" placeholder="瀏覽人數" />
+            
+            <input type="submit" value="送出" onclick="statistic()" class="btn btn-primary" />
         </div>
     </div>
     <div class="col-auto ml-auto">
-        <a href="/Backstage/Index">後臺管理</a>
+        <a href="/Backstage/Index" class="linkText">後臺管理</a>
     </div>
 </div>
 <canvas id="myChart" width="400" height="400"></canvas>
-<script>
-    $.ajax({
-        type: "get",
-        url: "/Backstage/GetArticles", // 控制器的 URL
-        success: function (data) {
-            console.log(data);
-        }
-    });
-    let myChart;
-    let chartTitle;
-    generateChart();
-    function generateChart() {
-        if (typeof myChart !== 'undefined' && myChart !== null) {
-            // 如果存在，銷毀之
-            myChart.destroy();
-        }
-
-        // 使用Chart.js創建分布圖
-        const ctx = document.getElementById('myChart').getContext('2d');
-        var data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Sales',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [12, 19, 3, 5, 2, 3, 8],
-            }]
-        };
-
-        // 配置选项
-        var options = {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        };
-
-        // 创建图表
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options
-        });
-    }
-    
-
+<script src="/js/Backstage/Statistics.js">
 </script>

@@ -164,7 +164,7 @@
                     <select id="dropdown" class="form-select articleSelect">
                         @foreach (var article in Model)
                         {
-                            var truncatedTitle = article.Title.Length > 10 ? article.Title.Substring(0, 12)+"..." : article.Title;
+                            var truncatedTitle = article.Title.Length > 12 ? article.Title.Substring(0, 12)+"..." : article.Title;
 
                             <option value="@article.ArticleId">@truncatedTitle</option>
                         }
@@ -489,14 +489,17 @@
         }
         currentOtherTags.push(ot);
     }
-    
+    let dropdown;
+    let dropdownOption;
+    let articleId;
     let backendData = @Html.Raw(Json.Serialize(content));
     $(function () {
+        dropdown = $("#dropdown");
+        articleId = $('#articleId').val();
         refreshOtherTag(document.getElementById("otherTagInput"));
         updateCurrentOtherTags();
         initLabel();
-        let dropdown = $("#dropdown");
-        let articleId = $('#articleId').val();
+
         const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = false;
@@ -554,12 +557,7 @@
             },
             content_css: "/css/tiny.css"
         });
-        for (let i = 0; i < dropdown.children().length; i++) {
-            if (dropdown.children()[i].value == articleId) {
-                dropdown.val(dropdown.children()[i].value);
-                break;
-            }
-        }
+        
 
 
         
@@ -598,7 +596,8 @@
                     showNotification("保存成功");
                 }
             });
-            
+            let tempTitle = $('#title').val();
+            dropdownOption.innerText = tempTitle.length > 12 ? tempTitle.substring(0, 12) + "..." : tempTitle;
         }
         $('#saveButton').on('click', save);
 
@@ -838,6 +837,13 @@
 
     }
     function initLabel() {
+        for (let i = 0; i < dropdown.children().length; i++) {
+            if (dropdown.children()[i].value == articleId) {
+                dropdownOption = dropdown.children()[i];
+                dropdown.val(dropdownOption.value);
+                break;
+            }
+        }
         $("#dropdown").on("change", function () {
             let id = $(this).val();
 

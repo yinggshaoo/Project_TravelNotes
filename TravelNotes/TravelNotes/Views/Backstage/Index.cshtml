@@ -6,7 +6,7 @@
     var articles = ViewBag.articles;
 }
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+<link href="/css/backstage/backstage.css" rel="stylesheet" />
 <style>
     table {
         border-collapse: collapse;
@@ -70,20 +70,18 @@
         <div id="searchPanel">
             <form action="/Backstage/Index" method="get" class="d-flex">
                 <div class="me-2">
-                    <label for="userIdInput" class="visually-hidden">UserId:</label>
                     <input type="text" class="form-control" id="userIdInput" name="UserId" placeholder="UserId">
                 </div>
                 <div class="me-2">
-                    <label for="userNameInput" class="visually-hidden">UserName:</label>
                     <input type="text" class="form-control" id="userNameInput" name="userName" placeholder="UserName">
                 </div>
                 <button type="submit" class="btn btn-primary">查詢</button>
             </form>
         </div>
     </div>
-@*     <div class="col-auto ml-auto">
-        <a href="/Backstage/Statistics">統計圖表</a>
-    </div> *@
+    <div class="col-auto ml-auto">
+        <a href="/Backstage/Statistics" class="linkText">統計圖表</a>
+    </div>
 </div>
 
 
@@ -144,6 +142,7 @@
 
 
 <script>
+
     $(function(){
         toggleSelection('Photo');
     })

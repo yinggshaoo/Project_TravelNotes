@@ -1,0 +1,14 @@
+.inputText {
+    height: 35px;
+    margin: 5px;
+    border-radius: 3px;
+}
+.linkText{
+    color:black;
+    font-size:large;
+    font-weight:bold;
+}
+.linkText:hover{
+    cursor:pointer;
+    color:gray;
+}
