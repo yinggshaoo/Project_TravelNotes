@@ -50,38 +50,39 @@ namespace TravelNotes.Controllers
             ViewBag.articles = articles;
             return View();
         }
-        #endregion
-        public IActionResult Statistics()
-        {
-            
-            string userId;
-            if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
-            {
-                return RedirectToAction("Login", "Member");
-            }
-            if (!CheckSuperUser())
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var user = _context.users;
-            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
-            var article = publishArticle;
-            List<usersArticleModel> articles = (from a in article
-                           join u in user
-                           on a.UserId equals u.UserId
-                           select new usersArticleModel
-                           {
-                               article = a,
-                               user = u
-                           }).ToList<usersArticleModel>();
-            ViewBag.articles = articles;
-            return View();
-            
- 
-        }
+		public IActionResult Statistics()
+		{
 
-        #region 刪除功能
-        [HttpPost]
+			string userId;
+			if (!Request.Cookies.TryGetValue("UsernameCookie", out userId))
+			{
+				return RedirectToAction("Login", "Member");
+			}
+			if (!CheckSuperUser())
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			//var user = _context.users;
+			//var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
+			//var article = publishArticle;
+			//List<usersArticleModel> articles = (from a in article
+			//									join u in user
+			//									on a.UserId equals u.UserId
+			//									select new usersArticleModel
+			//									{
+			//										article = a,
+			//										user = u
+			//									}).ToList<usersArticleModel>();
+			//ViewBag.articles = articles;
+			return View();
+
+
+		}
+
+		#endregion
+
+		#region 刪除功能
+		[HttpPost]
         public void DeletePhotos(int photoId)
         {
             List<LookBack> lookBack = _context.LookBack.Where(a => a.PhotoId == photoId).ToList();
@@ -113,19 +114,23 @@ namespace TravelNotes.Controllers
             }
             return true;
         }
-        public IActionResult GetArticles()
+        public IActionResult GetArticles(int pageView,int userId)
         {
+            
             var user = _context.users;
-            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈");
-            var article = publishArticle;
-            var articles = (from a in article
+            var publishArticle = _context.article.Where(a => a.ArticleState == "發佈" && a.PageView>=pageView);
+            var article = userId ==0? publishArticle: publishArticle.Where(a=>a.UserId ==userId);
+            var articles = (from a in article.OrderByDescending(a => a.PageView)
                             join u in user
                             on a.UserId equals u.UserId
-                            select new usersArticleModel
+                            select new
                             {
-                                article = a,
-                                user = u
-                            });
+                                UserId = a.UserId,
+                                NickName = u.Nickname,
+                                ArticleId = a.ArticleId,
+                                Title = a.Title,
+                                PageView = a.PageView
+                            }) ;
 
             return Json(articles);
         }

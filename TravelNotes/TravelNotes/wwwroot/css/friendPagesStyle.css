@@ -1,0 +1,121 @@
+﻿#friendList {
+    border-radius: 50px;
+    background-color: whitesmoke;
+}
+
+
+.friendListUnit {
+    position: relative;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+    .friendListUnit:nth-child(1) {
+    }
+
+    .friendListUnit:nth-child(2) {
+        /*        width: 25%*/
+    }
+
+    .friendListUnit:nth-child(3) {
+        /*        width: 25%;*/
+    }
+
+    .friendListUnit:nth-child(4) {
+        /*        width: 10%;*/
+    }
+
+    .friendListUnit > button {
+        width: 5rem;
+    }
+
+#friendList div:first-child {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+#friendList div:last-child {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.friendListUnit:hover {
+    /*    background-color: antiquewhite;*/
+    transition: 0.3s;
+}
+
+.friendListUnit:not(:hover) {
+    background-color: whitesmoke;
+    transition: 0.3s;
+}
+
+.friendListUnit > * {
+    margin: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+    flex-basis: 15%;
+}
+
+.friendListUnit > button {
+    position: relative;
+    height: 3rem;
+    border-radius: 1rem;
+}
+
+.friendListUnit > div > button {
+    border-radius: 1rem;
+}
+
+.friendListUnit > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.acceptFriendRequest {
+    background-color: lightgreen;
+    width: 10rem;
+}
+
+    .acceptFriendRequest:hover {
+        background-color: rgba(144, 238, 144, 0.6);
+        transition: 0.3s;
+    }
+
+    .acceptFriendRequest:not(:hover) {
+        background-color: lightgreen;
+        transition: 0.3s;
+    }
+
+.rejectFriendRequest {
+    background-color: palevioletred;
+    width: 10rem;
+}
+
+    .rejectFriendRequest:hover {
+        background-color: rgba(216, 112, 147, 0.6);
+        transition: 0.3s;
+    }
+
+    .rejectFriendRequest:not(:hover) {
+        background-color: palevioletred;
+        transition: 0.3s;
+    }
+
+#notification {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color2);
+    color: var(--color4);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}

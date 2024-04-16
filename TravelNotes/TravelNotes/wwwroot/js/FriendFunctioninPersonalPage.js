@@ -2,13 +2,15 @@ function getUserNameCookie() {
     return document.cookie.split("; ").find(ele => new RegExp('UsernameCookie*').test(ele)).split("=")[1];
 }
 
-//function handleFriendRequestList(e) {
-//    var frList = document.createElement("div");
-
-//    frList.setAttribute("style", `position: absolute; border: 1px solid black; z-index: 1; background-color: white; border-radius: 2rem;`);
-//    frList.innerText = "friend1"
-//    e.currentTarget.appendChild(frList);
-//}
+function getFriendRequestList() {
+    return fetch(`/FriendRequests/${getUserNameCookie()}`, {
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+        },
+    }).then(res => {
+        return res.text();
+    });
+}
 
 function NumberofFriendRequests() {
     return fetch("/api/NumberofFriendRequests").then(res => {
@@ -66,9 +68,9 @@ if (document.location.href.split("=").length > 1) {
     }).then(ret => {
         if (ret.success) {
             // 如果已經送出邀請顯示送出圖像
-            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`;
+            document.getElementById("sendFriendRequestButtonWrapper").innerHTML = (ret.message === "=>") ? `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請` : `<i class="fa-solid fa-paper-plane"></i>&nbsp;他給你的@@`;
 
-
+            // 如果是你送他的 綁定收回邀請事件
             if (document.getElementById("sendFriendRequestButtonWrapper").innerHTML == `<i class="fa-solid fa-paper-plane"></i>&nbsp;收回邀請`) {
                 document.getElementById("sendFriendRequestButtonWrapper").addEventListener("click", deleteFriendRequest);
             }
@@ -114,6 +116,8 @@ function deleteFriendRequest(e) {
 }
 
 
+
+
 function friend() {
     if (document.location.href.split("=").length == 1) {
         document.location.href = `/Friend/${getUserNameCookie()}/`;
@@ -140,12 +144,30 @@ function friendRequestSent() {
         document.location.href = `/FriendRequestsSent/${document.location.href.split("=")[1]}/`;
     }
 }
-document.getElementById("friendReqBtn").addEventListener("mouseenter", (e) => {
-    e.currentTarget.getElementsByTagName("span")[0].style.color = "white";
-    e.stopPropagation();
-}, true);
-document.getElementById("friendReqBtn").addEventListener("mouseleave", (e) => {
-    e.currentTarget.getElementsByTagName("span")[0].style.color = "black";
-    e.stopPropagation();
-});
+
+(() => {
+    var frList = document.createElement("div");
+    frList.setAttribute("style", `position: absolute; border: 1px solid black; z-index: 1; background-color: white; border-radius: 2rem; width: 15rem;`);
+
+
+    document.getElementById("friendReqBtn").addEventListener("mouseenter", async (e) => {
+        e.currentTarget.getElementsByTagName("span")[0].style.color = "white";
+        //let result = await getFriendRequestList().then(ret => {
+        //    return ret;
+        //});
+        //frList.innerHTML = result;
+        //document.getElementById("friendReqBtn").appendChild(frList);
+
+        e.stopPropagation();
+    });
+    document.getElementById("friendReqBtn").addEventListener("mouseleave", (e) => {
+
+        e.currentTarget.getElementsByTagName("span")[0].style.color = "black";
+        //e.currentTarget.children[e.currentTarget.children.length - 1].remove();
+        e.stopPropagation();
+    });
+
+
+})();
+
 
